@@ -107,21 +107,6 @@ module IntOrder refines TotalOrder {
   lemma Totality ... { }
 }
 
-// Another example of a TotalOrder. Now we can sort pairs of integers.
-// Lexiographic ordering of pairs of integers
-module IntLexOrder refines TotalOrder {
-  datatype T = Int(i: int, j: int)
-  predicate method Leq ... {
-    if a.i < b.i then true
-    else if a.i == b.i then a.j <= b.j
-    else false
-  }
-  lemma Antisymmetry ... { }
-  lemma Transitivity ... { }
-  lemma Totality ... { }
-}
-
-
 // A test harness.
 module Client {
   module IntSort refines Sort {  // this creates a new sorting module, like Sort by fully revealing O to be IntOrder
@@ -142,56 +127,10 @@ module Client {
      assert IntSort.O.Leq(a[0], a[1]);  // lemma
      assert IntSort.O.Leq(a[1], a[2]);  // lemma
      assert IntSort.O.Leq(a[2], a[3]);  // lemma
+     // two array comparision: time consuming statement!
+     // about 4s on Linux
      assert a[..] == [I.T.Int(0), I.T.Int(1), I.T.Int(4), I.T.Int(6)];
      // why not print out the result!
      print a[..], "\n";
   }
-}
-
-// ----- Now for the actual 'int' type -----
-
-module intOrder refines TotalOrder {
-  // Instantiate type T with a datatype wrapper around an integer.
-  type T = int
-  // Define the ordering on these integers
-  predicate method Leq ...
-    ensures Leq(a, b) ==> a <= b
-  {
-    a <= b
-  }
-  // The three required properties of the order are proved here as lemmas.
-  // The proofs are automatic and don't require any further assistance.
-  lemma Antisymmetry ... { }
-  lemma Transitivity ... { }
-  lemma Totality ... { }
-}
-
-module AnotherClient {
-  module intSort refines Sort {
-    import O = intOrder
-  }
-  import I = intOrder
-  method TheMain() {
-    var a := new int[4];  // alternatively, could have written 'new I.T[4]'
-    a[0] := 6;
-    a[1] := 1;
-    a[2] := 0;
-    a[3] := 4;
-    // These are now the elements of the array:
-    assert a[..] == [6, 1, 0, 4];
-    // Call the sorting routine to sort the array
-    intSort.InsertionSort(a);
-    // Check the answer
-    assert intSort.O.Leq(a[0], a[1]);  // lemma
-    assert intSort.O.Leq(a[1], a[2]);  // lemma
-    assert intSort.O.Leq(a[2], a[3]);  // lemma
-    assert a[..] == [0, 1, 4, 6];
-    // why not print out the result!
-    print a[..], "\n";
-  }
-}
-
-method Main() {
-  Client.TheMain();
-  AnotherClient.TheMain();
 }

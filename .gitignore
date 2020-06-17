@@ -70,11 +70,9 @@ Test/expectations/*.js
 Test/expectations/*-go
 Test/expectations/**/*.java
 
-Test/Logs
-Test/*/Logs
-Test/SplitLogs
-Test/*/SplitLogs
-
+Test/Logs*
+Test/*/Logs*
+Test/*.log
 SlowTest/Logs*
 SlowTest/*/Logs*
 

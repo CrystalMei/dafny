@@ -104,7 +104,7 @@ lemma RemoveFactor(x: int, s: set<int>)
   if x != y {
     calc {
       product(s);
-      y * product(s - {y});
+      y * product(s - {y}); // comment out this, 1.8s -> 0.3s
       { RemoveFactor(x, s - {y}); }
       y * x * product(s - {y} - {x});
       x * y * product(s - {y} - {x});

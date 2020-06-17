@@ -5,8 +5,8 @@ class ExtensibleArray<T> {
   ghost var Contents: seq<T>
   ghost var Repr: set<object?>
 
-  var elements: array?<T>
-  var more: ExtensibleArray?<array?<T>>
+  var elements: seq<T>
+  var more: ExtensibleArray?<seq<T>>
   var length: int
   var M: int  // shorthand for:  if more == null then 0 else 256 * |more.Contents|
 
@@ -15,8 +15,8 @@ class ExtensibleArray<T> {
   {
     // shape of data structure
     this in Repr && null !in Repr &&
-    ((elements == null && more == null && Contents == []) ||
-     (elements != null && elements.Length == 256 && elements in Repr)) &&
+    ((elements == [] && more == null && Contents == []) ||
+     (elements != [] && |elements| == 256 && elements in Repr)) &&
     (more != null ==>
         more in Repr && more.Repr <= Repr && this !in more.Repr && elements !in more.Repr &&
         more.Valid() &&

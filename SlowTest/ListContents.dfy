@@ -38,22 +38,6 @@ class Node<T> {
     Repr := {this} + succ.Repr;
   }
 
-  method Prepend(d: T) returns (r: Node<T>)
-    requires Valid()
-    ensures r.Valid() && fresh(r.Repr - old(Repr))
-    ensures r.List == [d] + List
-  {
-    r := new Node.InitAsPredecessor(d, this);
-  }
-
-  method SkipHead() returns (r: Node?<T>)
-    requires Valid()
-    ensures r == null ==> |List| == 1
-    ensures r != null ==> r.Valid() && r.List == List[1..] && r.Repr <= Repr
-  {
-    r := next;
-  }
-
   method ReverseInPlace() returns (reverse: Node<T>)
     requires Valid()
     modifies Repr

@@ -35,20 +35,16 @@ dafny1 \
 dafny4 \
 lambdas
 
-LOG_DIR = ./Logs
-SPLIT_LOG_DIR = ./SplitLogs
+LOG1_DIR = ./Logs1
+LOG2_DIR = ./Logs2
+LOG3_DIR = ./Logs3
+LOG4_DIR = ./Logs4
+LOG5_DIR = ./Logs5
 
-clean-log:
+clean-logs:
 	@for i in $(SLOW_TEST) $(FAST_TEST); do \
 		cd $$i; \
-		make clean-log; \
-		cd ..;\
-	done
-
-clean-split:
-	@for i in $(SLOW_TEST) $(FAST_TEST); do \
-		cd $$i; \
-		make clean-split; \
+		make clean-logs; \
 		cd ..;\
 	done
 
@@ -61,82 +57,128 @@ clean-mk:
 
 prepare:
 	@for i in $(SLOW_TEST) $(FAST_TEST); do \
-		mkdir -p $$i/$(LOG_DIR); \
-		mkdir -p $$i/$(SPLIT_LOG_DIR); \
+		mkdir -p $$i/$(LOG1_DIR); \
+		mkdir -p $$i/$(LOG2_DIR); \
+		mkdir -p $$i/$(LOG3_DIR); \
+		mkdir -p $$i/$(LOG4_DIR); \
+		mkdir -p $$i/$(LOG5_DIR); \
 	done
-	@mkdir -p dafny0/$(LOG_DIR)/snapshots
-	@mkdir -p dafny0/$(LOG_DIR)/snapshots/Inputs
-	@mkdir -p wishlist/$(LOG_DIR)/granted
-	@mkdir -p dafny0/$(SPLIT_LOG_DIR)/snapshots
-	@mkdir -p dafny0/$(SPLIT_LOG_DIR)/snapshots/Inputs
-	@mkdir -p wishlist/$(SPLIT_LOG_DIR)/granted
+	@mkdir -p dafny0/$(LOG1_DIR)/snapshots
+	@mkdir -p dafny0/$(LOG1_DIR)/snapshots/Inputs
+	@mkdir -p wishlist/$(LOG1_DIR)/granted
+	@mkdir -p dafny0/$(LOG2_DIR)/snapshots
+	@mkdir -p dafny0/$(LOG2_DIR)/snapshots/Inputs
+	@mkdir -p wishlist/$(LOG2_DIR)/granted
+	@mkdir -p dafny0/$(LOG3_DIR)/snapshots
+	@mkdir -p dafny0/$(LOG3_DIR)/snapshots/Inputs
+	@mkdir -p wishlist/$(LOG3_DIR)/granted
+	@mkdir -p dafny0/$(LOG4_DIR)/snapshots
+	@mkdir -p dafny0/$(LOG4_DIR)/snapshots/Inputs
+	@mkdir -p wishlist/$(LOG4_DIR)/granted
+	@mkdir -p dafny0/$(LOG5_DIR)/snapshots
+	@mkdir -p dafny0/$(LOG5_DIR)/snapshots/Inputs
+	@mkdir -p wishlist/$(LOG5_DIR)/granted
 	@for i in $(SLOW_TEST) $(FAST_TEST); do \
 		cp Makefile.initial $$i/Makefile; \
-		mkdir -p $$i/$(SPLIT_LOG_DIR); \
 	done
 
-dafny-fast:
+dafny3-fast:
 	@for i in $(FAST_TEST); do \
 		echo "[$$i]"; \
 		cd $$i; \
-		make dafny; \
+		make dafny3; \
 		cd ..;\
 	done
 
-dafny-slow:
+dafny3-slow:
 	@for i in $(SLOW_TEST); do \
 		echo "[$$i]"; \
 		cd $$i; \
-		make dafny; \
+		make dafny3; \
 		cd ..;\
 	done
 
-dafny:
-	@for i in $(FAST_TEST) $(SLOW_TEST); do \
-		echo "[$$i]"; \
-		cd $$i; \
-		make dafny; \
-		cd ..;\
-	done
-
-dafny-split-fast:
+dafny1-fast:
 	@for i in $(FAST_TEST); do \
 		echo "[$$i]"; \
 		cd $$i; \
-		make dafny-split; \
+		make dafny1; \
 		cd ..;\
 	done
 
-dafny-split-slow:
+dafny1-slow:
 	@for i in $(SLOW_TEST); do \
 		echo "[$$i]"; \
 		cd $$i; \
-		make dafny-split; \
+		make dafny1; \
 		cd ..;\
 	done
 
-dafny-split:
+dafny3-10:
 	@for i in $(FAST_TEST) $(SLOW_TEST); do \
 		echo "[$$i]"; \
 		cd $$i; \
-		make dafny-split; \
+		make dafny3-10; \
 		cd ..;\
 	done
 
-dafny-superslow:
-	@for i in $(SUPERSLOW_TEST); do \
-		echo "[$$i]"; \
-		d=$$(date +%s); \
-		dafny /trace /compile:0 /print:$(LOG_DIR)/$$i.print /dprint:$(LOG_DIR)/$$i.dprint /proverLog:$(LOG_DIR)/$$i.proverlog $$i /printTooltips > $(LOG_DIR)/$$i.trace; \
-		echo "$$i,	$$(($$(date +%s)-d))"; \
-		cd ..;\
-	done
-
-dafny-split-superslow:
-	@for i in $(SUPERSLOW_TEST_SPLIT); do \
+dafny1-10:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
 		echo "[$$i]"; \
 		cd $$i; \
-		make dafny-superslow; \
+		make dafny1-10; \
+		cd ..;\
+	done
+
+dafny3-100:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny3-100; \
+		cd ..;\
+	done
+
+dafny1-100:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny1-100; \
+		cd ..;\
+	done
+
+dafny1:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny1; \
+		cd ..;\
+	done
+dafny2:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny2; \
+		cd ..;\
+	done
+dafny3:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny3; \
+		cd ..;\
+	done
+dafny4:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny4; \
+		cd ..;\
+	done
+dafny5:
+	@for i in $(FAST_TEST) $(SLOW_TEST); do \
+		echo "[$$i]"; \
+		cd $$i; \
+		make dafny5; \
 		cd ..;\
 	done
 
@@ -148,4 +190,4 @@ dafny-simpl:
 		cd ..;\
 	done
 
-.PHONY: clean-mk clean-log clean-split dafny dafny-simpl dafny-split
+.PHONY: clean-mk clean3 clean1 dafny-simpl dafny1 dafny2 dafny3 dafny4 dafny5

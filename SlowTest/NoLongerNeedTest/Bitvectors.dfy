@@ -1,6 +1,7 @@
 // RUN: %dafny /compile:3 /print:"%t.print" /rprint:- /env:0 "%s" > "%t"
 // RUN: %diff "%s.expect" "%t"
 
+// bit-blasting, so that's why it's slow.
 // ~ 12s
 method Unary_All(x: bv16) returns (y: bv16)
   ensures y == x - 2

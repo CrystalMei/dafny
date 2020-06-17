@@ -1,35 +1,89 @@
 SOURCES := $(shell find . -name '*.dfy')
-LOG_DIR = ./Logs
-SPLIT_LOG_DIR = ./SplitLogs
+LOG1_DIR = ./Logs1
+LOG2_DIR = ./Logs2
+LOG3_DIR = ./Logs3
+LOG4_DIR = ./Logs4
+LOG5_DIR = ./Logs5
 
-clean-split:
-	@rm -rf $(SPLIT_LOG_DIR)
+clean-logs:
+	@rm -rf $(LOG1_DIR)
+	@rm -rf $(LOG2_DIR)
+	@rm -rf $(LOG3_DIR)
+	@rm -rf $(LOG4_DIR)
+	@rm -rf $(LOG5_DIR)
 	@rm -rf Makefile
-
-clean-log:
-	@rm -rf $(LOG_DIR)
 
 clean-mk:
 	@rm -rf Makefile
 
-dafny:
+dafny3-10:
 	@for i in $(SOURCES); do \
    		d=$$(date +%s); \
-		timeout 200s dafny /trace /compile:0 /print:$(LOG_DIR)/$$i.print /dprint:$(LOG_DIR)/$$i.dprint /proverLog:$(LOG_DIR)/$$i.proverlog $$i /printTooltips > $(LOG_DIR)/$$i.trace; \
+		timeout 500s dafny /compile:0 /print:$(LOG3_DIR)/$$i.print /dprint:$(LOG3_DIR)/$$i.dprint /proverLog:$(LOG3_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:random-seed=10 /restartProver /trace > $(LOG3_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny3-100:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG3_DIR)/$$i.print /dprint:$(LOG3_DIR)/$$i.dprint /proverLog:$(LOG3_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:random-seed=100 /restartProver /trace > $(LOG3_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+
+dafny1-10:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG1_DIR)/$$i.print /dprint:$(LOG1_DIR)/$$i.dprint /proverLog:$(LOG1_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=1  /proverOpt:O:random-seed=10 /restartProver /trace > $(LOG1_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny1-100:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG1_DIR)/$$i.print /dprint:$(LOG1_DIR)/$$i.dprint /proverLog:$(LOG1_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=1  /proverOpt:O:random-seed=100 /restartProver /trace > $(LOG1_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny1:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG1_DIR)/$$i.print /dprint:$(LOG1_DIR)/$$i.dprint /proverLog:$(LOG1_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=1 /restartProver /trace > $(LOG1_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny2:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG2_DIR)/$$i.print /dprint:$(LOG2_DIR)/$$i.dprint /proverLog:$(LOG2_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=2 /restartProver /trace > $(LOG2_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny3:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG3_DIR)/$$i.print /dprint:$(LOG3_DIR)/$$i.dprint /proverLog:$(LOG3_DIR)/$$i.smt2 $$i /printTooltips /restartProver /trace > $(LOG3_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny4:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG4_DIR)/$$i.print /dprint:$(LOG4_DIR)/$$i.dprint /proverLog:$(LOG4_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=4 /restartProver /trace > $(LOG4_DIR)/$$i.trace; \
+		echo "$$i,	$$(($$(date +%s)-d))"; \
+	done
+
+dafny5:
+	@for i in $(SOURCES); do \
+   		d=$$(date +%s); \
+		timeout 500s dafny /compile:0 /print:$(LOG5_DIR)/$$i.print /dprint:$(LOG5_DIR)/$$i.dprint /proverLog:$(LOG5_DIR)/$$i.smt2 $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=5 /restartProver /trace > $(LOG5_DIR)/$$i.trace; \
 		echo "$$i,	$$(($$(date +%s)-d))"; \
 	done
 
 dafny-simpl:
 	@for i in $(SOURCES); do \
 		echo "======[$$i]======"; \
-		dafny /trace /compile:0 > $(LOG_DIR)/$$i.trace-simpl; \
+		dafny /trace /compile:0 > $(LOG3_DIR)/$$i.trace-simpl; \
 	done
 
-dafny-split:
-	@for i in $(SOURCES); do \
-   		d=$$(date +%s); \
-		timeout 200s dafny /trace /compile:0 /print:$(SPLIT_LOG_DIR)/$$i.print /dprint:$(SPLIT_LOG_DIR)/$$i.dprint /proverLog:$(SPLIT_LOG_DIR)/$$i.proverlog $$i /printTooltips /proverOpt:O:smt.CASE_SPLIT=1 > $(SPLIT_LOG_DIR)/$$i.trace; \
-		echo "$$i,	$$(($$(date +%s)-d))"; \
-	done
-
-.PHONY: clean-split clean-log clean-mk dafny dafny-simpl dafny-split
+.PHONY: clean-split clean-log clean-mk dafny-simpl dafny1 dafny2 dafny3 dafny4 dafny5
