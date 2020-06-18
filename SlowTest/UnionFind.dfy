@@ -119,7 +119,80 @@ abstract module M1 refines M0 {
 
 // Module M2 adds the implementation of Find, together with the proofs needed for the verification.
 abstract module M2 refines M1 {
-  class UnionFind {}
+  class UnionFind {
+    method Find...
+    {
+      r := FindAux(M[e].c.depth, e);
+    }
+
+    lemma NextReachesSame(e: Element)
+      requires e in M && e.c.Link?
+      ensures M[e] == M[e.c.next]
+    {
+      var next := e.c.next;
+      var d0, d1 := M[e].c.depth, M[next].c.depth;
+      assert Reaches(d0 - 1, next, M[e], Collect());
+      assert Reaches(d1, next, M[next], Collect());
+      Reaches_SinkIsFunctionOfStart(d0 - 1, d1, next, M[e], M[next], Collect());
+    }
+
+    lemma {:autocontracts false} Reaches_SinkIsFunctionOfStart(d0: nat, d1: nat, e: Element, r0: Element, r1: Element, C: CMap)
+      requires GoodCMap(C)
+      requires e in C
+      requires Reaches(d0, e, r0, C) && Reaches(d1, e, r1, C)
+      ensures r0 == r1
+    {
+    }
+
+    method FindAux(ghost d: nat, e: Element) returns (r: Element)
+      requires e in M && Reaches(d, e, M[e], Collect())
+      ensures M == old(M) && M[e] == r
+      ensures forall d: nat, e, r: Element :: e in old(Collect()) && Reaches(d, e, r, old(Collect())) ==> Reaches(d, e, r, Collect())
+    {
+      match e.c
+      case Root(_) =>
+        r := e;
+      case Link(next) =>
+        NextReachesSame(e);
+        r := FindAux(d-1, next);
+        ghost var C := Collect();  // take a snapshot of all the .c fields
+        e.c := Link(r);
+        UpdateMaintainsReaches(d, e, r, C, Collect());
+    }
+
+    lemma {:autocontracts false} UpdateMaintainsReaches(td: nat, tt: Element, tm: Element, C: CMap, C': CMap)
+      requires GoodCMap(C)
+      requires tt in C && Reaches(td, tt, tm, C)
+      requires C' == C[tt := Link(tm)] && C'[tt].Link? && tm in C' && C'[tm].Root?
+      requires forall f :: f in C && C'[f].Link? ==> C'[f].next in C
+      ensures forall d: nat, e, r: Element :: e in C && Reaches(d, e, r, C) ==> Reaches(d, e, r, C')
+    {
+      forall d: nat, e, r: Element | e in C && Reaches(d, e, r, C)
+        ensures Reaches(d, e, r, C')
+      {
+        ConstructReach(d, e, r, C, td, tt, tm, C');
+      }
+    }
+
+    lemma {:autocontracts false} ConstructReach(d: nat, e: Element, r: Element, C: CMap, td: nat, tt: Element, tm: Element, C': CMap)
+      requires GoodCMap(C)
+      requires e in C
+      requires Reaches(d, e, r, C)
+      requires tt in C && Reaches(td, tt, tm, C);
+      requires C' == C[tt := Link(tm)] && C'[tt].Link? && tm in C' && C'[tm].Root?
+      requires GoodCMap(C')
+      ensures Reaches(d, e, r, C')
+    {
+      if e == tt {
+        Reaches_SinkIsFunctionOfStart(d, td, e, r, tm, C);
+      } else {
+        match C[e]
+        case Root(_) =>
+        case Link(next) =>
+          ConstructReach(d-1, next, r, C, td, tt, tm, C');
+        }
+    }
+  }
 }
 
 // Finally, module M3 adds the implementation of Join, along with what's required to
@@ -256,4 +329,22 @@ module M3 refines M2 {
         ExtendedReach(next, C, d0-1, d1-1, r0, r1, C');
     }
   }
+}
+
+method Main() {
+  var uf := new M3.UnionFind();
+  var a := uf.New();
+  var b := uf.New();
+  var c := uf.New();
+  print a == b, "\n";
+
+  var f0 := uf.Find(b);
+  var f1 := uf.Find(a);
+  print f0 == b, " ", f1 == a, "\n";
+
+  var _ := uf.Union(a, c);
+  var g0 := uf.Find(a);
+  var g1 := uf.Find(b);
+  var g2 := uf.Find(c);
+  print g0 == g1, " ", g0 == g2, " ", g1 == b, "\n";
 }

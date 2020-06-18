@@ -1,22 +1,6 @@
 // RUN: %dafny /compile:0 /arith:2 "%s" > "%t"
 // RUN: %diff "%s.expect" "%t"
 
-// Proof of the Lucas theorem, following the structure of a HOL-Light
-// proof of the same theorem by John Harrison. The lemmas in this
-// version go "up", like:
-//   P(k) == P(2*k)
-//   P(k) == P(2*k + 1)
-//
-// Rustan Leino
-// 7 March 2018
-
-// This file defines the ingredients of the Lucas theorem, proves some
-// properties of these, and then states and proves the Lucas theorem
-// itself.
-
-// The following predicate gives the boolean value of bit "k" in
-// the natural number "n".
-
 // predicate Bit(k: nat, n: nat)
 // {
 //   if k == 0 then n % 2 == 1
@@ -164,15 +148,13 @@
 //   }
 // }
 
-// The following gives an induction principle for any two-argument
-// predicate "P" that satisfies the 5 listed properties.
-// (This lemma is not actually used in this proof of the Lucas theorem.)
+// z3 with trace=true & proof=true
 lemma INDUCTION_EVEN_ODD(P: (nat, nat) -> bool, a: nat, b: nat)
   requires P(0, 0)
   requires forall a: nat, b: nat :: P(a, b) ==> P(2*a, 2*b)
   requires forall a: nat, b: nat :: P(a, b) ==> P(2*a, 2*b + 1)
   requires forall a: nat, b: nat :: P(a, b) ==> P(2*a + 1, 2*b)
-  requires forall a: nat, b: nat :: P(a, b) ==> P(2*a + 1, 2*b + 1)
+  requires forall a: nat, b: nat {:trigger 2*a+1, 2*b+1} :: P(a, b) ==> P(2*a + 1, 2*b + 1)
   ensures P(a, b)
 {
   if a == 0 && b == 0 {

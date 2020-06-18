@@ -19,9 +19,9 @@ abstract module TotalOrder {
 abstract module Sort {
   import O : TotalOrder  // let O denote some module that has the members of TotalOrder
 
-  predicate Sorted(a: array<O.T>, low: int, high: int)
-    requires 0 <= low <= high <= a.Length
-    reads a
+  predicate Sorted(a: seq<O.T>, low: int, high: int)
+    requires 0 <= low <= high <= |a|
+    // reads a
     // The body of the predicate is hidden outside the module, but the postcondition is
     // "exported" (that is, visible, known) outside the module.  Here, we choose the
     // export the following property:
@@ -32,16 +32,16 @@ abstract module Sort {
 
   // In the insertion sort routine below, it's more convenient to keep track of only that
   // neighboring elements of the array are sorted...
-  predicate NeighborSorted(a: array<O.T>, low: int, high: int)
-    requires 0 <= low <= high <= a.Length
-    reads a
+  predicate NeighborSorted(a: seq<O.T>, low: int, high: int)
+    requires 0 <= low <= high <= |a|
+    // reads a
   {
     forall i :: low < i < high ==> O.Leq(a[i-1], a[i])
   }
   // ...but we show that property to imply all pairs to be sorted.  The proof of this
   // lemma uses the transitivity property.
-  lemma NeighborSorted_implies_Sorted(a: array<O.T>, low: int, high: int)
-    requires 0 <= low <= high <= a.Length
+  lemma NeighborSorted_implies_Sorted(a: seq<O.T>, low: int, high: int)
+    requires 0 <= low <= high <= |a|
     requires NeighborSorted(a, low, high)
     ensures Sorted(a, low, high)
     decreases high - low
@@ -56,17 +56,20 @@ abstract module Sort {
   }
 
   // Standard insertion sort method
-  method InsertionSort(a: array<O.T>)
-    modifies a
-    ensures Sorted(a, 0, a.Length)
-    ensures multiset(a[..]) == old(multiset(a[..]))
+  method InsertionSort(a: seq<O.T>) returns (a': seq<O.T>)
+    // modifies a
+    ensures Sorted(a, 0, |a|)
+    ensures |a'| == |a|
+    ensures multiset(a'[..]) == old(multiset(a[..]))
   {
-    if a.Length == 0 { return; }
+    if |a| == 0 { return; }
     var i := 1;
-    while i < a.Length
-      invariant 0 < i <= a.Length
+    a' := a;
+    while i < |a|
+      invariant 0 < i <= |a|
       invariant NeighborSorted(a, 0, i)
-      invariant multiset(a[..]) == old(multiset(a[..]))
+      invariant |a'| == |a|
+      invariant multiset(a'[..]) == old(multiset(a[..]))
     {
       var j := i;
       while 0 < j && !O.Leq(a[j-1], a[j])
@@ -74,18 +77,23 @@ abstract module Sort {
         invariant NeighborSorted(a, 0, j)
         invariant NeighborSorted(a, j, i+1)
         invariant 0 < j < i ==> O.Leq(a[j-1], a[j+1])
-        invariant multiset(a[..]) == old(multiset(a[..]))
+        invariant |a'| == |a|
+        invariant multiset(a'[..]) == old(multiset(a[..]))
       {
         // The proof of correctness uses the totality property here.
         // It implies that if two elements are not previously in
         // sorted order, they will be after swapping them.
         O.Totality(a[j-1], a[j]);
-        a[j], a[j-1] := a[j-1], a[j];
+        var tmp1 := a[j-1];
+        var tmp2 := a[j];
+        a' := a'[j := tmp1];
+        a' := a'[j-1 := tmp1];
+        // a[j], a[j-1] := a[j-1], a[j];
         j := j - 1;
       }
       i := i + 1;
     }
-    NeighborSorted_implies_Sorted(a, 0, a.Length);
+    NeighborSorted_implies_Sorted(a, 0, |a|);
   }
 }
 
@@ -121,7 +129,6 @@ module IntLexOrder refines TotalOrder {
   lemma Totality ... { }
 }
 
-
 // A test harness.
 module Client {
   module IntSort refines Sort {  // this creates a new sorting module, like Sort by fully revealing O to be IntOrder
@@ -129,22 +136,24 @@ module Client {
   }
   import I = IntOrder
   method TheMain() {
-     var a := new I.T[4];
-     a[0] := I.T.Int(6);  // alternatively, we could have written the RHS as:  IntSort.O.T.Int(6)
-     a[1] := I.T.Int(1);
-     a[2] := I.T.Int(0);
-     a[3] := I.T.Int(4);
+     var a := seq(4, _ => I.T.Int(0)); // var a := new I.T[4];
+     a := a[0 := I.T.Int(6)]; // a[0] := I.T.Int(6);  // alternatively, we could have written the RHS as:  IntSort.O.T.Int(6)
+     a := a[1 := I.T.Int(1)]; // a[1] := I.T.Int(1);
+     a := a[2 := I.T.Int(0)]; // a[2] := I.T.Int(0);
+     a := a[3 := I.T.Int(4)]; // a[3] := I.T.Int(4);
      // These are now the elements of the array:
      assert a[..] == [I.T.Int(6), I.T.Int(1), I.T.Int(0), I.T.Int(4)];
      // Call the sorting routine to sort the array
-     IntSort.InsertionSort(a);
+     var a' := IntSort.InsertionSort(a);
      // Check the answer
-     assert IntSort.O.Leq(a[0], a[1]);  // lemma
-     assert IntSort.O.Leq(a[1], a[2]);  // lemma
-     assert IntSort.O.Leq(a[2], a[3]);  // lemma
-     assert a[..] == [I.T.Int(0), I.T.Int(1), I.T.Int(4), I.T.Int(6)];
+     assert IntSort.O.Leq(a'[0], a'[1]);  // lemma
+     assert IntSort.O.Leq(a'[1], a'[2]);  // lemma
+     assert IntSort.O.Leq(a'[2], a'[3]);  // lemma
+     // two array comparision: time consuming statement!
+     // about 4s on Linux
+     assert a'[..] == [I.T.Int(0), I.T.Int(1), I.T.Int(4), I.T.Int(6)];
      // why not print out the result!
-     print a[..], "\n";
+     print a'[..], "\n";
   }
 }
 
@@ -172,22 +181,22 @@ module AnotherClient {
   }
   import I = intOrder
   method TheMain() {
-    var a := new int[4];  // alternatively, could have written 'new I.T[4]'
-    a[0] := 6;
-    a[1] := 1;
-    a[2] := 0;
-    a[3] := 4;
+    var a := seq(4, _ => 0); // var a := new int[4];  // alternatively, could have written 'new I.T[4]'
+     a := a[0 := 6]; // a[0] := 6;
+     a := a[1 := 1]; // a[1] := 1;
+     a := a[2 := 0]; // a[2] := 0;
+     a := a[3 := 4]; // a[3] := 4;
     // These are now the elements of the array:
     assert a[..] == [6, 1, 0, 4];
     // Call the sorting routine to sort the array
-    intSort.InsertionSort(a);
+    var a' := intSort.InsertionSort(a);
     // Check the answer
-    assert intSort.O.Leq(a[0], a[1]);  // lemma
-    assert intSort.O.Leq(a[1], a[2]);  // lemma
-    assert intSort.O.Leq(a[2], a[3]);  // lemma
-    assert a[..] == [0, 1, 4, 6];
+    assert intSort.O.Leq(a'[0], a'[1]);  // lemma
+    assert intSort.O.Leq(a'[1], a'[2]);  // lemma
+    assert intSort.O.Leq(a'[2], a'[3]);  // lemma
+    assert a'[..] == [0, 1, 4, 6];
     // why not print out the result!
-    print a[..], "\n";
+    print a'[..], "\n";
   }
 }
 

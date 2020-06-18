@@ -1,10 +1,17 @@
 // RUN: %dafny /compile:0 /dprint:"%t.dprint" "%s" > "%t"
 // RUN: %diff "%s.expect" "%t"
 
+// datatype seq'<T> = Emp | NE(seq<T>)
+// function method seq_length<T> (s:seq'<T>):(n:int)
+//   requires s != Emp
+//   ensures match s case Emp => n == 0 case NE(s') => n == |s'|
+
+// function method wrapper<T> (s:seq<T>):(s':seq'<T>)
+//   ensures if s == [] then s' == Emp else s' == NE(s)
+
 class ExtensibleArray<T> {
   ghost var Contents: seq<T>
   ghost var Repr: set<object?>
-
   var elements: seq<T>
   var more: ExtensibleArray?<seq<T>>
   var length: int
@@ -16,14 +23,14 @@ class ExtensibleArray<T> {
     // shape of data structure
     this in Repr && null !in Repr &&
     ((elements == [] && more == null && Contents == []) ||
-     (elements != [] && |elements| == 256 && elements in Repr)) &&
+     (elements != [] && |elements| == 256 /*&& elements in Repr*/)) &&
     (more != null ==>
-        more in Repr && more.Repr <= Repr && this !in more.Repr && elements !in more.Repr &&
+        more in Repr && more.Repr <= Repr && this !in more.Repr && /*elements !in more.Repr && */
         more.Valid() &&
         |more.Contents| != 0 &&
         forall j :: 0 <= j < |more.Contents| ==>
-            more.Contents[j] != null && more.Contents[j].Length == 256 &&
-            more.Contents[j] in Repr && more.Contents[j] !in more.Repr &&
+            more.Contents[j] != [] && |more.Contents[j]| == 256 &&
+            /* more.Contents[j] in Repr && more.Contents[j] !in more.Repr && */
             more.Contents[j] != elements &&
             forall k :: 0 <= k < |more.Contents| && k != j ==> more.Contents[j] != more.Contents[k]) &&
 
@@ -42,7 +49,7 @@ class ExtensibleArray<T> {
     ensures Valid() && fresh(Repr - {this})
     ensures Contents == []
   {
-    elements := null;
+    elements := [];
     more := null;
     length := 0;
     M := 0;
@@ -73,10 +80,10 @@ class ExtensibleArray<T> {
     ensures Contents == old(Contents)[i := t]
   {
     if M <= i {
-      elements[i - M] := t;
+      elements := elements[i-M := t];
     } else {
       var arr := more.Get(i / 256);
-      arr[i % 256] := t;
+      arr := arr[i % 256 := t];
     }
     Contents := Contents[i := t];
   }
@@ -89,13 +96,13 @@ class ExtensibleArray<T> {
     ensures Contents == old(Contents) + [t]
     decreases |Contents|
   {
-    if elements == null {
-      elements := new T[256](_ => t);
-      Repr := Repr + {elements};
+    if elements == [] {
+      elements := seq(256, (_ => t));
+      // Repr := Repr + {elements};
     }
     if length == 0 || length % 256 != 0 {
       // there is room in "elements"
-      elements[length - M] := t;
+      elements := elements[length - M := t];
     } else {
       if more == null {
         more := new ExtensibleArray.Init();
@@ -105,9 +112,9 @@ class ExtensibleArray<T> {
       more.Append(elements);
       Repr := Repr + more.Repr;
       M := M + 256;
-      elements := new T[256](_ => t);
-      Repr := Repr + {elements};
-      elements[0] := t;
+      elements := seq(256, (_ => t));
+      // Repr := Repr + {elements};
+      elements:= elements[0 := t];
     }
     length := length + 1;
     Contents := Contents + [t];

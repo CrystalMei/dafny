@@ -71,6 +71,7 @@ class {:autocontracts} ExtensibleArray<T> {
     Contents := Contents[i := t];
   }
 
+// ~ 11s
   method Append(t: T)
     ensures Contents == old(Contents) + [t]
     decreases |Contents|

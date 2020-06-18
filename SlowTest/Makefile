@@ -60,7 +60,7 @@ all1:
 	@mkdir -p $(LOG1_DIR)
 	@for i in $(SOURCES); do \
    		d=$$(date +%s); \
-		dafny /compile:0 /print:$(LOG1_DIR)/$$i.print /dprint:$(LOG1_DIR)/$$i.dprint /proverLog:$(LOG1_DIR)/$$i.smt2 $$i /printTooltips /restartProver /proverOpt:O:smt.CASE_SPLIT=1 /trace > $(LOG1_DIR)/$$i.trace; \
+		timeout 500s dafny /compile:0 /print:$(LOG1_DIR)/$$i.print /dprint:$(LOG1_DIR)/$$i.dprint /proverLog:$(LOG1_DIR)/$$i.smt2 $$i /printTooltips /restartProver /proverOpt:O:smt.CASE_SPLIT=1 /trace > $(LOG1_DIR)/$$i.trace; \
 		echo "CaseSplit 1,	$$i,	$$(($$(date +%s)-d))"; \
 	done
 
@@ -68,7 +68,7 @@ all3:
 	@mkdir -p $(LOG3_DIR)
 	@for i in $(SOURCES); do \
    		d=$$(date +%s); \
-		dafny /compile:0 /print:$(LOG3_DIR)/$$i.print /dprint:$(LOG3_DIR)/$$i.dprint /proverLog:$(LOG3_DIR)/$$i.smt2 $$i /printTooltips /restartProver /trace > $(LOG3_DIR)/$$i.trace; \
+		timeout 500s dafny /compile:0 /print:$(LOG3_DIR)/$$i.print /dprint:$(LOG3_DIR)/$$i.dprint /proverLog:$(LOG3_DIR)/$$i.smt2 $$i /printTooltips /restartProver /trace > $(LOG3_DIR)/$$i.trace; \
 		echo "CaseSplit 3,	$$i,	$$(($$(date +%s)-d))"; \
 	done
 
