@@ -114,21 +114,21 @@ class ExtensibleArray<T> {
   }
 }
 
-method Main() {
-  var a := new ExtensibleArray.Init();
-  var n := 0;
-  while n < 256*256+600
-    invariant a.Valid() && fresh(a.Repr)
-    invariant |a.Contents| == n
-  {
-    a.Append(n);
-    n := n + 1;
-  }
-  var k := a.Get(570); print k, "\n";
-  k := a.Get(0); print k, "\n";
-  k := a.Get(1000); print k, "\n";
-  a.Set(1000, 23);
-  k := a.Get(0); print k, "\n";
-  k := a.Get(1000); print k, "\n";
-  k := a.Get(66000); print k, "\n";
-}
+// method Main() {
+//   var a := new ExtensibleArray.Init();
+//   var n := 0;
+//   while n < 256*256+600
+//     invariant a.Valid() && fresh(a.Repr)
+//     invariant |a.Contents| == n
+//   {
+//     a.Append(n);
+//     n := n + 1;
+//   }
+//   var k := a.Get(570); print k, "\n";
+//   k := a.Get(0); print k, "\n";
+//   k := a.Get(1000); print k, "\n";
+//   a.Set(1000, 23);
+//   k := a.Get(0); print k, "\n";
+//   k := a.Get(1000); print k, "\n";
+//   k := a.Get(66000); print k, "\n";
+// }

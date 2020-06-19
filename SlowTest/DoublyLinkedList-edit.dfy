@@ -246,113 +246,143 @@ method Remove<A>(l:DList<A>, p:uint64) returns(l':DList<A>)
   ensures forall x :: x != p && ValidPtr(l, x) ==>
     ValidPtr(l', x) && Index(l', x) == Index(l, x) - (if Index(l, x) < Index(l, p) then 0 else 1)
 {
-  var DList(nodes, freeStack, s, f, g) := l;
-  ghost var index := g[p];
-  ghost var s' := s[.. index] + s[index + 1 ..];
-  ghost var f' := f[.. index] + f[index + 1 ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
-  var node := seq_get(nodes, p);
-  var node_prev := seq_get(nodes, node.prev);
-  nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
-  var node_next := seq_get(nodes, node.next);
-  nodes := seq_set(nodes, node.next, node_next.(prev := node.prev));
-  nodes := seq_set(nodes, p, Node(None, freeStack, 0));
-  l' := DList(nodes, p, s', f', g');
+  if (*) {
+    var DList(nodes, freeStack, s, f, g) := l;
+    ghost var index := g[p];
+    ghost var s' := s[.. index] + s[index + 1 ..];
+    ghost var f' := f[.. index] + f[index + 1 ..];
+    ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+      if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+    var node := seq_get(nodes, p);
+    var node_prev := seq_get(nodes, node.prev);
+    nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
+    var node_next := seq_get(nodes, node.next);
+    nodes := seq_set(nodes, node.next, node_next.(prev := node.prev));
+    nodes := seq_set(nodes, p, Node(None, freeStack, 0));
+    l' := DList(nodes, p, s', f', g');
+  // } else if (*) {
+  //   var DList(nodes, freeStack, s, f, g) := l;
+  //   ghost var index := g[p];
+  //   ghost var s' := s[.. index] + s[index + 1 ..];
+  //   ghost var f' := f[.. index] + f[index + 1 ..];
+  //   ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+  //     if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+  //   var node := seq_get(nodes, p);
+  //   var node_prev := seq_get(nodes, node.prev);
+  //   nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
+  //   var node_next := seq_get(nodes, node.next);
+  //   nodes := seq_set(nodes, node.next, node_next.(prev := node.prev));
+  //   nodes := seq_set(nodes, p, Node(None, freeStack, 0));
+  //   l' := DList(nodes, p, s', f', g');
+  } else {
+    var DList(nodes, freeStack, s, f, g) := l;
+    ghost var index := g[p];
+    ghost var s' := s[.. index] + s[index + 1 ..];
+    ghost var f' := f[.. index] + f[index + 1 ..];
+    ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+      if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+    var node := seq_get(nodes, p);
+    var node_prev := seq_get(nodes, node.prev);
+    nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
+    var node_next := seq_get(nodes, node.next);
+    nodes := seq_set(nodes, node.next, node_next.(prev := node.prev));
+    nodes := seq_set(nodes, p, Node(None, freeStack, 0));
+    l' := DList(nodes, p, s', f', g');
+  }
 }
 
-// ~8s
-method InsertAfter<A>(l:DList<A>, p:uint64, a:A) returns(l':DList<A>, p':uint64)
-  requires Inv(l)
-  requires MaybePtr(l, p)
-  ensures Inv(l')
-  ensures Seq(l') == Seq(l)[.. Index(l, p) + 1] + [a] + Seq(l)[Index(l, p) + 1 ..]
-  ensures ValidPtr(l', p') && Index(l', p') == Index(l, p) + 1
-  ensures forall x :: ValidPtr(l, x) ==>
-    ValidPtr(l', x) && Index(l', x) == Index(l, x) + (if Index(l, x) <= Index(l, p) then 0 else 1)
-{
-  l' := l;
-  p' := l'.freeStack;
-  var freeNode := seq_get(l'.nodes, p');
-  if (p' == 0 || freeNode.data.Some?) {
-    l' := Expand(l');
-    p' := l'.freeStack;
-    freeNode := seq_get(l'.nodes, p');
-  }
-  var DList(nodes, freeStack, s, f, g) := l';
-  ghost var index := g[p];
-  ghost var index' := index + 1;
-  ghost var s' := s[.. index'] + [a] + s[index' ..];
-  ghost var f' := f[.. index'] + [p' as int] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if x == p' as int then index' else if g[x] > index then g[x] + 1 else g[x]);
-  var node := seq_get(nodes, p);
-  var node' := Node(Some(a), node.next, p);
-  nodes := seq_set(nodes, p, node.(next := p'));
-  var node_next := seq_get(nodes, node.next);
-  nodes := seq_set(nodes, node.next, node_next.(prev := p'));
-  nodes := seq_set(nodes, p', node');
-  l' := DList(nodes, freeNode.next, s', f', g');
-}
+// // ~8s
+// method InsertAfter<A>(l:DList<A>, p:uint64, a:A) returns(l':DList<A>, p':uint64)
+//   requires Inv(l)
+//   requires MaybePtr(l, p)
+//   ensures Inv(l')
+//   ensures Seq(l') == Seq(l)[.. Index(l, p) + 1] + [a] + Seq(l)[Index(l, p) + 1 ..]
+//   ensures ValidPtr(l', p') && Index(l', p') == Index(l, p) + 1
+//   ensures forall x :: ValidPtr(l, x) ==>
+//     ValidPtr(l', x) && Index(l', x) == Index(l, x) + (if Index(l, x) <= Index(l, p) then 0 else 1)
+// {
+//   l' := l;
+//   p' := l'.freeStack;
+//   var freeNode := seq_get(l'.nodes, p');
+//   if (p' == 0 || freeNode.data.Some?) {
+//     l' := Expand(l');
+//     p' := l'.freeStack;
+//     freeNode := seq_get(l'.nodes, p');
+//   }
+//   var DList(nodes, freeStack, s, f, g) := l';
+//   ghost var index := g[p];
+//   ghost var index' := index + 1;
+//   ghost var s' := s[.. index'] + [a] + s[index' ..];
+//   ghost var f' := f[.. index'] + [p' as int] + f[index' ..];
+//   ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+//     if x == p' as int then index' else if g[x] > index then g[x] + 1 else g[x]);
+//   var node := seq_get(nodes, p);
+//   var node' := Node(Some(a), node.next, p);
+//   nodes := seq_set(nodes, p, node.(next := p'));
+//   var node_next := seq_get(nodes, node.next);
+//   nodes := seq_set(nodes, node.next, node_next.(prev := p'));
+//   nodes := seq_set(nodes, p', node');
+//   l' := DList(nodes, freeNode.next, s', f', g');
+// }
  
-// ~ 13s
-method InsertBefore<A>(l:DList<A>, p:uint64, a:A) returns(l':DList<A>, p':uint64)
-  requires Inv(l)
-  requires MaybePtr(l, p)
-  ensures Inv(l')
-  ensures Seq(l') == Seq(l)[.. IndexHi(l, p)] + [a] + Seq(l)[IndexHi(l, p) ..]
-  ensures ValidPtr(l', p') && Index(l', p') == IndexHi(l, p)
-  ensures forall x :: ValidPtr(l, x) ==>
-    ValidPtr(l', x) && Index(l', x) == Index(l, x) + (if Index(l, x) < IndexHi(l, p) then 0 else 1)
-{
-  l' := l;
-  p' := l'.freeStack;
-  var freeNode := seq_get(l'.nodes, p');
-  if (p' == 0 || freeNode.data.Some?) {
-    l' := Expand(l');
-    p' := l'.freeStack;
-    freeNode := seq_get(l'.nodes, p');
-  }
-  var DList(nodes, freeStack, s, f, g) := l';
-  ghost var index' := IndexHi(l, p);
-  ghost var s' := s[.. index'] + [a] + s[index' ..];
-  ghost var f' := f[.. index'] + [p' as int] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if x == p' as int then index' else if g[x] >= index' then g[x] + 1 else g[x]);
-  var node := seq_get(nodes, p);
-  var node' := Node(Some(a), p, node.prev);
-  nodes := seq_set(nodes, p, node.(prev := p'));
-  var node_prev := seq_get(nodes, node.prev);
-  nodes := seq_set(nodes, node.prev, node_prev.(next := p'));
-  nodes := seq_set(nodes, p', node');
-  l' := DList(nodes, freeNode.next, s', f', g');
-}
+// // ~ 13s
+// method InsertBefore<A>(l:DList<A>, p:uint64, a:A) returns(l':DList<A>, p':uint64)
+//   requires Inv(l)
+//   requires MaybePtr(l, p)
+//   ensures Inv(l')
+//   ensures Seq(l') == Seq(l)[.. IndexHi(l, p)] + [a] + Seq(l)[IndexHi(l, p) ..]
+//   ensures ValidPtr(l', p') && Index(l', p') == IndexHi(l, p)
+//   ensures forall x :: ValidPtr(l, x) ==>
+//     ValidPtr(l', x) && Index(l', x) == Index(l, x) + (if Index(l, x) < IndexHi(l, p) then 0 else 1)
+// {
+//   l' := l;
+//   p' := l'.freeStack;
+//   var freeNode := seq_get(l'.nodes, p');
+//   if (p' == 0 || freeNode.data.Some?) {
+//     l' := Expand(l');
+//     p' := l'.freeStack;
+//     freeNode := seq_get(l'.nodes, p');
+//   }
+//   var DList(nodes, freeStack, s, f, g) := l';
+//   ghost var index' := IndexHi(l, p);
+//   ghost var s' := s[.. index'] + [a] + s[index' ..];
+//   ghost var f' := f[.. index'] + [p' as int] + f[index' ..];
+//   ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+//     if x == p' as int then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+//   var node := seq_get(nodes, p);
+//   var node' := Node(Some(a), p, node.prev);
+//   nodes := seq_set(nodes, p, node.(prev := p'));
+//   var node_prev := seq_get(nodes, node.prev);
+//   nodes := seq_set(nodes, node.prev, node_prev.(next := p'));
+//   nodes := seq_set(nodes, p', node');
+//   l' := DList(nodes, freeNode.next, s', f', g');
+// }
 
-method Clone<A>(l:DList<A>) returns(l':DList<A>)
-  ensures l' == l
-{
-  var DList(nodes, freeStack, s, f, g) := l;
-  shared_seq_length_bound(nodes);
-  var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
-  l' := DList(nodes', freeStack, s, f, g);
-}
+// method Clone<A>(l:DList<A>) returns(l':DList<A>)
+//   ensures l' == l
+// {
+//   var DList(nodes, freeStack, s, f, g) := l;
+//   shared_seq_length_bound(nodes);
+//   var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
+//   l' := DList(nodes', freeStack, s, f, g);
+// }
 
-// ~ 1500s
-method main()
-{
-  var l := Alloc<uint64>(3);
-  var p;
-  l, p := InsertAfter(l, 0, 100);
-  l, p := InsertAfter(l, p, 200);
-  l, p := InsertAfter(l, p, 300);
-  var p3 := p;
-  l, p := InsertAfter(l, p, 400);
-  l, p := InsertAfter(l, p, 500);
-  assert Seq(l) == [100, 200, 300, 400, 500];
-  l := Remove(l, p3);
-  assert Seq(l) == [100, 200, 400, 500];
-  l, p := InsertAfter(l, p, 600);
-  l, p := InsertAfter(l, p, 700);
-  assert Seq(l) == [100, 200, 400, 500, 600, 700];
-  Free(l);
-}
+// // ~ 1500s
+// method main()
+// {
+//   var l := Alloc<uint64>(3);
+//   var p;
+//   l, p := InsertAfter(l, 0, 100);
+//   l, p := InsertAfter(l, p, 200);
+//   l, p := InsertAfter(l, p, 300);
+//   var p3 := p;
+//   l, p := InsertAfter(l, p, 400);
+//   l, p := InsertAfter(l, p, 500);
+//   assert Seq(l) == [100, 200, 300, 400, 500];
+//   l := Remove(l, p3);
+//   assert Seq(l) == [100, 200, 400, 500];
+//   l, p := InsertAfter(l, p, 600);
+//   l, p := InsertAfter(l, p, 700);
+//   assert Seq(l) == [100, 200, 400, 500, 600, 700];
+//   Free(l);
+// }

@@ -154,11 +154,13 @@ lemma INDUCTION_EVEN_ODD(P: (nat, nat) -> bool, a: nat, b: nat)
   requires forall a: nat, b: nat :: P(a, b) ==> P(2*a, 2*b)
   requires forall a: nat, b: nat :: P(a, b) ==> P(2*a, 2*b + 1)
   requires forall a: nat, b: nat :: P(a, b) ==> P(2*a + 1, 2*b)
-  requires forall a: nat, b: nat {:trigger 2*a+1, 2*b+1} :: P(a, b) ==> P(2*a + 1, 2*b + 1)
+  requires forall a: nat, b: nat {:trigger 2*a, 2*b} :: P(a, b) ==> P(2*a + 1, 2*b + 1)
   ensures P(a, b)
 {
   if a == 0 && b == 0 {
   } else {
+    assert a - 1 <= 2 * (a / 2) <= a;
+    assert b - 1 <= 2 * (b / 2) <= b;
     INDUCTION_EVEN_ODD(P, a / 2, b / 2);
   }
 }
