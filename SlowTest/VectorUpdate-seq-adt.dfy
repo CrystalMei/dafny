@@ -2,39 +2,40 @@
 // RUN: %diff "%s.expect" "%t"
 
 // this is a rather verbose version of the VectorUpdate method
-datatype AbInt = Z | S(AbInt) | Some
-function method Leq (e1: AbInt, e2: AbInt) : (b: bool)
-  ensures forall x, y, z :: Leq (x, y) && Leq(y, z) ==> Leq(x, z)
+type AbInt(==)
+ghost const Ab0 : AbInt
+ghost const Ab1 : AbInt
+// ghost const Ab2 : AbInt
+// ghost const Ab3 : AbInt
+// ghost const Ab4 : AbInt
+// ghost const Ab5 : AbInt
+// ghost const Ab6 : AbInt
+// ghost const Ab7 : AbInt
+ghost const Ab8 : AbInt
+ghost const Ab9 : AbInt
+ghost const Ab10 : AbInt
+ghost const Ab11 : AbInt
+ghost const Ab21 : AbInt
+ghost const Ab100 : AbInt
 
-function method Lt (e1: AbInt, e2: AbInt) : (b: bool)
-  ensures forall x, y, z :: Lt (x, y) && Lt(y, z) ==> Lt(x, z)
+predicate IsZero (n: AbInt)
+  ensures n == Ab0 ==> true
+  ensures n != Ab0 ==> false
+  // ensures n == Ab1 || n == Ab2 || n == Ab3 || n == Ab4 || n == Ab5 || n == Ab6 || n == Ab7 || n == Ab8 || n == Ab9 || n == Ab10 ==> false
 
-function method Add (n: AbInt, m: AbInt) : (r: AbInt)
-  ensures forall x, y :: Add(x, y) == Add(y, x)
-// {
-  // match n
-  // case Z => m
-  // case S(n') => S(Add(n', m)) 
-// }
+function method Add (ghost n: AbInt, ghost m: AbInt) : (r: AbInt)
+  ensures n == Ab8 && m == Ab1 ==> r == Ab9
+  ensures n == Ab9 && m == Ab1 ==> r == Ab10
+  ensures n == Ab11 && m == Ab10 ==> r == Ab21
 
-function method Mul (n: AbInt, m: AbInt) : (r: AbInt)
-  ensures n == Z ==> r == Z
-  ensures m == Z ==> r == Z
-// {
-  // match n
-  // case Z => Z
-  // case S(n') => Add(m, Mul(n', m)) 
-// }
+function method Div (ghost n: AbInt, ghost m: AbInt) : (r: AbInt)
+  requires IsZero(m)
+  ensures n == Ab100 && m == Ab9 ==> r == Ab11
+  ensures n == Ab100 && m == Ab10 ==> r == Ab10
 
-function method Div (n: AbInt, m: AbInt) : (r: AbInt)
-  requires m != Z
-  ensures Mul(m, r) == n
-
-method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)
+method VectorUpdate(N: int, ghost a : seq<AbInt>, f : (int,AbInt) ~> AbInt) returns (ghost a': seq<AbInt>)
   requires N == |a|
   requires forall j :: 0 <= j < N ==> f.requires(j,a[j])
-//   requires forall j :: 0 <= j < N ==> a !in f.reads(j,a[j])
-//   modifies a
   ensures |a| == |a'|
   ensures forall j :: 0 <= j < N ==> a'[j] == f(j,a[j])
 {
@@ -43,9 +44,8 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   while i < N
     invariant 0 <= i <= N
     invariant |a| == |a'|
-    invariant forall j :: i <= j < N ==> f.requires(j,a'[j])
     invariant forall j :: 0 <= j < N ==> f.requires(j,a[j])
-    // invariant forall j :: i <= j < N ==> a !in f.reads(j,a[j])
+    invariant forall j :: i <= j < N ==> f.requires(j,a'[j])
     invariant forall j :: i <= j < N ==> a'[j] == a[j]
     invariant forall j :: 0 <= j < i ==> a'[j] == f(j,a[j])
   {
@@ -54,92 +54,57 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   }
 }
 
-// function method int2adt (n: int) : (AbInt)
-//   // decreases n
-// {
-//   if n == 0 then Z
-//   else S(int2adt(n - 1))
-// }
+function method int2adt (n: int) : (r: AbInt)
+  ensures n == 0 ==> r == Ab0
+  // ensures n == 1 ==> r == Ab1
+  // ensures n == 2 ==> r == Ab2
+  // ensures n == 3 ==> r == Ab3
+  // ensures n == 4 ==> r == Ab4
+  // ensures n == 5 ==> r == Ab5
+  // ensures n == 6 ==> r == Ab6
+  // ensures n == 7 ==> r == Ab7
+  ensures n == 8 ==> r == Ab8
+  ensures n == 9 ==> r == Ab9  
 
 method Main()
 {
-  if (*)
-  {
-    // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var v := seq(10, _ => Z);
-    // Hey, works as an initialiser:
-    // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    var v' := VectorUpdate(10, v, (i,_) => Some);
-    assert |v'| == |v|;
-    // PrintSeq(v');
-    // v' = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    v' := VectorUpdate(10, v', (_,x) => S(x));
-    // PrintSeq(v');
-    // Phew, now they are all positive, so we can do:
-    // v' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-    v' := VectorUpdate(10, v', (_,x) requires x != Z => Div(Some, x));
-    // PrintSeq(v');
+  // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ghost var v := seq(10, _ => Ab0);
+  // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  ghost var v' := VectorUpdate(10, v, (i,_) => int2adt(i));
+  assert |v'| == |v|;
+  PrintSeq(v');
+  // v' = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  v' := VectorUpdate(10, v', (_,x) => Add(x, Ab1));
+  PrintSeq(v');
+  // v' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
+  v' := VectorUpdate(10, v', (_,x) requires !IsZero(x) => Div(Ab100, x));
+  PrintSeq(v');
 
-    // u = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var u := seq(10, _ => Z);
-    // Hey, works as a copy as well!
-    // u' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-    var u' := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 => v'[i]);
-    // PrintSeq(u');
+  // u = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ghost var u := seq(10, _ => Ab0);
+  // u' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
+  // u := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 => v'[i]);
+  // PrintSeq(u');
 
-    // Having some fun with the index:
-    // z = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var z := seq(9, _ => Z);
-    // z' = [150, 83, 58, 45, 35, 30, 26, 23, 21]
-    var z' := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 => Add(u'[i], u'[i+1]));
-    // PrintSeq(z');
+  // z = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ghost var z := seq(9, _ => Ab0);
+  // z' = [150, 83, 58, 45, 35, 30, 26, 23, 21]
+  z := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 => Add(v'[i], v'[i+1]));
+  PrintSeq(z);
 
-    assert z'[8] == Some; // voila, the prover also knows what's going on
-  }
-  else
-  {
-    // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var v := seq(10, _ => Z);
-    // Hey, works as an initialiser:
-    // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    var v' := VectorUpdate(10, v, (i,_) => Some);
-    assert |v'| == |v|;
-    // PrintSeq(v');
-    // v' = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    v' := VectorUpdate(10, v', (_,x) => S(x));
-    // PrintSeq(v');
-    // Phew, now they are all positive, so we can do:
-    // v' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-    v' := VectorUpdate(10, v', (_,x) requires x != Z => Div(Some, x));
-    // PrintSeq(v');
-
-    // u = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var u := seq(10, _ => Z);
-    // Hey, works as a copy as well!
-    // u' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-    var u' := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 => v'[i]);
-    // PrintSeq(u');
-
-    // Having some fun with the index:
-    // z = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    var z := seq(9, _ => Z);
-    // z' = [150, 83, 58, 45, 35, 30, 26, 23, 21]
-    var z' := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 => Add(u'[i], u'[i+1]));
-    // PrintSeq(z');
-
-    assert z'[8] == Some; // voila, the prover also knows what's going on
-  }
+  assert z[8] == Ab21;
 }
 
-method PrintSeq(a : seq<int>)
+method PrintSeq(ghost a : seq<AbInt>)
 {
-  var i := 0;
-  while i < |a| {
-    if i != 0 {
-	  print ", ";
-	}
-    print a[i];
-    i := i + 1;
-  }
-  print "\n";
+  // var i := 0;
+  // while i < |a| {
+  //   if i != 0 {
+	//   print ", ";
+	// }
+  //   print a[i];
+  //   i := i + 1;
+  // }
+  // print "\n";
 }
