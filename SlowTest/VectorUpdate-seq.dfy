@@ -60,25 +60,50 @@ method VectorUpdate''<A>(a : array<A>, f : (int,A) ~> A)
 
 method Main()
 {
-  var v := seq(10, _ => 0);
-  // Hey, works as an initialiser:
-  var v' := VectorUpdate(10, v, (i,_) => i);
-  assert |v'| == |v|;
-  PrintSeq(v');
-  var v'' := VectorUpdate(10, v', (_,x) => x + 1);
-  PrintSeq(v');
-  // Phew, now they are all positive, so we can do:
-  var v''' := VectorUpdate(10, v'', (_,x) requires x != 0 => 100 / x);
-  PrintSeq(v''');
-  var u := seq(10, _ => 0);
-  // Hey, works as a copy as well!
-  var u' := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 /*reads v*/ => v'''[i]);
-  PrintSeq(u');
-  // Having some fun with the index:
-  var z := seq(9, _ => 0);
-  var z' := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 /*reads u*/ => u'[i] + u'[i+1]);
-  PrintSeq(z');
-  assert z'[8] == 21; // voila, the prover also knows what's going on
+  if (*)
+  {
+    var v := seq(10, _ => 0);
+    // Hey, works as an initialiser:
+    var v' := VectorUpdate(10, v, (i,_) => i);
+    assert |v'| == |v|;
+    // PrintSeq(v');
+    var v'' := VectorUpdate(10, v', (_,x) => x + 1);
+    // PrintSeq(v');
+    // Phew, now they are all positive, so we can do:
+    var v''' := VectorUpdate(10, v'', (_,x) requires x != 0 => 100 / x);
+    // PrintSeq(v''');
+    var u := seq(10, _ => 0);
+    // Hey, works as a copy as well!
+    var u' := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 /*reads v*/ => v'''[i]);
+    // PrintSeq(u');
+    // Having some fun with the index:
+    var z := seq(9, _ => 0);
+    var z' := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 /*reads u*/ => u'[i] + u'[i+1]);
+    // PrintSeq(z');
+    assert z'[8] == 21; // voila, the prover also knows what's going on
+  }
+  else
+  {
+    var v := seq(10, _ => 0);
+    // Hey, works as an initialiser:
+    var v' := VectorUpdate(10, v, (i,_) => i);
+    assert |v'| == |v|;
+    // PrintSeq(v');
+    var v'' := VectorUpdate(10, v', (_,x) => x + 1);
+    // PrintSeq(v');
+    // Phew, now they are all positive, so we can do:
+    var v''' := VectorUpdate(10, v'', (_,x) requires x != 0 => 100 / x);
+    // PrintSeq(v''');
+    var u := seq(10, _ => 0);
+    // Hey, works as a copy as well!
+    var u' := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 /*reads v*/ => v'''[i]);
+    // PrintSeq(u');
+    // Having some fun with the index:
+    var z := seq(9, _ => 0);
+    var z' := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 /*reads u*/ => u'[i] + u'[i+1]);
+    // PrintSeq(z');
+    assert z'[8] == 21; // voila, the prover also knows what's going on
+  }
 }
 
 method PrintSeq(a : seq<int>)
