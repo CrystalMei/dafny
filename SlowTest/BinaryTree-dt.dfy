@@ -12,7 +12,7 @@ predicate ISValid(is:IntSet)
       NodeValid(is.root.v) && is.Contents == is.root.v.Contents)
 }
 
-function method IsInit(): (is:IntSet)
+function method ISInit(): (is:IntSet)
   ensures ISValid(is)
   ensures is.Contents == {}
 { IntSet({}, None) }
@@ -24,7 +24,7 @@ function method ISFind(is: IntSet, x: int): bool
 
 method Insert (is: IntSet, x: int) returns (is': IntSet)
     requires ISValid(is)
-    ensures ISValid(is)
+    ensures ISValid(is')
     ensures is'.Contents == is.Contents + {x}
 {
   var t := InsertHelper(x, is.root);
@@ -36,6 +36,7 @@ method InsertHelper(x: int, n: Option<Node>) returns (m: Node)
     ensures NodeValid(m)
     ensures n == None ==> m.Contents == {x}
     ensures n != None ==> m.Contents == n.v.Contents + {x}
+    decreases x, n
 {
   if n == None {      
     m := NodeInit(x);
@@ -119,24 +120,47 @@ method NodeRemove (n: Node, x: int) returns (n': Option<Node>)
     ensures n' != None ==> n'.v.Contents == n.Contents - {x}
     decreases n
 {
-  n' := Some (n);
-  if n.left != None && x < n.data {
-    var t := NodeRemove(n.left.v, x);
-    n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
-  } else if n.right != None && n.data < x {
-    var t := NodeRemove(n.right.v, x);
-    n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
-  } else if x == n.data {
-    if n.left == None && n.right == None {
-      n' := None;
-    } else if n.left == None {
-      n' := n.right;
-    } else if n.right == None {
-      n' := n.left;
-    } else {
-      // rotate
-      var min, r := RemoveMin(n.right.v);
-      n' := Some (Node(n.Contents - {x}, min, n.left, r));
+  if(*) {
+    n' := Some (n);
+    if n.left != None && x < n.data {
+      var t := NodeRemove(n.left.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
+    } else if n.right != None && n.data < x {
+      var t := NodeRemove(n.right.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
+    } else if x == n.data {
+      if n.left == None && n.right == None {
+        n' := None;
+      } else if n.left == None {
+        n' := n.right;
+      } else if n.right == None {
+        n' := n.left;
+      } else {
+        // rotate
+        var min, r := RemoveMin(n.right.v);
+        n' := Some (Node(n.Contents - {x}, min, n.left, r));
+      }
+    }
+  } else {
+    n' := Some (n);
+    if n.left != None && x < n.data {
+      var t := NodeRemove(n.left.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
+    } else if n.right != None && n.data < x {
+      var t := NodeRemove(n.right.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
+    } else if x == n.data {
+      if n.left == None && n.right == None {
+        n' := None;
+      } else if n.left == None {
+        n' := n.right;
+      } else if n.right == None {
+        n' := n.left;
+      } else {
+        // rotate
+        var min, r := RemoveMin(n.right.v);
+        n' := Some (Node(n.Contents - {x}, min, n.left, r));
+      }
     }
   }
 }
@@ -159,23 +183,20 @@ method RemoveMin (n: Node) returns (min: int, n': Option<Node>)
   }
 }
 
-// class Main {
-//   method Client0(x: int)
-//   {
-//     var s := new IntSet.Init();
+method Client0(x: int)
+{
+  var s := ISInit();
 
-//     s.Insert(12);
-//     s.Insert(24);
-//     var present := s.Find(x);
-//     assert present <==> x == 12 || x == 24;
-//   }
+  s := Insert(s, 12);
+  s := Insert(s, 24);
+  var present := ISFind(s, x);
+  assert present <==> x == 12 || x == 24;
+}
 
-//   method Client1(s: IntSet, x: int)
-//     requires s.Valid()
-//     modifies s.Repr
-//   {
-//     s.Insert(x);
-//     s.Insert(24);
-//     assert old(s.Contents) - {x,24} == s.Contents - {x,24};
-//   }
-// }
+method Client1(s: IntSet, x: int)
+  requires ISValid(s)
+{
+  var s' := Insert(s, x);
+  s' := Insert(s', 24);
+  assert s.Contents - {x,24} == s'.Contents - {x,24};
+}
