@@ -20,8 +20,8 @@ ghost const Ab100 : AbInt
 
 predicate IsZero (n: AbInt)
   ensures n == Ab0 ==> true
-  ensures n != Ab0 ==> false
-  // ensures n == Ab1 || n == Ab2 || n == Ab3 || n == Ab4 || n == Ab5 || n == Ab6 || n == Ab7 || n == Ab8 || n == Ab9 || n == Ab10 ==> false
+  // ensures n != Ab0 ==> false
+  ensures n == Ab1 /* || n == Ab2 || n == Ab3 || n == Ab4 || n == Ab5 || n == Ab6 || n == Ab7 */ || n == Ab8 || n == Ab9 || n == Ab10 ==> false
 
 function method Add (ghost n: AbInt, ghost m: AbInt) : (r: AbInt)
   ensures n == Ab8 && m == Ab1 ==> r == Ab9
@@ -68,6 +68,8 @@ function method int2adt (n: int) : (r: AbInt)
 
 method Main()
 {
+  // assert (Ab0 == Ab1); // failed
+  // assert (Ab0 != Ab1); // failed
   // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ghost var v := seq(10, _ => Ab0);
   // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
