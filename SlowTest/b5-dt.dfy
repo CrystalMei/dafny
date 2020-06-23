@@ -24,7 +24,7 @@ function method NodeInitData<T(0)>(d: T): (n: Node)
 { Node(d, None, [])}
 
 
-datatype Queue<T(0)(==)> = Queue(head: Node<T>, tail: Node<T>, contents: seq<T>, spine: set<Node<T>>)
+datatype Queue<T(0)(==)> = Queue(head: Node<T>, tail: Node<T>, contents: seq<T>, spine: seq<Node<T>>)
 
 predicate QueueValid<T(0)>(q: Queue)
 {   
@@ -46,7 +46,7 @@ function method QueueInit<T(0)(==)>(): (q: Queue)
     ensures |q.contents| == 0
 {
     var n := NodeInit();
-    Queue(n, n, n.tailContents, {n})
+    Queue(n, n, n.tailContents, [n])
 }
 
 method IsEmpty<T(0)(==)>(q: Queue) returns (isEmpty: bool)
@@ -63,25 +63,31 @@ method Enqueue<T(0)(==)>(q: Queue, t: T) returns (q': Queue)
     ensures q'.contents == q.contents + [t]
 {
     var n := NodeInitData(t);
-    // update spine about old tail
-    assert q.tail in q.spine;
-    var spine := {};
-    forall x | x in q.spine {
-        spine := spine + (
-            if (x == q.tail) then 
-                { x.(next := n) }
-            else {x}
-        );
-    }
-    var spine' := set x : Node<T> | x in q.spine :: if x.next == None then Node(x.data, Some (n), x.tailContents) else x;
-    assert |spine'| == |q.spine|;
-    var tail' := n;
-    q' := Queue(q.head, n, q.contents, spine');
 
-    var spine'' := set x: Node<T> | x in q'.spine :: Node(x.data, x.next, x.tailContents + [t]);
-    var head' := Node(q'.head.data, q'.head.next, q'.head.tailContents + [t]);
+    var spine := q.spine;
+    
+    assert q.tail in spine;
+    var i := 0;
+    while i < |q.spine|
+        invariant |spine| == |q.spine|
+    {
+        spine := 
+            if spine[i] == q.tail then
+                spine[..i] + [q.tail.(next := Some (n))] + spine[(i+1)..]
+            else spine;
+        i := i + 1;
+    }
+
+    assert q.tail.(next := Some (n)) in spine;
+    q' := q.(tail := n);
+
+    spine := seq(|spine|, i requires 0 <= i < |spine| => spine[i].(tailContents := spine[i].tailContents + [t]));
+    var head' := 
+        if |spine| == 1 then q'.head.(next := Some(n), tailContents := q'.head.tailContents + [t])
+        else q'.head.(tailContents := q'.head.tailContents + [t]);
+    assert head' in spine;
     var content' := head'.tailContents;
-    q' := Queue(head', tail', content', spine'' + {n});
+    q' := q'.(head := head', contents := content', spine := spine + [q'.tail]);
 }
 
 method Front<T(0)(==)>(q: Queue) returns (t: T)
