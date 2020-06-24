@@ -26,37 +26,37 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   }
 }
 
-// here's a shorter version of the method above
-method VectorUpdate'<A>(a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)
-  requires forall j :: 0 <= j < |a| ==> /*a !in f.reads(j,a[j]) &&*/ f.requires(j,a[j])
-//   modifies a
-  ensures |a| == |a'|
-  ensures forall j :: 0 <= j < |a| ==> a'[j] == f(j,old(a[j]))
-{
-  var i := 0;
-  a' := a;
-  while i < |a|
-    invariant 0 <= i <= |a|
-    invariant |a| == |a'|
-    invariant forall j :: i <= j < |a| ==> a'[j] == old(a[j])
-    invariant forall j :: 0 <= j < i ==> a'[j] == f(j,old(a[j]))
-  {
-    a' := a'[i := f(i,a[i])];
-    i := i + 1;
-  }
-}
+// // here's a shorter version of the method above
+// method VectorUpdate'<A>(a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)
+//   requires forall j :: 0 <= j < |a| ==> /*a !in f.reads(j,a[j]) &&*/ f.requires(j,a[j])
+// //   modifies a
+//   ensures |a| == |a'|
+//   ensures forall j :: 0 <= j < |a| ==> a'[j] == f(j,old(a[j]))
+// {
+//   var i := 0;
+//   a' := a;
+//   while i < |a|
+//     invariant 0 <= i <= |a|
+//     invariant |a| == |a'|
+//     invariant forall j :: i <= j < |a| ==> a'[j] == old(a[j])
+//     invariant forall j :: 0 <= j < i ==> a'[j] == f(j,old(a[j]))
+//   {
+//     a' := a'[i := f(i,a[i])];
+//     i := i + 1;
+//   }
+// }
 
-// here's yet another version
-// forall statement cannot update a variable declared outside it
-method VectorUpdate''<A>(a : array<A>, f : (int,A) ~> A)
-  requires forall j :: 0 <= j < a.Length ==> a !in f.reads(j,a[j]) && f.requires(j,a[j])
-  modifies a
-  ensures forall j :: 0 <= j < a.Length ==> a[j] == f(j,old(a[j]))
-{
-  forall i | 0 <= i < a.Length {
-    a[i] := f(i,a[i]);
-  }
-}
+// // here's yet another version
+// // forall statement cannot update a variable declared outside it
+// method VectorUpdate''<A>(a : array<A>, f : (int,A) ~> A)
+//   requires forall j :: 0 <= j < a.Length ==> a !in f.reads(j,a[j]) && f.requires(j,a[j])
+//   modifies a
+//   ensures forall j :: 0 <= j < a.Length ==> a[j] == f(j,old(a[j]))
+// {
+//   forall i | 0 <= i < a.Length {
+//     a[i] := f(i,a[i]);
+//   }
+// }
 
 method Main()
 {

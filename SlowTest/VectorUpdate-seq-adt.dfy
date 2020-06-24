@@ -3,37 +3,34 @@
 
 // this is a rather verbose version of the VectorUpdate method
 type AbInt(==)
-ghost const Ab0 : AbInt
-ghost const Ab1 : AbInt
-// ghost const Ab2 : AbInt
-// ghost const Ab3 : AbInt
-// ghost const Ab4 : AbInt
-// ghost const Ab5 : AbInt
-// ghost const Ab6 : AbInt
-// ghost const Ab7 : AbInt
-ghost const Ab8 : AbInt
-ghost const Ab9 : AbInt
-ghost const Ab10 : AbInt
-ghost const Ab11 : AbInt
-ghost const Ab21 : AbInt
-ghost const Ab100 : AbInt
+// const {:extern} Ab0 : AbInt
 
-predicate IsZero (n: AbInt)
-  ensures n == Ab0 ==> true
-  // ensures n != Ab0 ==> false
-  ensures n == Ab1 /* || n == Ab2 || n == Ab3 || n == Ab4 || n == Ab5 || n == Ab6 || n == Ab7 */ || n == Ab8 || n == Ab9 || n == Ab10 ==> false
+function method int2adt (n: int) : AbInt
+predicate AbIsZero (n: AbInt) {n == int2adt(0)}
+predicate AbNonNeg (n: AbInt) { true }
+predicate AbPos (n: AbInt) {AbNonNeg(n) && !AbIsZero(n)}
 
-function method Add (ghost n: AbInt, ghost m: AbInt) : (r: AbInt)
-  ensures n == Ab8 && m == Ab1 ==> r == Ab9
-  ensures n == Ab9 && m == Ab1 ==> r == Ab10
-  ensures n == Ab11 && m == Ab10 ==> r == Ab21
+// tedious function
+// TODO: if we can say int2adt(0) is unique, shorten this func!
+function method AbAdd (n: AbInt, m: AbInt) : (r: AbInt)
+  ensures n == int2adt(0) && m == int2adt(1) ==> r == int2adt(1)
+  ensures n == int2adt(1) && m == int2adt(1) ==> r == int2adt(2)
+  ensures n == int2adt(2) && m == int2adt(1) ==> r == int2adt(3)
+  ensures n == int2adt(3) && m == int2adt(1) ==> r == int2adt(4)
+  ensures n == int2adt(4) && m == int2adt(1) ==> r == int2adt(5)
+  ensures n == int2adt(5) && m == int2adt(1) ==> r == int2adt(6)
+  ensures n == int2adt(6) && m == int2adt(1) ==> r == int2adt(7)
+  ensures n == int2adt(7) && m == int2adt(1) ==> r == int2adt(8)
+  ensures n == int2adt(8) && m == int2adt(1) ==> r == int2adt(9)
+  ensures n == int2adt(9) && m == int2adt(1) ==> r == int2adt(10)
+  ensures n == int2adt(11) && m == int2adt(10) ==> r == int2adt(21)
 
-function method Div (ghost n: AbInt, ghost m: AbInt) : (r: AbInt)
-  requires IsZero(m)
-  ensures n == Ab100 && m == Ab9 ==> r == Ab11
-  ensures n == Ab100 && m == Ab10 ==> r == Ab10
+function method AbDiv (n: AbInt, m: AbInt) : (r: AbInt)
+  requires m != int2adt(0)
+  ensures n == int2adt(100) && m == int2adt(9) ==> r == int2adt(11)
+  ensures n == int2adt(100) && m == int2adt(10) ==> r == int2adt(10)
 
-method VectorUpdate(N: int, ghost a : seq<AbInt>, f : (int,AbInt) ~> AbInt) returns (ghost a': seq<AbInt>)
+method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)
   requires N == |a|
   requires forall j :: 0 <= j < N ==> f.requires(j,a[j])
   ensures |a| == |a'|
@@ -54,51 +51,42 @@ method VectorUpdate(N: int, ghost a : seq<AbInt>, f : (int,AbInt) ~> AbInt) retu
   }
 }
 
-function method int2adt (n: int) : (r: AbInt)
-  ensures n == 0 ==> r == Ab0
-  // ensures n == 1 ==> r == Ab1
-  // ensures n == 2 ==> r == Ab2
-  // ensures n == 3 ==> r == Ab3
-  // ensures n == 4 ==> r == Ab4
-  // ensures n == 5 ==> r == Ab5
-  // ensures n == 6 ==> r == Ab6
-  // ensures n == 7 ==> r == Ab7
-  ensures n == 8 ==> r == Ab8
-  ensures n == 9 ==> r == Ab9  
+// TODO: need a way to say int2adt(0) is unique
+lemma Assume_NotZero()
+  ensures forall i : int :: i != 0 ==> int2adt(i) != int2adt(0)
 
 method Main()
 {
-  // assert (Ab0 == Ab1); // failed
-  // assert (Ab0 != Ab1); // failed
+  Assume_NotZero();
   // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ghost var v := seq(10, _ => Ab0);
+  var v := seq(10, _ => int2adt(0));
   // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  ghost var v' := VectorUpdate(10, v, (i,_) => int2adt(i));
+  var v' := VectorUpdate(10, v, (i,_) => int2adt(i));
   assert |v'| == |v|;
   PrintSeq(v');
   // v' = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  v' := VectorUpdate(10, v', (_,x) => Add(x, Ab1));
+  v' := VectorUpdate(10, v', (_,x) => AbAdd(x, int2adt(1)));
   PrintSeq(v');
+  assert (forall x :: x in v' ==> x != int2adt(0));
   // v' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-  v' := VectorUpdate(10, v', (_,x) requires !IsZero(x) => Div(Ab100, x));
+  v' := VectorUpdate(10, v', (_,x) requires !AbIsZero(x) => AbDiv(int2adt(100), x));
   PrintSeq(v');
 
   // u = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ghost var u := seq(10, _ => Ab0);
+  var u := seq(10, _ => int2adt(0));
   // u' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-  // u := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 => v'[i]);
-  // PrintSeq(u');
+  u := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 => v'[i]);
+  PrintSeq(u);
 
   // z = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ghost var z := seq(9, _ => Ab0);
+  var z := seq(9, _ => int2adt(0));
   // z' = [150, 83, 58, 45, 35, 30, 26, 23, 21]
-  z := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 => Add(v'[i], v'[i+1]));
+  z := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 => AbAdd(u[i], u[i+1]));
   PrintSeq(z);
-
-  assert z[8] == Ab21;
+  assert z[8] == int2adt(21);
 }
 
-method PrintSeq(ghost a : seq<AbInt>)
+method PrintSeq(a : seq<AbInt>)
 {
   // var i := 0;
   // while i < |a| {
