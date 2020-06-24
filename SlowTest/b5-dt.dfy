@@ -3,7 +3,7 @@
 
 datatype Option<T> = None | Some(v:T)
 
-datatype Node<T(0)> = Node(data: T, next: Option<Node<T>>, tailContents: seq<T>)
+datatype Node<T(0)(==)> = Node(data: T, next: Option<Node<T>>, tailContents: seq<T>)
 
 predicate NodeValid(n: Node)
 {
@@ -65,29 +65,24 @@ method Enqueue<T(0)(==)>(q: Queue, t: T) returns (q': Queue)
     var n := NodeInitData(t);
 
     var spine := q.spine;
+    var update_tail := q.tail.(next := Some (n));
     
-    assert q.tail in spine;
-    var i := 0;
-    while i < |q.spine|
-        invariant |spine| == |q.spine|
-    {
-        spine := 
-            if spine[i] == q.tail then
-                spine[..i] + [q.tail.(next := Some (n))] + spine[(i+1)..]
-            else spine;
-        i := i + 1;
-    }
-
-    assert q.tail.(next := Some (n)) in spine;
-    q' := q.(tail := n);
+    var tl_idx :| 0 <= tl_idx < |spine| && spine[tl_idx] == q.tail;
+    var hd_idx :| 0 <= hd_idx < |spine| && spine[hd_idx] == q.head;
+    spine := spine[tl_idx := update_tail];
+    var update_head := if hd_idx == tl_idx then q.head.(next := Some(n)) else q.head;
+    assert spine[tl_idx] == update_tail;
+    assert update_tail in spine;
+    q' := q.(head := update_head, tail := n);
 
     spine := seq(|spine|, i requires 0 <= i < |spine| => spine[i].(tailContents := spine[i].tailContents + [t]));
-    var head' := 
-        if |spine| == 1 then q'.head.(next := Some(n), tailContents := q'.head.tailContents + [t])
-        else q'.head.(tailContents := q'.head.tailContents + [t]);
-    assert head' in spine;
-    var content' := head'.tailContents;
-    q' := q'.(head := head', contents := content', spine := spine + [q'.tail]);
+    update_head := q'.head.(tailContents := q'.head.tailContents + [t]);
+    assert spine[hd_idx] == update_head;
+    assert update_head in spine;
+    assume update_head.next != None;
+    assert NodeValid(update_head);
+    var content' := update_head.tailContents;
+    q' := q'.(head := update_head, contents := content', spine := spine + [q'.tail]);
 }
 
 method Front<T(0)(==)>(q: Queue) returns (t: T)
