@@ -4,56 +4,80 @@
 // standard definitions
 
 type AbInt(==)
-ghost const Ab0 : AbInt
-ghost const Ab1 : AbInt
-ghost const Ab2 : AbInt
-ghost const Ab3 : AbInt
-ghost const Ab4 : AbInt
-ghost const Ab5 : AbInt
-ghost const Ab6 : AbInt
-ghost const Ab7 : AbInt
-ghost const Ab8 : AbInt
-
-function method AbSucc (ghost n: AbInt) : (r: AbInt)
-  ensures n == Ab0 ==> r == Ab1
-  ensures n == Ab1 ==> r == Ab2
-  ensures n == Ab2 ==> r == Ab3
-  ensures n == Ab3 ==> r == Ab5
-  ensures n == Ab4 ==> r == Ab5
-  ensures n == Ab5 ==> r == Ab6
-  ensures n == Ab6 ==> r == Ab7
-  ensures n == Ab7 ==> r == Ab8
-
-predicate AbEq(n: AbInt, m: AbInt)
-  ensures forall x :: AbEq(x, x)
-  ensures forall x, y :: AbEq(x, y) == AbEq(y, x)
-  ensures forall x, y, z :: AbEq(x, y) && AbEq(y, z) ==> AbEq(x, z) 
-
-predicate AbLt(n: AbInt, m: AbInt)
-  ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
-  ensures AbLt(Ab0, Ab1) && AbLt(Ab1, Ab2) && AbLt(Ab2, Ab3) && AbLt(Ab3, Ab4) && AbLt(Ab4, Ab5) && AbLt(Ab5, Ab6) && AbLt(Ab6, Ab7) && AbLt(Ab7, Ab8)
-  ensures !AbEq(n, m)
-
-predicate AbLeq (n: AbInt, m: AbInt)
-  ensures AbEq(n, m) || AbLt(n, m)
-
-function method AbAdd(ghost n: AbInt, ghost m: AbInt) : (r: AbInt)
-  ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x)
-  ensures forall x, y, z :: AbAdd(AbAdd(x, y), z) == AbAdd(x, AbAdd(y, z))
-  ensures forall x :: AbAdd(x, Ab0) == AbAdd(Ab0, x) == x
-
 datatype List<X> = Nil | Cons(head: X, tail: List<X>)
+
+// const {:extern} Ab0 : AbInt
+// const {:extern} Ab1 : AbInt
+// const {:extern} Ab2 : AbInt
+// const {:extern} Ab3 : AbInt
+// const {:extern} Ab4 : AbInt
+// const {:extern} Ab5 : AbInt
+// const {:extern} Ab6 : AbInt
+// const {:extern} Ab7 : AbInt
+// const {:extern} Ab8 : AbInt
+
+function method int2adt (n: int) : (r: AbInt)
+predicate IsZero (n: AbInt) {n == int2adt(0)}
+predicate NonNeg (n: AbInt) { true }
+predicate AbPos (n: AbInt) {NonNeg(n) && !IsZero(n)}
+
+function method AbLt(n: AbInt, m: AbInt) : bool
+function method AbAdd(n: AbInt, m: AbInt) : (r: AbInt)
+
+// Set generation: lo <= x < lo+len
+// TODO: if len is also an ADT, what should I do here?
+function method AbBoundSet(lo: AbInt, len: nat): (S: set<AbInt>)
+  ensures |S| == len
+  ensures S == set x | 0 <= x < len :: AbAdd(lo, int2adt(x))
+
+
+/* Properties */
+lemma Props()
+  /* AbLt */
+  ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+  // ensures forall n :: !AbLt(n, n)
+  // ensures forall x, y :: AbPos(y) ==> AbLt(x, AbAdd(x, y))
+  ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || x == y)
+  ensures forall x :: AbLt(int2adt(0), x) || x == int2adt(0)
+  // ensures forall x : AbInt, y : int :: y != 0 ==> AbLt (x, AbAdd(x, int2adt(y)))
+  ensures forall x, y, z :: AbLt(y, z) ==> AbLt(AbAdd(x, y), AbAdd(x, z))
+  // TODO: may not have integer here?
+  ensures forall x, y : int :: x < y ==> AbLt(int2adt(x), int2adt(y))
+
+  /* AbAdd */
+  // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x)
+  // ensures forall x, y, z :: AbAdd(AbAdd(x, y), z) == AbAdd(x, AbAdd(y, z))
+  // ensures forall x :: AbAdd(x, int2adt(0)) == AbAdd(int2adt(0), x) == x
+  ensures forall x : AbInt, y, z : int :: AbAdd(AbAdd(x, int2adt(y)), int2adt(z-y)) == AbAdd(x, int2adt(z)) // trigger may loop
+
+lemma Props2()
+  ensures forall x, y, n1, n2 :: (AbAdd(y, n1) == x) && AbLt(n1, n2) ==> AbLt(x, AbAdd(y, n2))
+  ensures forall x, y, n :: AbAdd(y, n) == x ==> AbLt(y, x) || y == x
+
+lemma Set_Props(S1 : set<AbInt>, n: AbInt, l: nat)
+  /* Set */
+  ensures var S2 := AbBoundSet(n, l);
+    forall x :: x in S1 && AbLt(x, AbAdd(n, int2adt(l))) ==> S1 <= S2
+
+lemma Set_Props2 (xs: set<AbInt>, b: AbInt, s: AbInt)
+  ensures
+    var S1 := (set x | x in xs && AbLt(x, b));
+    var S2 := (set x | x in xs && !AbLt(x, b));
+    s !in S1 ==> s !in xs
 
 method Main() {
   var xs := Nil;
   var s := SmallestMissingNumber(xs);
-  assert s == Ab0;
+  assert s == int2adt(0);
   print s, " ";  // 0
-  var a := Cons(Ab2, Cons(Ab0, Nil));
-//   print SmallestMissingNumber(a), " ";  // 1
-  a := Cons(Ab3, Cons(Ab1, a));
+  var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
+  // assert SmallestMissingNumber(a) == int2adt(1);
+  // print SmallestMissingNumber(a), " ";  // 1
+  a := Cons(int2adt(3), Cons(int2adt(1), a));
+  // assert SmallestMissingNumber(a) == int2adt(4);
 //   print SmallestMissingNumber(a), " ";  // 4
-  a := Cons(Ab7, Cons(Ab4, Cons(Ab6, a)));
+  a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
+  // assert SmallestMissingNumber(a) == int2adt(5);
 //   print SmallestMissingNumber(a), "\n";  // 5
 }
 
@@ -66,7 +90,7 @@ function method Length(xs: List): nat
 
 function method SmallestMissingNumber(xs: List<AbInt>): AbInt
 {
-  SMN(xs, Ab0, Length(xs))
+  SMN(xs, int2adt(0), Length(xs))
 }
 
 function method SMN(xs: List<AbInt>, n: AbInt, len: nat): AbInt
@@ -74,17 +98,50 @@ function method SMN(xs: List<AbInt>, n: AbInt, len: nat): AbInt
   decreases len
 {
   if 2 <= len then
-    var (L, R) := Split(xs, n + len/2); //TODO
+    var (L, R) := Split(xs, AbAdd(n, int2adt(len/2))); // ADT
     var llen := Length(L);
     if llen < len/2 then
       SMN(L, n, llen)
     else
-      SMN(R, n + llen, len - llen) //TODO
+      SMN(R, AbAdd(n, int2adt(llen)), len - llen) // ADT
   else if xs.Cons? then
-    if AbEq(xs.head, n) then AbSucc(n) else n // TODO
+    if xs.head == n then AbAdd(n, int2adt(1)) else n // ADT
   else
     n
 }
+
+// verified
+// function method SMN'(xs: List<AbInt>, n: AbInt, len: nat): AbInt
+//   requires len == Length(xs)
+//   decreases len
+// {
+//   if xs == Nil then
+//     n
+//   else
+//     var half := (len + 1) / 2;
+//     var (L, R) := Split(xs, AbAdd(n, int2adt(half)));
+//     var llen := Length(L);
+//     if llen < half then
+//       SMN'(L, n, llen)
+//     else
+//       SMN'(R, AbAdd(n, int2adt(llen)), len - llen)
+// }
+
+// function method SMN''(xs: List<AbInt>, n: AbInt, len: nat): AbInt
+//   requires len == Length(xs)
+//   decreases len
+// {
+//   if xs == Nil then
+//     n
+//   else
+//     var half := len / 2 + 1;
+//     var (L, R) := Split(xs, AbAdd(n, int2adt(half)));
+//     var llen := Length(L);
+//     if llen < half then
+//       SMN''(L, n, llen)
+//     else
+//       SMN''(R, AbAdd(n, int2adt(llen)), len - llen)
+// }
 
 function method Split(xs: List<AbInt>, b: AbInt): (List<AbInt>, List<AbInt>)
   ensures var r := Split(xs, b); Length(xs) == Length(r.0) + Length(r.1)
@@ -93,10 +150,23 @@ function method Split(xs: List<AbInt>, b: AbInt): (List<AbInt>, List<AbInt>)
   case Nil => (Nil, Nil)
   case Cons(x, tail) =>
     var (L, R) := Split(tail, b);
-    if AbLt(x, b) then //TODO
+    if AbLt(x, b) then // ADT
       (Cons(x, L), R)
     else
       (L, Cons(x, R))
+}
+
+lemma Split_Correct(xs: List<AbInt>, b: AbInt)
+  requires NoDuplicates(xs)
+  ensures var r := Split(xs, b);
+    Elements(r.0) == (set x | x in Elements(xs) && AbLt(x, b)) && // x < b
+    Elements(r.1) == (set x | x in Elements(xs) && !AbLt(x, b)) && // b <= x
+    NoDuplicates(r.0) && NoDuplicates(r.1)
+{
+  match xs
+  case Nil =>
+  case Cons(_, tail) =>
+    Split_Correct(tail, b);
 }
 
 function Elements(xs: List): set
@@ -104,6 +174,12 @@ function Elements(xs: List): set
   match xs
   case Nil => {}
   case Cons(x, tail) => {x} + Elements(tail)
+}
+
+lemma Elements_Property(xs: List)
+  requires NoDuplicates(xs)
+  ensures |Elements(xs)| == Length(xs)
+{
 }
 
 predicate NoDuplicates(xs: List)
@@ -137,77 +213,69 @@ lemma SetEquality(A: set, B: set)
   }
 }
 
+function IntRange(lo: AbInt, len: nat): set<AbInt>
+  ensures |IntRange(lo, len)| == len
+{
+  var S := AbBoundSet(lo, len); // ADT
+  assert len != 0 ==> S == IntRange(lo, len - 1) + {AbAdd(lo, int2adt(len - 1))}; // ADT
+  // TODO: can we check this with Props()? Nop, because we don't know AbLt(int2adt(x), int2adt(y))
+  // Props ();
+  // assert forall x :: x in S ==> (AbLt(lo, x) || lo == x) && AbLt(x, AbAdd(lo, int2adt(len)));
+  S
+}
+
 // proof of lemmas supporting proof of main theorem
 
 lemma SmallestMissingNumber_Correct(xs: List<AbInt>)
   requires NoDuplicates(xs)
   ensures var s := SmallestMissingNumber(xs);
     s !in Elements(xs) &&
-    forall x :: AbLeq(Ab0, x) && AbLt(x, s) ==> x in Elements(xs)
+    forall x :: (AbLt(int2adt(0), x) || int2adt(0) == x) && AbLt(x, s) ==> x in Elements(xs)
 {
-  SMN_Correct(xs, Ab0, Length(xs));
+  Props ();
+  SMN_Correct(xs, int2adt(0), Length(xs));
 }
 
 // element, len, index -> abstract type
 lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: nat)
   requires NoDuplicates(xs)
-  requires forall x :: x in Elements(xs) ==> AbLeq(n, x)
+  requires forall x :: x in Elements(xs) ==> (AbLt(n, x) || n == x)
   requires len == Length(xs)
   ensures var s := SMN(xs, n, len);
-    AbLeq(n, s) && AbLeq(s, n + len) && // TODO
-    s !in Elements(xs) &&
-    forall x :: AbLeq(n, x) && AbLt(x, s) ==> x in Elements(xs)
+    (AbLt(n, s) || n == s) && // failed
+    (AbLt(s, AbAdd(n, int2adt(len))) || s == AbAdd(n, int2adt(len))) && // failed
+    s !in Elements(xs) && // failed
+    forall x ::(AbLt(n, x) || n == x) && AbLt(x, s) ==> x in Elements(xs) //failed
   decreases len
 {
   if 2 <= len {
-    var (L, R) := Split(xs, n + len/2); // TODO
-    Split_Correct(xs, n + len/2); // TODO
+    Props ();
+    var (L, R) := Split(xs, AbAdd(n, int2adt(len/2)));
+    Split_Correct(xs, AbAdd(n, int2adt(len/2)));
     var llen := Length(L);
     Elements_Property(L);  // this is where we need the NoDuplicates property
-    var bound := IntRange(n, len/2); //TODO
+    var bound := IntRange(n, len/2);
+    Set_Props(Elements(L), n, len/2); // ADT Props
     Cardinality(Elements(L), bound);
+    Props (); // Why I duplicate the assumptions here, it failed so quick?
     if llen < len/2 {
+      var s := SMN(L, n, llen);
       SMN_Correct(L, n, llen);
+      Set_Props2(Elements(xs), AbAdd(n, int2adt(len/2)), s);
+      Props2();
     } else {
-      var s := SMN(R, n + llen, len - llen); //TODO
-      SMN_Correct(R, n + llen, len - llen); //TODO
-      forall x | AbLeq(n, x) && AbLt(x, s)
-        ensures x in Elements(xs)
+      Props2();
+      var s := SMN(R, AbAdd(n, int2adt(llen)), len - llen);
+      SMN_Correct(R, AbAdd(n, int2adt(llen)), len - llen);
+      forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
+        ensures x in Elements(xs) // failed
       {
-        if AbLt(x, n + llen) { // TODO
+        if AbLt(x, AbAdd(n, int2adt(llen))) {
           SetEquality(Elements(L), bound);
         }
       }
     }
   }
-}
-
-lemma Split_Correct(xs: List<AbInt>, b: AbInt)
-  requires NoDuplicates(xs)
-  ensures var r := Split(xs, b);
-    Elements(r.0) == (set x | x in Elements(xs) && AbLt(x, b)) &&
-    Elements(r.1) == (set x | x in Elements(xs) && AbLeq(b, x)) &&
-    NoDuplicates(r.0) && NoDuplicates(r.1)
-{
-  match xs
-  case Nil =>
-  case Cons(_, tail) =>
-    Split_Correct(tail, b);
-}
-
-lemma Elements_Property(xs: List)
-  requires NoDuplicates(xs)
-  ensures |Elements(xs)| == Length(xs)
-{
-}
-
-// TODO
-function IntRange(lo: AbInt, len: nat): set<AbInt>
-  ensures |IntRange(lo, len)| == len
-{
-  var S := set x | AbLeq(lo, x) && AbLt(x, lo + len); // TODO
-  assert len != 0 ==> S == IntRange(lo, len - 1) + {lo+len-1}; // TODO
-  S
 }
 
 // // Here is an alternative version, with a different splitting
