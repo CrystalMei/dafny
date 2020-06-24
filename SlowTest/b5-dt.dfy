@@ -71,7 +71,7 @@ method Enqueue<T(0)(==)>(q: Queue, t: T) returns (q': Queue)
     var hd_idx :| 0 <= hd_idx < |spine| && spine[hd_idx] == q.head;
     spine := spine[tl_idx := update_tail];
     var update_head := if hd_idx == tl_idx then q.head.(next := Some(n)) else q.head;
-    assert spine[tl_idx] == update_tail;
+    assert spine[tl_idx].tailContents == update_tail.tailContents;
     assert update_tail in spine;
     q' := q.(head := update_head, tail := n);
 
