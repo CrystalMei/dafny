@@ -13,14 +13,6 @@ predicate AbPos (n: AbInt) {AbNonNeg(n) && !AbIsZero(n)}
 // tedious function
 // TODO: if we can say int2adt(0) is unique, shorten this func!
 function method AbAdd (n: AbInt, m: AbInt) : (r: AbInt)
-  ensures n == int2adt(0) && m == int2adt(1) ==> r == int2adt(1)
-  ensures n == int2adt(1) && m == int2adt(1) ==> r == int2adt(2)
-  ensures n == int2adt(2) && m == int2adt(1) ==> r == int2adt(3)
-  ensures n == int2adt(3) && m == int2adt(1) ==> r == int2adt(4)
-  ensures n == int2adt(4) && m == int2adt(1) ==> r == int2adt(5)
-  ensures n == int2adt(5) && m == int2adt(1) ==> r == int2adt(6)
-  ensures n == int2adt(6) && m == int2adt(1) ==> r == int2adt(7)
-  ensures n == int2adt(7) && m == int2adt(1) ==> r == int2adt(8)
   ensures n == int2adt(8) && m == int2adt(1) ==> r == int2adt(9)
   ensures n == int2adt(9) && m == int2adt(1) ==> r == int2adt(10)
   ensures n == int2adt(11) && m == int2adt(10) ==> r == int2adt(21)
@@ -51,13 +43,14 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   }
 }
 
-// TODO: need a way to say int2adt(0) is unique
-lemma Assume_NotZero()
-  ensures forall i : int :: i != 0 ==> int2adt(i) != int2adt(0)
+lemma Assume_Pos()
+  // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x) // w/ or w/o this, no change.
+  ensures forall x, y :: AbPos(y) ==> AbPos(AbAdd(x, y))
 
 method Main()
 {
-  Assume_NotZero();
+  assume AbPos(int2adt(1));
+  Assume_Pos();
   // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   var v := seq(10, _ => int2adt(0));
   // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
