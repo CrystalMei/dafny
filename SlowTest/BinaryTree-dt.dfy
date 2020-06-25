@@ -120,7 +120,7 @@ method NodeRemove (n: Node, x: int) returns (n': Option<Node>)
     ensures n' != None ==> n'.v.Contents == n.Contents - {x}
     decreases n
 {
-  if(*) {
+  // if(*) {
     n' := Some (n);
     if n.left != None && x < n.data {
       var t := NodeRemove(n.left.v, x);
@@ -141,28 +141,28 @@ method NodeRemove (n: Node, x: int) returns (n': Option<Node>)
         n' := Some (Node(n.Contents - {x}, min, n.left, r));
       }
     }
-  } else {
-    n' := Some (n);
-    if n.left != None && x < n.data {
-      var t := NodeRemove(n.left.v, x);
-      n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
-    } else if n.right != None && n.data < x {
-      var t := NodeRemove(n.right.v, x);
-      n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
-    } else if x == n.data {
-      if n.left == None && n.right == None {
-        n' := None;
-      } else if n.left == None {
-        n' := n.right;
-      } else if n.right == None {
-        n' := n.left;
-      } else {
-        // rotate
-        var min, r := RemoveMin(n.right.v);
-        n' := Some (Node(n.Contents - {x}, min, n.left, r));
-      }
-    }
-  }
+  // } else {
+  //   n' := Some (n);
+  //   if n.left != None && x < n.data {
+  //     var t := NodeRemove(n.left.v, x);
+  //     n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
+  //   } else if n.right != None && n.data < x {
+  //     var t := NodeRemove(n.right.v, x);
+  //     n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
+  //   } else if x == n.data {
+  //     if n.left == None && n.right == None {
+  //       n' := None;
+  //     } else if n.left == None {
+  //       n' := n.right;
+  //     } else if n.right == None {
+  //       n' := n.left;
+  //     } else {
+  //       // rotate
+  //       var min, r := RemoveMin(n.right.v);
+  //       n' := Some (Node(n.Contents - {x}, min, n.left, r));
+  //     }
+  //   }
+  // }
 }
 
 method RemoveMin (n: Node) returns (min: int, n': Option<Node>)
