@@ -2,26 +2,39 @@
 // RUN: %diff "%s.expect" "%t"
 
 module ADT{
-    type AbInt(==)
-    function method int2adt (n: int) : AbInt
-    predicate AbIsZero (n: AbInt) {n == int2adt(0)}
-    predicate AbNonNeg (n: AbInt) { true }
-    predicate AbPos (n: AbInt) {AbNonNeg(n) && !AbIsZero(n)}
+  export Ab provides AbInt, int2adt, AbAdd, AbDiv
+            reveals AbIsZero, AbNonNeg, AbPos
 
-    // tedious function
-    // TODO: if we can say int2adt(0) is unique, shorten this func!
-    function method AbAdd (n: AbInt, m: AbInt) : (r: AbInt)
+  type AbInt(!new)(==) = int
+  function method int2adt (n: int) : AbInt
+  predicate AbIsZero (n: AbInt) { n == int2adt(0) }
+  predicate AbNonNeg (n: AbInt) { true }
+  predicate AbPos (n: AbInt) { AbNonNeg(n) && !AbIsZero(n) }
+
+  // tedious function
+  // TODO: if we can say int2adt(0) is unique, shorten this func!
+  function method AbAdd (n: AbInt, m: AbInt) : (r: AbInt)
     ensures n == int2adt(8) && m == int2adt(1) ==> r == int2adt(9)
     ensures n == int2adt(9) && m == int2adt(1) ==> r == int2adt(10)
     ensures n == int2adt(11) && m == int2adt(10) ==> r == int2adt(21)
 
-    function method AbDiv (n: AbInt, m: AbInt) : (r: AbInt)
+  function method AbDiv (n: AbInt, m: AbInt) : (r: AbInt)
     requires m != int2adt(0)
     ensures n == int2adt(100) && m == int2adt(9) ==> r == int2adt(11)
     ensures n == int2adt(100) && m == int2adt(10) ==> r == int2adt(10)
+    
+  lemma Props_Pos()
+    // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x) // w/ or w/o this, no change.
+    ensures forall x, y :: AbPos(y) ==> AbPos(AbAdd(x, y))
 }
 
-import opened ADT
+import opened ADT`Ab
+
+// Note: this need to be outside
+lemma Props_Pos()
+  // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x) // w/ or w/o this, no change.
+  ensures forall x, y :: AbPos(y) ==> AbPos(AbAdd(x, y))
+  
 method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)
   requires N == |a|
   requires forall j :: 0 <= j < N ==> f.requires(j,a[j])
@@ -43,14 +56,10 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   }
 }
 
-lemma Assume_Pos()
-  // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x) // w/ or w/o this, no change.
-  ensures forall x, y :: AbPos(y) ==> AbPos(AbAdd(x, y))
-
 method Main()
 {
   assume AbPos(int2adt(1));
-  Assume_Pos();
+  Props_Pos();
   // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   var v := seq(10, _ => int2adt(0));
   // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -60,7 +69,7 @@ method Main()
   // v' = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   v' := VectorUpdate(10, v', (_,x) => AbAdd(x, int2adt(1)));
   PrintSeq(v');
-  assert (forall x :: x in v' ==> x != int2adt(0));
+  assert (forall x :: x in v' ==> !AbIsZero(x));
   // v' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
   v' := VectorUpdate(10, v', (_,x) requires !AbIsZero(x) => AbDiv(int2adt(100), x));
   PrintSeq(v');
