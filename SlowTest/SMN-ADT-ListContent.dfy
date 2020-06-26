@@ -89,28 +89,6 @@ lemma Props ()
 // lemma Props_one_in_bound ()
 //   ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
 
-// TODO: need more concrete props to make it verified.
-method Main() {
-  Props();
-  // Props_plus_commutative ()
-  assume forall x, y :: AbAdd(x, y) == AbAdd(y, x);
-  // Props_plus_pos_is_lt ()
-  assume forall x, a :: AbPos(a) ==> AbLt(x, AbAdd(x, a));
-  var xs := Nil;
-  var s := SmallestMissingNumber(xs);
-  assert s == int2adt(0);
-  print s, " ";  // 0
-  var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
-  // assert SmallestMissingNumber(a) == int2adt(1);
-  // print SmallestMissingNumber(a), " ";  // 1
-  a := Cons(int2adt(3), Cons(int2adt(1), a));
-  // assert SmallestMissingNumber(a) == int2adt(4);
-//   print SmallestMissingNumber(a), " ";  // 4
-  a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
-  // assert SmallestMissingNumber(a) == int2adt(5);
-//   print SmallestMissingNumber(a), "\n";  // 5
-}
-
 function method Length(xs: List): nat
 {
   match xs
@@ -410,4 +388,26 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: nat)
       }
     }
   }
+}
+
+// TODO: need more concrete props to make it verified.
+method Main() {
+  Props();
+  // Props_plus_commutative ()
+  assume forall x, y :: AbAdd(x, y) == AbAdd(y, x);
+  // Props_plus_pos_is_lt ()
+  assume forall x, a :: AbPos(a) ==> AbLt(x, AbAdd(x, a));
+  var xs := Nil;
+  var s := SmallestMissingNumber(xs);
+  assert s == int2adt(0);
+  print s, " ";  // 0
+  var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
+  // assert SmallestMissingNumber(a) == int2adt(1);
+  // print SmallestMissingNumber(a), " ";  // 1
+  a := Cons(int2adt(3), Cons(int2adt(1), a));
+  // assert SmallestMissingNumber(a) == int2adt(4);
+//   print SmallestMissingNumber(a), " ";  // 4
+  a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
+  // assert SmallestMissingNumber(a) == int2adt(5);
+//   print SmallestMissingNumber(a), "\n";  // 5
 }
