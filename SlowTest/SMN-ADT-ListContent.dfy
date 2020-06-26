@@ -29,8 +29,8 @@ lemma Props_int_cmp_lt(a: int, b: int) // Lt(a, b)
   ensures AbLt(int2adt(a), int2adt(b))
 
 lemma Props_plus_minus_is_eq ()
-    // ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
-    ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
+  ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
+  // ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
 // Props_plus_minus_is_eq_param(n, len, llen);
 lemma Props_plus_minus_is_eq_param(x: AbInt, i: int, j: int)
   ensures AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i))
@@ -61,7 +61,7 @@ lemma Props ()
   ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
   // Props_plus_minus_is_eq ()
   // ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
-  ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
+  // ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
 
 // duplicate with Props ()
 // Note: if comment out, SMN_Correct doesn't finish.
@@ -90,6 +90,7 @@ lemma Props ()
 //   ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
 
 function method Length(xs: List): nat
+  decreases xs
 {
   match xs
   case Nil => 0
@@ -152,6 +153,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: nat): AbInt
 
 function method Split(xs: List<AbInt>, b: AbInt): (List<AbInt>, List<AbInt>)
   ensures var r := Split(xs, b); Length(xs) == Length(r.0) + Length(r.1)
+  decreases xs
 {
   match xs
   case Nil => (Nil, Nil)
@@ -169,6 +171,7 @@ lemma Split_Correct(xs: List<AbInt>, b: AbInt)
     Elements(r.0) == (set x | x in Elements(xs) && AbLt(x, b)) && // x < b
     Elements(r.1) == (set x | x in Elements(xs) && !AbLt(x, b)) && // b <= x
     NoDuplicates(r.0) && NoDuplicates(r.1)
+  decreases xs
 {
   match xs
   case Nil =>
@@ -177,6 +180,7 @@ lemma Split_Correct(xs: List<AbInt>, b: AbInt)
 }
 
 function Elements(xs: List): set
+  decreases xs
 {
   match xs
   case Nil => {}
@@ -190,6 +194,7 @@ lemma Elements_Property(xs: List)
 }
 
 predicate NoDuplicates(xs: List)
+  decreases xs
 {
   match xs
   case Nil => true
@@ -202,6 +207,7 @@ predicate NoDuplicates(xs: List)
 lemma Cardinality(A: set, B: set)
   requires A <= B
   ensures |A| <= |B|
+  decreases A, B
 {
   if A != {} {
     var x :| x in A;
@@ -212,6 +218,7 @@ lemma Cardinality(A: set, B: set)
 lemma SetEquality(A: set, B: set)
   requires A <= B && |A| == |B|
   ensures A == B
+  decreases A, B
 {
   if A == {} {
   } else {
@@ -233,7 +240,7 @@ function IntRange(lo: AbInt, len: nat): set<AbInt>
 
 // proof of lemmas supporting proof of main theorem
 
-lemma SmallestMissingNumber_Correct(xs: List<AbInt>)
+lemma SmallestMissingNumber_Correct (xs: List<AbInt>)
   requires NoDuplicates(xs)
   ensures var s := SmallestMissingNumber(xs);
     s !in Elements(xs) &&
@@ -393,16 +400,21 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: nat)
 // TODO: need more concrete props to make it verified.
 method Main() {
   Props();
-  // Props_plus_commutative ()
-  assume forall x, y :: AbAdd(x, y) == AbAdd(y, x);
-  // Props_plus_pos_is_lt ()
-  assume forall x, a :: AbPos(a) ==> AbLt(x, AbAdd(x, a));
+  Props_plus_minus_is_eq ();
+  // // Props_plus_commutative ()
+  // assume forall x, y :: AbAdd(x, y) == AbAdd(y, x);
+  // // Props_plus_pos_is_lt ()
+  // assume forall x, a :: AbPos(a) ==> AbLt(x, AbAdd(x, a));
+
+  // Note: this assumption is wrong.
+  assume forall x, y, a :: (AbAdd(x, a) == y) && AbNonNeg(a) ==> AbLt(x, y);
+
   var xs := Nil;
   var s := SmallestMissingNumber(xs);
   assert s == int2adt(0);
   print s, " ";  // 0
   var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
-  // assert SmallestMissingNumber(a) == int2adt(1);
+  assert SmallestMissingNumber(a) == int2adt(1);
   // print SmallestMissingNumber(a), " ";  // 1
   a := Cons(int2adt(3), Cons(int2adt(1), a));
   // assert SmallestMissingNumber(a) == int2adt(4);
