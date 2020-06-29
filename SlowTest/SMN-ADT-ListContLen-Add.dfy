@@ -135,7 +135,9 @@ lemma Props_div_add_leq_is_leq () // y <= x ==> (x+y)/2 <= x
 lemma Props_div_add_leq_is_leq_param (x: AbInt, y: AbInt)
   ensures AbLt(y, x) || x == y ==> AbLt(AbDiv2(AbAdd(x, y)), x) || AbDiv2(AbAdd(x, y)) == x
 lemma Props_div_addone_lt ()
-  ensures forall x :: AbLt(AbAdd(AbDiv2(x), int2adt(1)), x)
+  ensures forall x :: AbLt(int2adt(1), x) || x == int2adt(1) ==> AbLt(AbAdd(AbDiv2(x), int2adt(1)), x)
+lemma Props_div_addone_lt_param (x: AbInt)
+  ensures AbLt(int2adt(1), x) || x == int2adt(1) ==> AbLt(AbAdd(AbDiv2(x), int2adt(1)), x)
 
 // lemma Props_unfold_int2adt (i: nat)
 //   ensures i == 0 ==> int2adt(i) == int2adt(0)
@@ -451,7 +453,8 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
     Props_gtzero_is_geqone_param (len); // x > 0 ==> x >= 1
     Props_add_commutative ();
     Props_lt_transitive ();
-    Props_div_addone_lt ();
+    Props_div_addone_lt_param (len);
+    assert AbLt(half, len);
     if AbLt(llen, half) then
       Props_adt_dt_lt (llen, len);
       SMN''(L, n, llen)
@@ -459,6 +462,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_add2sub ();
       Props_lt_is_not_geq ();
       Props_div_pos_is_pos ();
+      Props_add_less_is_lt ();
       Props_adt_dt_lt (AbSub(len, llen), len);
       SMN''(R, AbAdd(n, llen), AbSub(len, llen))
 }
@@ -492,7 +496,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
     Props_gtzero_is_geqone_param (len); // x > 0 ==> x >= 1
     Props_add_commutative ();
     Props_lt_transitive ();
-    Props_div_addone_lt ();
+    Props_div_addone_lt_param (len);
     if AbLt(llen, half) {
       var s := SMN''(L, n, llen);
       Props_adt_dt_lt (llen, len);
