@@ -7,7 +7,7 @@ type AbInt(==)
 function method int2adt (n: int) : (r: AbInt)
 predicate AbIsZero (n: AbInt) {n == int2adt(0)}
 predicate AbNonNeg (n: AbInt) { true }
-predicate AbPos (n: AbInt) {AbNonNeg(n) && !AbIsZero(n)}
+predicate AbPos (n: AbInt) { !AbIsZero(n) }
 
 function method AbLt(n: AbInt, m: AbInt) : bool
 function method AbAdd(n: AbInt, m: AbInt) : (r: AbInt)

@@ -1,65 +1,42 @@
 // RUN: %dafny /compile:3 "%s" > "%t"
 // RUN: %diff "%s.expect" "%t"
 
-datatype List<X> = Nil | Cons(head: X, tail: List<X>)
-
 module ADT {
-  type AbInt(==)
+  export Ab provides AbInt, int2adt, AbAdd, AbLt, AbBoundSet, Props, Props_int_pos, Props_int_cmp_lt, Props_plus_minus_is_eq, Props_plus_minus_is_eq_param, Props_eq_less_is_lt_param
+            reveals AbIsZero, AbNonNeg, AbPos
+
+  type AbInt(!new)(==) // (!new): generic type, not a class type
   function method int2adt (n: int) : (r: AbInt)
   predicate AbIsZero (n: AbInt) {n == int2adt(0)}
   predicate AbNonNeg (n: AbInt) { true }
   predicate AbPos (n: AbInt) {AbNonNeg(n) && !AbIsZero(n)}
 
   function method AbLt(n: AbInt, m: AbInt) : bool
-  function method AbAdd(n: AbInt, m: AbInt) : (r: AbInt)
+  function method AbAdd(n: AbInt, m: AbInt) : AbInt
 
   // Set generation: lo <= x < lo+len
   // TODO: if len is also an ADT, what should I do here?
   function method AbBoundSet(lo: AbInt, len: nat): (S: set<AbInt>)
     ensures |S| == len
-    //  Error: a quantifier involved in a function definition is not allowed to depend on the set of allocated references; Dafny's heuristics can't figure out a bound for the values of 'x' (perhaps declare its type, 'AbInt', as 'AbInt(!new)')
     ensures forall x :: (AbLt(lo, x) || lo == x) && AbLt(x, AbAdd(lo, int2adt(len))) <==> x in S
     // Try not to assign every element with AbAdd()
     // ensures S == set x | 0 <= x < len :: AbAdd(lo, int2adt(x))
-
+  
   /* Properties */
-  // duplicate with Props ()
-  // Note: if comment out, SMN_Correct doesn't finish.
-  lemma Prop_all_leq_zero ()
-    ensures forall x :: AbLt(int2adt(0), x) || x == int2adt(0)
-  lemma Props_lt_is_not_geq ()
-    ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || x == y)
-  lemma Props_lt_addition () // trigger problem?
-    ensures forall x, a, b:: AbLt(a, b) ==> AbLt(AbAdd(x, a), AbAdd(x, b))
-  lemma Props_lt_transitive ()
-    ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
-  lemma Props_plus_zero ()
-    ensures forall x :: AbAdd(x, int2adt(0)) == AbAdd(int2adt(0), x) == x
-  lemma Props_eq_less_is_lt ()
-    ensures forall x, y, a, b :: (x == AbAdd(y, a)) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
-  lemma Props_plus_eq_is_lt ()
-    ensures forall x, y, a :: (AbAdd(x, a) == y) && AbNonNeg(a) ==> AbLt(x, y)
-  lemma Props_plus_lt_is_lt ()
-    ensures forall x, y, a :: AbLt(AbAdd(x, a), y) && AbNonNeg(a) ==> AbLt(x, y)
-  lemma Props_plus_pos_is_neq ()
-    ensures forall x, a :: AbPos(a) ==> AbAdd(x, a) != x
-  lemma Props_one_in_bound ()
-    ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
-  lemma Props_plus_minus_is_eq ()
-    ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
-
-  // Props_eq_less_is_lt_param(s, n, int2adt(llen), int2adt(len));
-  lemma Props_eq_less_is_lt_param (x: AbInt, y: AbInt, a: AbInt, b: AbInt)
-    ensures (x == AbAdd(y, a)) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
-
-  // Props_plus_minus_is_eq_param(n, len, llen);
-  lemma Props_plus_minus_is_eq_param(x: AbInt, i: int, j: int)
-    ensures AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i))
-
   lemma Props_int_pos(a: int)
     ensures AbPos(int2adt(a))
   lemma Props_int_cmp_lt(a: int, b: int) // Lt(a, b)
     ensures AbLt(int2adt(a), int2adt(b))
+
+  lemma Props_plus_minus_is_eq ()
+    ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
+    // ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
+  // Props_plus_minus_is_eq_param(n, len, llen);
+  lemma Props_plus_minus_is_eq_param(x: AbInt, i: int, j: int)
+    ensures AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i))
+  // Props_eq_less_is_lt_param(s, n, int2adt(llen), int2adt(len));
+  lemma Props_eq_less_is_lt_param (x: AbInt, y: AbInt, a: AbInt, b: AbInt)
+    ensures (x == AbAdd(y, a)) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
 
   lemma Props ()
     // Prop_all_leq_zero ()
@@ -74,35 +51,50 @@ module ADT {
     ensures forall x :: AbAdd(x, int2adt(0)) == AbAdd(int2adt(0), x) == x
     // Props_eq_less_is_lt ()
     ensures forall x, y, a, b :: (x == AbAdd(y, a)) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
-    // Props_plus_eq_is_lt ()
-    ensures forall x, y, a :: (AbAdd(x, a) == y) && AbNonNeg(a) ==> AbLt(x, y)
+    // Props_plus_is_leq ()
+    ensures forall x, y, a :: (AbAdd(x, a) == y) ==> AbLt(x, y) || x == y
     // Props_plus_lt_is_lt ()
-    ensures forall x, y, a :: AbLt(AbAdd(x, a), y) && AbNonNeg(a) ==> AbLt(x, y)
+    ensures forall x, y, a :: AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
     // Props_plus_pos_is_neq ()
     ensures forall x, a :: AbPos(a) ==> AbAdd(x, a) != x
     // Props_one_in_bound ()
     ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
-    // // Props_plus_minus_is_eq ()
-    ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
+    // Props_plus_minus_is_eq ()
+    // ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
+    // ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
+
+  // duplicate with Props ()
+  // Note: if comment out, SMN_Correct doesn't finish.
+  // lemma Prop_all_leq_zero ()
+  //   ensures forall x :: AbLt(int2adt(0), x) || x == int2adt(0)
+  // lemma Props_lt_is_not_geq ()
+  //   ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || x == y)
+  // lemma Props_lt_addition () // trigger problem?
+  //   ensures forall x, a, b:: AbLt(a, b) ==> AbLt(AbAdd(x, a), AbAdd(x, b))
+  // lemma Props_lt_transitive ()
+  //   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+  // lemma Props_plus_zero ()
+  //   ensures forall x :: AbAdd(x, int2adt(0)) == AbAdd(int2adt(0), x) == x
+  // lemma Props_eq_less_is_lt ()
+  //   ensures forall x, y, a, b :: (x == AbAdd(y, a)) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
+  // lemma Props_plus_commutative ()
+  //   ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x)
+  // lemma Props_plus_is_leq ()
+  //  // ensures forall x, y, a :: (AbAdd(x, a) == y) && AbPos(a) ==> AbLt(x, y)
+  //   ensures forall x, y, a :: (AbAdd(x, a) == y) ==> AbLt(x, y) || x == y
+  // lemma Props_plus_lt_is_lt ()
+  //   ensures forall x, y, a :: AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
+  // lemma Props_plus_pos_is_neq ()
+  //   ensures forall x, a :: AbPos(a) ==> AbAdd(x, a) != x
+  // lemma Props_one_in_bound ()
+  //   ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
 }
 
-import opened ADT
-method Main() {
-  Props();
-  var xs := Nil;
-  var s := SmallestMissingNumber(xs);
-  assert s == int2adt(0);
-  print s, " ";  // 0
-  var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
-  assert SmallestMissingNumber(a) == int2adt(1);
-  // print SmallestMissingNumber(a), " ";  // 1
-  a := Cons(int2adt(3), Cons(int2adt(1), a));
-  assert SmallestMissingNumber(a) == int2adt(4);
-//   print SmallestMissingNumber(a), " ";  // 4
-  a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
-  assert SmallestMissingNumber(a) == int2adt(5);
-//   print SmallestMissingNumber(a), "\n";  // 5
-}
+module SMN {
+
+import opened ADT`Ab
+
+datatype List<X> = Nil | Cons(head: X, tail: List<X>)
 
 function method Length(xs: List): nat
 {
@@ -258,6 +250,7 @@ lemma SmallestMissingNumber_Correct(xs: List<AbInt>)
   SMN_Correct(xs, int2adt(0), Length(xs));
 }
 
+
 // element, len, index -> abstract type
 lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: nat)
   requires NoDuplicates(xs)
@@ -271,6 +264,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: nat)
   decreases len
 {
   Props ();
+  // Props_int_pos(1);
   if 2 <= len {
     var (L, R) := Split(xs, AbAdd(n, int2adt(len/2)));
     Split_Correct(xs, AbAdd(n, int2adt(len/2)));
@@ -287,13 +281,16 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: nat)
       // Props_lt_addition (); // Lt(s, n+llen) ==> Lt(s, n+len)
       // Props_lt_transitive ();
       // Props_eq_less_is_lt (); // s==n+llen ==> Lt(s, n+len)
+      // Note: instantiation for no trigger loop
+      Props_eq_less_is_lt_param(s, n, int2adt(llen), int2adt(len));
     } else {
       var s := SMN(R, AbAdd(n, int2adt(llen)), len - llen);
       SMN_Correct(R, AbAdd(n, int2adt(llen)), len - llen);
       // Props_plus_lt_is_lt (); // Lt(n+llen, s) ==> Lt(n, s)      
-      // Props_plus_eq_is_lt (); // n+llen == s ==> Lt(n, s)
+      // Props_plus_is_leq (); // n+llen == s ==> Lt(n, s)
       // Props_plus_minus_is_eq();
-      // Props_plus_minus_is_eq_param(n, len, llen);
+      // Note: instantiation for no trigger loop
+      Props_plus_minus_is_eq_param(n, len, llen);
       forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
         ensures x in Elements(xs)
       {
@@ -303,14 +300,14 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: nat)
       }
     }
   } 
-  // else {
-    // Props_int_pos(1);
-    // Props_plus_eq_is_lt ();
+  else {
+    Props_int_pos(1);
+    // Props_plus_is_leq ();
     // Props_plus_pos_is_neq ();
     // Props_one_in_bound ();
     // Props_lt_is_not_geq ();
     // Props_plus_zero ();
-  // }
+  }
 }
 
 lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: nat)
@@ -335,13 +332,17 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: nat)
     var bound := IntRange(n, half);
     Cardinality(Elements(L), bound);
     if llen < half {
+      var s := SMN'(L, n, llen);
       SMN'_Correct(L, n, llen);
       Props_int_cmp_lt(llen, half);
       Props_int_cmp_lt(llen, len);
+      // Note: instantiation for no trigger loop
+      Props_eq_less_is_lt_param(s, n, int2adt(llen), int2adt(len));
     } else {
       var s := SMN'(R, AbAdd(n, int2adt(llen)), len - llen);
       SMN'_Correct(R, AbAdd(n, int2adt(llen)), len - llen);
-      // Props_plus_minus_is_eq_param(n, len, llen);
+      // Note: instantiation for no trigger loop
+      Props_plus_minus_is_eq_param(n, len, llen);
       forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
         ensures x in Elements(xs)
       {
@@ -375,13 +376,16 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: nat)
     var bound := IntRange(n, half);
     Cardinality(Elements(L), bound);
     if llen < half {
+      var s := SMN''(L, n, llen);
       SMN''_Correct(L, n, llen);
       Props_int_cmp_lt(llen, half);
       Props_int_cmp_lt(llen, len);
+      // Note: instantiation for no trigger loop
+      Props_eq_less_is_lt_param(s, n, int2adt(llen), int2adt(len));
     } else {
       var s := SMN''(R, AbAdd(n, int2adt(llen)), len - llen);
       SMN''_Correct(R, AbAdd(n, int2adt(llen)), len - llen);
-      // Note: need this one to avoid trigger loop?
+      // Note: instantiation for no trigger loop
       Props_plus_minus_is_eq_param(n, len, llen);
       forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
         ensures x in Elements(xs)
@@ -392,4 +396,26 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: nat)
       }
     }
   }
+}
+
+method Main() {
+  Props();
+  Props_plus_minus_is_eq();
+  // Note: this assumption is wrong.
+  assume forall x, y, a :: (AbAdd(x, a) == y) && AbNonNeg(a) ==> AbLt(x, y);
+
+  var xs := Nil;
+  var s := SmallestMissingNumber(xs);
+  assert s == int2adt(0);
+  print s, " ";  // 0
+  var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
+  assert SmallestMissingNumber(a) == int2adt(1);
+  // print SmallestMissingNumber(a), " ";  // 1
+  a := Cons(int2adt(3), Cons(int2adt(1), a));
+  assert SmallestMissingNumber(a) == int2adt(4);
+//   print SmallestMissingNumber(a), " ";  // 4
+  a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
+  assert SmallestMissingNumber(a) == int2adt(5);
+//   print SmallestMissingNumber(a), "\n";  // 5
+}
 }

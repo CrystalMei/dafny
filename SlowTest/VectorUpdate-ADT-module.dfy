@@ -5,7 +5,7 @@ module ADT{
   export Ab provides AbInt, int2adt, AbAdd, AbDiv, Props_Pos
             reveals AbIsZero, AbNonNeg, AbPos, Props_Pos'
 
-  type AbInt(!new)(==) = int
+  type AbInt(!new)(==) // = int
   function method int2adt (n: int) : AbInt
   predicate AbIsZero (n: AbInt) { n == int2adt(0) }
   predicate AbNonNeg (n: AbInt) { true }
@@ -62,6 +62,7 @@ method Main()
 {
   assume AbPos(int2adt(1));
   Props_Pos ();
+  assert AbPos(AbAdd(int2adt(1), int2adt(1)));
   // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   var v := seq(10, _ => int2adt(0));
   // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
