@@ -299,7 +299,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
     (AbLt(n, s) || n == s) &&
     (AbLt(s, AbAdd(n, len)) || s == AbAdd(n, len)) &&
     s !in Elements(xs) &&
-    forall x ::(AbLt(n, x) || n == x) && AbLt(x, s) ==> x in Elements(xs)
+    forall x :: (AbLt(n, x) || n == x) && AbLt(x, s) ==> x in Elements(xs)
   decreases adt2dt(len)
 {
   Props_add_commutative (); // x + y = y + x
