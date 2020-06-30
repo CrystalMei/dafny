@@ -521,32 +521,32 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
   }
 }
 
-// TODO: need more concrete props to make it verified.
-method Main() {
-  var xs := Nil;
-  assert Length(xs) == int2adt(0);
-  var s := SmallestMissingNumber(xs);
-  Props_all_nonneg ();
-  Props_add_associative ();
-  Props_add_identity ();
-  Props_add_commutative ();
-  Props_add_pos_is_pos ();
-  Props_int_pos(2);
-  Props_lt_transitive ();
-  Props_lt_is_not_geq ();
-  assert s == int2adt(0);
-  print s, " ";  // 0
-  var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
-  Props_two_is_one_plus_one ();
-  assume int2adt(1) == AbDiv2(int2adt(2));
-  assume AbLt(int2adt(0), int2adt(1));
-  assume AbLt(int2adt(1), int2adt(2));
-  // assert SmallestMissingNumbxer(a) == int2adt(1);
-  // print SmallestMissingNumber(a), " ";  // 1
-  a := Cons(int2adt(3), Cons(int2adt(1), a));
-  // assert SmallestMissingNumber(a) == int2adt(4);
-//   print SmallestMissingNumber(a), " ";  // 4
-  a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
-  // assert SmallestMissingNumber(a) == int2adt(5);
-//   print SmallestMissingNumber(a), "\n";  // 5
-}
+// // TODO: need more concrete props to make it verified.
+// method Main() {
+//   var xs := Nil;
+//   assert Length(xs) == int2adt(0);
+//   var s := SmallestMissingNumber(xs);
+//   Props_all_nonneg ();
+//   Props_add_associative ();
+//   Props_add_identity ();
+//   Props_add_commutative ();
+//   Props_add_pos_is_pos ();
+//   Props_int_pos(2);
+//   Props_lt_transitive ();
+//   Props_lt_is_not_geq ();
+//   assert s == int2adt(0);
+//   print s, " ";  // 0
+//   var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
+//   Props_two_is_one_plus_one ();
+//   assume int2adt(1) == AbDiv2(int2adt(2));
+//   assume AbLt(int2adt(0), int2adt(1));
+//   assume AbLt(int2adt(1), int2adt(2));
+//   // assert SmallestMissingNumbxer(a) == int2adt(1);
+//   // print SmallestMissingNumber(a), " ";  // 1
+//   a := Cons(int2adt(3), Cons(int2adt(1), a));
+//   // assert SmallestMissingNumber(a) == int2adt(4);
+// //   print SmallestMissingNumber(a), " ";  // 4
+//   a := Cons(int2adt(7), Cons(int2adt(4), Cons(int2adt(6), a)));
+//   // assert SmallestMissingNumber(a) == int2adt(5);
+// //   print SmallestMissingNumber(a), "\n";  // 5
+// }

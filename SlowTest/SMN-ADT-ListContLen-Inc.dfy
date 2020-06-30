@@ -54,8 +54,8 @@ lemma Props_inc2dec ()
   ensures forall x, y, z :: AbInc(x, y) == z ==> AbDec(z, x) == y && AbDec(z, y) == x
 lemma Props_gt0_is_geq1 ()
   ensures forall x :: AbLt(int2adt(0), x) <==> AbLt(int2adt(1), x) || x == int2adt(1)
-// lemma Props_gt0_is_geq1_param (x: AbInt)
-//   ensures AbLt(int2adt(0), x) <==> AbLt(int2adt(1), x) || x == int2adt(1)
+lemma Props_gt0_is_geq1_param (x: AbInt)
+  ensures AbLt(int2adt(0), x) <==> AbLt(int2adt(1), x) || x == int2adt(1)
 
 lemma Props_lt_addition () // a < b ==> x + a < x + b
   ensures forall x, a, b:: AbLt(a, b) ==> AbLt(AbInc(x, a), AbInc(x, b))
@@ -339,7 +339,7 @@ function method SMN'(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
     Props_lt_transitive (); // len >= 1
 
     if AbLt(llen, half) then
-      Props_gt0_is_geq1 (); // x > 0 ==> x >= 1
+      Props_gt0_is_geq1_param (len); // x > 0 ==> x >= 1
       Props_div_inc1_is_leq_param (len); // (x+1)/2 <= x
       Props_adt_dt_lt (llen, len);
       SMN'(L, n, llen)
@@ -384,7 +384,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
 
     if AbLt(llen, half) {
       var s := SMN'(L, n, llen);
-      Props_gt0_is_geq1 (); // x > 0 ==> x >= 1
+      Props_gt0_is_geq1_param (len); // x > 0 ==> x >= 1
       Props_div_inc1_is_leq_param (len);  // no trigger loop
       Props_adt_dt_lt (llen, len);
       SMN'_Correct(L, n, llen);
@@ -433,7 +433,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
     Props_lt_transitive ();
 
     if AbLt(llen, half) then
-      Props_gt0_is_geq1 (); // x > 0 ==> x >= 1
+      Props_gt0_is_geq1_param (len); // x > 0 ==> x >= 1
       Props_div_and_inc1_is_leq_param (len); // x/2+1 <= x
       Props_adt_dt_lt (llen, len);
       SMN''(L, n, llen)
@@ -478,7 +478,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
 
     if AbLt(llen, half) {
       var s := SMN''(L, n, llen);
-      Props_gt0_is_geq1 (); // x > 0 ==> x >= 1
+      Props_gt0_is_geq1_param (len); // x > 0 ==> x >= 1
       Props_div_and_inc1_is_leq_param (len); // x/2+1 <= x
       Props_adt_dt_lt (llen, len);
       SMN''_Correct(L, n, llen);
