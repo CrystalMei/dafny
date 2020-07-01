@@ -43,36 +43,7 @@ function method AbBoundSet(lo: AbInt, len: AbInt): (S: set<AbInt>)
 /* Properties */
 lemma Props_int_pos(a: int)
   ensures AbPos(int2adt(a))
-lemma Props_int_cmp_lt(a: int, b: int) // Lt(a, b)
-  ensures AbLt(int2adt(a), int2adt(b))
 
-// lemma Props ()
-//   // Props_all_nonneg ()
-//   ensures forall x :: AbLt(int2adt(0), x) || x == int2adt(0)
-//   // Props_lt_is_not_geq ()
-//   ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || x == y)
-//   // Props_lt_addition ()
-//   ensures forall x, a, b:: AbLt(a, b) ==> AbLt(AbAdd(x, a), AbAdd(x, b))
-//   // Props_lt_transitive ()
-//   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
-//   // Props_add_identity ()
-//   ensures forall x :: AbAdd(x, int2adt(0)) == AbAdd(int2adt(0), x) == x
-//   // Props_add_less_is_lt ()
-//   ensures forall x, y, a, b :: (x == AbAdd(y, a)) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
-//   // Props_add_is_leq ()
-//   ensures forall x, y, a :: (AbAdd(x, a) == y) ==> AbLt(x, y) || x == y
-//   // Props_lt_add_is_lt ()
-//   ensures forall x, y, a :: AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
-//   // Props_add_pos_is_neq ()
-//   ensures forall x, a :: AbPos(a) ==> AbAdd(x, a) != x
-//   // Props_one_in_bound ()
-//   ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
-  // Props_add_sub_is_add ()
-  // ensures forall x: AbInt, i, j: int :: AbAdd(AbAdd(x, int2adt(j)), int2adt(i-j)) == AbAdd(x, int2adt(i)) // trigger may loop
-  // ensures forall x: AbInt, i, j, k: int :: k == i - j ==> AbAdd(AbAdd(x, int2adt(j)), int2adt(k)) == AbAdd(x, int2adt(i))
-
-// duplicate with Props ()
-// Note: if comment out, SMN_Correct doesn't finish.
 lemma Props_all_nonneg ()
   ensures forall x :: AbLt(int2adt(0), x) || x == int2adt(0)
 lemma Props_one_in_bound ()
