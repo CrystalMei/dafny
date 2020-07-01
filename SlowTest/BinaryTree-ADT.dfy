@@ -51,23 +51,44 @@ method InsertHelper(x: AbInt, n: Option<Node>) returns (m: Node)
     ensures n != None ==> m.Contents == n.v.Contents + {x}
     decreases adt2dt(x), n
 {
-  if n == None {      
-    m := NodeInit(x);
-  } else if x == n.v.data {
-      m := n.v;
-  } else {
-    m := n.v;
-    Props_lt_is_not_geq ();
-    if AbLt(x, n.v.data) {
-      assert n.v.right == None || NodeValid(n.v.right.v);
-      var t := InsertHelper(x, n.v.left);
-      m := Node(m.Contents, m.data, Some(t), m.right);
+  if (*) {
+    if n == None {      
+      m := NodeInit(x);
+    } else if x == n.v.data {
+        m := n.v;
     } else {
-      assert n.v.left == None || NodeValid(n.v.left.v);
-      var t := InsertHelper(x, n.v.right);
-      m := Node(m.Contents, m.data, m.left, Some(t));
+      m := n.v;
+      Props_lt_is_not_geq ();
+      if AbLt(x, n.v.data) {
+        assert n.v.right == None || NodeValid(n.v.right.v);
+        var t := InsertHelper(x, n.v.left);
+        m := Node(m.Contents, m.data, Some(t), m.right);
+      } else {
+        assert n.v.left == None || NodeValid(n.v.left.v);
+        var t := InsertHelper(x, n.v.right);
+        m := Node(m.Contents, m.data, m.left, Some(t));
+      }
+      m := Node(m.Contents + {x}, m.data, m.left, m.right);
     }
-    m := Node(m.Contents + {x}, m.data, m.left, m.right);
+  } else {
+    if n == None {      
+      m := NodeInit(x);
+    } else if x == n.v.data {
+        m := n.v;
+    } else {
+      m := n.v;
+      Props_lt_is_not_geq ();
+      if AbLt(x, n.v.data) {
+        assert n.v.right == None || NodeValid(n.v.right.v);
+        var t := InsertHelper(x, n.v.left);
+        m := Node(m.Contents, m.data, Some(t), m.right);
+      } else {
+        assert n.v.left == None || NodeValid(n.v.left.v);
+        var t := InsertHelper(x, n.v.right);
+        m := Node(m.Contents, m.data, m.left, Some(t));
+      }
+      m := Node(m.Contents + {x}, m.data, m.left, m.right);
+    }
   }
 }
 
@@ -135,26 +156,74 @@ method NodeRemove (n: Node, x: AbInt) returns (n': Option<Node>)
     ensures n' != None ==> n'.v.Contents == n.Contents - {x}
     decreases n
 {
-  n' := Some (n);
-  Props_lt_is_not_geq ();
-  Props_lt_transitive ();
-  if n.left != None && AbLt(x, n.data) {
-    var t := NodeRemove(n.left.v, x);
-    n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
-  } else if n.right != None && AbLt(n.data, x) {
-    var t := NodeRemove(n.right.v, x);
-    n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
-  } else if x == n.data {
-    if n.left == None && n.right == None {
-      n' := None;
-    } else if n.left == None {
-      n' := n.right;
-    } else if n.right == None {
-      n' := n.left;
-    } else {
-      // rotate
-      var min, r := RemoveMin(n.right.v);
-      n' := Some (Node(n.Contents - {x}, min, n.left, r));
+  if (*) {
+    n' := Some (n);
+    Props_lt_is_not_geq ();
+    Props_lt_transitive ();
+    if n.left != None && AbLt(x, n.data) {
+      var t := NodeRemove(n.left.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
+    } else if n.right != None && AbLt(n.data, x) {
+      var t := NodeRemove(n.right.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
+    } else if x == n.data {
+      if n.left == None && n.right == None {
+        n' := None;
+      } else if n.left == None {
+        n' := n.right;
+      } else if n.right == None {
+        n' := n.left;
+      } else {
+        // rotate
+        var min, r := RemoveMin(n.right.v);
+        n' := Some (Node(n.Contents - {x}, min, n.left, r));
+      }
+    }
+  } else if (*) {
+    n' := Some (n);
+    Props_lt_is_not_geq ();
+    Props_lt_transitive ();
+    if n.left != None && AbLt(x, n.data) {
+      var t := NodeRemove(n.left.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
+    } else if n.right != None && AbLt(n.data, x) {
+      var t := NodeRemove(n.right.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
+    } else if x == n.data {
+      if n.left == None && n.right == None {
+        n' := None;
+      } else if n.left == None {
+        n' := n.right;
+      } else if n.right == None {
+        n' := n.left;
+      } else {
+        // rotate
+        var min, r := RemoveMin(n.right.v);
+        n' := Some (Node(n.Contents - {x}, min, n.left, r));
+      }
+    }
+  } else {
+    n' := Some (n);
+    Props_lt_is_not_geq ();
+    Props_lt_transitive ();
+    if n.left != None && AbLt(x, n.data) {
+      var t := NodeRemove(n.left.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, t, n.right));
+    } else if n.right != None && AbLt(n.data, x) {
+      var t := NodeRemove(n.right.v, x);
+      n' := Some (Node(n.Contents - {x}, n.data, n.left, t));
+    } else if x == n.data {
+      if n.left == None && n.right == None {
+        n' := None;
+      } else if n.left == None {
+        n' := n.right;
+      } else if n.right == None {
+        n' := n.left;
+      } else {
+        // rotate
+        var min, r := RemoveMin(n.right.v);
+        n' := Some (Node(n.Contents - {x}, min, n.left, r));
+      }
     }
   }
 }
