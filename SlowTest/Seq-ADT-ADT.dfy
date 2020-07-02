@@ -26,18 +26,6 @@ lemma Props_add_associative () // (x + y) + z == x + (y + z)
   ensures forall x, y, z :: AbAdd(AbAdd(x, y), z) == AbAdd(x, AbAdd(y, z))
 lemma Props_add_identity () // x + 0 == 0 + x == x
   ensures forall x :: AbAdd(x, I0) == x
-  ensures forall x :: AbAdd(I0, x) == x
-lemma Props_sub_identity () // x - 0 == x
-  ensures forall x :: AbSub(x, I0) == x
-lemma Props_sub_add_is_sub () // z - (x + y) == z - x - y
-  ensures forall x, y, z :: AbSub(z, AbAdd(x, y)) == AbSub(AbSub(z, x), y);
-// lemma Props_sub_add_is_sub () // z - (x + y) == z - x - y
-//   ensures forall x, y, z :: AbSub(z, AbAdd(x, y)) == AbSub(AbSub(z, x), y);
-
-lemma Props_add_identity_param (x: AbInt) // x + 0 == 0 + x == x
-  ensures AbAdd(x, I0) == x
-  ensures AbAdd(I0, x) == x
-
 lemma Props_add_pos_is_pos () // x + Positive is Positive
   ensures forall x, a :: AbPos(a) ==> AbPos(AbAdd(x, a))
 lemma Props_add_pos_is_lt () // x < x + Positive
@@ -47,7 +35,7 @@ lemma Props_add_lt_is_lt () // x + a == y + b && a < b ==> x > y
 lemma Props_add2sub () // x + y == z ==> x = z - y && y = z - x
   ensures forall x, y, z :: AbAdd(x, y) == z <==> AbSub(z, y) == x
   ensures forall x, y, z :: AbAdd(x, y) == z <==> AbSub(z, x) == y
-  ensures forall x, y :: AbAdd(AbSub(x, y), y) == x 
+  ensures forall x, y :: AbAdd(AbSub(x, y), y) == x
   ensures forall x, y :: AbSub(AbAdd(x, y), y) == x
 lemma Props_gt2geq ()
   ensures forall x, y :: AbLt(x, y) <==> AbLt(AbAdd(x, I1), y) || AbAdd(x, I1) == y
@@ -74,11 +62,11 @@ function method AbSeqIn (v: AbInt, s: AbSeq<AbInt>) : bool
 function method AbSeqEmpty (): (s: AbSeq<AbInt>)
   ensures AbSeqLen(s) == I0
 
-function method AbSeqSingleton (i: AbInt): (s: AbSeq<AbInt>)
+function method AbSeqSingleton (v: AbInt): (s: AbSeq<AbInt>)
   ensures AbSeqLen(s) == I1
-  ensures AbLt(I0, I1) ==> AbSeqIndex(I0, s) == i
-  ensures AbSeqIn(i, s)
-  ensures forall x :: x != i ==> !AbSeqIn(x, s)
+  ensures AbLt(I0, I1) ==> AbSeqIndex(I0, s) == v
+  ensures AbSeqIn(v, s)
+  ensures forall x :: x != v ==> !AbSeqIn(x, s)
 
 function method AbSeqSlice (i: AbInt, j: AbInt, s: AbSeq<AbInt>) : (s' : AbSeq<AbInt>)
   requires AbLt(I0, i) || i == I0
@@ -124,41 +112,46 @@ lemma Seq_Props_concat_length_param (s1: AbSeq<AbInt>, s2: AbSeq<AbInt>) // |s1 
   ensures AbSeqLen(AbSeqConcat(s1, s2)) == AbAdd(AbSeqLen(s1), AbSeqLen(s2))
 lemma Seq_Props_concat_in () // x in s1 || x in s2 <==> x in s1 + s2
   ensures forall x: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> :: AbSeqIn(x, s1) || AbSeqIn(x, s2) <==> AbSeqIn(x, AbSeqConcat(s1, s2))
-lemma Seq_Props_concat_in_sub ()
+lemma Seq_Props_concat_in_half_all ()
   // x in s1 ==> x in s1 + s2
   ensures forall x: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> :: AbSeqIn(x, s1) ==> AbSeqIn(x, AbSeqConcat(s1, s2))
   // x in s2 ==> x in s1 + s2
   ensures forall x: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> :: AbSeqIn(x, s2) ==> AbSeqIn(x, AbSeqConcat(s1, s2))
-lemma Seq_Props_concat_in_part ()
+lemma Seq_Props_concat_in_half ()
   // x in s1 + s2 && x !in s1 ==> x in s2
   ensures forall x: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> :: AbSeqIn(x, AbSeqConcat(s1, s2)) && !AbSeqIn(x, s1) ==> AbSeqIn(x, s2)
   // x in s1 + s2 && x !in s2 ==> x in s1
   ensures forall x: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> :: AbSeqIn(x, AbSeqConcat(s1, s2)) && !AbSeqIn(x, s2) ==> AbSeqIn(x, s1)
-lemma Seq_Props_concat_idx1 ()
-  ensures forall i: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> ::
-    (AbLt(AbSeqLen(s1), AbSeqLen(AbSeqConcat(s1, s2)))) ==>
-    (forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)) ==>
-    (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s1)) ==>
-    AbSeqIndex(i, s1) == AbSeqIndex(i, AbSeqConcat(s1, s2))
-lemma Seq_Props_concat_idx2 ()
-  ensures forall i: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> ::
-    (forall i :: AbLt(I0, AbAdd(i, AbSeqLen(s1))) || I0 == AbAdd(i, AbSeqLen(s1))) ==>
-    (forall i :: AbLt(i, AbSeqLen(s2)) ==> AbLt(AbAdd(i, AbSeqLen(s1)), AbSeqLen(AbSeqConcat(s1, s2)))) ==>
-    (forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)) ==>
-    (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s2)) ==>
-    AbSeqIndex(i, s2) == AbSeqIndex(AbAdd(i, AbSeqLen(s1)), AbSeqConcat(s1, s2))
 
-lemma Seq_Props_index_half_1st ()
+lemma Seq_Props_concat_index_half_1st ()
   ensures forall i: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> ::
   (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s1)) ==> // 0 <= i < |s1|
   AbLt(i, AbSeqLen(AbSeqConcat(s1, s2))) ==> // i < |s1| < |s1 + s2|
   AbSeqIndex(i, s1) == AbSeqIndex(i, AbSeqConcat(s1, s2))
 
-lemma Seq_Props_index_half_2nd ()
+lemma Seq_Props_concat_index_half_2nd ()
   ensures forall i: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt> ::
-  (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s2)) ==> // 0 <= i < |s2|
-  AbLt(i, AbSeqLen(AbSeqConcat(s1, s2))) ==> // i < |s2| < |s1 + s2|
-  AbAdd(AbSeqIndex(i, s2), AbSeqLen(s1)) == AbSeqIndex(i, AbSeqConcat(s1, s2))
+    (AbLt(I0, AbAdd(i, AbSeqLen(s1))) || I0 == AbAdd(i, AbSeqLen(s1))) ==> // 0 <= i + |s1|
+    (AbLt(i, AbSeqLen(s2)) ==> AbLt(AbAdd(i, AbSeqLen(s1)), AbSeqLen(AbSeqConcat(s1, s2)))) ==> // i + |s1| < |s1 + s2|
+    (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s2)) ==>
+    AbSeqIndex(i, s2) == AbSeqIndex(AbAdd(i, AbSeqLen(s1)), AbSeqConcat(s1, s2))
+lemma Seq_Props_concat_index_half_2nd_param (i: AbInt, s1: AbSeq<AbInt>, s2: AbSeq<AbInt>)
+  ensures
+    (AbLt(I0, AbAdd(i, AbSeqLen(s1))) || I0 == AbAdd(i, AbSeqLen(s1))) ==> // 0 <= i + |s1|
+    (AbLt(i, AbSeqLen(s2)) ==> AbLt(AbAdd(i, AbSeqLen(s1)), AbSeqLen(AbSeqConcat(s1, s2)))) ==> // i + |s1| < |s1 + s2|
+    (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s2)) ==>
+    AbSeqIndex(i, s2) == AbSeqIndex(AbAdd(i, AbSeqLen(s1)), AbSeqConcat(s1, s2))
+
+lemma Seq_Props_concat_is_orig ()
+  ensures forall i: AbInt, s: AbSeq<AbInt> ::
+    (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s)) ==> // 0 <= i < |s|
+    s == AbSeqConcat(AbSeqSlice(I0, i, s), AbSeqSlice(i, AbSeqLen(s), s))
+
+lemma Seq_Props_concat_is_orig_param (i: AbInt, s: AbSeq<AbInt>)
+  ensures
+    (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s)) ==> // 0 <= i < |s|
+    s == AbSeqConcat(AbSeqSlice(I0, i, s), AbSeqSlice(i, AbSeqLen(s), s))
+
 
 lemma Seq_Props_in_empty () // empty seq
   ensures forall x: AbInt, s: AbSeq<AbInt> :: AbSeqLen(s) == I0 ==> !AbSeqIn(x, s)
@@ -199,21 +192,22 @@ function method AbSeqRemove (v: AbInt, s: AbSeq<AbInt>): (s': AbSeq<AbInt>)
   // var k := AbSeqGetIdx(v, s);
   // var half1 := AbSeqSlice(I0, k, s);
   // Props_add2sub ();
-  // Props_sub_identity ();
-  // Props_int_pos(1); Props_add_pos_is_lt ();
+  // Props_add_identity ();
+  // Props_all_nonneg (); Props_int_pos(1);
+  // Props_add_pos_is_lt ();
   // Props_lt_transitive ();
   // if AbLt(AbAdd(k, I1), len) then
   //   var half2 := AbSeqSlice(AbAdd(k, I1), len, s);
   //   Seq_Props_concat_length_param (half1, half2);
   //   Props_add_associative ();
   //   Props_lt_addition ();
-  //   Seq_Props_concat_idx1 ();
+  //   Seq_Props_concat_index_half_1st ();
   //   // assert forall i :: // s[0, k) keeps
   //   //   (AbLt(I0, i) || i == I0) &&
   //   //   AbLt(i, k) ==> 
   //   //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
   //   Props_add_commutative ();
-  //   Seq_Props_concat_idx2 ();
+  //   Seq_Props_concat_index_half_2nd ();
   //   // assert forall i :: // s(k, |s|-1] keeps
   //   //   (AbLt(k, i) || i == k) &&
   //   //   AbLt(i, AbSeqLen(s')) ==>
@@ -263,21 +257,22 @@ function method AbSeqRemoveIdx (k: AbInt, s: AbSeq<AbInt>) : (s': AbSeq<AbInt>)
   var len := AbSeqLen(s);
   var half1 := AbSeqSlice(I0, k, s);
   Props_add2sub ();
-  Props_sub_identity ();
-  Props_int_pos(1); Props_add_pos_is_lt ();
+  Props_add_identity ();
+  Props_all_nonneg (); Props_int_pos(1);
+  Props_add_pos_is_lt ();
   Props_lt_transitive ();
   if AbLt(AbAdd(k, I1), len) then
     var half2 := AbSeqSlice(AbAdd(k, I1), len, s);
     Seq_Props_concat_length_param (half1, half2);
     Props_add_associative ();
     Props_lt_addition ();
-    Seq_Props_concat_idx1 ();
+    Seq_Props_concat_index_half_1st ();
     // assert forall i :: // s[0, k) keeps
     //   (AbLt(I0, i) || i == I0) &&
     //   AbLt(i, k) ==> 
     //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
     Props_add_commutative ();
-    Seq_Props_concat_idx2 ();
+    Seq_Props_concat_index_half_2nd ();
     // assert forall i :: // s(k, |s|-1] keeps
     //   (AbLt(k, i) || i == k) &&
     //   AbLt(i, AbSeqLen(s')) ==>
@@ -298,10 +293,77 @@ function method AbSeqRemoveIdx (k: AbInt, s: AbSeq<AbInt>) : (s': AbSeq<AbInt>)
     //   AbSeqIndex(AbAdd(i, I1), s) == AbSeqIndex(i, s');
 }
 
-// method AbSeqUpdate (i: AbInt, v: AbInt, s: AbSeq<AbInt>) returns (s': AbSeq<AbInt>)
-//   requires (AbLt(I0, i) || i == I0) && AbLt(i, AbSeqLen(s))
-//   ensures AbSeqLen(s) == AbSeqLen(s')
-//   ensures AbSeqIndex(i, s') == v
-// {
-  
-// }
+function method AbSeqUpdate (k: AbInt, v: AbInt, s: AbSeq<AbInt>): (s': AbSeq<AbInt>)
+  requires AbLt(k, AbSeqLen(s))
+  requires AbLt(I0, k) || k == I0
+  ensures AbSeqLen(s) == AbSeqLen(s')
+  ensures AbSeqIndex(k, s') == v
+  ensures
+    // precond begins
+    (forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)) ==>
+    // precond ends
+    forall i :: // s[0, k) keeps
+      (AbLt(I0, i) || i == I0) &&
+      AbLt(i, k) ==>
+      AbSeqIndex(i, s) == AbSeqIndex(i, s')
+  ensures
+    // precond begins
+    (forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)) ==>
+    // precond ends
+    forall i :: // s(k, |s|-1] keeps
+      AbLt(k, i) &&
+      AbLt(i, AbSeqLen(s')) ==>
+      AbSeqIndex(i, s) == AbSeqIndex(i, s')
+{
+  var len := AbSeqLen(s);
+  var half1 := AbSeqSlice(I0, k, s);
+  Props_add2sub ();
+  Props_add_identity ();
+  Props_all_nonneg (); Props_int_pos(1);
+  Props_add_pos_is_lt ();
+  Props_lt_transitive ();
+  Props_add_commutative ();
+  if AbLt(AbAdd(k, I1), len) then
+    var half2 := AbSeqSlice(AbAdd(k, I1), len, s);
+    var half1' := AbSeqConcat(half1, AbSeqSingleton(v));
+    Seq_Props_concat_length_param (half1, AbSeqSingleton(v));
+    Seq_Props_concat_index_half_2nd_param (I0, half1, AbSeqSingleton(v));
+    // assert AbSeqIndex(k, half1') == v;
+    Seq_Props_concat_length_param (half1', half2);
+    // var s' := AbSeqConcat(half1', half2);
+    // assert len == AbSeqLen(s');
+    Props_lt_addition ();
+    Seq_Props_concat_index_half_1st ();
+    // assert forall i :: // s[0, k) keeps
+    //   (AbLt(I0, i) || i == I0) &&
+    //   AbLt(i, k) ==>
+    //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
+    Seq_Props_concat_is_orig_param (AbAdd(k, I1), s);
+    Seq_Props_concat_index_half_2nd ();
+    assert forall i :: // s(k, |s|-1] keeps
+      AbLt(k, i) && AbLt(i, AbSeqLen(s)) ==>
+      AbSeqIndex(i, s) == AbSeqIndex(AbSub(i, AbAdd(k, I1)), half2);
+    // assert forall i :: // s(k, |s|-1] keeps
+    //   AbLt(k, i) &&
+    //   AbLt(i, AbSeqLen(s')) ==>
+    //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
+    AbSeqConcat(half1', half2)
+  else
+    Props_lt_is_not_geq ();
+    Props_gt2geq ();
+    // var s' := AbSeqConcat(half1, AbSeqSingleton(v));
+    Seq_Props_concat_length_param (half1, AbSeqSingleton(v));
+    // assert AbSeqLen(s') == len;
+    Seq_Props_concat_index_half_1st ();
+    // assert forall i :: // s[0, k) keeps
+    //   (AbLt(I0, i) || i == I0) &&
+    //   AbLt(i, k) ==>
+    //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
+    // assert forall i :: // s(k, |s|-1] keeps
+    //   AbLt(k, i) &&
+    //   AbLt(i, AbSeqLen(s')) ==>
+    //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
+    Seq_Props_concat_index_half_2nd ();
+    // assert AbSeqIndex(k, s') == v;
+    AbSeqConcat(half1, AbSeqSingleton(v))
+}
