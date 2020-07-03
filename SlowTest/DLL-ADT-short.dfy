@@ -81,12 +81,28 @@ function method AbSeqGetIdx<X>(v: X, s: AbSeq<X>) : (i: AbInt)
   ensures AbLt(i, AbSeqLen(s))
   ensures AbSeqIndex(i, s) == v
 
-lemma Seq_Props_index_props<X> ()
-  ensures forall i: AbInt, x: AbInt, s: AbSeq<X> :: ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, i)) ==> (forall j: AbInt :: (AbLt(I0, AbAdd(i, j)) || I0 == AbAdd(i, j)) && AbLt(AbAdd(i, j), AbSeqLen(s)) && AbLt(x, AbAdd(i, j)))
-  ensures forall i: AbInt, x: AbInt, s: AbSeq<X> :: ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(i, x)) ==> (forall j: AbInt :: (AbLt(I0, AbAdd(i, j)) || I0 == AbAdd(i, j)) && AbLt(AbAdd(i, j), AbSeqLen(s)) && AbLt(AbAdd(i, j), x))
-lemma Seq_Props_index_props_jxs<X> (j: AbInt, x: AbInt, s: AbSeq<X>)
-  ensures forall i: AbInt :: ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, i)) ==> ((AbLt(I0, AbAdd(i, j)) || I0 == AbAdd(i, j)) && AbLt(AbAdd(i, j), AbSeqLen(s)) && AbLt(x, AbAdd(i, j)))
-  ensures forall i: AbInt :: ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(i, x)) ==> ((AbLt(I0, AbAdd(i, j)) || I0 == AbAdd(i, j)) && AbLt(AbAdd(i, j), AbSeqLen(s)) && AbLt(AbAdd(i, j), x))
+lemma Seq_Props_index_props ()
+  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
+    ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x)) ==> 
+    ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
+    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+    AbLt(AbSeqIndex(j, s'), x)
+  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
+    ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
+    ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
+    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+    AbLt(x, AbSeqIndex(j, s'))
+// lemma Seq_Props_index_props_xs (x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt>)
+//   ensures forall i: AbInt, j: AbInt ::
+//     ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x)) ==> 
+//     ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
+//     (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+//     AbLt(AbSeqIndex(j, s'), x)
+//   ensures forall i: AbInt, j: AbInt ::
+//     ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
+//     ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
+//     (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+//     AbLt(x, AbSeqIndex(j, s'))
 
 datatype Node<A> = Node(data:Option<A>, next:AbInt, prev:AbInt)
 datatype DList<A> = DList(
@@ -193,6 +209,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     else if AbLt(index, AbSeqIndex(x, g)) then AbSub(AbSeqIndex(x, g), I1)
     else AbSeqIndex(x, g) );
   var node := AbSeqIndex(p, nodes);
+  // precond for AbSeqIndex(node.prev, nodes)
   assume AbLt(I0, node.prev) || I0 == node.prev;
   assume AbLt(node.prev, AbSeqLen(nodes));
   var node_prev := AbSeqIndex(node.prev, nodes);
@@ -216,28 +233,35 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   Props_add2sub ();
   Props_int_pos(1);
   Props_add_pos_is_lt ();
+  Props_lt_addition ();
 
-  // NOTE: explicitly assert this assertion to make verification fast
-  assert forall i :: // s[0, k) keeps
-    (AbLt(I0, i) || I0 == i) && AbLt(i, index) ==> 
-    AbSeqIndex(i, f) == AbSeqIndex(i, f');
+  // assert forall i :: // s[0, k) keeps
+  //   (AbLt(I0, i) || I0 == i) && AbLt(i, index) ==> 
+  //   AbSeqIndex(i, f) == AbSeqIndex(i, f');
   // assert forall i :: // s(k, |s|-1] keeps
   //   AbLt(index, i) && AbLt(i, AbSeqLen(f')) ==>
   //   AbSeqIndex(AbAdd(i, I1), f) == AbSeqIndex(i, f');
-  Seq_Props_index_props_jxs (I1, I0, f);
-  Seq_Props_index_props_jxs (I1, AbSeqLen(nodes), f);
 
   // assert AbSeqLen(f') == AbSeqLen(s');
   // assert AbSeqLen(g') == AbSeqLen(nodes);
   // assert AbLt(I0, AbSeqLen(nodes));
   // assert AbSeqIndex(I0, g') == sentinel;
   // assert (AbLt(I0, p) || I0 == p) && AbLt(p, AbSeqLen(nodes));
-  // assert (forall i ::
+
+  Seq_Props_index_props ();
+  // Seq_Props_index_props_xs (I0, f, f');
+  // assert forall i ::
   //   (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(f')) ==>
-  //   (AbLt(I0, AbSeqIndex(i, f')) && AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes))) );
+  //   AbLt(I0, AbSeqIndex(i, f'));
+  // Seq_Props_index_props_xs (AbSeqLen(nodes), f, f');
+  // assert forall i ::
+  //   (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(f')) ==>
+  //   AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes));
+
   // assert (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f'), g')} ::
   //   (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(f')) ==>
   //   AbSeqIndex(AbSeqIndex(i, f'), g') == i );
+
   // assert (forall p ::
   //   (AbLt(I0, p) || I0 == p) && AbLt(p, AbSeqLen(g')) ==>
   //   && (AbLt(unused, AbSeqIndex(p, g')) || unused == AbSeqIndex(p, g')) && AbLt(AbSeqIndex(p, g'), AbSeqLen(s'))
@@ -263,6 +287,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   //       AbLt(AbSub(AbSeqLen(f'), I1), AbSeqLen(f')) ==> // precond: index < |f|
   //       AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqLen(f'), I1), f') ) // sentinel.prev == last
   //   );
+
   // assert Inv(l');
 }
 
@@ -272,11 +297,12 @@ function method AbSeqInit<X> (len: AbInt, func : AbInt --> X) : (s: AbSeq<X>)
   ensures forall i :: (AbLt(I0, i) || I0 == i) && AbLt(i, len) ==>
     AbSeqIndex(i, s) == func(i)
 
-function method AbSeqRemoveIdx<X> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
+function method AbSeqRemoveIdx<X(!new)> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
   requires AbLt(k, AbSeqLen(s))
   requires AbLt(I0, k) || I0 == k
   ensures AbSeqLen(s) == AbAdd(AbSeqLen(s'), I1)
   ensures AbSeqLen(s') == AbSub(AbSeqLen(s), I1)
+  ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
   ensures
     forall i :: // s[0, k) keeps
       (AbLt(I0, i) || I0 == i) && AbLt(i, k) ==>
