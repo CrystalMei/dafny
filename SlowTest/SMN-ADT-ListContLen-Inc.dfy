@@ -15,7 +15,7 @@ predicate AbIsZero (n: AbInt) { n == int2adt(0) }
 predicate AbPos (n: AbInt) { !AbIsZero(n) }
 // predicate AbNonNeg (n: AbInt) { true }
 
-function method AbLt(n: AbInt, m: AbInt) : bool
+function method AbLt(x: AbInt, y: AbInt) : bool
 function method AbInc1(n: AbInt): (r: AbInt)
 function method AbInc(n: AbInt, m: AbInt) : (r: AbInt)
 function method AbDec(n: AbInt, m: AbInt) : (r: AbInt)
@@ -48,8 +48,10 @@ lemma Props_inc_zero ()
   ensures forall x :: AbInc(x, int2adt(0)) == AbInc(int2adt(0), x) == x
 lemma Props_1inc1_is_2 ()
   ensures AbInc1(int2adt(1)) == int2adt(2)
-lemma Props_lt2gteq () // x < y <==> !x > y && x != y
+lemma Props_lt2gteq () // x < y <==> !x > y && x != y // Quantifier problem
   ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || x == y)
+lemma Props_lt2gteq_param (x: AbInt, y: AbInt) // x < y <==> !x > y && x != y
+  ensures AbLt(x, y) <==> !(AbLt(y, x) || x == y)
 lemma Props_inc2dec ()
   ensures forall x, y, z :: AbInc(x, y) == z ==> AbDec(z, x) == y && AbDec(z, y) == x
 lemma Props_gt0_is_geq1 ()
@@ -59,8 +61,10 @@ lemma Props_gt0_is_geq1_param (x: AbInt)
 
 lemma Props_lt_addition () // a < b ==> x + a < x + b
   ensures forall x, a, b:: AbLt(a, b) ==> AbLt(AbInc(x, a), AbInc(x, b))
-lemma Props_lt_transitive () // x < y < z
+lemma Props_lt_transitive () // x < y < z // Quantifier problem
   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+lemma Props_lt_transitive_param (x: AbInt, y: AbInt, z: AbInt) // x < y < z
+  ensures AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
 lemma Props_lt_inc_is_lt () // x + a < y ==> x < y
   ensures forall x, y, a :: AbLt(AbInc(x, a), y) ==> AbLt(x, y)
 
