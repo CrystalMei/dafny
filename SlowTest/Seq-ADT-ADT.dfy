@@ -160,10 +160,16 @@ lemma Seq_Props_in_idx<X> () // v in s ==> s[i] == v
   ensures forall v: X, s: AbSeq<X> :: AbSeqIn(v, s) ==>
     (exists i: AbInt :: (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbSeqIndex(i, s) == v )
 
-function method AbSeqRemove<X> (v: X, s: AbSeq<X>): (s': AbSeq<X>)
+lemma Seq_Props_slice_in<X> ()
+  ensures forall i: AbInt, j: AbInt, s: AbSeq<X>, v: X ::
+    (AbLt(I0, i) || i == I0) && (AbLt(j, AbSeqLen(s)) || j == AbSeqLen(s)) && (AbLt(i, j) || i == j) ==>
+    AbSeqIn(v, AbSeqSlice(i, j, s)) ==> AbSeqIn(v, s)
+
+function method AbSeqRemove<X(!new)> (v: X, s: AbSeq<X>): (s': AbSeq<X>)
   requires AbSeqIn(v, s)
   ensures AbSeqLen(s) == AbAdd(AbSeqLen(s'), I1)
   ensures AbSeqLen(s') == AbSub(AbSeqLen(s), I1)
+  ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
   ensures var k := AbSeqGetIdx(v, s);
     forall i :: // s[0, k) keeps
       (AbLt(I0, i) || I0 == i) && AbLt(i, k) ==>
@@ -186,11 +192,12 @@ function method AbSeqRemove<X> (v: X, s: AbSeq<X>): (s': AbSeq<X>)
   AbSeqRemoveIdx(k, s)
 }
 
-function method AbSeqRemoveIdx<X> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
+function method AbSeqRemoveIdx<X(!new)> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
   requires AbLt(k, AbSeqLen(s))
   requires AbLt(I0, k) || I0 == k
   ensures AbSeqLen(s) == AbAdd(AbSeqLen(s'), I1)
   ensures AbSeqLen(s') == AbSub(AbSeqLen(s), I1)
+  ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
   ensures
     forall i :: // s[0, k) keeps
       (AbLt(I0, i) || I0 == i) && AbLt(i, k) ==>
@@ -219,6 +226,7 @@ function method AbSeqRemoveIdx<X> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
   Props_lt_transitive ();
   if AbLt(AbAdd(k, I1), len) then
     var half2 := AbSeqSlice(AbAdd(k, I1), len, s);
+    // var s':= AbSeqConcat(half1, half2);
     Seq_Props_concat_length_param (half1, half2);
     Props_add_associative ();
     Props_lt_addition ();
@@ -234,12 +242,15 @@ function method AbSeqRemoveIdx<X> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
     //   AbLt(i, AbSeqLen(s')) ==>
     //   AbSeqIndex(AbAdd(i, I1), s) == 
     //   AbSeqIndex(i, s');
-    // AbSeqConcat(half1, half2)
+    Seq_Props_slice_in<X> ();
+    Seq_Props_concat_in<X> ();
+    // assert forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s);
     AbSeqConcat(half1, half2)
   else
     Props_ltgteq ();
     Props_gt2geq ();
-    half1
+    Seq_Props_slice_in<X> ();
+    // assert forall v :: AbSeqIn(v, half1) ==> AbSeqIn(v, s);
     // assert forall i :: // s[0, k) keeps
     //   (AbLt(I0, i) || I0 == i) &&
     //   AbLt(i, AbSub(len, I1)) ==> 
@@ -248,6 +259,7 @@ function method AbSeqRemoveIdx<X> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
     //   (AbLt(k, i) || i == k) &&
     //   AbLt(i, AbSeqLen(s')) ==>
     //   AbSeqIndex(AbAdd(i, I1), s) == AbSeqIndex(i, s');
+    half1
 }
 
 function method AbSeqUpdate<X> (k: AbInt, v: X, s: AbSeq<X>): (s': AbSeq<X>)
