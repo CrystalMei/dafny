@@ -1,42 +1,8 @@
 // RUN: %dafny /compile:3 "%s" > "%t"
 // RUN: %diff "%s.expect" "%t"
 
-module ADT{
-  export Ab provides AbInt, int2adt, AbAdd, AbDiv, Props_Pos
-            reveals AbIsZero, AbNonNeg, AbPos, Props_Pos'
+include "ADT-int.dfy"
 
-  type AbInt(!new)(==) // = int
-  function method int2adt (n: int) : AbInt
-  predicate AbIsZero (n: AbInt) { n == int2adt(0) }
-  predicate AbNonNeg (n: AbInt) { true }
-  predicate AbPos (n: AbInt) { AbNonNeg(n) && !AbIsZero(n) }
-
-  // tedious function
-  // TODO: if we can say int2adt(0) is unique, shorten this func!
-  function method AbAdd (n: AbInt, m: AbInt) : (r: AbInt)
-    ensures n == int2adt(8) && m == int2adt(1) ==> r == int2adt(9)
-    ensures n == int2adt(9) && m == int2adt(1) ==> r == int2adt(10)
-    ensures n == int2adt(11) && m == int2adt(10) ==> r == int2adt(21)
-
-  function method AbDiv (n: AbInt, m: AbInt) : (r: AbInt)
-    requires m != int2adt(0)
-    ensures n == int2adt(100) && m == int2adt(9) ==> r == int2adt(11)
-    ensures n == int2adt(100) && m == int2adt(10) ==> r == int2adt(10)
-    
-  lemma Props_Pos()
-    // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x) // w/ or w/o this, no change.
-    ensures forall x, y :: AbPos(y) ==> AbPos(AbAdd(x, y))
-  
-  predicate Props_Pos' () {forall x, y :: AbPos(x) ==> AbPos(AbAdd(y, x))}
-}
-
-import opened ADT`Ab
-
-// // Note: this need to be outside
-// lemma Props_Pos()
-//   // ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x) // w/ or w/o this, no change.
-//   ensures forall x, y :: AbPos(y) ==> AbPos(AbAdd(x, y))
-  
 method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)
   requires N == |a|
   requires forall j :: 0 <= j < N ==> f.requires(j,a[j])
@@ -58,38 +24,57 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   }
 }
 
+import opened ADT`AB
+import opened ADT'
+
+/* Specific Properties */
+lemma Concrete_AbAdd ()
+  ensures AbAdd(I2A(8), I1) == I2A(9)
+  ensures AbAdd(I2A(9), I1) == I2A(10)
+  ensures AbAdd(I2A(11), I2A(10)) == I2A(21)
+
+lemma Concrete_AbDiv ()
+  requires I2A(9) != I0
+  requires I2A(10) != I0
+  ensures AbDiv(I2A(100), I2A(9)) == I2A(11)
+  ensures AbDiv(I2A(100), I2A(10)) == I2A(10)
+
 method Main()
 {
-  assume AbPos(int2adt(1));
-  Props_Pos ();
-  assert AbPos(AbAdd(int2adt(1), int2adt(1)));
+  Props_pos (I1);
+  Props_notneg ();
+  Props_add_pos_is_pos ();
+  Props_lt_gt_eq ();
+
+  Concrete_AbAdd ();
+  Concrete_AbDiv ();
+
   // v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  var v := seq(10, _ => int2adt(0));
+  var v := seq(10, _ => I0);
   // v' = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  var v' := VectorUpdate(10, v, (i,_) => int2adt(i));
+  var v' := VectorUpdate(10, v, (i,_) => I2A(i));
   assert |v'| == |v|;
   PrintSeq(v');
   // v' = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  v' := VectorUpdate(10, v', (_,x) => AbAdd(x, int2adt(1)));
+  v' := VectorUpdate(10, v', (_,x) => AbAdd(x, I2A(1)));
   PrintSeq(v');
-  assume Props_Pos'();
-  assert (forall x :: x in v' ==> !AbIsZero(x));
+  // assert (forall x :: x in v' ==> !AbIsZero(x));
   // v' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
-  v' := VectorUpdate(10, v', (_,x) requires !AbIsZero(x) => AbDiv(int2adt(100), x));
+  v' := VectorUpdate(10, v', (_,x) requires !AbIsZero(x) => AbDiv(I2A(100), x));
   PrintSeq(v');
 
   // u = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  var u := seq(10, _ => int2adt(0));
+  var u := seq(10, _ => I2A(0));
   // u' = [100, 50, 33, 25, 20, 16, 14, 12, 11, 10]
   u := VectorUpdate(10, u, (i,_) requires 0 <= i < 10 => v'[i]);
   PrintSeq(u);
 
   // z = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-  var z := seq(9, _ => int2adt(0));
+  var z := seq(9, _ => I2A(0));
   // z' = [150, 83, 58, 45, 35, 30, 26, 23, 21]
   z := VectorUpdate(9, z, (i,_) requires 0 <= i < 9 => AbAdd(u[i], u[i+1]));
   PrintSeq(z);
-  assert z[8] == int2adt(21);
+  assert z[8] == I2A(21);
 }
 
 method PrintSeq(a : seq<AbInt>)
