@@ -5,7 +5,6 @@ include "ADT-int.dfy"
 datatype List<X> = Nil | Cons(head: X, tail: List<X>)
 
 import opened ADT`Basic
-import opened ADT_Int
 import opened ADT_Set
 
 function method Length(xs: List<AbInt>): AbInt
@@ -137,7 +136,8 @@ function method SMN(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_adt_dt_lt (llen, len);
       SMN(L, n, llen)
     else
-      Props_lt_is_not_leq_p2 (llen, AbDiv2(len));
+      Props_lt_is_not_leq ();
+      // Props_lt_is_not_leq_p2 (llen, AbDiv2(len));
       // 0 < len / 2
       Props_div_pos2 (); // x >= 2 ==> x / 2 > 0
       Props_lt_transitive (); // 0 < len / 2 < llen
@@ -161,7 +161,7 @@ lemma SmallestMissingNumber_Correct(xs: List<AbInt>)
 {
   forall x | x in Elements(xs)
     ensures AbLeq(I0, x)
-    { Props_notneg(); }
+    { assume AbNotNeg(x); }
   SMN_Correct(xs, I0, Length(xs));
 }
 
@@ -197,7 +197,8 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       SMN_Correct(L, n, llen);
 
       Props_lt_addition (); // a < b ==> x + a < x + b: Lt(s, n+llen) ==> Lt(s, n+len)
-      Props_add_lt_is_lt_p4(s, n, llen, len); // x = y + a && a < b ==> x < y + b: s==n+llen ==> Lt(s, n+len)
+      Props_add_lt_is_lt (); // x = y + a && a < b ==> x < y + b: s==n+llen ==> Lt(s, n+len)
+      // Props_add_lt_is_lt_p4(s, n, llen, len); 
     } else {
       // 0 < len / 2
       Props_div_pos2 (); // x >= 2 ==> x / 2 > 0
@@ -211,7 +212,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
 
       Props_add_notneg_is_leq (); // x + a == y ==> x < y || x == y: n+llen == s ==> Lt(n, s)
       Props_add_sub_is_add_p3(n, len, llen); // no trigger loop
-      forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
+      forall x | AbLeqLt(x, n, s)
         ensures x in Elements(xs)
       {
         if AbLt(x, AbAdd(n, llen)) {
@@ -224,9 +225,10 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
     Props_pos(I1); // 0 < 1
     Props_2is1add1 ();
     Props_lt_is_not_leq ();
-    Props_one_in_bound_p2 (I1, len);
-    Props_add_notneg_is_leq (); // x + a == y ==> x <= y
     Props_add_pos_is_lt (); // x < x + Positive
+    Props_add_notneg_is_leq (); // x + a == y ==> x <= y
+    // Props_one_in_bound (); // not working
+    Props_one_in_bound_p2 (I1, len);
     if xs.head == n {
       Props_add_identity ();
       Props_one_in_bound ();
@@ -252,7 +254,7 @@ function method SMN'(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
       Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
-      Props_div_leq_p2 (len, I1);  // len >= 1 ==> (len+1)/2 <= len
+      Props_div_leq (); // len >= 1 ==> (len+1)/2 <= len
       Props_lt_transitive (); // llen < (len+1)/2 < len
       Props_adt_dt_lt (llen, len);
       SMN'(L, n, llen)
@@ -301,13 +303,13 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
       Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
-      Props_div_leq_p2 (len, I1);  // len >= 1 ==> (len+1)/2 <= len
+      Props_div_leq (); // len >= 1 ==> (len+1)/2 <= len
       Props_lt_transitive (); // llen < (len+1)/2 < len
       Props_adt_dt_lt (llen, len);
       SMN'_Correct(L, n, llen);
 
       Props_lt_addition (); // a < b ==> x + a < x + b: Lt(s, n+llen) ==> Lt(s, n+len)
-      Props_add_lt_is_lt_p4(s, n, llen, len); // x = y + a && a < b ==> x < y + b: s==n+llen ==> Lt(s, n+len)
+      Props_add_lt_is_lt(); // x = y + a && a < b ==> x < y + b: s==n+llen ==> Lt(s, n+len)
     } else {
       Props_pos(I1); // 0 < 1
       Props_notneg();
@@ -321,11 +323,12 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_adt_dt_lt (AbSub(len, llen), len);
       Props_add2sub ();
       var s := SMN'(R, AbAdd(n, llen), AbSub(len, llen));
+      // Props_lt_is_not_leq ();
       Props_lt_is_not_leq_py (AbAdd(n, llen));
       SMN'_Correct(R, AbAdd(n, llen), AbSub(len, llen));
 
       Props_add_sub_is_add_p3(n, len, llen); // no trigger loop
-      forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
+      forall x | AbLeqLt(x, n, s)
         ensures x in Elements(xs)
       {
         if AbLt(x, AbAdd(n, llen)) {
@@ -351,7 +354,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
       Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
-      Props_div_add1_leq_p1 (len);
+      Props_div_add1_leq (); // Props_div_add1_leq_p1 (len);
       Props_lt_transitive ();
       Props_adt_dt_lt (llen, len);
       SMN''(L, n, llen)
@@ -399,13 +402,13 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
       Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
-      Props_div_add1_leq_p1 (len);
+      Props_div_add1_leq (); // Props_div_add1_leq_p1 (len);
       Props_lt_transitive ();
       Props_adt_dt_lt (llen, len);
       SMN''_Correct(L, n, llen);
 
       Props_lt_addition (); // a < b ==> x + a < x + b: Lt(s, n+llen) ==> Lt(s, n+len)
-      Props_add_lt_is_lt_p4(s, n, llen, len); // x = y + a && a < b ==> x < y + b: s==n+llen ==> Lt(s, n+len)
+      Props_add_lt_is_lt(); // x = y + a && a < b ==> x < y + b: s==n+llen ==> Lt(s, n+len)
     } else {
       Props_pos(I1); // 0 < 1
       Props_notneg ();
@@ -422,7 +425,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       SMN''_Correct(R, AbAdd(n, llen), AbSub(len, llen));
 
       Props_add_sub_is_add_p3(n, len, llen); // no trigger loop
-      forall x | (AbLt(n, x) || n == x) && AbLt(x, s)
+      forall x | AbLeqLt(x, n, s)
         ensures x in Elements(xs)
       {
         if AbLt(x, AbAdd(n, llen)) {

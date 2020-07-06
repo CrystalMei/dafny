@@ -15,11 +15,37 @@ module ADT {
       /* Addition */
       Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
       Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
+      Props_add2sub_p3, Props_sub2add_p3, 
+      Props_add_sub_is_add_p3, Props_add_sub_is_orig_p2,
+
+      /* Divide 2 */
+      Props_div_pos1_p1, Props_div_pos2_p1, Props_div_zero_p1, Props_div_lt_p1, Props_div_leq_p2, Props_div_add1_leq_p1
+    reveals
+      Nat, I0, I1, I2,
+      AbPos, AbIsZero, AbNotNeg
+
+  export Ultra
+    provides
+      Props_adt_dt_lt,
+      /* Properties */
+      Props_one_in_bound_p2, Props_2is1add1,
+
+      /* Less Than */
+      Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
+      Props_lt2leq_p2, Props_leq2lt_p2,
+      Props_lt_addition_p3, Props_lt_transitive_p3,
+      Props_lt_add_notneg_p3,
+
+      /* Addition */
+      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
+      Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
       Props_add2sub_p3, Props_add_sub_is_add_p3, Props_add_sub_is_orig_p2,
 
       /* Divide 2 */
       Props_div_pos1_p1, Props_div_pos2_p1, Props_div_zero_p1, Props_div_lt_p1, Props_div_leq_p2, Props_div_add1_leq_p1
     reveals
+      AbInt, I2A, A2D,
+      AbLt, AbAdd, AbSub, AbDiv2, AbDiv, AbLeq, AbLtLt, AbLeqLt,
       Nat, I0, I1, I2,
       AbPos, AbIsZero, AbNotNeg
 
@@ -65,7 +91,9 @@ module ADT {
     ensures I2 == AbAdd(I1, I1)
     { }
   lemma Props_one_in_bound_p2 (a: AbInt, x: AbInt)
-    ensures AbLeq(a, x) && AbLt(x, AbAdd(a, I1)) ==> x == a
+    requires AbLeq(a, x)
+    requires AbLt(x, AbAdd(a, I1))
+    ensures x == a
     { }
 
   lemma Props_lt_gt_eq_p2 (x: AbInt, y: AbInt)
@@ -79,26 +107,33 @@ module ADT {
     { }
   lemma Props_lt2leq_p2 (x: AbInt, y: AbInt)
     // x < y <==> x + 1 <= y <==> x <= y - 1
-    ensures AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
-    ensures AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
+    requires AbLt(x, y)
+    ensures AbLeq(AbAdd(x, I1), y)
+    ensures AbLeq(x, AbSub(y, I1))
 
   lemma Props_leq2lt_p2 (x: AbInt, y: AbInt)
     // x <= y <==> x - 1 < y <==> x < y + 1
-    ensures AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
-    ensures AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
+    requires AbLeq(x, y)
+    ensures AbLt(AbSub(x, I1), y)
+    ensures AbLt(x, AbAdd(y, I1))
     { }
 
   lemma Props_lt_addition_p3 (x: AbInt, y: AbInt, a: AbInt)
     // x < y ==> x + a < y + a
-    ensures AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
+    requires AbLt(x, y)
+    ensures AbLt(AbAdd(x, a), AbAdd(y, a))
     { }
   lemma Props_lt_transitive_p3 (x: AbInt, y: AbInt, z: AbInt)
     // x < y < z
-    ensures AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+    requires AbLt(x, y)
+    requires AbLt(y, z)
+    ensures AbLt(x, z)
     { }
   lemma Props_lt_add_notneg_p3 (x: AbInt, y: AbInt, a: AbInt)
     // x + a < y ==> x < y
-    ensures AbNotNeg(a) && AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
+    requires AbNotNeg(a)
+    requires AbLt(AbAdd(x, a), y)
+    ensures AbLt(x, y)
     { }
 
   lemma Props_add_commutative_p2 (x: AbInt, y: AbInt)
@@ -120,24 +155,36 @@ module ADT {
 
   lemma Props_add_lt_is_lt_p4 (x: AbInt, y: AbInt, a: AbInt, b: AbInt)
     // x = y + a && a < b ==> x < y + b
-    ensures x == AbAdd(y, a) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
+    requires x == AbAdd(y, a)
+    requires AbLt(a, b)
+    ensures AbLt(x, AbAdd(y, b))
     { }
   lemma Props_add_notneg_is_leq_p3 (x: AbInt, y: AbInt, a: AbInt)
     //  x + NotNeg == y ==> x <= y
-    ensures AbNotNeg(a) && (AbAdd(x, a) == y) ==> AbLeq(x, y)
+    requires AbNotNeg(a) 
+    requires AbAdd(x, a) == y
+    ensures AbLeq(x, y)
     { }
   lemma Props_add_pos_is_lt_p2 (x: AbInt, a: AbInt)
     // x < x + Positive (x + Positive != x)
-    ensures AbPos(a) ==> AbLt(x, AbAdd(x, a)); // AbAdd(x, a) != x
+    requires AbPos(a)
+    ensures AbLt(x, AbAdd(x, a)); // AbAdd(x, a) != x
     { }
   lemma Props_add_pos_is_pos_p2 (x: AbInt, a: AbInt)
     // NotNeg + Positive is Positive
     requires AbNotNeg(x)
-    ensures AbPos(a) ==> AbPos(AbAdd(x, a))
+    requires AbPos(a)
+    ensures AbPos(AbAdd(x, a))
     { }
   lemma Props_add2sub_p3 (x: AbInt, y: AbInt, z: AbInt)
     // x + y == z ==> x = z - y && y = z - x
-    ensures AbAdd(x, y) == z <==> AbSub(z, y) == x && AbSub(z, x) == y
+    requires AbAdd(x, y) == z
+    ensures AbSub(z, x) == y
+    { }
+  lemma Props_sub2add_p3 (x: AbInt, y: AbInt, z: AbInt)
+    // x + y == z ==> x = z - y && y = z - x
+    requires AbSub(z, x) == y
+    ensures AbAdd(x, y) == z
     { }
   lemma Props_add_sub_is_orig_p2 (x: AbInt, y: AbInt)
     // x + y == z ==> x = z - y && y = z - x
@@ -151,166 +198,35 @@ module ADT {
 
   lemma Props_div_pos2_p1 (x: AbInt)
     // x / 2 is Positive <==> x >= 2
-    ensures AbLeq(I2, x) <==> AbPos(AbDiv2(x))
+    requires AbLeq(I2, x) 
+    ensures AbPos(AbDiv2(x))
     { }
   lemma Props_div_pos1_p1 (x: AbInt)
     // (x + 1) / 2 is Positive <==> x >= 1
-    ensures AbLeq(I1, x) <==> AbPos(AbDiv2(AbAdd(x, I1)))
+    requires AbLeq(I1, x)
+    ensures AbPos(AbDiv2(AbAdd(x, I1)))
     { }
   lemma Props_div_zero_p1 (x: AbInt)
     // 1 / 2 == 0 and 0 / 2 == 0
-    ensures x == I0 || x == I1 <==> AbDiv2(x) == I0
+    requires x == I0 || x == I1
+    ensures AbDiv2(x) == I0
     { }
   lemma Props_div_lt_p1 (x: AbInt)
     // I2 <= x ==> x / 2 < x
-    ensures AbLeq(I2, x) ==> AbLt(AbDiv2(x), x)
+    requires AbLeq(I2, x)
+    ensures AbLt(AbDiv2(x), x)
     { }
   lemma Props_div_leq_p2 (x: AbInt, y: AbInt)
     // y <= x ==> (x + y) / 2 <= x
-    ensures AbLeq(y, x) ==> AbLeq(AbDiv2(AbAdd(x, y)), x)
+    requires AbLeq(y, x)
+    ensures AbLeq(AbDiv2(AbAdd(x, y)), x)
     { }
   lemma Props_div_add1_leq_p1 (x: AbInt)
     // 1 <= x ==> (x / 2 + 1) <= x
-    ensures AbLeq(I1, x) ==> AbLeq(AbAdd(AbDiv2(x), I1), x)
+    requires AbLeq(I1, x)
+    ensures AbLeq(AbAdd(AbDiv2(x), I1), x)
     { }
 }
-
-module ADT_Int
-{
-  import opened ADT`Basic
-
-  // Note: Props_notneg () might be an assumption
-  lemma Props_notneg ()
-    ensures forall x :: AbNotNeg(x)
-  // Note: Props_pos () might be an assumption
-  lemma Props_pos (x: AbInt)
-    ensures AbPos(x)
-
-  lemma Props_one_in_bound ()
-    ensures forall a, x :: AbLeqLt(x, a, AbAdd(a, I1)) ==> x == a
-    { forall a, x { Props_one_in_bound_p2(a, x); } }
-  
-  lemma Props_one_in_bound_p1 (a: AbInt)
-    ensures forall x :: AbLeqLt(x, a, AbAdd(a, I1)) ==> x == a
-    { forall x { Props_one_in_bound_p2(a, x); } }
-  
-  lemma Props_lt_gt_eq ()
-    // x < y or x < y or x == y
-    ensures forall x, y :: AbLt(x, y) || AbLt(y, x) || x == y
-    { forall x, y { Props_lt_gt_eq_p2(x, y); } }
-  lemma Props_lt_is_not_leq ()
-    // x < y or x < y or x == y
-    ensures forall x, y :: AbLt(x, y) <==> !AbLeq(y, x)
-    ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
-    { forall x, y { Props_lt_is_not_leq_p2(x, y); } }
-  lemma Props_lt_is_not_leq_px (x: AbInt)
-    // x < y or x < y or x == y
-    ensures forall y :: AbLt(x, y) <==> !AbLeq(y, x)
-    ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
-    { forall y { Props_lt_is_not_leq_p2(x, y); } }
-  lemma Props_lt_is_not_leq_py (y: AbInt)
-    // x < y or x < y or x == y
-    ensures forall x :: AbLt(x, y) <==> !AbLeq(y, x)
-    ensures forall x :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
-    { forall x { Props_lt_is_not_leq_p2(x, y); } }
-  
-  lemma Props_lt2leq ()
-    // x < y <==> x + 1 <= y <==> x <= y - 1
-    ensures forall x, y :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
-    ensures forall x, y :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
-    { forall x, y { Props_lt2leq_p2(x, y); } }
-  lemma Props_leq2lt ()
-    ensures forall x, y :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
-    ensures forall x, y :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
-    { forall x, y { Props_leq2lt_p2(x, y); } }
-
-  lemma Props_lt_addition ()
-    // x < y ==> x + a < y + a
-    ensures forall x, y, a :: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
-    { forall x, y, a { Props_lt_addition_p3(x, y, a); } }
-  lemma Props_lt_transitive ()
-    // x < y < z
-    ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
-    { forall x, y, z {Props_lt_transitive_p3(x, y, z); } }
-  lemma Props_lt_add_notneg ()
-    // x + a < y ==> x < y
-    ensures forall x, y, a :: AbNotNeg(a) && AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
-    { forall x, y, a { Props_lt_add_notneg_p3(x, y, a); } }
-
-  lemma Props_add_commutative ()
-    // x + y == y + x
-    ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x)
-    { forall x, y { Props_add_commutative_p2(x, y); } }
-  lemma Props_add_associative ()
-    // (x + y) + z == x + (y + z)
-    ensures forall x, y, z :: AbAdd(AbAdd(x, y), z) == AbAdd(x, AbAdd(y, z))
-    { forall x, y, z { Props_add_associative_p3(x, y, z); } }
-  lemma Props_add_addition ()
-    // x + a == y + a ==> x == y
-    ensures forall x, y, a :: AbAdd(x, a) == AbAdd(y, a) <==> x == y
-    { forall x, y, a { Props_add_addition_p3(x, y, a); } }
-  lemma Props_add_identity ()
-    // x + 0 == 0 + x == x
-    ensures forall x :: AbAdd(x, I0) == AbAdd(I0, x) == x
-    { forall x { Props_add_identity_p1(x); } }
-
-  lemma Props_add_lt_is_lt ()
-    // x = y + a && a < b ==> x < y + b
-    ensures forall x, y, a, b :: x == AbAdd(y, a) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
-    { forall x, y, a, b { Props_add_lt_is_lt_p4(x, y, a, b); } }
-  lemma Props_add_notneg_is_leq ()
-    //  x + NotNeg == y ==> x <= y
-    ensures forall x, y, a :: AbNotNeg(a) && (AbAdd(x, a) == y) ==> AbLeq(x, y)
-    { forall x, y, a { Props_add_notneg_is_leq_p3(x, y, a); } }
-  lemma Props_add_pos_is_lt ()
-    // x < x + Positive (x + Positive != x)
-    ensures forall x, a :: AbPos(a) ==> AbLt(x, AbAdd(x, a)); // AbAdd(x, a) != x
-    { forall x, a { Props_add_pos_is_lt_p2(x, a); } }
-  lemma Props_add_pos_is_pos ()
-    // NotNeg + Positive is Positive
-    requires forall x :: AbNotNeg(x)
-    ensures forall x, a :: AbPos(a) ==> AbPos(AbAdd(x, a))
-    { forall x, a { Props_add_pos_is_pos_p2(x, a); } }
-  lemma Props_add2sub ()
-    // x + y == z ==> x = z - y && y = z - x
-    ensures forall x, y, z :: AbAdd(x, y) == z <==> AbSub(z, y) == x && AbSub(z, x) == y
-    { forall x, y, z { Props_add2sub_p3(x, y, z); } }
-  lemma Props_add_sub_is_orig ()
-    // x + y == z ==> x = z - y && y = z - x
-    ensures forall x, y :: AbAdd(AbSub(x, y), y) == x
-    ensures forall x, y :: AbSub(AbAdd(x, y), y) == x
-    { forall x, y { Props_add_sub_is_orig_p2(x, y); } }
-  lemma Props_add_sub_is_add ()
-    // x + b + (a - b) == x + a
-    ensures forall x, a, b :: AbAdd(AbAdd(x, b), AbSub(a, b)) == AbAdd(x, a)
-    { forall x, a, b { Props_add_sub_is_add_p3(x, a, b); } }
-
-  lemma Props_div_pos2 ()
-    // x / 2 is Positive <==> x >= 2
-    ensures forall x :: AbLeq(I2, x) <==> AbPos(AbDiv2(x))
-    { forall x { Props_div_pos2_p1(x); } }
-  lemma Props_div_pos1 ()
-    // (x + 1) / 2 is Positive <==> x >= 1
-    ensures forall x :: AbLeq(I1, x) <==> AbPos(AbDiv2(AbAdd(x, I1)))
-    { forall x { Props_div_pos1_p1(x); } }
-  lemma Props_div_zero ()
-    // 1 / 2 == 0 and 0 / 2 == 0
-    ensures forall x :: x == I0 || x == I1 <==> AbDiv2(x) == I0
-    { forall x { Props_div_zero_p1(x); } }
-  lemma Props_div_lt ()
-    // I2 <= x ==> x / 2 < x
-    ensures forall x :: AbLeq(I2, x) ==> AbLt(AbDiv2(x), x)
-    { forall x { Props_div_lt_p1(x); } }
-  lemma Props_div_leq ()
-    // y <= x ==> (x + y) / 2 <= x
-    ensures forall x, y :: AbLeq(y, x) ==> AbLeq(AbDiv2(AbAdd(x, y)), x)
-    { forall x, y { Props_div_leq_p2(x, y); } }
-  lemma Props_div_add1_leq ()
-    // 1 <= x ==> (x / 2 + 1) <= x
-    ensures forall x :: AbLeq(I1, x) ==> AbLeq(AbAdd(AbDiv2(x), I1), x)
-    { forall x { Props_div_add1_leq_p1(x); } }
-}
-
 module ADT_Set {
   import opened ADT`Basic
 
@@ -337,3 +253,174 @@ module ADT_Set {
     ensures forall x: AbInt, A: set<AbInt> :: x in A ==> AbSetLen(A) == AbAdd(AbSetLen(A - {x}), I1)
 
 }
+
+import opened ADT`Basic
+
+// Note: Props_notneg () might be an assumption
+lemma Props_notneg ()
+  ensures forall x :: AbNotNeg(x)
+
+// Note: Props_pos () might be an assumption
+lemma Props_pos (x: AbInt)
+  ensures AbPos(x)
+
+lemma Props_one_in_bound ()
+  ensures forall a, x :: AbLeqLt(x, a, AbAdd(a, I1)) ==> x == a
+  { forall a, x | AbLeqLt(x, a, AbAdd(a, I1))
+    { Props_one_in_bound_p2(a, x); } }
+lemma Props_one_in_bound_x (a: AbInt)
+  ensures forall x :: AbLeqLt(x, a, AbAdd(a, I1)) ==> x == a
+  { forall x | AbLeqLt(x, a, AbAdd(a, I1))
+    { Props_one_in_bound_p2(a, x); } }
+
+lemma Props_lt_gt_eq ()
+  // x < y or x < y or x == y
+  ensures forall x, y :: AbLt(x, y) || AbLt(y, x) || x == y
+  { forall x, y { Props_lt_gt_eq_p2(x, y); } }
+
+lemma Props_lt_is_not_leq ()
+  // x < y or x < y or x == y
+  ensures forall x, y :: AbLt(x, y) <==> !AbLeq(y, x)
+  ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
+  { forall x, y { Props_lt_is_not_leq_p2(x, y); } }
+
+lemma Props_lt_is_not_leq_px (x: AbInt)
+  // x < y or x < y or x == y
+  ensures forall y :: AbLt(x, y) <==> !AbLeq(y, x)
+  ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
+  { forall y { Props_lt_is_not_leq_p2(x, y); } }
+lemma Props_lt_is_not_leq_py (y: AbInt)
+  // x < y or x < y or x == y
+  ensures forall x :: AbLt(x, y) <==> !AbLeq(y, x)
+  ensures forall x :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
+  { forall x { Props_lt_is_not_leq_p2(x, y); } }
+
+lemma Props_lt2leq ()
+  // x < y <==> x + 1 <= y <==> x <= y - 1
+  ensures forall x, y :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
+  ensures forall x, y :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
+  { forall x, y | AbLt(x, y)
+    { Props_lt2leq_p2(x, y); } }
+
+lemma Props_leq2lt ()
+  // x <= y <==> x - 1 < y <==> x < y + 1
+  ensures forall x, y :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
+  ensures forall x, y :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
+  { forall x, y | AbLeq(x, y)
+    { Props_leq2lt_p2(x, y); } }
+
+lemma Props_lt_addition ()
+  // x < y ==> x + a < y + a
+  ensures forall x, y, a :: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
+  { forall x, y, a | AbLt(x, y)
+    { Props_lt_addition_p3(x, y, a); } }
+
+lemma Props_lt_transitive ()
+  // x < y < z
+  ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+  { forall x, y, z | AbLt(x, y) && AbLt(y, z) 
+    {Props_lt_transitive_p3(x, y, z); } }
+
+lemma Props_lt_add_notneg ()
+  // x + a < y ==> x < y
+  ensures forall x, y, a :: AbNotNeg(a) && AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
+  { forall x, y, a | AbNotNeg(a) && AbLt(AbAdd(x, a), y)
+    { Props_lt_add_notneg_p3(x, y, a); } }
+
+lemma Props_add_commutative ()
+  // x + y == y + x
+  ensures forall x, y :: AbAdd(x, y) == AbAdd(y, x)
+  { forall x, y { Props_add_commutative_p2(x, y); } }
+
+lemma Props_add_associative ()
+  // (x + y) + z == x + (y + z)
+  ensures forall x, y, z :: AbAdd(AbAdd(x, y), z) == AbAdd(x, AbAdd(y, z))
+  { forall x, y, z { Props_add_associative_p3(x, y, z); } }
+
+lemma Props_add_addition ()
+  // x + a == y + a ==> x == y
+  ensures forall x, y, a :: AbAdd(x, a) == AbAdd(y, a) <==> x == y
+  { forall x, y, a { Props_add_addition_p3(x, y, a); } }
+
+lemma Props_add_identity ()
+  // x + 0 == 0 + x == x
+  ensures forall x :: AbAdd(x, I0) == AbAdd(I0, x) == x
+  { forall x { Props_add_identity_p1(x); } }
+
+lemma Props_add_lt_is_lt ()
+  // x = y + a && a < b ==> x < y + b
+  ensures forall x, y, a, b :: x == AbAdd(y, a) && AbLt(a, b) ==> AbLt(x, AbAdd(y, b))
+  { forall x, y, a, b | x == AbAdd(y, a) && AbLt(a, b)
+    { Props_add_lt_is_lt_p4(x, y, a, b); } }
+
+lemma Props_add_notneg_is_leq ()
+  //  x + NotNeg == y ==> x <= y
+  ensures forall x, y, a :: AbNotNeg(a) && (AbAdd(x, a) == y) ==> AbLeq(x, y)
+  { forall x, y, a | AbNotNeg(a) && (AbAdd(x, a) == y)
+    { Props_add_notneg_is_leq_p3(x, y, a); } }
+
+lemma Props_add_pos_is_lt ()
+  // x < x + Positive (x + Positive != x)
+  ensures forall x, a :: AbPos(a) ==> AbLt(x, AbAdd(x, a)); // AbAdd(x, a) != x
+  { forall x, a | AbPos(a)
+    { Props_add_pos_is_lt_p2(x, a); } }
+  
+lemma Props_add_pos_is_pos ()
+  // NotNeg + Positive is Positive
+  requires forall x :: AbNotNeg(x)
+  ensures forall x, a :: AbPos(a) ==> AbPos(AbAdd(x, a))
+  { forall x, a | AbPos(a)
+    { Props_add_pos_is_pos_p2(x, a); } }
+
+lemma Props_add2sub ()
+  // x + y == z ==> x = z - y && y = z - x
+  ensures forall x, y, z :: AbAdd(x, y) == z ==> AbSub(z, x) == y
+  { forall x, y, z | AbAdd(x, y) == z
+    { Props_add2sub_p3(x, y, z); } }
+lemma Props_sub2add ()
+  // x + y == z ==> x = z - y && y = z - x
+  ensures forall x, y, z :: AbSub(z, x) == y ==> AbAdd(x, y) == z
+  { forall x, y, z | AbSub(z, x) == y
+    { Props_sub2add_p3(x, y, z); } }
+
+lemma Props_add_sub_is_orig ()
+  // x + y == z ==> x = z - y && y = z - x
+  ensures forall x, y :: AbAdd(AbSub(x, y), y) == x
+  ensures forall x, y :: AbSub(AbAdd(x, y), y) == x
+  { forall x, y { Props_add_sub_is_orig_p2(x, y); } }
+
+lemma Props_add_sub_is_add ()
+  // x + b + (a - b) == x + a
+  ensures forall x, a, b :: AbAdd(AbAdd(x, b), AbSub(a, b)) == AbAdd(x, a)
+  { forall x, a, b { Props_add_sub_is_add_p3(x, a, b); } }
+
+lemma Props_div_pos2 ()
+  // x / 2 is Positive <==> x >= 2
+  ensures forall x :: AbLeq(I2, x) ==> AbPos(AbDiv2(x))
+  { forall x | AbLeq(I2, x)
+    { Props_div_pos2_p1(x); } }
+lemma Props_div_pos1 ()
+  // (x + 1) / 2 is Positive <==> x >= 1
+  ensures forall x :: AbLeq(I1, x) ==> AbPos(AbDiv2(AbAdd(x, I1)))
+  { forall x | AbLeq(I1, x)
+    { Props_div_pos1_p1(x); } }
+lemma Props_div_zero ()
+  // 1 / 2 == 0 and 0 / 2 == 0
+  ensures forall x :: x == I0 || x == I1 ==> AbDiv2(x) == I0
+  { forall x | x == I0 || x == I1
+    { Props_div_zero_p1(x); } }
+lemma Props_div_lt ()
+  // I2 <= x ==> x / 2 < x
+  ensures forall x :: AbLeq(I2, x) ==> AbLt(AbDiv2(x), x)
+  { forall x | AbLeq(I2, x)
+    { Props_div_lt_p1(x); } }
+lemma Props_div_leq ()
+  // y <= x ==> (x + y) / 2 <= x
+  ensures forall x, y :: AbLeq(y, x) ==> AbLeq(AbDiv2(AbAdd(x, y)), x)
+  { forall x, y | AbLeq(y, x)
+    { Props_div_leq_p2(x, y); } }
+lemma Props_div_add1_leq ()
+  // 1 <= x ==> (x / 2 + 1) <= x
+  ensures forall x :: AbLeq(I1, x) ==> AbLeq(AbAdd(AbDiv2(x), I1), x)
+  { forall x | AbLeq(I1, x)
+    { Props_div_add1_leq_p1(x); } }
