@@ -7,7 +7,8 @@ module ADT {
       Props_one_in_bound_p2, Props_2is1add1,
 
       /* Less Than */
-      Props_lt_gt_eq_p2, Props_lt2leq_p2, Props_leq2lt_p2,
+      Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
+      Props_lt2leq_p2, Props_leq2lt_p2,
       Props_lt_addition_p3, Props_lt_transitive_p3,
       Props_lt_add_notneg_p3,
 
@@ -66,8 +67,12 @@ module ADT {
   lemma Props_one_in_bound_p2 (a: AbInt, x: AbInt)
     ensures AbLeq(a, x) && AbLt(x, AbAdd(a, I1)) ==> x == a
     { }
-  
+
   lemma Props_lt_gt_eq_p2 (x: AbInt, y: AbInt)
+    // x < y or x < y or x == y
+    ensures AbLt(x, y) || AbLt(y, x) || x == y
+    { }
+  lemma Props_lt_is_not_leq_p2 (x: AbInt, y: AbInt)
     // x < y or x < y or x == y
     // ensures AbLt(x, y) || AbLt(y, x) || x == y
     ensures AbLt(x, y) <==> !AbLeq(y, x)
@@ -191,26 +196,29 @@ module ADT_Int
   
   lemma Props_lt_gt_eq ()
     // x < y or x < y or x == y
+    ensures forall x, y :: AbLt(x, y) || AbLt(y, x) || x == y
+    { forall x, y { Props_lt_gt_eq_p2(x, y); } }
+  lemma Props_lt_is_not_leq ()
+    // x < y or x < y or x == y
     ensures forall x, y :: AbLt(x, y) <==> !AbLeq(y, x)
     ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
-    { forall x, y { Props_lt_gt_eq_p2(x, y); } }
-  lemma Props_lt_gt_eq_px (x: AbInt)
+    { forall x, y { Props_lt_is_not_leq_p2(x, y); } }
+  lemma Props_lt_is_not_leq_px (x: AbInt)
     // x < y or x < y or x == y
     ensures forall y :: AbLt(x, y) <==> !AbLeq(y, x)
     ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
-    { forall y { Props_lt_gt_eq_p2(x, y); } }
-  lemma Props_lt_gt_eq_py (y: AbInt)
+    { forall y { Props_lt_is_not_leq_p2(x, y); } }
+  lemma Props_lt_is_not_leq_py (y: AbInt)
     // x < y or x < y or x == y
     ensures forall x :: AbLt(x, y) <==> !AbLeq(y, x)
     ensures forall x :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
-    { forall x { Props_lt_gt_eq_p2(x, y); } }
+    { forall x { Props_lt_is_not_leq_p2(x, y); } }
   
   lemma Props_lt2leq ()
     // x < y <==> x + 1 <= y <==> x <= y - 1
     ensures forall x, y :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
     ensures forall x, y :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
     { forall x, y { Props_lt2leq_p2(x, y); } }
-  
   lemma Props_leq2lt ()
     ensures forall x, y :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
     ensures forall x, y :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))

@@ -11,8 +11,7 @@ module ADT_Seq refines ADT {
       Seq_Props_concat_is_orig_p2,
       Seq_Props_in_empty_p2, Seq_Props_in_non_empty_p2,
       Seq_Props_in_idx_p2,
-      Seq_Props_slice_in_p4,
-      Seq_Props_index_props
+      Seq_Props_slice_in_p4
 
   import opened ADT_Int
   type AbSeq<X(==)> = seq<X>
@@ -65,7 +64,7 @@ module ADT_Seq refines ADT {
     requires AbSeqIn(v, s)
     ensures AbSeqLen(s) == AbAdd(AbSeqLen(s'), I1)
     ensures AbSeqLen(s') == AbSub(AbSeqLen(s), I1)
-    // ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
+    ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
     ensures var k := AbSeqGetIdx(v, s);
       forall i :: // s[0, k) keeps
         AbLeqLt(i, I0, k) ==>
@@ -93,7 +92,7 @@ module ADT_Seq refines ADT {
     requires AbLt(I0, k) || I0 == k
     ensures AbSeqLen(s) == AbAdd(AbSeqLen(s'), I1)
     ensures AbSeqLen(s') == AbSub(AbSeqLen(s), I1)
-    // ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
+    ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
     ensures
       forall i :: // s[0, k) keeps
         AbLeqLt(i, I0, k) ==>
@@ -143,7 +142,7 @@ module ADT_Seq refines ADT {
       // assert forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s);
       AbSeqConcat(half1, half2)
     else
-      Props_lt_gt_eq ();
+      Props_lt_is_not_leq ();
       Props_lt2leq ();
       Seq_Props_slice_in<X> ();
       // assert forall v :: AbSeqIn(v, half1) ==> AbSeqIn(v, s);
@@ -217,7 +216,7 @@ module ADT_Seq refines ADT {
       //   AbSeqIndex(i, s) == AbSeqIndex(i, s');
       AbSeqConcat(half1', half2)
     else
-      Props_lt_gt_eq_p2 (AbAdd(k, I1), len);
+      Props_lt_is_not_leq_p2 (AbAdd(k, I1), len);
       Props_lt2leq ();
       // var s' := AbSeqConcat(half1, AbSeqSingleton(v));
       Seq_Props_concat_length_p2 (half1, AbSeqSingleton(v));
@@ -352,18 +351,6 @@ module ADT_Seq refines ADT {
       AbSeqIn(v, AbSeqSlice(i, j, s)) ==> AbSeqIn(v, s)
     { forall i, j, s, v { Seq_Props_slice_in_p4<X>(i, j, s, v); } }
 
-  lemma Seq_Props_index_props ()
-    ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-      ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x)) ==> 
-      ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
-      (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-      AbLt(AbSeqIndex(j, s'), x)
-    ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-      ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
-      ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
-      (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-      AbLt(x, AbSeqIndex(j, s'))
-
 }
 
 module ADT_SeqLemma {
@@ -434,5 +421,4 @@ module ADT_SeqLemma {
       AbLeq(I0, i) && AbLeq(j, AbSeqLen(s)) && AbLeq(i, j) ==>
       AbSeqIn(v, AbSeqSlice(i, j, s)) ==> AbSeqIn(v, s)
     { forall i, j, s, v { Seq_Props_slice_in_p4<X>(i, j, s, v); } }
-
 }

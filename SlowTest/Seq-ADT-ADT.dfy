@@ -73,12 +73,12 @@ function method AbSeqSlice<X> (i: AbInt, j: AbInt, s: AbSeq<X>) : (s' : AbSeq<X>
   requires AbLt(j, AbSeqLen(s)) || j == AbSeqLen(s)
   requires AbLt(i, j) || i == j
   ensures AbSeqLen(s') == AbSub(j, i)
-  // Props_lt_transitive ();
-  ensures forall x :: AbLt(x, j) ==> AbLt(x, AbSeqLen(s))
-  ensures forall x :: (AbLt(i, x) || i == x) ==> (AbLt(I0, x) || I0 == x)
-  // Props_add2sub (); Props_lt_addition ();
-  ensures forall x, y :: AbLt(x, y) ==> AbLt(AbSub(x, i), AbSub(y, i))
-  ensures forall x :: (AbLt(i, x) || i == x) ==> (AbLt(I0, AbSub(x, i)) || I0 == AbSub(x, i))
+  // // Props_lt_transitive ();
+  // ensures forall x :: AbLt(x, j) ==> AbLt(x, AbSeqLen(s))
+  // ensures forall x :: (AbLt(i, x) || i == x) ==> (AbLt(I0, x) || I0 == x)
+  // // Props_add2sub (); Props_lt_addition ();
+  // ensures forall x, y :: AbLt(x, y) ==> AbLt(AbSub(x, i), AbSub(y, i))
+  // ensures forall x :: (AbLt(i, x) || i == x) ==> (AbLt(I0, AbSub(x, i)) || I0 == AbSub(x, i))
   ensures forall x :: (AbLt(i, x) || i == x) && AbLt(x, j) ==> 
     AbSeqIndex(x, s) == 
     AbSeqIndex(AbSub(x, i), s') // s[i..j] w/ s[i] and w/o s[j]

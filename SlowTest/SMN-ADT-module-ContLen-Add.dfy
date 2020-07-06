@@ -137,7 +137,7 @@ function method SMN(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_adt_dt_lt (llen, len);
       SMN(L, n, llen)
     else
-      Props_lt_gt_eq_p2 (llen, AbDiv2(len));
+      Props_lt_is_not_leq_p2 (llen, AbDiv2(len));
       // 0 < len / 2
       Props_div_pos2 (); // x >= 2 ==> x / 2 > 0
       Props_lt_transitive (); // 0 < len / 2 < llen
@@ -206,7 +206,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_add_pos_is_lt ();
       Props_adt_dt_lt (AbSub(len, llen), len);
       var s := SMN(R, AbAdd(n, llen), AbSub(len, llen));
-      Props_lt_gt_eq_py (AbAdd(n, llen));
+      Props_lt_is_not_leq_py (AbAdd(n, llen));
       SMN_Correct(R, AbAdd(n, llen), AbSub(len, llen));
 
       Props_add_notneg_is_leq (); // x + a == y ==> x < y || x == y: n+llen == s ==> Lt(n, s)
@@ -223,7 +223,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
   else if xs.Cons? {
     Props_pos(I1); // 0 < 1
     Props_2is1add1 ();
-    Props_lt_gt_eq ();
+    Props_lt_is_not_leq ();
     Props_one_in_bound_p2 (I1, len);
     Props_add_notneg_is_leq (); // x + a == y ==> x <= y
     Props_add_pos_is_lt (); // x < x + Positive
@@ -232,7 +232,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_one_in_bound ();
     } else { }
   } else {
-    Props_lt_gt_eq ();
+    Props_lt_is_not_leq ();
     Props_add_identity ();
   }
 }
@@ -285,7 +285,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
   Props_add_commutative ();
   if xs == Nil {
     Props_add_identity ();
-    Props_lt_gt_eq ();
+    Props_lt_is_not_leq ();
   } else {
     var half := AbDiv2(AbAdd(len, I1)); // half = (len+1)/2
     var (L, R) := Split(xs, AbAdd(n, half));
@@ -321,7 +321,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_adt_dt_lt (AbSub(len, llen), len);
       Props_add2sub ();
       var s := SMN'(R, AbAdd(n, llen), AbSub(len, llen));
-      Props_lt_gt_eq_py (AbAdd(n, llen));
+      Props_lt_is_not_leq_py (AbAdd(n, llen));
       SMN'_Correct(R, AbAdd(n, llen), AbSub(len, llen));
 
       Props_add_sub_is_add_p3(n, len, llen); // no trigger loop
@@ -382,7 +382,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
 {
   Props_add_commutative ();
   if xs == Nil {
-    Props_lt_gt_eq (); // x < y <==> !x > y && x != y
+    Props_lt_is_not_leq (); // x < y <==> !x > y && x != y
     Props_add_identity ();
   } else {
     var half := AbAdd(AbDiv2(len), I1); // half = len/2 + 1
@@ -418,7 +418,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_adt_dt_lt (AbSub(len, llen), len);
       Props_add2sub ();
       var s := SMN''(R, AbAdd(n, llen), AbSub(len, llen));
-      Props_lt_gt_eq_py (AbAdd(n, llen));
+      Props_lt_is_not_leq_py (AbAdd(n, llen));
       SMN''_Correct(R, AbAdd(n, llen), AbSub(len, llen));
 
       Props_add_sub_is_add_p3(n, len, llen); // no trigger loop
@@ -445,7 +445,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
 //   Props_add_pos_is_pos ();
 //   Props_pos(I2);
 //   Props_lt_transitive ();
-//   Props_lt_gt_eq ();
+//   Props_lt_is_not_leq ();
 //   assert s == I0;
 //   print s, " ";  // 0
 //   var a := Cons(I2, Cons(I0, Nil));
