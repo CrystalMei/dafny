@@ -2,9 +2,9 @@
 // RUN: %diff "%s.expect" "%t"
 
 datatype List<X> = Nil | Cons(head: X, tail: List<X>)
-datatype Nat = Z | S(Nat)
 
 type AbInt(==)
+datatype Nat = Z | S(Nat)
 function method int2adt (n: int) : (AbInt)
 function method adt2dt (a: AbInt) : Nat
 lemma Props_adt_dt_lt (x: AbInt, y: AbInt)
@@ -48,11 +48,11 @@ lemma Props_all_nonneg ()
   ensures forall x :: AbLt(int2adt(0), x) || x == int2adt(0)
 lemma Props_one_in_bound ()
   ensures forall a, x :: (AbLt(a, x) || a == x) && (AbLt(x, AbAdd(a, int2adt(1)))) ==> a == x
-lemma Props_two_is_one_plus_one ()
+lemma Props_2is1add1 ()
   ensures int2adt(2) == AbAdd(int2adt(1), int2adt(1))
-lemma Props_gtzero_is_geqone ()
+lemma Props_gt0_geq1 ()
   ensures forall x :: AbLt(int2adt(0), x) <==> AbLt(int2adt(1), x) || x == int2adt(1)
-lemma Props_gtzero_is_geqone_param (x: AbInt)
+lemma Props_gt0_geq1_param (x: AbInt)
   ensures AbLt(int2adt(0), x) <==> AbLt(int2adt(1), x) || x == int2adt(1)
 
 lemma Props_lt_is_not_geq () // x < y <==> !x > y && x != y
@@ -314,7 +314,7 @@ lemma SMN_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
   } 
   else {
     Props_int_pos(1); // 0 < 1
-    Props_two_is_one_plus_one ();
+    Props_2is1add1 ();
     Props_one_in_bound ();
     Props_add_identity ();
     Props_add_addition ();
@@ -338,7 +338,7 @@ function method SMN'(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
     // Props_add_identity ();
     Props_add_pos_is_pos (); // x + Positive = Positive
     Props_add_pos_is_lt (); // x < x + Positive
-    Props_gtzero_is_geqone_param (len); // x > 0 ==> x >= 1
+    Props_gt0_geq1_param (len); // x > 0 ==> x >= 1
     Props_add_commutative ();
     Props_lt_transitive ();
     Props_div_add_leq_is_leq_param (len, int2adt(1));  // no trigger loop
@@ -379,7 +379,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
     Props_all_nonneg ();
     Props_add_pos_is_pos (); // x + Positive = Positive
     Props_add_pos_is_lt (); // x < x + Positive
-    Props_gtzero_is_geqone_param (len); // x > 0 ==> x >= 1
+    Props_gt0_geq1_param (len); // x > 0 ==> x >= 1
     Props_add_commutative ();
     Props_lt_transitive ();
     Props_div_add_leq_is_leq_param (len, int2adt(1));  // no trigger loop
@@ -392,6 +392,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
     } else {
       Props_add2sub ();
       Props_div_pos_is_pos ();
+      assert llen == half;
       Props_adt_dt_lt (AbSub(len, llen), len);
       var s := SMN'(R, AbAdd(n, llen), AbSub(len, llen));
       SMN'_Correct(R, AbAdd(n, llen), AbSub(len, llen));
@@ -421,7 +422,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
     // Props_add_identity ();
     Props_add_pos_is_pos (); // x + Positive = Positive
     Props_add_pos_is_lt (); // x < x + Positive
-    Props_gtzero_is_geqone_param (len); // x > 0 ==> x >= 1
+    Props_gt0_geq1_param (len); // x > 0 ==> x >= 1
     Props_add_commutative ();
     Props_lt_transitive ();
     Props_div_addone_lt_param (len);
@@ -464,7 +465,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
     Props_all_nonneg ();
     Props_add_pos_is_pos (); // x + Positive = Positive
     Props_add_pos_is_lt (); // x < x + Positive
-    Props_gtzero_is_geqone_param (len); // x > 0 ==> x >= 1
+    Props_gt0_geq1_param (len); // x > 0 ==> x >= 1
     Props_add_commutative ();
     Props_lt_transitive ();
     Props_div_addone_lt_param (len);
@@ -508,7 +509,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
 //   assert s == int2adt(0);
 //   print s, " ";  // 0
 //   var a := Cons(int2adt(2), Cons(int2adt(0), Nil));
-//   Props_two_is_one_plus_one ();
+//   Props_2is1add1 ();
 //   assume int2adt(1) == AbDiv2(int2adt(2));
 //   assume AbLt(int2adt(0), int2adt(1));
 //   assume AbLt(int2adt(1), int2adt(2));

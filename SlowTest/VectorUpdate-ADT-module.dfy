@@ -24,8 +24,8 @@ method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>
   }
 }
 
-import opened ADT`AB
-import opened ADT'
+import opened ADT`Basic
+import opened ADT_Int
 
 /* Specific Properties */
 lemma Concrete_AbAdd ()
