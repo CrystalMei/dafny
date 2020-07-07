@@ -572,3 +572,15 @@ lemma Seq_Props_all ()
       assert forall v: AbInt :: AbSeqIn(v, s) ==> AbLt(v, x);
       Seq_Props_all_lt(j, x, s, s');
     } }
+
+lemma Seq_Props_index_props ()
+  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
+    AbLeqLt(i, I0, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x) ==> 
+    AbLeqLt(j, I0, AbSeqLen(s')) ==>
+    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+    AbLt(AbSeqIndex(j, s'), x)
+  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
+    ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
+    ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
+    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+    AbLt(x, AbSeqIndex(j, s'))
