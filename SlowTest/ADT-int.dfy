@@ -1,14 +1,37 @@
 module ADT {
-  export Basic
-    provides
-      AbInt, I2A, A2D, Props_adt_dt_lt,
-      AbLt, AbAdd, AbSub, AbDiv2, AbDiv, AbLeq, AbLtLt, AbLeqLt,
+  export Basic 
+    reveals Nat, I0, I1, I2, AbPos, AbIsZero, AbNotNeg
+    provides AbInt, I2A, A2D, AbLt, AbAdd, AbSub, AbDiv2, AbDiv, AbLeq, AbLtLt, AbLeqLt,
+      /* Properties */
+      Props_adt_dt_lt,
+      Props_one_in_bound_p2, Props_2is1add1,
+
+      /* Less Than */
+      Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
+      Props_lt2leq_add_p2, Props_lt2leq_sub_p2,
+      Props_leq2lt_add_p2, Props_leq2lt_sub_p2,
+      Props_lt_addition_p3, Props_lt_transitive_p3, Props_lt_transitive'_p3,
+      Props_lt_add_notneg_p3,
+
+      /* Addition */
+      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
+      Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
+      Props_add2sub_p3, Props_sub2add_p3, 
+      Props_add_sub_is_add_p3, Props_add_sub_is_orig_p2,
+
+      /* Divide 2 */
+      Props_div_pos1_p1, Props_div_pos2_p1, Props_div_zero_p1, Props_div_lt_p1, Props_div_leq_p2, Props_div_add1_leq_p1
+
+  export Ultra
+    reveals AbInt, I2A, A2D, AbLt, AbAdd, AbSub, AbDiv2, AbDiv, AbLeq, AbLtLt, AbLeqLt, Nat, I0, I1, I2, AbPos, AbIsZero, AbNotNeg
+    provides Props_adt_dt_lt,
       /* Properties */
       Props_one_in_bound_p2, Props_2is1add1,
 
       /* Less Than */
       Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
-      Props_lt2leq_p2, Props_leq2lt_p2,
+      Props_lt2leq_add_p2, Props_lt2leq_sub_p2,
+      Props_leq2lt_add_p2, Props_leq2lt_sub_p2,
       Props_lt_addition_p3, Props_lt_transitive_p3,
       Props_lt_add_notneg_p3,
 
@@ -20,34 +43,6 @@ module ADT {
 
       /* Divide 2 */
       Props_div_pos1_p1, Props_div_pos2_p1, Props_div_zero_p1, Props_div_lt_p1, Props_div_leq_p2, Props_div_add1_leq_p1
-    reveals
-      Nat, I0, I1, I2,
-      AbPos, AbIsZero, AbNotNeg
-
-  export Ultra
-    provides
-      Props_adt_dt_lt,
-      /* Properties */
-      Props_one_in_bound_p2, Props_2is1add1,
-
-      /* Less Than */
-      Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
-      Props_lt2leq_p2, Props_leq2lt_p2,
-      Props_lt_addition_p3, Props_lt_transitive_p3,
-      Props_lt_add_notneg_p3,
-
-      /* Addition */
-      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
-      Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
-      Props_add2sub_p3, Props_add_sub_is_add_p3, Props_add_sub_is_orig_p2,
-
-      /* Divide 2 */
-      Props_div_pos1_p1, Props_div_pos2_p1, Props_div_zero_p1, Props_div_lt_p1, Props_div_leq_p2, Props_div_add1_leq_p1
-    reveals
-      AbInt, I2A, A2D,
-      AbLt, AbAdd, AbSub, AbDiv2, AbDiv, AbLeq, AbLtLt, AbLeqLt,
-      Nat, I0, I1, I2,
-      AbPos, AbIsZero, AbNotNeg
 
   type AbInt(!new)(==) = int // (!new): generic type, not a class type
   datatype Nat = Z | S(Nat)
@@ -105,16 +100,22 @@ module ADT {
     // ensures AbLt(x, y) || AbLt(y, x) || x == y
     ensures AbLt(x, y) <==> !AbLeq(y, x)
     { }
-  lemma Props_lt2leq_p2 (x: AbInt, y: AbInt)
-    // x < y <==> x + 1 <= y <==> x <= y - 1
+  lemma Props_lt2leq_add_p2 (x: AbInt, y: AbInt)
+    // x < y ==> x + 1 <= y
     requires AbLt(x, y)
     ensures AbLeq(AbAdd(x, I1), y)
+  lemma Props_lt2leq_sub_p2 (x: AbInt, y: AbInt)
+    // x < y ==> x <= y - 1
+    requires AbLt(x, y)
     ensures AbLeq(x, AbSub(y, I1))
 
-  lemma Props_leq2lt_p2 (x: AbInt, y: AbInt)
-    // x <= y <==> x - 1 < y <==> x < y + 1
+  lemma Props_leq2lt_sub_p2 (x: AbInt, y: AbInt)
+    // x <= y ==> x - 1 < y
     requires AbLeq(x, y)
     ensures AbLt(AbSub(x, I1), y)
+  lemma Props_leq2lt_add_p2 (x: AbInt, y: AbInt)
+    // x <= y ==> x < y + 1
+    requires AbLeq(x, y)
     ensures AbLt(x, AbAdd(y, I1))
     { }
 
@@ -128,6 +129,10 @@ module ADT {
     requires AbLt(x, y)
     requires AbLt(y, z)
     ensures AbLt(x, z)
+    { }
+  lemma Props_lt_transitive'_p3 (x: AbInt, y: AbInt, z: AbInt)
+    // x < y < z
+    ensures AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
     { }
   lemma Props_lt_add_notneg_p3 (x: AbInt, y: AbInt, a: AbInt)
     // x + a < y ==> x < y
@@ -227,6 +232,7 @@ module ADT {
     ensures AbLeq(AbAdd(AbDiv2(x), I1), x)
     { }
 }
+
 module ADT_Set {
   import opened ADT`Basic
 
@@ -295,19 +301,27 @@ lemma Props_lt_is_not_leq_py (y: AbInt)
   ensures forall x :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
   { forall x { Props_lt_is_not_leq_p2(x, y); } }
 
-lemma Props_lt2leq ()
-  // x < y <==> x + 1 <= y <==> x <= y - 1
+lemma Props_lt2leq_add ()
+  // x < y ==> x + 1 <= y
   ensures forall x, y :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
+  { forall x, y | AbLt(x, y)
+    { Props_lt2leq_add_p2(x, y); } }
+lemma Props_lt2leq_sub ()
+  // x < y ==> x <= y - 1
   ensures forall x, y :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
   { forall x, y | AbLt(x, y)
-    { Props_lt2leq_p2(x, y); } }
+    { Props_lt2leq_sub_p2(x, y); } }
 
-lemma Props_leq2lt ()
-  // x <= y <==> x - 1 < y <==> x < y + 1
-  ensures forall x, y :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
+lemma Props_leq2lt_add ()
+  // x <= y ==> x < y + 1
   ensures forall x, y :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
   { forall x, y | AbLeq(x, y)
-    { Props_leq2lt_p2(x, y); } }
+    { Props_leq2lt_add_p2(x, y); } }
+lemma Props_leq2lt_sub ()
+  // x <= y ==> x - 1 < y
+  ensures forall x, y :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
+  { forall x, y | AbLeq(x, y)
+    { Props_leq2lt_sub_p2(x, y); } }
 
 lemma Props_lt_addition ()
   // x < y ==> x + a < y + a
@@ -320,6 +334,10 @@ lemma Props_lt_transitive ()
   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall x, y, z | AbLt(x, y) && AbLt(y, z) 
     {Props_lt_transitive_p3(x, y, z); } }
+lemma Props_lt_transitive' ()
+  // x < y < z
+  ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+  { forall x, y, z { Props_lt_transitive'_p3(x, y, z); } }
 
 lemma Props_lt_add_notneg ()
   // x + a < y ==> x < y
