@@ -190,10 +190,13 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     assert AbSeqIndex(I0, g') == sentinel; // true
     assert AbLeqLt(p, I0, AbSeqLen(nodes)); // true
 
-    AbSeqPart1Same (index, s, s');
-    AbSeqPart2Shift1 (index, s, s');
-    AbSeqPart1Same (index, f, f');
-    AbSeqPart2Shift1 (index, f, f');
+    AbSeqRemoveIdx_Part1Same (index, s, s');
+    AbSeqRemoveIdx_Part2Shift1 (index, s, s');
+    AbSeqRemoveIdx_Part1Same (index, f, f');
+    AbSeqRemoveIdx_Part2Shift1 (index, f, f');
+
+    AbSeqRemoveIdx_InSame (f, f');
+
     forall i | AbLeqLt(i, I0, AbSeqLen(f'))
       ensures
         if AbLeqLt(i, I0, index) then AbSeqIndex(i, f') == AbSeqIndex(i, f)
@@ -226,25 +229,23 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
       Props_lt_addition_p3(i, AbSeqLen(f'), I1); // i + 1 < |f'| + 1 = |f|
       // assert AbLt(AbAdd(i, I1), AbSeqLen(f)); // i + 1 < |f|
     }
-  
-    // AbSeqInSame (s, s');
-    // AbSeqInSame(f, f');
 
+    AbSeqUpdate_Part1Same (node.prev, node_prev.(next := node.next), nodes, nodes');
+    AbSeqUpdate_Part2Same (node.prev, node_prev.(next := node.next), nodes, nodes');
+    AbSeqUpdate_Part1Same (node.next, node_next.(prev := node.prev), nodes', nodes'');
+    AbSeqUpdate_Part2Same (node.next, node_next.(prev := node.prev), nodes', nodes'');
+    AbSeqUpdate_Part1Same (p, Node(None, freeStack, I0), nodes'', nodes''');
+    AbSeqUpdate_Part2Same (p, Node(None, freeStack, I0), nodes'', nodes''');
 
-    // AbSeqPart1Same (node.prev, nodes, nodes');
-    // AbSeqPart2Same (node.prev, nodes, nodes');
-    // AbSeqPart1Same (node.next, nodes', nodes'');
-    // AbSeqPart2Same (node.next, nodes', nodes'');
-    // AbSeqPart1Same (p, nodes'', nodes''');
-    // AbSeqPart2Same (p, nodes'', nodes''');
-
+    Seq_Props_all_p2 (f, f');
     // Seq_Props_index_props ();
-    assert forall i ::
-      AbLeqLt(i, I0, AbSeqLen(f')) ==>
-      AbLt(I0, AbSeqIndex(i, f'));
-    assert forall i ::
-      AbLeqLt(i, I0, AbSeqLen(f')) ==>
-      AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes));
+
+    // assert forall i ::
+    //   AbLeqLt(i, I0, AbSeqLen(f')) ==>
+    //   AbLt(I0, AbSeqIndex(i, f'));
+    // assert forall i ::
+    //   AbLeqLt(i, I0, AbSeqLen(f')) ==>
+    //   AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes));
 
     // assert (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f'), g')} ::
     //   AbLeqLt(i, I0, AbSeqLen(f')) ==>

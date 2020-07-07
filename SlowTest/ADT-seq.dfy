@@ -1,14 +1,4 @@
 include "ADT-int.dfy"
-
-// module Test {
-//   import opened ADT`Basic
-//   import opened ADT_Seq`Seq_Basic
-//   method Test() {
-//     var v : AbInt;
-//     assert v == 1;
-//   }
-// }
-
 module ADT_Seq {
   export Seq_Basic 
     provides
@@ -16,8 +6,10 @@ module ADT_Seq {
       AbSeq, 
       AbSeqLen, AbSeqIndex, AbSeqConcat, AbSeqIn, AbSeqEmpty, AbSeqSingleton, AbSeqSlice, /* AbSeqInit, */
       AbSeqGetIdx, AbSeqRemove, AbSeqRemoveIdx, AbSeqUpdate,
-      AbSeqSliceSame_p5, /* AbSeqInitFunc_p4, */ AbSeqInSame_p3,
-      AbSeqPart1Same_p4, AbSeqPart2Same_p4, AbSeqPart2Shift1_p4,
+      AbSeqSliceSame_p5, /* AbSeqInitFunc_p4, */
+      AbSeqRemoveIdx_InSame_p4,
+      AbSeqRemoveIdx_Part1Same_p4, AbSeqRemoveIdx_Part2Shift1_p4,
+      AbSeqUpdate_Part1Same_p5, AbSeqUpdate_Part2Same_p5,
 
       Seq_Props_length_p1, Seq_Props_concat_length_p2,
       Seq_Props_concat_in_p3,
@@ -64,7 +56,9 @@ module ADT_Seq {
     requires AI.AbLeqLt(k, i, j)
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s)) // 0 <= k <= s
     requires AI.AbLeqLt(AI.AbSub(k, i), AI.I0, AbSeqLen(s')) // 0 <= k-i <= |s'|
+    requires s' == AbSeqSlice(i, j, s)
     ensures AbSeqIndex(k, s) == AbSeqIndex(AI.AbSub(k, i), s')
+    { }
 
   function method AbSeqSlice<X> (i: AI.AbInt, j: AI.AbInt, s: AbSeq<X>) : (s' : AbSeq<X>)
     requires AI.AbLeq(AI.I0, i)
@@ -111,28 +105,36 @@ module ADT_Seq {
   //   AbSeqRemoveIdx(k, s)
   // }
   
-  lemma AbSeqInSame_p3<X> (s: AbSeq<X>, s':AbSeq<X>, v: X)
+  lemma AbSeqRemoveIdx_InSame_p4<X> (k: AI.AbInt, s: AbSeq<X>, s':AbSeq<X>, v: X)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    requires s' == AbSeqRemoveIdx(k, s)
     requires AbSeqIn(v, s')
     ensures AbSeqIn(v, s)
+    { }
 
   // s[0, k) keeps
-  lemma AbSeqPart1Same_p4<X>(k: AI.AbInt, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+  lemma AbSeqRemoveIdx_Part1Same_p4<X>(k: AI.AbInt, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    requires s' == AbSeqRemoveIdx(k, s)
     requires AI.AbLeqLt(i, AI.I0, k)
     requires AI.AbLt(i, AbSeqLen(s))
     requires AI.AbLt(i, AbSeqLen(s'))
     ensures AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    { }
   
   // s[k, |s|-1) shifts
-  lemma AbSeqPart2Shift1_p4<X>(k: AI.AbInt, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+  lemma AbSeqRemoveIdx_Part2Shift1_p4<X>(k: AI.AbInt, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    requires s' == AbSeqRemoveIdx(k, s)
     requires AI.AbLeqLt(i, k, AbSeqLen(s'))
     requires AI.AbLeq(AI.I0, i)
     requires AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1))
     requires AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s))
     ensures AbSeqIndex(AI.AbAdd(i, AI.I1), s) == AbSeqIndex(i, s')
+    { }
 
   function method AbSeqRemoveIdx<X(!new)> (k: AI.AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
-    requires AI.AbLt(k, AbSeqLen(s))
-    requires AI.AbLeq(AI.I0, k)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
     ensures AbSeqLen(s) == AI.AbAdd(AbSeqLen(s'), AI.I1)
     ensures AbSeqLen(s') == AI.AbSub(AbSeqLen(s), AI.I1)
     // ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
@@ -201,16 +203,28 @@ module ADT_Seq {
   //     half1
   // }
 
+  // s[0, k) keeps
+  lemma AbSeqUpdate_Part1Same_p5<X>(k: AI.AbInt, v: X, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    requires s' == AbSeqUpdate(k, v, s)
+    requires AI.AbLeqLt(i, AI.I0, k)
+    requires AI.AbLt(i, AbSeqLen(s))
+    requires AI.AbLt(i, AbSeqLen(s'))
+    ensures AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    { }
+  
   // s(k, |s|) keeps
-  lemma AbSeqPart2Same_p4<X>(k: AI.AbInt, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+  lemma AbSeqUpdate_Part2Same_p5<X>(k: AI.AbInt, v: X, s: AbSeq<X>, s': AbSeq<X>, i: AI.AbInt)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    requires s' == AbSeqUpdate(k, v, s)
     requires AI.AbLt(k, i)
     requires AI.AbLt(i, AbSeqLen(s'))
     requires AI.AbLeqLt(i, AI.I0, AbSeqLen(s))
     ensures AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    { }
 
   function method AbSeqUpdate<X> (k: AI.AbInt, v: X, s: AbSeq<X>): (s': AbSeq<X>)
-    requires AI.AbLt(k, AbSeqLen(s))
-    requires AI.AbLeq(AI.I0, k)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
     ensures AbSeqLen(s) == AbSeqLen(s')
     ensures AbSeqIndex(k, s') == v
     // ensures
@@ -356,8 +370,9 @@ module ADT_Seq {
   lemma Seq_Props_in_idx_p2<X> (v: X, s: AbSeq<X>) // v in s ==> s[i] == v
     requires AbSeqIn(v, s)
     ensures exists i: AI.AbInt :: AI.AbLeqLt(i, AI.I0, AbSeqLen(s)) && AbSeqIndex(i, s) == v
-    // { ghost var k :| 0 <= k < |s| && s[k] == v; if exists i : AI.AbInt :: i == k { } }
-    // TODO
+    { ghost var k :| 0 <= k < |s| && s[k] == v;
+      // match the "exists" pattern
+      assert AI.AbLeqLt(k, AI.I0, AbSeqLen(s)) && AbSeqIndex(k, s) == v; }
   
   lemma Seq_Props_idx_in_p2<X> (k: AI.AbInt, s: AbSeq<X>) // s[k] in s
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s)) // 0 <= k < |s|
@@ -389,19 +404,7 @@ module ADT_Seq {
 import opened ADT`Basic
 import opened ADT_Seq`Seq_Basic
 
-// lemma AbSeqInitFunc_p4<X> (len: AI.AbInt, func : AI.AbInt --> X, s: AbSeq<X>, k: AI.AbInt)
-//   requires AI.AbLeqLt(k, AI.I0, len)
-//   requires func.requires(k)
-//   requires AbSeqLen(s) == len // |s| == len, 0 <= k < |s|
-//   ensures AbSeqIndex(k, s) == func(k)
-
-// lemma AbSeqInitFunc<X> (len: AbInt, func : AbInt --> X, s: AbSeq<X>)
-//   requires forall i :: AbLeqLt(i, I0, len) ==> func.requires(i)
-//   requires AbSeqLen(s) == len // |s| == len, 0 <= k < |s|
-//   ensures forall k :: AbLeqLt(k, I0, len) ==> AbSeqIndex(k, s) == func(k)
-//   { forall k | AbLeqLt(k, I0, len)
-//     { AbSeqInitFunc_p4(len, func, s, k); } }
-
+// 
 function method AbSeqInit<X> (len: AbInt, func : AbInt --> X) : (s: AbSeq<X>)
   requires AbLeq(I0, len)
   requires forall i :: AbLeqLt(i, I0, len) ==> func.requires(i)
@@ -413,7 +416,8 @@ lemma AbSeqSliceSame<X> (i: AbInt, j: AbInt, s: AbSeq<X>, s': AbSeq<X>)
   requires AbLeq(j, AbSeqLen(s))
   requires AbLeq(i, j)
   requires AbSeqLen(s') == AbSub(j, i) // |s'| == j-i
-  ensures forall k ::
+  requires s' == AbSeqSlice(i, j, s)
+  ensures forall k :: s' == AbSeqSlice(i, j, s) &&
     AbLeqLt(k, i, j) && 
     AbLeqLt(k, I0, AbSeqLen(s)) && // 0 <= k <= s
     AbLeqLt(AbSub(k, i), I0, AbSeqLen(s')) // 0 <= k-i <= |s'|
@@ -423,38 +427,56 @@ lemma AbSeqSliceSame<X> (i: AbInt, j: AbInt, s: AbSeq<X>, s': AbSeq<X>)
     AbLeqLt(AbSub(k, i), I0, AbSeqLen(s')) // 0 <= k-i <= |s'|
     { AbSeqSliceSame_p5(i, j, s, s', k); } }
 
+lemma AbSeqRemoveIdx_InSame<X> (s: AbSeq<X>, s':AbSeq<X>)
+  ensures forall k, v :: AbLeqLt(k, I0, AbSeqLen(s)) &&
+    s' == AbSeqRemoveIdx(k, s) && AbSeqIn(v, s') ==> AbSeqIn(v, s)
+  { forall k, v | AbLeqLt(k, I0, AbSeqLen(s)) &&
+    s' == AbSeqRemoveIdx(k, s) && AbSeqIn(v, s')
+    {AbSeqRemoveIdx_InSame_p4(k, s, s', v); } }
 
-lemma AbSeqInSame<X> (s: AbSeq<X>, s':AbSeq<X>)
-  ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
-  { forall v | AbSeqIn(v, s')
-    {AbSeqInSame_p3(s, s', v); } }
-
-lemma AbSeqPart1Same<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
+lemma AbSeqRemoveIdx_Part1Same<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
   // s[0, k) keeps
+  requires AbLeqLt(k, I0, AbSeqLen(s))
+  requires s' == AbSeqRemoveIdx(k, s)
   ensures forall i :: AbLeqLt(i, I0, k) && 
     AbLt(i, AbSeqLen(s)) && AbLt(i, AbSeqLen(s'))
      ==> AbSeqIndex(i, s) == AbSeqIndex(i, s')
   { forall i | AbLeqLt(i, I0, k) && 
     AbLt(i, AbSeqLen(s)) && AbLt(i, AbSeqLen(s'))
-    { AbSeqPart1Same_p4(k, s, s', i); } }
+    { AbSeqRemoveIdx_Part1Same_p4(k, s, s', i); } }
 
-lemma AbSeqPart2Same<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
-  // s(k, |s|) keeps
-  ensures forall i :: AbLt(k, i) && AbLt(i, AbSeqLen(s')) && 
-    AbLeqLt(i, I0, AbSeqLen(s))
-    ==> AbSeqIndex(i, s) == AbSeqIndex(i, s')
-  { forall i | AbLt(k, i) && AbLt(i, AbSeqLen(s')) && 
-    AbLeqLt(i, I0, AbSeqLen(s))
-    { AbSeqPart2Same_p4(k, s, s', i); } }
-
-lemma AbSeqPart2Shift1<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
+lemma AbSeqRemoveIdx_Part2Shift1<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
   // s[k, |s|-1) shifts
+  requires AbLeqLt(k, I0, AbSeqLen(s))
+  requires s' == AbSeqRemoveIdx(k, s)
   ensures forall i :: AbLeqLt(i, k, AbSeqLen(s')) && AbLeq(I0, i) &&
     AbLt(I0, AbAdd(i, I1)) && AbLt(AbAdd(i, I1), AbSeqLen(s))
     ==> AbSeqIndex(AbAdd(i, I1), s) == AbSeqIndex(i, s')
   { forall i | AbLeqLt(i, k, AbSeqLen(s')) && AbLeq(I0, i) &&
     AbLt(I0, AbAdd(i, I1)) && AbLt(AbAdd(i, I1), AbSeqLen(s))
-    { AbSeqPart2Shift1_p4(k, s, s', i); } }
+    { AbSeqRemoveIdx_Part2Shift1_p4(k, s, s', i); } }
+
+lemma AbSeqUpdate_Part1Same<X>(k: AbInt, v: X, s: AbSeq<X>, s': AbSeq<X>)
+  // s[0, k) keeps
+  requires AbLeqLt(k, I0, AbSeqLen(s))
+  requires s' == AbSeqUpdate(k, v, s)
+  ensures forall i :: AbLeqLt(i, I0, k) && 
+    AbLt(i, AbSeqLen(s)) && AbLt(i, AbSeqLen(s'))
+     ==> AbSeqIndex(i, s) == AbSeqIndex(i, s')
+  { forall i | AbLeqLt(i, I0, k) && 
+    AbLt(i, AbSeqLen(s)) && AbLt(i, AbSeqLen(s'))
+    { AbSeqUpdate_Part1Same_p5(k, v, s, s', i); } }
+
+lemma AbSeqUpdate_Part2Same<X>(k: AbInt, v: X, s: AbSeq<X>, s': AbSeq<X>)
+  // s(k, |s|) keeps
+  requires AbLeqLt(k, I0, AbSeqLen(s))
+  requires s' == AbSeqUpdate(k, v, s)
+  ensures forall i :: AbLt(k, i) && AbLt(i, AbSeqLen(s')) && 
+    AbLeqLt(i, I0, AbSeqLen(s))
+    ==> AbSeqIndex(i, s) == AbSeqIndex(i, s')
+  { forall i | AbLt(k, i) && AbLt(i, AbSeqLen(s')) && 
+    AbLeqLt(i, I0, AbSeqLen(s))
+    { AbSeqUpdate_Part2Same_p5(k, v, s, s', i); } }
 
 lemma Seq_Props_length<X> () // |s| >= 0
   ensures forall s: AbSeq<X> :: AbLeq(I0, AbSeqLen(s))
@@ -550,37 +572,42 @@ lemma Seq_Props_slice_in<X> ()
     { Seq_Props_slice_in_p4<X>(i, j, s, v); } }
 
 lemma Seq_Props_idx_in_lt (s: AbSeq<AbInt>, x: AbInt)
-  requires forall k: AbInt :: AbLeqLt(k, I0, AbSeqLen(s)) ==> AbLt(AbSeqIndex(k, s), x)
+  requires forall k: AbInt :: AbLeqLt(k, I0, AbSeqLen(s)) && AbLt(AbSeqIndex(k, s), x)
   ensures forall v: AbInt :: AbSeqIn(v, s) ==> AbLt(v, x)
-  // TODO
+  { forall v | AbSeqIn(v, s)
+    { Seq_Props_in_idx_p2(v, s); } }
 
-lemma Seq_Props_all ()
-  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-    AbLeqLt(i, I0, AbSeqLen(s)) ==> AbLt(AbSeqIndex(i, s), x) ==> 
-    AbLeqLt(j, I0, AbSeqLen(s')) ==>
-    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-    AbLt(AbSeqIndex(j, s'), x)
-  // ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-  //   ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
-  //   ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
-  //   (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-  //   AbLt(x, AbSeqIndex(j, s'))
-  { forall i, j, x, s, s' | AbLeqLt(i, I0, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x) &&
-    AbLeqLt(j, I0, AbSeqLen(s')) && AbSeqIn(AbSeqIndex(j, s'), s)
-    { Seq_Props_idx_in_p2(i, s); // s[i] in s
-      Seq_Props_idx_in_lt (s, x);
-      assert forall v: AbInt :: AbSeqIn(v, s) ==> AbLt(v, x);
-      Seq_Props_all_lt(j, x, s, s');
-    } }
+lemma Seq_Props_all_p2 (s: AbSeq<AbInt>, s': AbSeq<AbInt>)
+  ensures forall i: AbInt, x: AbInt, j: AbInt ::
+    AbLeqLt(i, I0, AbSeqLen(s)) && AbLeqLt(j, I0, AbSeqLen(s')) &&
+    AbSeqIn(AbSeqIndex(j, s'), s) ==> 
+    // (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+    (AbLt(AbSeqIndex(i, s), x) ==> AbLt(AbSeqIndex(j, s'), x))
+  ensures forall i: AbInt, x: AbInt, j: AbInt ::
+    AbLeqLt(i, I0, AbSeqLen(s)) && AbLeqLt(j, I0, AbSeqLen(s')) &&
+    AbSeqIn(AbSeqIndex(j, s'), s) ==>
+    // (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+    (AbLt(x, AbSeqIndex(i, s)) ==> AbLt(x, AbSeqIndex(j, s')))
+  // { forall i, j | AbLeqLt(i, I0, AbSeqLen(s)) && AbLeqLt(j, I0, AbSeqLen(s')) &&
+  //   AbSeqIn(AbSeqIndex(j, s'), s)
+  //   { var s_j := AbSeqIndex(j, s');
+  //     Seq_Props_in_idx_p2(s_j, s);
+  //     ghost var k :| AbLeqLt(k, I0, AbSeqLen(s)) && AbSeqIndex(k, s) == s_j;
+  //     forall x | AbLt(AbSeqIndex(i, s), x)
+  //       { assert AbLeqLt(k, I0, AbSeqLen(s)) && AbLt(AbSeqIndex(k, s), x);
+  //         assert AbLt(s_j, x);
+  //       }
+  //   }
+  // }
 
-lemma Seq_Props_index_props ()
-  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-    AbLeqLt(i, I0, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x) ==> 
-    AbLeqLt(j, I0, AbSeqLen(s')) ==>
-    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-    AbLt(AbSeqIndex(j, s'), x)
-  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-    ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
-    ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
-    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-    AbLt(x, AbSeqIndex(j, s'))
+// lemma Seq_Props_index_props ()
+//   ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
+//     AbLeqLt(i, I0, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x) ==> 
+//     AbLeqLt(j, I0, AbSeqLen(s')) ==>
+    
+//     AbLt(AbSeqIndex(j, s'), x)
+//   ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
+//     ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
+//     ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
+//     (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
+//     AbLt(x, AbSeqIndex(j, s'))
