@@ -4,7 +4,7 @@
 include "ADT-int.dfy"
 datatype List<X> = Nil | Cons(head: X, tail: List<X>)
 
-import opened ADT`Basic
+// import opened ADT`Basic
 import opened ADT_Set
 
 function method Length(xs: List<AbInt>): AbInt
@@ -253,7 +253,7 @@ function method SMN'(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_notneg ();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_div_leq (); // len >= 1 ==> (len+1)/2 <= len
       Props_lt_transitive (); // llen < (len+1)/2 < len
       Props_adt_dt_lt (llen, len);
@@ -263,7 +263,7 @@ function method SMN'(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_notneg ();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_div_pos1 (); // (len+1)/2 > 0
       Props_lt_transitive (); // 0 < (len+1)/2 < llen
       Props_add_sub_is_orig ();
@@ -302,7 +302,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_notneg();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_div_leq (); // len >= 1 ==> (len+1)/2 <= len
       Props_lt_transitive (); // llen < (len+1)/2 < len
       Props_adt_dt_lt (llen, len);
@@ -315,7 +315,7 @@ lemma SMN'_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_notneg();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_div_pos1 (); // (len+1)/2 > 0
       Props_lt_transitive (); // 0 < (len+1)/2 < llen
       Props_add_sub_is_orig ();
@@ -353,7 +353,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_notneg ();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_div_add1_leq (); // Props_div_add1_leq_p1 (len);
       Props_lt_transitive ();
       Props_adt_dt_lt (llen, len);
@@ -363,7 +363,7 @@ function method SMN''(xs: List<AbInt>, n: AbInt, len: AbInt): AbInt
       Props_notneg ();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_add_pos_is_lt (); // x < x + Positive
       Props_lt_transitive (); // len/2 + 1 > 0
       Props_add_sub_is_orig ();
@@ -401,7 +401,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_notneg ();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_div_add1_leq (); // Props_div_add1_leq_p1 (len);
       Props_lt_transitive ();
       Props_adt_dt_lt (llen, len);
@@ -414,7 +414,7 @@ lemma SMN''_Correct(xs: List<AbInt>, n: AbInt, len: AbInt)
       Props_notneg ();
       Props_add_identity ();
       Props_add_pos_is_pos (); // x + Positive = Positive
-      Props_lt2leq_p2 (I0, len); // len > 0 ==> len >= 1
+      Props_lt2leq_add_p2 (I0, len); // len > 0 ==> len >= 1
       Props_add_pos_is_lt (); // x < x + Positive
       Props_lt_transitive (); // len/2 + 1 > 0
       Props_add_sub_is_orig ();
