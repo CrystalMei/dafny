@@ -189,10 +189,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
   ensures Inv(l')
-  // ensures Seq(l') == Seq(l)[.. Index(l, p)] + Seq(l)[Index(l, p) + 1 ..]
   ensures Seq(l') == AbSeqRemoveIdx(Index(l, p), Seq(l))
-  // ensures forall x :: x != p && ValidPtr(l, x) ==>
-  //   ValidPtr(l', x) && Index(l', x) == Index(l, x) - (if Index(l, x) < Index(l, p) then 0 else 1)
   ensures forall x :: x != p && ValidPtr(l, x) ==>
     ValidPtr(l', x) &&
     ( if AbLt(Index(l, x), Index(l, p)) 
@@ -222,8 +219,8 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
       AbLt(I0, AbSub(AbSeqLen(f), I1)) || I0 == AbSub(AbSeqLen(f), I1) ==> // precond: 0 <= index
       AbLt(AbSub(AbSeqLen(f), I1), AbSeqLen(f)) ==> // precond: index < |f|
       AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqLen(f), I1), f) ; // sentinel.prev == last
-  // assert AbLt(I0, node.prev) || I0 == node.prev;
-  // assert AbLt(node.prev, AbSeqLen(nodes));
+  // assume AbLt(I0, node.prev) || I0 == node.prev;
+  // assume AbLt(node.prev, AbSeqLen(nodes));
   /* precond ends */
   var node_prev := AbSeqIndex(node.prev, nodes);
   nodes := AbSeqUpdate(node.prev, node_prev.(next := node.next), nodes);
@@ -232,8 +229,8 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   nodes := AbSeqUpdate(p, Node(None, freeStack, I0), nodes);
   l' := DList(nodes, p, s', f', g');
 
-  // Props_ltgteq ();
-  // Props_gt2geq ();
+  Props_ltgteq ();
+  Props_gt2geq ();
   Props_lt_transitive ();
   // Props_lt_transitive_xy (I0, index);
   // assert forall x :: x != p && ValidPtr(l, x) ==> ValidPtr(l', x);
@@ -243,8 +240,8 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   //     else Index(l', x) == AbSub(Index(l, x), I1) );
 
   /* check Inv(l') */
-  // Props_add2sub ();
-  // Props_int_pos(1);
+  Props_add2sub ();
+  Props_int_pos(1);
   Props_add_pos_is_lt ();
   Props_lt_addition ();
 

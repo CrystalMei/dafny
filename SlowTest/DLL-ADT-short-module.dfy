@@ -1,12 +1,11 @@
-include "ADT-int.dfy"
+// include "ADT-int.dfy"
 include "ADT-seq.dfy"
 
 newtype{:nativeType "ulong"} uint64 = i:int | 0 <= i < 0x1_0000_0000_0000_0000
 
 // import opened ADT`Basic
-import opened ADT_Int
-import opened ADT_Seq`Basic
-import opened ADT_SeqLemma
+import opened ADT`Basic
+import opened ADT_Seq`Seq_Basic
 
 datatype Option<V> = None | Some(value:V)
 datatype Node<A> = Node(data:Option<A>, next:AbInt, prev:AbInt)
@@ -72,7 +71,7 @@ function ValidPtr<A>(l:DList<A>, p:AbInt):(b:bool)
   ensures b ==> p != I0
   {
     // 0 < p < |l.g| && l.g[p] >= 0
-    Props_lt_gt_eq_p2 (I0, p);
+    Props_lt_is_not_leq ();
     AbLtLt(p, I0, AbSeqLen(l.g)) &&
     AbLeq(I0, AbSeqIndex(p, l.g))
   }
@@ -87,69 +86,6 @@ function Index<A>(l:DList<A>, p:AbInt):(i:AbInt)
     if Inv(l) && MaybePtr(l, p) then AbSeqIndex(p, l.g) else I0
   }
 
-// Note: if calling the one in module, precond doesn't satisfy
-function method AbSeqInit (len: AbInt, func : AbInt --> AbInt) : (s: AbSeq<AbInt>)
-  requires forall i :: AbLeq(I0, i) && AbLt(i, len) ==> func.requires(i)
-  ensures AbSeqLen(s) == len
-  ensures forall i :: AbLeqLt(i, I0, len) ==> AbSeqIndex(i, s) == func(i)
-
-function method AbSeqRemoveIdx<X(!new)> (k: AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
-    requires AbLt(k, AbSeqLen(s))
-    requires AbLt(I0, k) || I0 == k
-    ensures AbSeqLen(s) == AbAdd(AbSeqLen(s'), I1)
-    ensures AbSeqLen(s') == AbSub(AbSeqLen(s), I1)
-    ensures forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)
-    ensures
-      forall i :: // s[0, k) keeps
-        AbLeqLt(i, I0, k) ==>
-        // precond begins
-        AbLt(i, AbSeqLen(s)) ==>
-        AbLt(i, AbSeqLen(s')) ==>
-        // precond ends
-        AbSeqIndex(i, s) == AbSeqIndex(i, s')
-    ensures
-      forall i :: // s(k, |s|-1] keeps
-        AbLt(k, i) && AbLt(i, AbSeqLen(s')) ==>
-        // precond begins
-        AbLeq(I0, i) ==>
-        AbLt(I0, AbAdd(i, I1)) ==>
-        AbLt(AbAdd(i, I1), AbSeqLen(s)) ==>
-        // precond ends
-        AbSeqIndex(AbAdd(i, I1), s) == AbSeqIndex(i, s')
-
-function method AbSeqUpdate<X> (k: AbInt, v: X, s: AbSeq<X>): (s': AbSeq<X>)
-    requires AbLt(k, AbSeqLen(s))
-    requires AbLeq(I0, k)
-    ensures AbSeqLen(s) == AbSeqLen(s')
-    ensures AbSeqIndex(k, s') == v
-    ensures
-      forall i :: // s[0, k) keeps
-        AbLeqLt(i, I0, k) ==>
-        // precond begins
-        AbLt(i, AbSeqLen(s)) ==>
-        AbLt(i, AbSeqLen(s')) ==>
-        // precond ends
-        AbSeqIndex(i, s) == AbSeqIndex(i, s')
-    ensures
-      forall i :: // s(k, |s|-1] keeps
-        AbLt(k, i) && AbLt(i, AbSeqLen(s')) ==>
-        // precond begins
-        AbLeq(I0, i) ==>
-        AbLt(i, AbSeqLen(s)) ==>
-        // precond ends
-        AbSeqIndex(i, s) == AbSeqIndex(i, s')
-
-lemma Seq_Props_index_props ()
-  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-    ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(AbSeqIndex(i, s), x)) ==> 
-    ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
-    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-    AbLt(AbSeqIndex(j, s'), x)
-  ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
-    ((AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(s)) && AbLt(x, AbSeqIndex(i, s))) ==> 
-    ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
-    (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
-    AbLt(x, AbSeqIndex(j, s'))
 // Remove from dlist and seq
 // ~1s
 method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
@@ -165,112 +101,160 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   {
     var DList(nodes, freeStack, s, f, g) := l;
     ghost var index := AbSeqIndex(p, g);
+    // assert AbLeq(I0, index); // true
+    // assert AbLt(index, AbSeqLen(f)); // true
     ghost var s' := AbSeqRemoveIdx(index, s); // s[.. index] + s[index + 1 ..];
     ghost var f' := AbSeqRemoveIdx(index, f); // f[.. index] + f[index + 1 ..];
-    ghost var g' := AbSeqInit(AbSeqLen(g),
-      x requires AbLeq(I0, x) && AbLt(x, AbSeqLen(g)) =>
+    // // assert forall i :: AbLeqLt(i, I0, index) && 
+    // //   AbLt(i, AbSeqLen(f)) && AbLt(i, AbSeqLen(f'))
+    // //   ==> AbSeqIndex(i, f) == AbSeqIndex(i, f');    
+    // forall i | AbLeqLt(i, I0, index) // s[0, k) keeps
+    //   ensures AbSeqIndex(i, f) == AbSeqIndex(i, f')
+    //   {
+    //     Props_lt_transitive_p3(i, index, AbSeqLen(f));
+    //     Props_lt2leq_sub (); // Props_lt2leq_sub_p2 (index, AbSeqLen(f));
+    //     // assert AbLeq(index, AbSeqLen(f')); // true
+    //     // Note: Leq -> cannot use precond-version transitive (which is Lt)
+    //     Props_lt_transitive'_p3(i, index, AbSeqLen(f'));
+    //   }
+    // // assert forall i :: AbLt(index, i) && AbLt(i, AbSeqLen(f')) &&
+    // //   AbLeq(I0, i) &&
+    // //   AbLt(I0, AbAdd(i, I1)) && AbLt(AbAdd(i, I1), AbSeqLen(f))
+    // //   ==> AbSeqIndex(AbAdd(i, I1), f) == AbSeqIndex(i, f');
+    // forall i | AbLeqLt(i, index, AbSeqLen(f')) // s[k, |s|-1) keeps
+    //   ensures AbSeqIndex(AbAdd(i, I1), f) == AbSeqIndex(i, f')
+    //   {
+    //     Props_lt_transitive'_p3(I0, index, i); // 0 <= index <= i
+    //     Props_pos(I1);
+    //     Props_add_pos_is_lt (); // Props_add_pos_is_lt_p2(i, I1); // i < i + 1
+    //     Props_lt_transitive'_p3(I0, i, AbAdd(i, I1)); // 0 < i < i + 1
+    //     // assert AbLt(I0, AbAdd(i, I1)); // 0 < i + 1
+    //     Props_lt_addition_p3(i, AbSeqLen(f'), I1); // i + 1 < |f'| + 1 = |f|
+    //     // assert AbLt(AbAdd(i, I1), AbSeqLen(f)); // i + 1 < |f|
+    //   }
+    Seq_Props_length<AbInt> (); // AbSeqLen(g/f) >= 0
+    ghost var g' := AbSeqInit(AbSeqLen(g), // len >= 0
+      x requires AbLeqLt(x, I0, AbSeqLen(g)) =>
       if AbSeqIndex(x, g) == index then unused
       else if AbLt(index, AbSeqIndex(x, g)) then AbSub(AbSeqIndex(x, g), I1)
       else AbSeqIndex(x, g) );
+    // assert forall i :: AbLeqLt(i, I0, AbSeqLen(g)) ==>
+    //   AbSeqIndex(i, g') == (if AbSeqIndex(i, g) == index then unused
+    //   else if AbLt(index, AbSeqIndex(i, g)) then AbSub(AbSeqIndex(i, g), I1)
+    //   else AbSeqIndex(i, g));
     var node := AbSeqIndex(p, nodes);
-    /* precond for AbSeqIndex(node.prev, nodes) */
-    assume AbPos(I1); //Props_pos(I1);
-    Props_lt_gt_eq_p2 (I0, AbSeqIndex(p, g));
-    Props_leq2lt_p2 (I0, AbSeqIndex(p, g));
-    Props_lt2leq_p2 (I0, AbSeqIndex(p, g));
-    Props_add_sub_is_orig_p2 (AbSeqIndex(p, g), I1);
-    Props_lt_add_notneg_p3 (AbSub(AbSeqIndex(p, g), I1), AbSeqLen(f), I1);
-    assert AbLeq(I0, node.prev);
-    assert AbLt(node.prev, AbSeqLen(nodes));
-    /* precond ends */
+    /*** precond for AbSeqIndex(node.prev, nodes) */
+    Props_leq2lt_sub_p2 (I0, index);
+    // assert AbLeq(sentinel, index); // true
+    Props_lt_is_not_leq (); // Props_lt_is_not_leq_p2 (I0, index);
+    Props_lt2leq_sub ();
+    // assert AbLt(I0, index) ==> AbLeq(I0, AbSub(index, I1)); // true
+    // assert AbLt(index, AbSeqLen(f)); // true
+    Props_pos(I1);
+    Props_add_sub_is_orig_p2 (index, I1);
+    Props_lt_add_notneg (); // Props_lt_add_notneg_p3 (AbSub(index, I1), AbSeqLen(f), I1);
+    // assert AbLt(AbSub(index, I1), AbSeqLen(f)); // true
+    // assert
+    //   if AbLt(I0, index) then
+    //     AbLeq(I0, AbSub(index, I1)) ==> // precond: 0 <= index
+    //     AbLt(AbSub(index, I1), AbSeqLen(f)) ==> // precond: index < |f|
+    //     AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(index, I1), f) // nonfirst.prev
+    //   else if I0 == index || I0 == AbSeqLen(f) then
+    //     AbSeqIndex(p, nodes).prev == I0 // first.prev == sentinel or sentinel.prev == sentinel
+    //   else
+    //     AbLeq(I0, AbSub(AbSeqLen(f), I1)) ==> // precond: 0 <= index
+    //     AbLt(AbSub(AbSeqLen(f), I1), AbSeqLen(f)) ==> // precond: index < |f|
+    //     AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqLen(f), I1), f) ; // sentinel.prev == last
+    // assert AbLeq(I0, node.prev); // true
+    // assert AbLt(node.prev, AbSeqLen(nodes)); // true
+    /*** precond ends */
     var node_prev := AbSeqIndex(node.prev, nodes);
-    nodes := AbSeqUpdate(node.prev, node_prev.(next := node.next), nodes);
+    var nodes' := AbSeqUpdate(node.prev, node_prev.(next := node.next), nodes);
     var node_next := AbSeqIndex(node.next, nodes);
-    nodes := AbSeqUpdate(node.next, node_next.(prev := node.prev), nodes);
-    nodes := AbSeqUpdate(p, Node(None, freeStack, I0), nodes);
-    l' := DList(nodes, p, s', f', g');
+    var nodes'' := AbSeqUpdate(node.next, node_next.(prev := node.prev), nodes');
+    var nodes''' := AbSeqUpdate(p, Node(None, freeStack, I0), nodes'');
+    l' := DList(nodes''', p, s', f', g');
     
-    Props_lt_gt_eq ();
-    Props_lt2leq ();
-    // forall x 
-    //   ensures AbLt(I0, x) ==> AbLeq(I0, AbSub(x, I1))
-    //   { Props_lt2leq_p2 (I0, x); }
-    assert forall x :: AbLt(I0, x) ==> AbLeq(I0, AbSub(x, I1));
-    assert false;
-    // Props_lt_transitive ();
-    forall x
-      ensures AbLt(index, x) ==> AbLt(I0, x)
-      { Props_lt_transitive_p3(I0, index, x); }
-    // assert forall x :: x != p && ValidPtr(l, x) ==> ValidPtr(l', x);
+    // assert forall x :: x != p && ValidPtr(l, x) ==> ValidPtr(l', x); // true
     // assert forall x :: x != p && ValidPtr(l, x) ==>
     //   ( if AbLt(Index(l, x), Index(l, p)) 
     //     then Index(l', x) == Index(l, x)
     //     else Index(l', x) == AbSub(Index(l, x), I1) );
 
-    Props_lt2leq_p2 (index, AbSeqLen(f));
-    // assert AbLt(index, AbSeqLen(f));
-    // assert AbLeq(index, AbSeqLen(f'));
-
     /* check Inv(l') */
-    Props_add2sub ();
-    // Props_pos(I1);
     Props_add_pos_is_lt ();
-    Props_lt_addition ();
+    assert AbSeqLen(f') == AbSeqLen(s'); // true
+    assert AbSeqLen(g') == AbSeqLen(nodes); // true
+    assert AbLt(I0, AbSeqLen(nodes)); // true
+    assert AbLeq(I0, index); // true
+    assert AbSeqIndex(I0, g') == sentinel; // true
+    assert AbLeqLt(p, I0, AbSeqLen(nodes)); // true
 
-    // forall i | (AbLt(I0, i) || I0 == i) && AbLt(i, index) // s[0, k) keeps
-    //   ensures AbSeqIndex(i, f) == AbSeqIndex(i, f')
-    //   {
-    //     // Props_lt2leq_sub_param (index, AbSeqLen(f));
-    //     Props_lt_transitive_p3(i, index, AbSeqLen(f));
-    //     Props_lt_transitive_p3(i, index, AbSeqLen(f'));
-    //   }
-    // assert forall i :: // s[0, k) keeps
-    //   (AbLt(I0, i) || I0 == i) && AbLt(i, index) ==> 
-    //   AbSeqIndex(i, f) == AbSeqIndex(i, f');
+    // forall i | AbLeqLt(i, I0, AbSeqLen(f'))
+    //   ensures
+    //     if AbLeqLt(i, I0, index) then AbSeqIndex(i, f') == AbSeqIndex(i, f)
+    //     else AbSeqIndex(i, f') == AbSeqIndex(AbAdd(i, I1), f)
+    //   { 
+    //     Props_lt_transitive'_p3(i, index, AbSeqLen(f));
+    //     Props_lt2leq_sub (); // Props_lt2leq_sub_p2 (index, AbSeqLen(f));
+    //     // assert AbLeq(index, AbSeqLen(f')); // true
+    //     // Note: Leq -> cannot use precond-version transitive (which is Lt)
+    //     Props_lt_transitive'_p3(i, index, AbSeqLen(f'));
 
-    // forall i | AbLt(index, i) && AbLt(i, AbSeqLen(f')) // s(k, |s|-1] keeps
-    //   ensures AbSeqIndex(AbAdd(i, I1), f) == AbSeqIndex(i, f')
-    //   {
-    //     Props_add_pos_is_lt_p2(i, I1); // i < i + 1
-    //     Props_lt_transitive_p3(I0, index, i); // 0 <= index < i
-    //     Props_lt_transitive_p3(I0, i, AbAdd(i, I1)); // index < i < i + 1
+    //     Props_lt_transitive'_p3(I0, index, i); // 0 <= index <= i
+    //     Props_pos(I1);
+    //     Props_add_pos_is_lt (); // Props_add_pos_is_lt_p2(i, I1); // i < i + 1
+    //     Props_lt_transitive'_p3(I0, i, AbAdd(i, I1)); // 0 < i < i + 1
     //     // assert AbLt(I0, AbAdd(i, I1)); // 0 < i + 1
     //     Props_lt_addition_p3(i, AbSeqLen(f'), I1); // i + 1 < |f'| + 1 = |f|
     //     // assert AbLt(AbAdd(i, I1), AbSeqLen(f)); // i + 1 < |f|
     //   }
-    // assert forall i :: // s(k, |s|-1] keeps
-    //   AbLt(index, i) && AbLt(i, AbSeqLen(f')) ==>
-    //   AbSeqIndex(AbAdd(i, I1), f) == AbSeqIndex(i, f');
+    
+    // forall i | AbLeqLt(i, I0, AbSeqLen(f'))
+    //   ensures AbLeqLt(AbAdd(i, I1), I0, AbSeqLen(f))
+    // {
+    //   Props_pos(I1);
+    //   // Props_add_pos_is_lt_p2(i, I1); // i < i + 1
+    //   Props_add_pos_is_lt (); 
+    //   // assert AbLt(i, AbAdd(i, I1));
+    //   Props_lt_transitive'_p3(I0, i, AbAdd(i, I1)); // 0 < i < i + 1
+    //   // assert AbLt(I0, AbAdd(i, I1)); // 0 < i + 1
+    //   Props_lt_addition_p3(i, AbSeqLen(f'), I1); // i + 1 < |f'| + 1 = |f|
+    //   // assert AbLt(AbAdd(i, I1), AbSeqLen(f)); // i + 1 < |f|
+    // }
+  
+    AbSeqInSame (s, s');
+    AbSeqInSame(f, f');
 
-    // assert AbSeqLen(f') == AbSeqLen(s');
-    // assert AbSeqLen(g') == AbSeqLen(nodes);
-    // assert AbLt(I0, AbSeqLen(nodes));
-// false
-    // assert AbLeq(I0, index);
-    assert AbSeqIndex(I0, g') == sentinel;
-    assert false;
-    // assert (AbLt(I0, p) || I0 == p) && AbLt(p, AbSeqLen(nodes));
+    // AbSeqPart1Same (index, s, s');
+    // AbSeqPart2Shift1 (index, s, s');
+    // AbSeqPart1Same (index, f, f');
+    // AbSeqPart2Shift1 (index, f, f');
 
-    // Seq_Props_index_props_xs (I0, f, f');
-    // assert forall i ::
-    //   (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(f')) ==>
-    //   AbLt(I0, AbSeqIndex(i, f'));
-    // Seq_Props_index_props_xs (AbSeqLen(nodes), f, f');
-    // assert forall i ::
-    //   (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(f')) ==>
-    //   AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes));
-
-// false
-    // assert (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f'), g')} ::
-    //   (AbLt(I0, i) || I0 == i) && AbLt(i, AbSeqLen(f')) ==>
-    //   AbSeqIndex(AbSeqIndex(i, f'), g') == i );
+    // AbSeqPart1Same (node.prev, nodes, nodes');
+    // AbSeqPart2Same (node.prev, nodes, nodes');
+    // AbSeqPart1Same (node.next, nodes', nodes'');
+    // AbSeqPart2Same (node.next, nodes', nodes'');
+    // AbSeqPart1Same (p, nodes'', nodes''');
+    // AbSeqPart2Same (p, nodes'', nodes''');
 
     Seq_Props_index_props ();
-    // assert (forall p ::
-    //   (AbLt(I0, p) || I0 == p) && AbLt(p, AbSeqLen(g')) ==>
-    //   && (AbLt(unused, AbSeqIndex(p, g')) || unused == AbSeqIndex(p, g')) && AbLt(AbSeqIndex(p, g'), AbSeqLen(s'))
-    //   && (AbLt(I0, AbSeqIndex(p, nodes).next) || I0 == AbSeqIndex(p, nodes).next) && AbLt(AbSeqIndex(p, nodes).next, AbSeqLen(g'))
-    //   && ((AbLt(I0, AbSeqIndex(p, g')) || I0 == AbSeqIndex(p, g')) <==> AbSeqIndex(p, nodes).data.Some?) );
+    // assert forall i ::
+    //   AbLeqLt(i, I0, AbSeqLen(f')) ==>
+    //   AbLt(I0, AbSeqIndex(i, f'));
+    // assert forall i ::
+    //   AbLeqLt(i, I0, AbSeqLen(f')) ==>
+    //   AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes));
+
+    // assert (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f'), g')} ::
+    //   AbLeqLt(i, I0, AbSeqLen(f')) ==>
+    //   AbSeqIndex(AbSeqIndex(i, f'), g') == i );
+
+    // assert (forall i ::
+    //   AbLeqLt(i, I0, AbSeqLen(g')) ==>
+    //   && AbLeqLt(AbSeqIndex(i, g'), unused, AbSeqLen(s'))
+    //   && AbLeqLt(AbSeqIndex(i, nodes).next, I0, AbSeqLen(g'))
+    //   && (AbLeq(I0, AbSeqIndex(i, g')) <==> AbSeqIndex(i, nodes).data.Some?) );
     // assert (forall p ::
     //   ((AbLt(I0, p) || I0 == p) && AbLt(p, AbSeqLen(g'))) &&
     //   (AbLt(sentinel, AbSeqIndex(p, g')) || sentinel == AbSeqIndex(p, g')) ==>
