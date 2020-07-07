@@ -27,7 +27,7 @@ module ADT_Seq {
       Seq_Props_concat_is_orig_p2,
       Seq_Props_in_empty_p2, Seq_Props_in_non_empty_p2,
       Seq_Props_in_idx_p2, Seq_Props_idx_in_p2,
-      Seq_Props_idx_in_lt,
+      // Seq_Props_idx_in_lt,
       Seq_Props_slice_in_p4,
       Seq_Props_all_lt, Seq_Props_all_gt
 
@@ -364,11 +364,6 @@ module ADT_Seq {
     ensures AbSeqIn(AbSeqIndex(k, s), s)
     { }
   
-  lemma Seq_Props_idx_in_lt (s: AbSeq<AI.AbInt>, x: AI.AbInt)
-    requires forall k: AI.AbInt :: AI.AbLeqLt(k, AI.I0, AbSeqLen(s)) ==> AI.AbLt(AbSeqIndex(k, s), x)
-    ensures forall v: AI.AbInt :: AbSeqIn(v, s) ==> AI.AbLt(v, x)
-    // TODO
-
   lemma Seq_Props_slice_in_p4<X> (i: AI.AbInt, j: AI.AbInt, s: AbSeq<X>, v: X)
     requires AI.AbLeq(AI.I0, i) 
     requires AI.AbLeq(j, AbSeqLen(s))
@@ -553,6 +548,11 @@ lemma Seq_Props_slice_in<X> ()
     AbSeqIn(v, AbSeqSlice(i, j, s)) ==> AbSeqIn(v, s)
   { forall i, j, s, v | AbLeq(I0, i) && AbLeq(j, AbSeqLen(s)) && AbLeq(i, j)
     { Seq_Props_slice_in_p4<X>(i, j, s, v); } }
+
+lemma Seq_Props_idx_in_lt (s: AbSeq<AbInt>, x: AbInt)
+  requires forall k: AbInt :: AbLeqLt(k, I0, AbSeqLen(s)) ==> AbLt(AbSeqIndex(k, s), x)
+  ensures forall v: AbInt :: AbSeqIn(v, s) ==> AbLt(v, x)
+  // TODO
 
 lemma Seq_Props_all ()
   ensures forall i: AbInt, j: AbInt, x: AbInt, s: AbSeq<AbInt>, s': AbSeq<AbInt> ::
