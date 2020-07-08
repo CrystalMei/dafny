@@ -83,23 +83,30 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
   && |nodes| > 0
   && g[0] == sentinel
   && 0 <= freeStack < |nodes|
-  && (forall i :: 0 <= i < |f| ==> 0 < f[i] < |nodes|)
+  && (forall i {:trigger f[i]} :: 0 <= i < |f| ==> 0 < f[i] < |nodes|)
   && (forall i {:trigger g[f[i]]} :: 0 <= i < |f| ==> g[f[i]] == i)
-  && (forall p :: 0 <= p < |g| ==>
-    && unused <= g[p] < |s|
-    && 0 <= nodes[p].next < |g|
-    && (g[p] >= 0 <==> nodes[p].data.Some?))
-  && (forall p :: 0 <= p < |g| && sentinel <= g[p] ==>
-    && (g[p] == sentinel ==> p == 0)
-    && (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]]))
-    && nodes[p].next == (
-      if g[p] + 1 < |f| then f[g[p] + 1] // nonlast.next or sentinel.next
-      else 0) // last.next == sentinel or sentinel.next == sentinel
+  && (forall p {:trigger g[p]} :: 
+    0 <= p < |g| ==> unused <= g[p] < |s| )
+  && (forall p {: trigger nodes[p]} :: 
+    0 <= p < |g| ==> 0 <= nodes[p].next < |g| )
+  && (forall p {:trigger g[p]} {: trigger nodes[p]} :: 
+    0 <= p < |g| ==> (g[p] >= 0 <==> nodes[p].data.Some?) )
+  && (forall p {:trigger g[p]} :: 
+    0 <= p < |g| && sentinel <= g[p] ==> (g[p] == sentinel ==> p == 0) )
+  && (forall p {:trigger g[p]} {:trigger f[g[p]]} {:trigger s[g[p]]} :: 
+    0 <= p < |g| && sentinel <= g[p] ==>
+      (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) )
+  && (forall p {:trigger g[p]} {:trigger nodes[p].next} ::
+    0 <= p < |g| && sentinel <= g[p] ==>
+      nodes[p].next == (
+        if g[p] + 1 < |f| then f[g[p] + 1] // nonlast.next or sentinel.next
+        else 0) ) // last.next == sentinel or sentinel.next == sentinel
+  && (forall p  {:trigger g[p]} {:trigger nodes[p].prev} ::
+    0 <= p < |g| && sentinel <= g[p] ==>
     && nodes[p].prev == (
       if g[p] > 0 then f[g[p] - 1] // nonfirst.prev
       else if g[p] == 0 || |f| == 0 then 0 // first.prev == sentinel or sentinel.prev == sentinel
-      else f[|f| - 1]) // sentinel.prev == last
-    )
+      else f[|f| - 1]) ) // sentinel.prev == last
 }
 
 predicate Inv<A>(l:DList<A>)
