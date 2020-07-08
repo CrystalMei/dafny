@@ -8,7 +8,15 @@ import opened ADT`Basic
 import opened ADT_Seq`Seq_Basic
 
 datatype Option<V> = None | Some(value:V)
-datatype Node<A> = Node(data:Option<A>, next:AbInt, prev:AbInt)
+datatype Node<A> = Node(data: Option<A>, next: AbInt, prev: AbInt)
+/*
+A DList<A> is a doubly-linked list that represents a sequence s of type seq<A>.
+It supports efficient insertion and removal but not efficient indexing.
+A pointer p of type int is a pointer to a node in the list.
+The DList is implemented as a mutable sequence of nodes, where nodes[0] is a sentinel.
+*/
+// integer: position in seq: index
+// integer: position in dlist: pointer
 datatype DList<A> = DList(
   nodes:AbSeq<Node<A>>, // sequence of nodes held by the list, indexed by pointer p
   freeStack:AbInt, // pointer to singly-linked stack of free nodes
@@ -91,13 +99,13 @@ function Index<A>(l:DList<A>, p:AbInt):(i:AbInt)
 method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
-  // ensures Inv(l')
+  ensures Inv(l')
   ensures Seq(l') == AbSeqRemoveIdx(Index(l, p), Seq(l))
-  // ensures forall x :: x != p && ValidPtr(l, x) ==>
-  //   ValidPtr(l', x) &&
-  //   ( if AbLt(Index(l, x), Index(l, p)) 
-  //     then Index(l', x) == Index(l, x)
-  //     else Index(l', x) == AbSub(Index(l, x), I1) )
+  ensures forall x :: x != p && ValidPtr(l, x) ==>
+    ValidPtr(l', x) &&
+    ( if AbLt(Index(l, x), Index(l, p)) 
+      then Index(l', x) == Index(l, x)
+      else Index(l', x) == AbSub(Index(l, x), I1) )
   {
     var DList(nodes, freeStack, s, f, g) := l;
     ghost var index := AbSeqIndex(p, g);
@@ -280,56 +288,12 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     // assert Inv(l');
   }
 
-///////////////////// short version ///////////////////////////
-// function method {:extern "LinearExtern", "seq_length"} seq_length<A>(s:seq<A>):(n:uint64)
-//   requires |s| <= 0xffff_ffff_ffff_ffff
-//   ensures n as int == |s| 
-
-// function method {:extern "LinearExtern", "seq_empty"} seq_empty<A>():(s:seq<A>)
-//   ensures |s| == 0 
-
-// function method {:extern "LinearExtern", "seq_alloc"} seq_alloc<A>(length:uint64, a:A):(s:seq<A>)
-//   ensures |s| == length as int
-//   ensures forall i :: 0 <= i < |s| ==> s[i] == a 
-
-// function method {:extern "LinearExtern", "seq_free"} seq_free<A>(s:seq<A>):() 
-
-// function method {:extern "LinearExtern", "seq_unleash"} seq_unleash<A>(s1:seq<A>):(s2:seq<A>)
-//     ensures s1 == s2 
-
-// // must be a method, not a function method, so that we know s is a run-time value, not a ghost value
-// method {:extern "LinearExtern", "seq_length_bound"} seq_length_bound<A>(s:seq<A>)
-//   ensures |s| < 0xffff_ffff_ffff_ffff 
-
-// must be a method, not a function method, so that we know s is a run-time value, not a ghost value
-
-// method {:extern "LinearExtern", "shared_seq_length_bound"} shared_seq_length_bound<A>(s:seq<A>)
-//   ensures |s| < 0xffff_ffff_ffff_ffff 
-
-// method SeqResize<A>(s: seq<A>, newlen: uint64, a: A) returns (s2: seq<A>)
-//   ensures |s2| == newlen as nat
-//   ensures forall j :: 0 <= j < newlen as nat ==> s2[j] == (if j < |s| then s[j] else a) 
-
-// method AllocAndCopy<A>(source: seq<A>, from: uint64, to: uint64)
-//   returns (dest: seq<A>)
-//   requires 0 <= from as nat <= to as nat <= |source|;
-//   ensures source[from..to] == dest
-
-/*
-A DList<A> is a doubly-linked list that represents a sequence s of type seq<A>.
-It supports efficient insertion and removal but not efficient indexing.
-A pointer p of type int is a pointer to a node in the list.
-The DList is implemented as a mutable sequence of nodes, where nodes[0] is a sentinel.
-*/
-// integer: position in seq: index
-// integer: position in dlist: pointer
-
-// function IndexHi<A>(l:DList<A>, p:uint64):(i:int)
-//   ensures Inv(l) && ValidPtr(l, p) ==> i == Index(l, p)
-//   ensures Inv(l) && p == 0 ==> i == |Seq(l)|
-// {
-//   if Inv(l) && ValidPtr(l, p) then l.g[p] else |l.s|
-// }
+function IndexHi<A>(l:DList<A>, p:AbInt):(i:AbInt)
+  ensures Inv(l) && ValidPtr(l, p) ==> i == Index(l, p)
+  ensures Inv(l) && p == I0 ==> i == AbSeqLen(Seq(l))
+{
+  if Inv(l) && ValidPtr(l, p) then AbSeqIndex(p, l.g) else  AbSeqLen(l.s)
+}
  
 // function method Get<A>(l:DList<A>, p:uint64):(a:A)
 //   requires Inv(l)
@@ -363,25 +327,38 @@ The DList is implemented as a mutable sequence of nodes, where nodes[0] is a sen
 //   seq_get(l.nodes, p).prev
 // }
  
-// method BuildFreeStack<A>(a:seq<Node<A>>, k:uint64) returns(b:seq<Node<A>>)
-//   requires 0 < k as nat <= |a|
-//   ensures |b| == |a|
-//   ensures forall i :: 0 <= i < k as nat ==> b[i] == a[i]
-//   ensures forall i :: k as nat <= i < |a| <= 0xffff_ffff_ffff_ffff ==> b[i] == Node(None, i as uint64 - 1, 0)
-// {
-//   b := a;
-//   var n := k;
-//   shared_seq_length_bound(b);
-//   while (n < seq_length(b))
-//     invariant k as int <= n as int <= |b|
-//     invariant |b| == |a|
-//     invariant forall i :: 0 <= i < k as nat ==> b[i] == a[i]
-//     invariant forall i :: k as nat <= i < n as nat ==> b[i] == Node(None, i as uint64 - 1, 0)
-//   {
-//     b := seq_set(b, n, Node(None, n - 1, 0));
-//     n := n + 1;
-//   }
-// }
+method BuildFreeStack<X(==)>(a:AbSeq<Node<X>>, k:AbInt) returns (b:AbSeq<Node<X>>)
+  requires AbLt(I0, k)
+  requires AbLeq(k, AbSeqLen(a))
+  ensures AbSeqLen(b) == AbSeqLen(a)
+  ensures forall i :: AbLeqLt(i, I0, k) ==>
+    AbLt(i, AbSeqLen(a)) ==> // precond: lt_transitive
+    AbSeqIndex(i, b) == AbSeqIndex(i, a)
+  ensures forall i :: AbLeqLt(i, k, AbSeqLen(a)) ==>
+    AbLeq(I0, i) ==> // precond: lt_transitive
+    AbSeqIndex(i, b) == Node(None, AbSub(i, I1), I0)
+{
+  b := a;
+  var n := k;
+  while AbLt(n, AbSeqLen(b))
+    invariant AbLeq(k, n)
+    invariant AbLeq(n, AbSeqLen(b))
+    invariant AbSeqLen(b) == AbSeqLen(a)
+    invariant forall i :: AbLeqLt(i, I0, k) ==>
+      AbLt(i, AbSeqLen(a)) ==> // precond: lt_transitive
+      AbSeqIndex(i, b) == AbSeqIndex(i, a)
+    invariant forall i :: AbLeqLt(i, k, n) ==>
+      AbLeq(I0, i) ==> // precond: lt_transitive
+      AbLt(i, AbSeqLen(b)) ==> // precond: lt_transitive
+      AbSeqIndex(i, b) == Node(None, AbSub(i, I1), I0)
+    decreases A2D(AbSub(AbSeqLen(b), n))
+  {
+    Props_lt_transitive ();
+    b:= AbSeqUpdate(n, Node(None, AbSub(n, I1), I0), b);
+    Props_adt_dt_lt (AbSub(AbSeqLen(b), AbAdd(n, I1)), AbSub(AbSeqLen(b), n));
+    n := AbAdd(n, I1);
+  }
+}
 
 // // initial_len should be the initial capacity plus 1
 // method Alloc<A>(initial_len:uint64) returns(l:DList<A>)
@@ -404,15 +381,18 @@ The DList is implemented as a mutable sequence of nodes, where nodes[0] is a sen
 //   requires Inv(l)
 //   ensures Inv(l')
 //   ensures l'.s == l.s
-//   ensures forall x :: ValidPtr(l, x) ==> ValidPtr(l', x) && l'.g[x] == l.g[x]
-//   ensures l'.freeStack != 0 && l'.nodes[l'.freeStack].data.None?
+//   ensures forall x :: ValidPtr(l, x) ==>
+//     ValidPtr(l', x) && AbSeqIndex(x, l'.g) == AbSeqIndex(x, l.g)
+//   ensures l'.freeStack != I0 && 
+//     AbSeqIndex(l'.freeStack, l'.nodes).data.None?
 // {
 //   var DList(nodes, freeStack, s, f, g) := l;
-//   shared_seq_length_bound(nodes);
+//   // shared_seq_length_bound(nodes);
 //   var len := seq_length(nodes);
-//   shared_seq_length_bound(nodes);
-//   var len' := if len < 0x7fff_ffff_ffff_ffff then len + len else len + 1;
-//   nodes := SeqResize(nodes, len', Node(None, freeStack, 0));
+//   // shared_seq_length_bound(nodes);
+//   // var len' := if len < 0x7fff_ffff_ffff_ffff then len + len else len + 1;
+//   var len' := AbAdd(len, len); // AbAdd(len, I1);
+//   nodes := AbSeqResize(nodes, len', Node(None, freeStack, 0));
 //   nodes := BuildFreeStack(nodes, len + 1);
 //   l' := DList(nodes, len' - 1, s, f, seq(|nodes|,
 //     i requires 0 <= i < |nodes| => if i < |g| then g[i] else unused));
@@ -453,7 +433,7 @@ The DList is implemented as a mutable sequence of nodes, where nodes[0] is a sen
 // }
  
 // // ~ 13s
-// method InsertBefore<A>(l:DList<A>, p:uint64, a:A) returns(l':DList<A>, p':uint64)
+// method InsertBefore<A>(l:DList<A>, p:AbInt, a:A) returns(l':DList<A>, p':AbInt)
 //   requires Inv(l)
 //   requires MaybePtr(l, p)
 //   ensures Inv(l')
