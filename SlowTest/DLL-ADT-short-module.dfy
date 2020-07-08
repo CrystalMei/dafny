@@ -380,8 +380,7 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
     i requires AbLeqLt(i, I0, AbSeqLen(nodes)) =>
       if AbLt(i, AbSeqLen(g)) then AbSeqIndex(i, g) else unused );
   Props_lt_transitive_pyz (len, len'); // |g| < |g'|
-  assert forall p : AbInt :: AbLeqLt(p, I0, len) ==> AbSeqIndex(p, g') == AbSeqIndex(p, g);
-  assert false;
+  // assert forall p : AbInt :: AbLeqLt(p, I0, len) ==> AbSeqIndex(p, g') == AbSeqIndex(p, g);
   l' := DList(nodes, AbSub(len', I1), s, f, g');
 
   // assert forall x :: ValidPtr(l, x) ==> ValidPtr(l', x); // true
@@ -416,8 +415,9 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
   // assert AbLt(unused, I0);
   assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
     (AbLeq(I0, AbSeqIndex(p, g)) ==> AbSeqIndex(p, nodes_orig).data.Some?);
-  // assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
-  //   (AbLeq(I0, AbSeqIndex(p, g')) ==> AbLeq(I0, AbSeqIndex(p, g)));
+  assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
+    (AbLeq(I0, AbSeqIndex(p, g')) ==> AbLeq(I0, AbSeqIndex(p, g)));
+  assert false;
   // assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
   //   (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(p, nodes_orig).data.Some?);
   // assume forall p :: AbLeqLt(p, I0, AbSeqLen(g')) ==>
