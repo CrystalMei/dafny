@@ -10,14 +10,16 @@ module ADT {
       Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
       Props_lt2leq_add_p2, Props_lt2leq_sub_p2,
       Props_leq2lt_add_p2, Props_leq2lt_sub_p2,
-      Props_lt_addition_p3, Props_lt_transitive_p3, Props_lt_transitive'_p3,
+      Props_lt_addition_p3, Props_lt_addition_rev_p3,
+      Props_lt_transitive_p3, Props_lt_transitive'_p3,
       Props_lt_add_notneg_p3,
 
       /* Addition */
       Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
       Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
       Props_add2sub_p3, Props_sub2add_p3, 
-      Props_add_sub_is_add_p3, Props_add_sub_is_orig_p2,
+      Props_add_sub_is_add_p3, Props_sub_add_is_sub_p3,
+      Props_add_sub_is_orig_p2,
 
       /* Divide 2 */
       Props_div_pos1_p1, Props_div_pos2_p1, Props_div_zero_p1, Props_div_lt_p1, Props_div_leq_p2, Props_div_add1_leq_p1
@@ -32,7 +34,8 @@ module ADT {
       Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
       Props_lt2leq_add_p2, Props_lt2leq_sub_p2,
       Props_leq2lt_add_p2, Props_leq2lt_sub_p2,
-      Props_lt_addition_p3, Props_lt_transitive_p3,
+      Props_lt_addition_p3, Props_lt_addition_rev_p3,
+      Props_lt_transitive_p3, Props_lt_transitive'_p3,
       Props_lt_add_notneg_p3,
 
       /* Addition */
@@ -124,6 +127,11 @@ module ADT {
     requires AbLt(x, y)
     ensures AbLt(AbAdd(x, a), AbAdd(y, a))
     { }
+  lemma Props_lt_addition_rev_p3 (x: AbInt, y: AbInt, a: AbInt)
+    // x + a < y + a ==> x < y
+    requires AbLt(AbAdd(x, a), AbAdd(y, a))
+    ensures AbLt(x, y)
+    { }
   lemma Props_lt_transitive_p3 (x: AbInt, y: AbInt, z: AbInt)
     // x < y < z
     requires AbLt(x, y)
@@ -192,13 +200,17 @@ module ADT {
     ensures AbAdd(x, y) == z
     { }
   lemma Props_add_sub_is_orig_p2 (x: AbInt, y: AbInt)
-    // x + y == z ==> x = z - y && y = z - x
+    // x + y - y == x
     ensures AbAdd(AbSub(x, y), y) == x
     ensures AbSub(AbAdd(x, y), y) == x
     { }
   lemma Props_add_sub_is_add_p3 (x: AbInt, a: AbInt, b: AbInt)
     // x + b + (a - b) == x + a
     ensures AbAdd(AbAdd(x, b), AbSub(a, b)) == AbAdd(x, a)
+    { }
+  lemma Props_sub_add_is_sub_p3 (x: AbInt, a: AbInt, b: AbInt)
+    // x - (a + b) = x - a - b
+    ensures AbSub(x, AbAdd(a, b)) == AbSub(AbSub(x, a), b)
     { }
 
   lemma Props_div_pos2_p1 (x: AbInt)
@@ -329,6 +341,12 @@ lemma Props_lt_addition ()
   { forall x, y, a | AbLt(x, y)
     { Props_lt_addition_p3(x, y, a); } }
 
+lemma Props_lt_addition_rev ()
+  // x < y ==> x + a < y + a
+  ensures forall x, y, a :: AbLt(AbAdd(x, a), AbAdd(y, a)) ==> AbLt(x, y)
+  { forall x, y, a | AbLt(AbAdd(x, a), AbAdd(y, a))
+    { Props_lt_addition_rev_p3(x, y, a); } }
+
 lemma Props_lt_transitive ()
   // x < y < z
   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
@@ -402,7 +420,7 @@ lemma Props_sub2add ()
     { Props_sub2add_p3(x, y, z); } }
 
 lemma Props_add_sub_is_orig ()
-  // x + y == z ==> x = z - y && y = z - x
+  // x + y - y == x
   ensures forall x, y :: AbAdd(AbSub(x, y), y) == x
   ensures forall x, y :: AbSub(AbAdd(x, y), y) == x
   { forall x, y { Props_add_sub_is_orig_p2(x, y); } }
@@ -411,6 +429,11 @@ lemma Props_add_sub_is_add ()
   // x + b + (a - b) == x + a
   ensures forall x, a, b :: AbAdd(AbAdd(x, b), AbSub(a, b)) == AbAdd(x, a)
   { forall x, a, b { Props_add_sub_is_add_p3(x, a, b); } }
+
+lemma Props_sub_add_is_sub ()
+  // x - (a + b) == x - a - b
+  ensures forall x, a, b :: AbSub(x, AbAdd(a, b)) == AbSub(AbSub(x, a), b)
+  { forall x, a, b { Props_sub_add_is_sub_p3(x, a, b); } }
 
 lemma Props_div_pos2 ()
   // x / 2 is Positive <==> x >= 2
