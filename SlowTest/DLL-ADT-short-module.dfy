@@ -205,7 +205,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
 
     AbSeqRemoveIdx_InSame (f, f');
 
-    forall i | AbLeqLt(i, I0, AbSeqLen(f'))
+    forall i {:trigger AbSeqIndex(i, f')} | AbLeqLt(i, I0, AbSeqLen(f'))
       ensures
         if AbLeqLt(i, I0, index) then AbSeqIndex(i, f') == AbSeqIndex(i, f)
         else AbSeqIndex(i, f') == AbSeqIndex(AbAdd(i, I1), f)
@@ -225,7 +225,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
         // assert AbLt(AbAdd(i, I1), AbSeqLen(f)); // i + 1 < |f|
       }
     
-    forall i | AbLeqLt(i, I0, AbSeqLen(f'))
+    forall i {:trigger AbSeqIndex(i, f')} | AbLeqLt(i, I0, AbSeqLen(f'))
       ensures AbLeqLt(AbAdd(i, I1), I0, AbSeqLen(f))
     {
       Props_pos(I1);
@@ -388,7 +388,9 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
   Props_lt_transitive'_p3 (I1, AbAdd(len, I1), len');
   // assert AbLt(I1, AbAdd(len, I1));
   Props_lt_subtraction (); // I1 < len' ==> I0 < len' - 1
-  Props_add_sub_is_orig_p2 (I0, I1); 
+  Props_add_sub_is_orig_p2 (I0, I1);
+  Props_add_sub_is_orig_p2(len, I1);
+  Props_add_sub_is_orig_p2(len', I1);
   Props_lt_is_not_leq ();
   // assert l'.freeStack != I0; // true
   // assert AbSeqIndex(l'.freeStack, l'.nodes).data.None?; // true
@@ -404,8 +406,7 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
   // Props_lt_transitive_p3(freeStack, len, len');
   // forall i | AbLeqLt(i, AbAdd(len, I1), len')
   //   ensures AbLeqLt(AbSub(i, I1), I0, len')
-  //   { Props_add_sub_is_orig_p2(len, I1);
-  //     Props_add_sub_is_orig_p2(len', I1);
+  //   { 
   //     Props_lt_transitive'_p3 (I0, len, AbSub(i, I1));
   //     Props_lt_transitive_p3 (AbSub(i, I1), AbSub(len', I1), len');
   //   }
@@ -413,11 +414,9 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
   // //   AbLeqLt(AbSeqIndex(p, nodes).next, I0, AbSeqLen(g'));
 
   // assert AbLt(unused, I0);
-  assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
-    (AbLeq(I0, AbSeqIndex(p, g)) ==> AbSeqIndex(p, nodes_orig).data.Some?);
-  assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
-    (AbLeq(I0, AbSeqIndex(p, g')) ==> AbLeq(I0, AbSeqIndex(p, g)));
-  assert false;
+  assert forall p {:trigger AbSeqIndex(p, g)} :: AbLeqLt(p, I0, AbSeqLen(g)) ==> (AbLeq(I0, AbSeqIndex(p, g)) ==> AbSeqIndex(p, nodes_orig).data.Some?);
+  assert forall p {:trigger AbSeqIndex(p, g')} :: AbLeqLt(p, I0, AbSeqLen(g)) ==> (AbLeq(I0, AbSeqIndex(p, g')) ==> AbLeq(I0, AbSeqIndex(p, g)));
+  // assert false;
   // assert forall p :: AbLeqLt(p, I0, AbSeqLen(g)) ==>
   //   (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(p, nodes_orig).data.Some?);
   // assume forall p :: AbLeqLt(p, I0, AbSeqLen(g')) ==>
@@ -426,7 +425,7 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
   //   (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(p, nodes).data.Some?);
   // assert forall p :: AbLeqLt(p, I0, AbSeqLen(g')) ==>
   //   (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(p, nodes).data.Some?);
-  assert false;
+  // assert false;
   
   // assert forall p :: AbLeqLt(p, I0, AbSeqLen(g')) ==>
   //   (AbSeqIndex(p, nodes).data.Some? ==> AbLeq(I0, AbSeqIndex(p, g')));

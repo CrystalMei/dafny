@@ -320,7 +320,7 @@ lemma Props_lt2leq_add ()
     { Props_lt2leq_add_p2(x, y); } }
 lemma Props_lt2leq_sub ()
   // x < y ==> x <= y - 1
-  ensures forall x, y :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
+  ensures forall x, y {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
   { forall x, y | AbLt(x, y)
     { Props_lt2leq_sub_p2(x, y); } }
 
@@ -364,7 +364,7 @@ lemma Props_lt_transitive' ()
 
 lemma Props_lt_add_notneg ()
   // x + a < y ==> x < y
-  ensures forall x, y, a :: AbNotNeg(a) && AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
+  ensures forall x, y, a {:trigger AbLt(AbAdd(x, a), y)} :: AbNotNeg(a) && AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
   { forall x, y, a | AbNotNeg(a) && AbLt(AbAdd(x, a), y)
     { Props_lt_add_notneg_p3(x, y, a); } }
 

@@ -443,7 +443,8 @@ lemma AbSeqRemoveIdx_Part1Same<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
   // s[0, k) keeps
   requires AbLeqLt(k, I0, AbSeqLen(s))
   requires s' == AbSeqRemoveIdx(k, s)
-  ensures forall i :: AbLeqLt(i, I0, k) && 
+  ensures forall i {:trigger AbSeqIndex(i, s')} ::
+    AbLeqLt(i, I0, k) && 
     AbLt(i, AbSeqLen(s)) && AbLt(i, AbSeqLen(s'))
      ==> AbSeqIndex(i, s) == AbSeqIndex(i, s')
   { forall i | AbLeqLt(i, I0, k) && 
@@ -454,7 +455,8 @@ lemma AbSeqRemoveIdx_Part2Shift1<X>(k: AbInt, s: AbSeq<X>, s': AbSeq<X>)
   // s[k, |s|-1) shifts
   requires AbLeqLt(k, I0, AbSeqLen(s))
   requires s' == AbSeqRemoveIdx(k, s)
-  ensures forall i :: AbLeqLt(i, k, AbSeqLen(s')) && AbLeq(I0, i) &&
+  ensures forall i {:trigger AbSeqIndex(AbAdd(i, I1), s)} ::
+    AbLeqLt(i, k, AbSeqLen(s')) && AbLeq(I0, i) &&
     AbLt(I0, AbAdd(i, I1)) && AbLt(AbAdd(i, I1), AbSeqLen(s))
     ==> AbSeqIndex(AbAdd(i, I1), s) == AbSeqIndex(i, s')
   { forall i | AbLeqLt(i, k, AbSeqLen(s')) && AbLeq(I0, i) &&
@@ -465,7 +467,8 @@ lemma AbSeqUpdate_Part1Same<X>(k: AbInt, v: X, s: AbSeq<X>, s': AbSeq<X>)
   // s[0, k) keeps
   requires AbLeqLt(k, I0, AbSeqLen(s))
   requires s' == AbSeqUpdate(k, v, s)
-  ensures forall i :: AbLeqLt(i, I0, k) && 
+  ensures forall i {:trigger AbSeqIndex(i, s')} ::
+    AbLeqLt(i, I0, k) && 
     AbLt(i, AbSeqLen(s)) && AbLt(i, AbSeqLen(s'))
      ==> AbSeqIndex(i, s) == AbSeqIndex(i, s')
   { forall i | AbLeqLt(i, I0, k) && 
