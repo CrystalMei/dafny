@@ -10,7 +10,7 @@ module ADT {
       Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
       Props_lt2leq_add_p2, Props_lt2leq_sub_p2,
       Props_leq2lt_add_p2, Props_leq2lt_sub_p2,
-      Props_lt_addition_p3, Props_lt_addition_rev_p3,
+      Props_lt_addition_p3, Props_lt_subtraction_p3,
       Props_lt_transitive_p3, Props_lt_transitive'_p3,
       Props_lt_add_notneg_p3,
 
@@ -34,7 +34,7 @@ module ADT {
       Props_lt_gt_eq_p2, Props_lt_is_not_leq_p2,
       Props_lt2leq_add_p2, Props_lt2leq_sub_p2,
       Props_leq2lt_add_p2, Props_leq2lt_sub_p2,
-      Props_lt_addition_p3, Props_lt_addition_rev_p3,
+      Props_lt_addition_p3, Props_lt_subtraction_p3,
       Props_lt_transitive_p3, Props_lt_transitive'_p3,
       Props_lt_add_notneg_p3,
 
@@ -127,10 +127,10 @@ module ADT {
     requires AbLt(x, y)
     ensures AbLt(AbAdd(x, a), AbAdd(y, a))
     { }
-  lemma Props_lt_addition_rev_p3 (x: AbInt, y: AbInt, a: AbInt)
-    // x + a < y + a ==> x < y
-    requires AbLt(AbAdd(x, a), AbAdd(y, a))
-    ensures AbLt(x, y)
+  lemma Props_lt_subtraction_p3 (x: AbInt, y: AbInt, a: AbInt)
+    // x < y ==> x - a < y - a
+    requires AbLt(x, y)
+    ensures AbLt(AbSub(x, a), AbSub(y, a))
     { }
   lemma Props_lt_transitive_p3 (x: AbInt, y: AbInt, z: AbInt)
     // x < y < z
@@ -341,17 +341,22 @@ lemma Props_lt_addition ()
   { forall x, y, a | AbLt(x, y)
     { Props_lt_addition_p3(x, y, a); } }
 
-lemma Props_lt_addition_rev ()
+lemma Props_lt_subtraction ()
   // x < y ==> x + a < y + a
-  ensures forall x, y, a :: AbLt(AbAdd(x, a), AbAdd(y, a)) ==> AbLt(x, y)
-  { forall x, y, a | AbLt(AbAdd(x, a), AbAdd(y, a))
-    { Props_lt_addition_rev_p3(x, y, a); } }
+  ensures forall x, y, a :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
+  { forall x, y, a | AbLt(x, y)
+    { Props_lt_subtraction_p3(x, y, a); } }
 
 lemma Props_lt_transitive ()
   // x < y < z
   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall x, y, z | AbLt(x, y) && AbLt(y, z) 
     {Props_lt_transitive_p3(x, y, z); } }
+lemma Props_lt_transitive_pyz (y: AbInt, z: AbInt)
+  // x < y < z
+  ensures forall x :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
+  { forall x | AbLt(x, y) && AbLt(y, z) 
+    {Props_lt_transitive'_p3(x, y, z); } }
 lemma Props_lt_transitive' ()
   // x < y < z
   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)

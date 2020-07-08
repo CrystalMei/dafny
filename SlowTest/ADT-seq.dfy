@@ -405,12 +405,11 @@ module ADT_Seq {
 import opened ADT`Basic
 import opened ADT_Seq`Seq_Basic
 
-// 
 function method AbSeqInit<X> (len: AbInt, func : AbInt --> X) : (s: AbSeq<X>)
   requires AbLeq(I0, len)
-  requires forall i :: AbLeqLt(i, I0, len) ==> func.requires(i)
+  requires forall i : AbInt :: AbLeqLt(i, I0, len) ==> func.requires(i)
   ensures AbSeqLen(s) == len
-  ensures forall i :: AbLeqLt(i, I0, len) ==> AbSeqIndex(i, s) == func(i)
+  ensures forall i : AbInt :: AbLeqLt(i, I0, len) ==> AbSeqIndex(i, s) == func(i)
 
 method AbSeqResize<X>(s: AbSeq<X>, newlen: AbInt, a: X) returns (s2: AbSeq<X>)
   ensures AbSeqLen(s2) == newlen
@@ -617,3 +616,10 @@ lemma Seq_Props_index_props ()
     ((AbLt(I0, j) || I0 == j) && AbLt(j, AbSeqLen(s'))) ==>
     (forall v :: AbSeqIn(v, s') ==> AbSeqIn(v, s)) ==>
     AbLt(x, AbSeqIndex(j, s'))
+  
+lemma Seq_Props_index_all_lt (s1: AbSeq<AbInt>, s2: AbSeq<AbInt>, x: AbInt)
+  ensures forall i, j ::
+    AbLeqLt(i, I0, AbSeqLen(s1)) && AbLeqLt(j, I0, AbSeqLen(s2)) &&
+    AbSeqIndex(i, s1) == AbSeqIndex(j, s2) &&
+    (forall p :: AbLeqLt(p, I0, AbSeqLen(s1)) ==> AbLt(AbSeqIndex(p, s1), x))
+    ==> AbLt(AbSeqIndex(j, s2), x)
