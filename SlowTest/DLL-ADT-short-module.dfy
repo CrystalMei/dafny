@@ -45,10 +45,10 @@ predicate Invs<A>(nodes:AbSeq<Node<A>>, freeStack:AbInt, s:AbSeq<A>, f:AbSeq<AbI
   && (forall p {:trigger AbSeqIndex(p, g)} ::
     // 0 <= p < |g| ==> unused <= g[p] < |s|
     AbLeqLt(p, I0, AbSeqLen(g)) ==> AbLeqLt(AbSeqIndex(p, g), unused, AbSeqLen(s)) )
-  && (forall p {:trigger AbSeqIndex(p, nodes)} ::
+  && (forall p {:trigger AbSeqIndex(p, nodes).next} ::
     // 0 <= p < |g| ==> 0 <= nodes[p].next < |g|
     AbLeqLt(p, I0, AbSeqLen(g)) ==> AbLeqLt(AbSeqIndex(p, nodes).next, I0, AbSeqLen(g)) )
-  && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes)} ::
+  && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).data} ::
     // 0 <= p < |g| ==> (g[p] >= 0 <==> nodes[p].data.Some?)
     AbLeqLt(p, I0, AbSeqLen(g)) ==> (AbLeq(I0, AbSeqIndex(p, g)) <==> AbSeqIndex(p, nodes).data.Some?) )
   && (forall p {:trigger AbSeqIndex(p, g)} ::
@@ -60,14 +60,14 @@ predicate Invs<A>(nodes:AbSeq<Node<A>>, freeStack:AbInt, s:AbSeq<A>, f:AbSeq<AbI
       (AbLeq(I0, AbSeqIndex(p, g)) ==>
         AbSeqIndex(AbSeqIndex(p, g), f) == p &&
         AbSeqIndex(p, nodes).data == Some(AbSeqIndex(AbSeqIndex(p, g), s))) )
-  && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).next} ::
+  && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).next} {:trigger AbSeqIndex(AbAdd(AbSeqIndex(p, g), I1), f)}::
     AbLeqLt(p, I0, AbSeqLen(g)) && AbLeq(sentinel, AbSeqIndex(p, g)) ==>
       // 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].next == (if g[p] + 1 < |f| then f[g[p] + 1] else 0)
       (if AbLt(AbAdd(AbSeqIndex(p, g), I1), AbSeqLen(f)) then
         AbLeq(I0, AbAdd(AbSeqIndex(p, g), I1)) ==> // precond: 0 <= g[p]+1
         AbSeqIndex(p, nodes).next == AbSeqIndex(AbAdd(AbSeqIndex(p, g), I1), f) // nonlast.next or sentinel.next
       else AbSeqIndex(p, nodes).next == I0 ) ) // last.next == sentinel or sentinel.next == sentinel
-  && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).prev} ::
+  && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).prev} {:trigger AbSeqIndex(AbSub(AbSeqIndex(p, g), I1), f)}::
     AbLeqLt(p, I0, AbSeqLen(g)) && AbLeq(sentinel, AbSeqIndex(p, g)) ==>
       // 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].prev == (if g[p] > 0 then f[g[p] - 1] else if g[p] == 0 || |f| == 0 then 0 else f[|f| - 1])
       if AbLt(I0, AbSeqIndex(p, g)) then
