@@ -84,26 +84,26 @@ module ADT_Seq {
     ensures AbSeqLen(s) == AI.AbAdd(AbSeqLen(s'), AI.I1)
     ensures AbSeqLen(s') == AI.AbSub(AbSeqLen(s), AI.I1)
     // ensures forall x : X :: AbSeqIn(x, s') ==> AbSeqIn(x, s)
-    // ensures var k := AbSeqGetIdx(v, s);
-    //   forall i : AI.AbInt 
-    //     {:trigger AbSeqIndex(i, s')} :: // s[0, k) keeps
-    //     AI.AbLeqLt(i, AI.I0, k) ==>
-    //     // precond begins
-    //     AI.AbLt(i, AbSeqLen(s)) ==>
-    //     AI.AbLt(i, AbSeqLen(s')) ==>
-    //     // precond ends
-    //     AbSeqIndex(i, s) == AbSeqIndex(i, s')
-    // ensures var k := AbSeqGetIdx(v, s);
-    //   forall i : AI.AbInt
-    //     {:trigger AbSeqIndex(AbAdd(i, I1), s)}
-    //     {:trigger AbSeqIndex(i, s')} :: // s[k, |s|-1) keeps
-    //     AI.AbLeqLt(i, k, AbSeqLen(s')) ==>
-    //     // precond begins
-    //     AI.AbLeq(AI.I0, i) ==>
-    //     AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1)) ==>
-    //     AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s)) ==>
-    //     // precond ends
-    //     AbSeqIndex(AI.AbAdd(i, AI.I1), s) == AbSeqIndex(i, s')
+    ensures var k := AbSeqGetIdx(v, s);
+      forall i : AI.AbInt // s[0, k) keeps
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, AI.I0, k) ==>
+        // precond begins
+        AI.AbLt(i, AbSeqLen(s)) ==>
+        AI.AbLt(i, AbSeqLen(s')) ==>
+        // precond ends
+        AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    ensures var k := AbSeqGetIdx(v, s);
+      forall i : AI.AbInt // s[k, |s|-1) keeps
+        {:trigger AbSeqIndex(AI.AbAdd(i, AI.I1), s)}
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, k, AbSeqLen(s')) ==>
+        // precond begins
+        AI.AbLeq(AI.I0, i) ==>
+        AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1)) ==>
+        AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s)) ==>
+        // precond ends
+        AbSeqIndex(AI.AbAdd(i, AI.I1), s) == AbSeqIndex(i, s')
   // {
   //   var k := AbSeqGetIdx(v, s);
   //   AbSeqRemoveIdx(k, s)
@@ -141,7 +141,7 @@ module ADT_Seq {
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
     ensures AbSeqLen(s) == AI.AbAdd(AbSeqLen(s'), AI.I1)
     ensures AbSeqLen(s') == AI.AbSub(AbSeqLen(s), AI.I1)
-    ensures forall x: X :: AbSeqIn(x, s') ==> AbSeqIn(x, s)
+    // ensures forall x: X :: AbSeqIn(x, s') ==> AbSeqIn(x, s)
     ensures
       forall i : AI.AbInt // s[0, k) keeps
         {:trigger AbSeqIndex(i, s')} ::
@@ -309,6 +309,32 @@ module ADT_Seq {
   //     // assert AbSeqIndex(k, s') == v;
   //     AbSeqConcat(half1, AbSeqSingleton(v))
   //  }
+
+  function method AbSeqInsertIdx<X(!new)> (k: AI.AbInt, v: X, s: AbSeq<X>) : (s': AbSeq<X>)
+    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    ensures AbSeqLen(s') == AI.AbAdd(AbSeqLen(s), AI.I1)
+    ensures AbSeqIndex(k, s') == v
+    ensures
+      forall i : AI.AbInt // s[0, k) keeps
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, AI.I0, k) ==>
+        // precond begins
+        AI.AbLt(i, AbSeqLen(s)) ==>
+        AI.AbLt(i, AbSeqLen(s')) ==>
+        // precond ends
+        AbSeqIndex(i, s') == AbSeqIndex(i, s)
+    ensures
+      forall i : AI.AbInt // s[k, |s|) keeps
+        {:trigger AbSeqIndex(AI.AbAdd(i, AI.I1), s)}
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, k, AbSeqLen(s)) ==>
+        // precond begins
+        AI.AbLeq(AI.I0, i) ==>
+        AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1)) ==>
+        AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s')) ==>
+        // precond ends
+        AbSeqIndex(i, s) == AbSeqIndex(AI.AbAdd(i, AI.I1), s')
+  { s[..k] + [v] + s[k..] }
 
   lemma Seq_Props_length_p1<X> (s: AbSeq<X>) // |s| >= 0
     ensures AI.AbLeq(AI.I0, AbSeqLen(s))
@@ -589,7 +615,7 @@ lemma Seq_Props_idx_in<X> () // v in s ==> s[i] == v
 
 lemma Seq_Props_slice_in<X> ()
   ensures forall i: AbInt, j: AbInt, s: AbSeq<X>, v: X
-    {:trigger AbSeqSlice(i, j, s)} ::
+    {:trigger AbSeqIn(v, AbSeqSlice(i, j, s))} ::
     AbLeq(I0, i) && AbLeq(j, AbSeqLen(s)) && AbLeq(i, j) ==>
     AbSeqIn(v, AbSeqSlice(i, j, s)) ==> AbSeqIn(v, s)
   { forall i, j, s, v | AbLeq(I0, i) && AbLeq(j, AbSeqLen(s)) && AbLeq(i, j)
