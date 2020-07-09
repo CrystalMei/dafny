@@ -96,7 +96,7 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
   && (forall p {:trigger g[p]} {:trigger f[g[p]]} {:trigger s[g[p]]} :: 
     0 <= p < |g| && sentinel <= g[p] ==>
       (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) )
-  && (forall p {:trigger g[p]} {:trigger nodes[p]} ::
+  && (forall p {:trigger g[p]} {:trigger nodes[p]} {:trigger f[g[p] + 1]} ::
     0 <= p < |g| && sentinel <= g[p] ==>
       nodes[p].next == (
         if g[p] + 1 < |f| then f[g[p] + 1] // nonlast.next or sentinel.next
@@ -243,6 +243,8 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
     ValidPtr(l', x) && Index(l', x) == Index(l, x) - (if Index(l, x) < Index(l, p) then 0 else 1)
 {
   var DList(nodes, freeStack, s, f, g) := l;
+  assert nodes[p].prev != p;
+  // assert nodes[p].next != p;
   ghost var index := g[p];
   ghost var s' := s[.. index] + s[index + 1 ..];
   ghost var f' := f[.. index] + f[index + 1 ..];

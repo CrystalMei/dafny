@@ -143,24 +143,27 @@ module ADT_Seq {
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
     ensures AbSeqLen(s) == AI.AbAdd(AbSeqLen(s'), AI.I1)
     ensures AbSeqLen(s') == AI.AbSub(AbSeqLen(s), AI.I1)
-    // ensures forall x: X :: AbSeqIn(x, s') ==> AbSeqIn(x, s)
-    // ensures
-    //   forall i : AI.AbInt :: // s[0, k) keeps
-    //     AI.AbLeqLt(i, AI.I0, k) ==>
-    //     // precond begins
-    //     AI.AbLt(i, AbSeqLen(s)) ==>
-    //     AI.AbLt(i, AbSeqLen(s')) ==>
-    //     // precond ends
-    //     AbSeqIndex(i, s) == AbSeqIndex(i, s')
-    // ensures
-    //   forall i : AI.AbInt :: // s[k, |s|-1) keeps
-    //     AI.AbLeqLt(i, k, AbSeqLen(s')) ==>
-    //     // precond begins
-    //     AI.AbLeq(AI.I0, i) ==>
-    //     AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1)) ==>
-    //     AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s)) ==>
-    //     // precond ends
-    //     AbSeqIndex(AI.AbAdd(i, AI.I1), s) == AbSeqIndex(i, s')
+    ensures forall x: X :: AbSeqIn(x, s') ==> AbSeqIn(x, s)
+    ensures
+      forall i : AI.AbInt // s[0, k) keeps
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, AI.I0, k) ==>
+        // precond begins
+        AI.AbLt(i, AbSeqLen(s)) ==>
+        AI.AbLt(i, AbSeqLen(s')) ==>
+        // precond ends
+        AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    ensures
+      forall i : AI.AbInt // s[k, |s|-1) keeps
+        {:trigger AbSeqIndex(AI.AbAdd(i, AI.I1), s)}
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, k, AbSeqLen(s')) ==>
+        // precond begins
+        AI.AbLeq(AI.I0, i) ==>
+        AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1)) ==>
+        AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s)) ==>
+        // precond ends
+        AbSeqIndex(AI.AbAdd(i, AI.I1), s) == AbSeqIndex(i, s')
     { s[ ..k ] + s[ k+1.. ] }
   // {
   //   var len := AbSeqLen(s);
@@ -233,22 +236,24 @@ module ADT_Seq {
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
     ensures AbSeqLen(s) == AbSeqLen(s')
     ensures AbSeqIndex(k, s') == v
-    // ensures
-    //   forall i : AI.AbInt :: // s[0, k) keeps
-    //     AI.AbLeqLt(i, AI.I0, k) ==>
-    //     // precond begins
-    //     AI.AbLt(i, AbSeqLen(s)) ==>
-    //     AI.AbLt(i, AbSeqLen(s')) ==>
-    //     // precond ends
-    //     AbSeqIndex(i, s) == AbSeqIndex(i, s')
-    // ensures
-    //   forall i : AI.AbInt :: // s(k, |s|) keeps
-    //     AI.AbLt(k, i) && AI.AbLt(i, AbSeqLen(s')) ==>
-    //     // precond begins
-    //     AI.AbLeq(AI.I0, i) ==>
-    //     AI.AbLt(i, AbSeqLen(s)) ==>
-    //     // precond ends
-    //     AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    ensures
+      forall i : AI.AbInt // s[0, k) keeps
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLeqLt(i, AI.I0, k) ==>
+        // precond begins
+        AI.AbLt(i, AbSeqLen(s)) ==>
+        AI.AbLt(i, AbSeqLen(s')) ==>
+        // precond ends
+        AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    ensures
+      forall i : AI.AbInt // s(k, |s|) keeps
+        {:trigger AbSeqIndex(i, s')} ::
+        AI.AbLtLt(i, k, AbSeqLen(s')) ==>
+        // precond begins
+        AI.AbLeq(AI.I0, i) ==>
+        AI.AbLt(i, AbSeqLen(s)) ==>
+        // precond ends
+        AbSeqIndex(i, s) == AbSeqIndex(i, s')
     { s[ k := v ] }
   // {
   //   var len := AbSeqLen(s);
