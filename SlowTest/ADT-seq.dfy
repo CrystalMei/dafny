@@ -5,7 +5,7 @@ module ADT_Seq {
       AAI,
       AbSeq, 
       AbSeqLen, AbSeqIndex, AbSeqConcat, AbSeqIn, AbSeqEmpty, AbSeqSingleton, AbSeqSlice, /* AbSeqInit, */
-      AbSeqGetIdx, AbSeqRemove, AbSeqRemoveIdx, AbSeqUpdate,
+      AbSeqGetIdx, AbSeqRemove, AbSeqRemoveIdx, AbSeqUpdate, AbSeqInsertIdx,
       AbSeqSliceSame_p5, /* AbSeqInitFunc_p4, */
       AbSeqRemoveIdx_InSame_p4,
       AbSeqRemoveIdx_Part1Same_p4, AbSeqRemoveIdx_Part2Shift1_p4,
@@ -325,8 +325,7 @@ module ADT_Seq {
         AbSeqIndex(i, s') == AbSeqIndex(i, s)
     ensures
       forall i : AI.AbInt // s[k, |s|) keeps
-        {:trigger AbSeqIndex(AI.AbAdd(i, AI.I1), s)}
-        {:trigger AbSeqIndex(i, s')} ::
+        {:trigger AbSeqIndex(AI.AbAdd(i, AI.I1), s')} ::
         AI.AbLeqLt(i, k, AbSeqLen(s)) ==>
         // precond begins
         AI.AbLeq(AI.I0, i) ==>
