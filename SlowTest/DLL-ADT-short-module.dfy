@@ -291,11 +291,13 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
 
   Props_pos(I1);
   Props_add_pos_is_lt(); // len < len + 1, len < len'
-  Props_lt_transitive ();
+  Props_lt_transitive' ();
+  // Props_lt_transitive'_p3(I0, len, len'); // 0 < len'
   Props_lt2leq_add_p2(I0, len);
   Props_add_identity (); // 1 <= len
   Props_add_commutative ();
   Props_lt_addition (); // len + 1 <= len + len = len'
+  // Props_lt_transitive'_p3(I0, len, AbAdd(len, I1));
   nodes' := BuildFreeStack(nodes', AbAdd(len, I1));
 
   Seq_Props_length<Node<X>> ();
@@ -305,13 +307,23 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
       if AbLt(i, AbSeqLen(g)) then AbSeqIndex(i, g) else unused );
   l' := DList(nodes', AbSub(len', I1), s, f, g');
 
+  // Props_lt_transitive'_pyz (len, len');
   // assert forall x : AbInt {:trigger AbSeqIndex(x, l'.g)} :: ValidPtr(l, x) ==> ValidPtr(l', x); // true
   // assert forall x : AbInt {:trigger AbSeqIndex(x, l'.g)} :: ValidPtr(l, x) ==> AbSeqIndex(x, l'.g) == AbSeqIndex(x, l.g); // true
 
   Props_add_sub_is_orig ();
+  assert len == AbSub(AbAdd(len, I1), I1); // trigger
+  Props_lt_subtraction ();
+  // assert AbLeq(len, AbSub(len', I1));
+  // Props_lt_transitive'_p3 (I0, len, AbSub(len', I1)); // 0 < len < len'-1
+  // Props_lt_is_not_leq_p2 (I0, AbSub(len', I1));
+  // Props_lt_is_not_leq_px (len); Props_lt_is_not_leq_px (AbAdd(len, I1));
+  // Props_lt_is_not_leq_py (len); Props_lt_is_not_leq_py (AbAdd(len, I1));
   Props_lt_is_not_leq ();
   // assert l'.freeStack != I0; // true
   // assert AbSeqIndex(l'.freeStack, l'.nodes).data.None?; // true
+
+  // Props_lt_transitive' ();
 }
 
 // ~8s
