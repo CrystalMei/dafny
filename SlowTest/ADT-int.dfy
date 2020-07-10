@@ -370,7 +370,7 @@ lemma Props_leq2lt_sub' ()
 
 lemma Props_lt_addition ()
   // x < y ==> x + a < y + a
-  ensures forall x, y, a :: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
+  ensures forall x, y, a {:trigger AbAdd(x, a), AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
   { forall x, y, a | AbLt(x, y)
     { Props_lt_addition_p3(x, y, a); } }
 

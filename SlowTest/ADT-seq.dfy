@@ -246,7 +246,7 @@ module ADT_Seq {
     ensures
       forall i : AI.AbInt // s(k, |s|) keeps
         {:trigger AbSeqIndex(i, s')} ::
-        AI.AbLtLt(i, k, AbSeqLen(s')) ==>
+        AI.AbLt(k, i) && AI.AbLt(i, AbSeqLen(s')) ==>
         // precond begins
         AI.AbLeq(AI.I0, i) ==>
         AI.AbLt(i, AbSeqLen(s)) ==>
@@ -311,7 +311,8 @@ module ADT_Seq {
   //  }
 
   function method AbSeqInsertIdx<X(!new)> (k: AI.AbInt, v: X, s: AbSeq<X>) : (s': AbSeq<X>)
-    requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
+    requires AI.AbLeq(AI.I0, k)
+    requires AI.AbLeq(k, AbSeqLen(s))
     ensures AbSeqLen(s') == AI.AbAdd(AbSeqLen(s), AI.I1)
     ensures AbSeqIndex(k, s') == v
     ensures
