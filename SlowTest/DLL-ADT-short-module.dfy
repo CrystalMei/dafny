@@ -36,50 +36,60 @@ predicate Invs<A>(nodes:AbSeq<Node<A>>, freeStack:AbInt, s:AbSeq<A>, f:AbSeq<AbI
   && AbLt(I0, AbSeqLen(nodes))
   && AbSeqIndex(I0, g) == sentinel
   && AbLeqLt(freeStack, I0, AbSeqLen(nodes))
+  /* 0 <= i < |f| ==> 0 < f[i] < |nodes| */
   && (forall i {:trigger AbSeqIndex(i, f)} ::
-    // 0 <= i < |f| ==> 0 < f[i] < |nodes|
     AbLeqLt(i, I0, AbSeqLen(f)) ==> AbLt(I0, AbSeqIndex(i, f)) && AbLt(AbSeqIndex(i, f), AbSeqLen(nodes)) )
+  /* 0 <= i < |f| ==> g[f[i]] == i */
   && (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f), g)} ::
-    // 0 <= i < |f| ==> g[f[i]] == i
     AbLeqLt(i, I0, AbSeqLen(f)) ==> AbSeqIndex(AbSeqIndex(i, f), g) == i )
+  /* 0 <= p < |g| ==> unused <= g[p] < |s| */
   && (forall p {:trigger AbSeqIndex(p, g)} ::
-    // 0 <= p < |g| ==> unused <= g[p] < |s|
     AbLeqLt(p, I0, AbSeqLen(g)) ==> AbLeqLt(AbSeqIndex(p, g), unused, AbSeqLen(s)) )
+  /* 0 <= p < |g| ==> 0 <= nodes[p].next < |g| */
   && (forall p {:trigger AbSeqIndex(p, nodes).next} ::
-    // 0 <= p < |g| ==> 0 <= nodes[p].next < |g|
     AbLeqLt(p, I0, AbSeqLen(g)) ==> AbLeqLt(AbSeqIndex(p, nodes).next, I0, AbSeqLen(g)) )
+  /* 0 <= p < |g| ==> (g[p] >= 0 <==> nodes[p].data.Some?) */
   && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).data} ::
-    // 0 <= p < |g| ==> (g[p] >= 0 <==> nodes[p].data.Some?)
     AbLeqLt(p, I0, AbSeqLen(g)) ==> (AbLeq(I0, AbSeqIndex(p, g)) <==> AbSeqIndex(p, nodes).data.Some?) )
+  /* 0 <= p < |g| && sentinel <= g[p] ==> (g[p] == sentinel ==> p == 0) */
   && (forall p {:trigger AbSeqIndex(p, g)} ::
-    // 0 <= p < |g| && sentinel <= g[p] ==> (g[p] == sentinel ==> p == 0)
     AbLeqLt(p, I0, AbSeqLen(g)) && AbLeq(sentinel, AbSeqIndex(p, g)) ==> (AbSeqIndex(p, g) == sentinel ==> p == I0) )
+  /* 0 <= p < |g| && sentinel <= g[p] ==> (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) */
   && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(AbSeqIndex(p, g), f)} {:trigger AbSeqIndex(AbSeqIndex(p, g), s)} ::
-    // 0 <= p < |g| && sentinel <= g[p] ==> (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]]))
     AbLeqLt(p, I0, AbSeqLen(g)) && AbLeq(sentinel, AbSeqIndex(p, g)) ==>
       (AbLeq(I0, AbSeqIndex(p, g)) ==>
         AbSeqIndex(AbSeqIndex(p, g), f) == p &&
-        AbSeqIndex(p, nodes).data == Some(AbSeqIndex(AbSeqIndex(p, g), s))) )
+        AbSeqIndex(p, nodes).data == Some(AbSeqIndex(AbSeqIndex(p, g), s))) )  
+  /* 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].next == (if g[p] + 1 < |f| then f[g[p] + 1] else 0) */
   && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).next} ::
     AbLeqLt(p, I0, AbSeqLen(g)) && AbLeq(sentinel, AbSeqIndex(p, g)) ==>
-      // 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].next == (if g[p] + 1 < |f| then f[g[p] + 1] else 0)
       (if AbLt(AbAdd(AbSeqIndex(p, g), I1), AbSeqLen(f)) then
-        AbLeq(I0, AbAdd(AbSeqIndex(p, g), I1)) ==> // precond: 0 <= g[p]+1
-        AbSeqIndex(p, nodes).next == AbSeqIndex(AbAdd(AbSeqIndex(p, g), I1), f) // nonlast.next or sentinel.next
-      else AbSeqIndex(p, nodes).next == I0 ) ) // last.next == sentinel or sentinel.next == sentinel
+        // precond: 0 <= g[p] + 1
+        AbLeq(I0, AbAdd(AbSeqIndex(p, g), I1)) ==>
+        // nonlast.next or sentinel.next
+        AbSeqIndex(p, nodes).next == AbSeqIndex(AbAdd(AbSeqIndex(p, g), I1), f)
+      // last.next == sentinel or sentinel.next == sentinel
+      else AbSeqIndex(p, nodes).next == I0 ) )
+  /* 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].prev == (if g[p] > 0 then f[g[p] - 1] else if g[p] == 0 || |f| == 0 then 0 else f[|f| - 1]) */
   && (forall p {:trigger AbSeqIndex(p, g)} {:trigger AbSeqIndex(p, nodes).prev} ::
     AbLeqLt(p, I0, AbSeqLen(g)) && AbLeq(sentinel, AbSeqIndex(p, g)) ==>
-      // 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].prev == (if g[p] > 0 then f[g[p] - 1] else if g[p] == 0 || |f| == 0 then 0 else f[|f| - 1])
       if AbLt(I0, AbSeqIndex(p, g)) then
-        AbLeq(I0, AbSub(AbSeqIndex(p, g), I1)) ==> // precond: 0 <= index
-        AbLt(AbSub(AbSeqIndex(p, g), I1), AbSeqLen(f)) ==> // precond: index < |f|
-        AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqIndex(p, g), I1), f) // nonfirst.prev
+        // precond: 0 <= g[p] - 1
+        AbLeq(I0, AbSub(AbSeqIndex(p, g), I1)) ==>
+        // precond: g[p] - 1 < |f|
+        AbLt(AbSub(AbSeqIndex(p, g), I1), AbSeqLen(f)) ==>
+        // nonfirst.prev
+        AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqIndex(p, g), I1), f)
       else if I0 == AbSeqIndex(p, g) || I0 == AbSeqLen(f) then
-        AbSeqIndex(p, nodes).prev == I0 // first.prev == sentinel or sentinel.prev == sentinel
+        // first.prev == sentinel or sentinel.prev == sentinel
+        AbSeqIndex(p, nodes).prev == I0
       else
-        AbLeq(I0, AbSub(AbSeqLen(f), I1)) ==> // precond: 0 <= index
-        AbLt(AbSub(AbSeqLen(f), I1), AbSeqLen(f)) ==> // precond: index < |f|
-        AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqLen(f), I1), f) ) // sentinel.prev == last
+        // precond: 0 <= |f| - 1
+        AbLeq(I0, AbSub(AbSeqLen(f), I1)) ==>
+        // precond: |f| - 1 < |f|
+        AbLt(AbSub(AbSeqLen(f), I1), AbSeqLen(f)) ==>
+        // sentinel.prev == last
+        AbSeqIndex(p, nodes).prev == AbSeqIndex(AbSub(AbSeqLen(f), I1), f) )
 }
 
 predicate Inv<A>(l:DList<A>) { Invs(l.nodes, l.freeStack, l.s, l.f, l.g) }
@@ -234,10 +244,10 @@ method BuildFreeStack<X(==)> (a: AbSeq<Node<X>>, k: AbInt) returns (b: AbSeq<Nod
   requires AbLt(I0, k)
   requires AbLeq(k, AbSeqLen(a))
   ensures AbSeqLen(b) == AbSeqLen(a)
-  ensures forall i :: AbLeqLt(i, I0, k) ==>
+  ensures forall i {:trigger AbSeqIndex(i, b)} :: AbLeqLt(i, I0, k) ==>
     AbLt(i, AbSeqLen(a)) ==> // precond: lt_transitive
     AbSeqIndex(i, b) == AbSeqIndex(i, a)
-  ensures forall i :: AbLeqLt(i, k, AbSeqLen(a)) ==>
+  ensures forall i {:trigger AbSeqIndex(i, b)} :: AbLeqLt(i, k, AbSeqLen(a)) ==>
     AbLeq(I0, i) ==> // precond: lt_transitive
     AbSeqIndex(i, b) == Node(None, AbSub(i, I1), I0)
 {
@@ -294,7 +304,7 @@ method BuildFreeStack<X(==)> (a: AbSeq<Node<X>>, k: AbInt) returns (b: AbSeq<Nod
 
 method Expand<X> (l:DList<X>) returns (l':DList<X>)
   requires Inv(l)
-  ensures Inv(l') // error
+  ensures Inv(l')
   ensures l'.s == l.s
   ensures forall x {:trigger AbSeqIndex(x, l'.g)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==> 
     ValidPtr(l', x) && AbSeqIndex(x, l'.g) == AbSeqIndex(x, l.g)
@@ -307,13 +317,12 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
 
   Props_pos(I1);
   Props_add_pos_is_lt(); // len < len + 1, len < len'
-  Props_lt_transitive' ();
-  // Props_lt_transitive'_p3(I0, len, len'); // 0 < len'
+  Props_lt_transitive'_p3(I0, len, len'); // 0 < len'
   Props_lt2leq_add_p2(I0, len);
   Props_add_identity (); // 1 <= len
   Props_add_commutative ();
   Props_lt_addition (); // len + 1 <= len + len = len'
-  // Props_lt_transitive'_p3(I0, len, AbAdd(len, I1));
+  Props_lt_transitive'_p3(I0, len, AbAdd(len, I1));
   nodes' := BuildFreeStack(nodes', AbAdd(len, I1));
 
   Seq_Props_length<Node<X>> ();
@@ -322,27 +331,61 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
       if AbLt(i, AbSeqLen(g)) then AbSeqIndex(i, g) else unused );
   l' := DList(nodes', AbSub(len', I1), s, f, g');
 
-  // Props_lt_transitive'_pyz (len, len');
+  Props_lt_transitive'_pyz (len, len');
   // assert forall x : AbInt {:trigger AbSeqIndex(x, l'.g)} :: ValidPtr(l, x) ==> ValidPtr(l', x); // true
   // assert forall x : AbInt {:trigger AbSeqIndex(x, l'.g)} :: ValidPtr(l, x) ==> AbSeqIndex(x, l'.g) == AbSeqIndex(x, l.g); // true
 
   Props_add_sub_is_orig ();
-  // assert len == AbSub(AbAdd(len, I1), I1); // trigger
+  assert len == AbSub(AbAdd(len, I1), I1); // trigger
   Props_lt_subtraction ();
   // assert AbLeq(len, AbSub(len', I1));
-  // Props_lt_transitive'_p3 (I0, len, AbSub(len', I1)); // 0 < len < len'-1
+  Props_lt_transitive'_p3 (I0, len, AbSub(len', I1)); // 0 < len < len'-1
   // Props_lt_is_not_leq_p2 (I0, AbSub(len', I1));
   Props_lt_is_not_leq_px (AbAdd(len, I1));
   Props_lt_is_not_leq_py (AbAdd(len, I1));
   // assert l'.freeStack != I0; // true
   // assert AbSeqIndex(l'.freeStack, l'.nodes).data.None?; // true
 
-  Props_lt_is_not_leq_px (len);
-  Props_lt_is_not_leq_py (len);
-  // Props_lt_transitive'_p3 (unused, sentinel, I0);
-  // assert AbLt(unused, I0);
-  // Props_lt_transitive'_p3 (unused, I0, AbSeqLen(s)); // unused < |s|
+  // assert AbSeqLen(g') == AbSeqLen(nodes');
+  // assert AbLt(I0, AbSeqLen(nodes'));
+  // assert AbSeqIndex(I0, g') == sentinel;
+  // assert AbLeqLt(AbSub(len', I1), I0, AbSeqLen(nodes'));
+  /* 0 <= i < |f| ==> 0 < f[i] < |nodes| */
+  // assert (forall i {:trigger AbSeqIndex(i, f)} :: AbLeqLt(i, I0, AbSeqLen(f)) ==> AbLt(I0, AbSeqIndex(i, f)) && AbLt(AbSeqIndex(i, f), AbSeqLen(nodes')) );
+  /* 0 <= i < |f| ==> g[f[i]] == i */
+  // assert (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f), g')} :: AbLeqLt(i, I0, AbSeqLen(f)) ==> AbSeqIndex(AbSeqIndex(i, f), g') == i );
 
+  /* 0 <= p < |g| ==> unused <= g[p] < |s| */
+  Props_lt_transitive'_p3 (unused, sentinel, I0); // unused < sentinel < I0
+  Props_lt_transitive'_pz(AbSeqLen(s)); // ? < ? < |s|
+  // assert (forall p {:trigger AbSeqIndex(p, g')} :: AbLeqLt(p, I0, AbSeqLen(g')) ==> AbLeqLt(AbSeqIndex(p, g'), unused, AbSeqLen(s)) );
+
+  /* 0 <= p < |g| ==> 0 <= nodes[p].next < |g| */
+  assert AbLt(I0, AbAdd(len, I1));
+  Props_lt_transitive'_pxy (I0, len); // 0 < len < ?
+  Props_lt_transitive'_pyz(AbSub(len', I1), len'); // ? < |g'| - 1 < |g'|
+  // assert (forall p {:trigger AbSeqIndex(p, nodes').next} :: AbLeqLt(p, I0, AbSeqLen(g')) ==> AbLeqLt(AbSeqIndex(p, nodes').next, I0, AbSeqLen(g')) ); // true
+
+  /* 0 <= p < |g| ==> (g[p] >= 0 <==> nodes[p].data.Some?) */
+  Props_lt_transitive'_pxy(unused, I0); // g'[p] >= 0 ==> 0 <= p < len
+  Props_lt_transitive'_pyz(len, AbAdd(len, I1));
+  // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(p, nodes').data} :: AbLeqLt(p, I0, AbSeqLen(g')) ==> (AbLeq(I0, AbSeqIndex(p, g')) ==> AbLeqLt(p, I0, AbSeqLen(g))) ); // true
+  // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(p, nodes').data} :: AbLeqLt(p, I0, AbSeqLen(g')) ==> (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(p, nodes').data.Some?) ); // true
+  // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(p, nodes').data} :: AbLeqLt(p, I0, AbSeqLen(g')) ==> (AbSeqIndex(p, nodes').data.Some? ==> AbLeq(I0, AbSeqIndex(p, g'))) ); // true
+  
+  /* 0 <= p < |g| && sentinel <= g[p] ==> (g[p] == sentinel ==> p == 0) */
+  // assert (forall p {:trigger AbSeqIndex(p, g')} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> (AbSeqIndex(p, g') == sentinel ==> p == I0) ); // true
+
+  /* 0 <= p < |g| && sentinel <= g[p] ==> (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) */
+  // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(AbSeqIndex(p, g'), f)} {:trigger AbSeqIndex(AbSeqIndex(p, g'), s)} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(AbSeqIndex(p, g'), f) == p && AbSeqIndex(p, nodes').data == Some(AbSeqIndex(AbSeqIndex(p, g'), s))) ); // true
+
+  /* 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].next == (if g[p] + 1 < |f| then f[g[p] + 1] else 0) */
+  // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(p, nodes').next} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> (if AbLt(AbAdd(AbSeqIndex(p, g'), I1), AbSeqLen(f)) then AbSeqIndex(p, nodes').next == AbSeqIndex(AbAdd(AbSeqIndex(p, g'), I1), f) else AbSeqIndex(p, nodes').next == I0 ) );
+
+  /* 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].prev == (if g[p] > 0 then f[g[p] - 1] else if g[p] == 0 || |f| == 0 then 0 else f[|f| - 1]) */
+  // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(p, nodes').prev} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> if AbLt(I0, AbSeqIndex(p, g')) then AbLeq(I0, AbSub(AbSeqIndex(p, g'), I1)) ==> AbLt(AbSub(AbSeqIndex(p, g'), I1), AbSeqLen(f)) ==> AbSeqIndex(p, nodes').prev == AbSeqIndex(AbSub(AbSeqIndex(p, g'), I1), f) else if I0 == AbSeqIndex(p, g') || I0 == AbSeqLen(f) then AbSeqIndex(p, nodes').prev == I0 else AbLeq(I0, AbSub(AbSeqLen(f), I1)) ==> AbLt(AbSub(AbSeqLen(f), I1), AbSeqLen(f)) ==> AbSeqIndex(p, nodes').prev == AbSeqIndex(AbSub(AbSeqLen(f), I1), f) );
+  // Props_lt_is_not_leq_px (len);
+  // Props_lt_is_not_leq_py (len);
 }
 
 method InsertAfter<X>(l:DList<X>, p:AbInt, a:X) returns(l':DList<X>, p':AbInt)
