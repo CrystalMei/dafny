@@ -419,6 +419,17 @@ lemma Props_lt_transitive'_pyz (y: AbInt, z: AbInt)
   ensures forall x :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall x { Props_lt_transitive'_p3(x, y, z); } }
 
+lemma Props_lt_transitive'_px_add (x: AbInt)
+  requires forall i :: AbLt(i, AbAdd(i, I1))
+  // x < y < z
+  ensures forall y :: AbLt(x, y) ==> AbLt(x, AbAdd(y, I1))
+  { forall x, y { Props_lt_transitive'_p3(x, y, AbAdd(y, I1)); } }
+lemma Props_lt_transitive'_pz_add (z: AbInt)
+  requires forall i :: AbLt(i, AbAdd(i, I1))
+  // x < y < z
+  ensures forall x :: AbLt(AbAdd(x, I1), z) ==> AbLt(x, z)
+  { forall x, y { Props_lt_transitive'_p3(x, AbAdd(x, I1), z); } }
+
 lemma Props_lt_add_notneg ()
   // x + a < y ==> x < y
   ensures forall x, y, a {:trigger AbLt(AbAdd(x, a), y)} :: AbNotNeg(a) && AbLt(AbAdd(x, a), y) ==> AbLt(x, y)
