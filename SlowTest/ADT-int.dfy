@@ -320,10 +320,10 @@ lemma Props_lt_is_not_leq ()
   ensures forall x, y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
   { forall x, y { Props_lt_is_not_leq_p2(x, y); } }
 
-lemma Props_lt_is_not_leq_px (x: AbInt)
+lemma Props_lt_is_not_leq_px (x: AbInt) // loop
   // x < y or x < y or x == y
   ensures forall y :: AbLt(x, y) <==> !AbLeq(y, x)
-  ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
+  ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x) // loop
   { forall y { Props_lt_is_not_leq_p2(x, y); } }
 lemma Props_lt_is_not_leq_py (y: AbInt)
   // x < y or x < y or x == y
@@ -368,16 +368,31 @@ lemma Props_leq2lt_sub' ()
   { forall x, y | AbLt(x, y) || x == y
     { Props_leq2lt_sub_p2(x, y); } }
 
-lemma Props_lt_addition ()
+lemma Props_lt_addition () // loop
   // x < y ==> x + a < y + a
   ensures forall x, y, a {:trigger AbAdd(x, a), AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
   { forall x, y, a | AbLt(x, y)
     { Props_lt_addition_p3(x, y, a); } }
+lemma Props_lt_addition_pya (y: AbInt, a: AbInt)
+  // x < y ==> x + a < y + a
+  ensures forall x {:trigger AbAdd(x, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
+  { forall x | AbLt(x, y)
+    { Props_lt_addition_p3(x, y, a); } }
+lemma Props_lt_addition_pxa (x: AbInt, a: AbInt)
+  // x < y ==> x + a < y + a
+  ensures forall y {:trigger AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
+  { forall y | AbLt(x, y)
+    { Props_lt_addition_p3(x, y, a); } }
 
-lemma Props_lt_subtraction ()
+lemma Props_lt_subtraction () // loop
   // x < y ==> x + a < y + a
   ensures forall x, y, a {:trigger AbSub(x, a), AbSub(y, a)} :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
   { forall x, y, a | AbLt(x, y)
+    { Props_lt_subtraction_p3(x, y, a); } }
+lemma Props_lt_subtraction_pya (y: AbInt, a: AbInt)
+  // x < y ==> x + a < y + a
+  ensures forall x {:trigger AbSub(x, a)} :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
+  { forall x | AbLt(x, y)
     { Props_lt_subtraction_p3(x, y, a); } }
 
 lemma Props_lt_transitive ()
@@ -394,7 +409,7 @@ lemma Props_lt_transitive' ()
   // x < y < z
   ensures forall x, y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall x, y, z { Props_lt_transitive'_p3(x, y, z); } }
-lemma Props_lt_transitive'_px (x: AbInt)
+lemma Props_lt_transitive'_px (x: AbInt) // loop
   // x < y < z
   ensures forall y, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall y, z { Props_lt_transitive'_p3(x, y, z); } }
@@ -402,7 +417,7 @@ lemma Props_lt_transitive'_py (y: AbInt)
   // x < y < z
   ensures forall x, z :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall x, z { Props_lt_transitive'_p3(x, y, z); } }
-lemma Props_lt_transitive'_pz (z: AbInt)
+lemma Props_lt_transitive'_pz (z: AbInt) // loop
   // x < y < z
   ensures forall x, y :: AbLt(x, y) && AbLt(y, z) ==> AbLt(x, z)
   { forall x, y { Props_lt_transitive'_p3(x, y, z); } }
@@ -493,7 +508,7 @@ lemma Props_sub2add ()
   { forall x, y, z | AbSub(z, x) == y
     { Props_sub2add_p3(x, y, z); } }
 
-lemma Props_add_sub_is_orig ()
+lemma Props_add_sub_is_orig () // loop
   // x + y - y == x
   ensures forall x, y :: AbAdd(AbSub(x, y), y) == x
   ensures forall x, y :: AbSub(AbAdd(x, y), y) == x

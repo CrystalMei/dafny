@@ -155,15 +155,15 @@ module ADT_Seq {
         // precond ends
         AbSeqIndex(i, s') == AbSeqIndex(i, s)
     ensures
-      forall i : AI.AbInt // s[k, |s|) keeps
-        {:trigger AbSeqIndex(AI.AbAdd(i, AI.I1), s')} ::
-        AI.AbLeqLt(i, k, AbSeqLen(s)) ==>
+      forall i : AI.AbInt // s(k, |s'|) keeps
+        {:trigger AbSeqIndex(AI.AbSub(i, AI.I1), s)} ::
+        AI.AbLt(k, i) && AI.AbLt(i, AbSeqLen(s')) ==>
         // precond begins
         AI.AbLeq(AI.I0, i) ==>
-        AI.AbLt(AI.I0, AI.AbAdd(i, AI.I1)) ==>
-        AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s')) ==>
+        AI.AbLeq(AI.I0, AI.AbSub(i, AI.I1)) ==>
+        AI.AbLt(AI.AbSub(i, AI.I1), AbSeqLen(s)) ==>
         // precond ends
-        AbSeqIndex(i, s) == AbSeqIndex(AI.AbAdd(i, AI.I1), s')
+        AbSeqIndex(AI.AbSub(i, AI.I1), s) == AbSeqIndex(i, s')
   { s[..k] + [v] + s[k..] }
 
   lemma Seq_Props_length_p1<X> (s: AbSeq<X>) // |s| >= 0
