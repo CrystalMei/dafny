@@ -156,7 +156,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     l' := DList(nodes''', p, s', f', g');
     
     /** forall x :: x != p && ValidPtr(l, x) ==> ValidPtr(l', x) */
-    Props_lt_transitive'_pxy (I0, index); // 0 < index < x
+    // Props_lt_transitive'_pxy (I0, index); // 0 < index < x
     
     /** forall x :: x != p && ValidPtr(l, x) ==> Index(l', x) == Index(l, x) - (if Index(l, x) < Index(l, p) then 0 else 1) */
     Props_lt_is_not_leq_px (index);
@@ -207,7 +207,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     // assert (forall p {:trigger AbSeqIndex(p, g')} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> (AbSeqIndex(p, g') == sentinel ==> p == I0) );
 
     /* 0 <= p < |g| && sentinel <= g[p] ==> (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) */
-    Props_lt_subtraction ();
+    Props_lt_subtraction ();  
     Props_lt_transitive'_pxy (sentinel, I0);
     // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(AbSeqIndex(p, g'), f')} {:trigger AbSeqIndex(AbSeqIndex(p, g'), s')} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(AbSeqIndex(p, g'), f') == p));
     // assert (forall p {:trigger AbSeqIndex(p, g')} {:trigger AbSeqIndex(AbSeqIndex(p, g'), f')} {:trigger AbSeqIndex(AbSeqIndex(p, g'), s')} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> (AbLeq(I0, AbSeqIndex(p, g')) ==> AbSeqIndex(p, nodes''').data == Some(AbSeqIndex(AbSeqIndex(p, g'), s'))) );
@@ -343,9 +343,7 @@ method InsertAfter<X>(l:DList<X>, p:AbInt, a:X) returns(l':DList<X>, p':AbInt)
   ensures AbLeqLt(AbAdd(Index(l, p), I1), I0, AbSeqLen(Seq(l))) ==> // precond
     Seq(l') == AbSeqInsertIdx(AbAdd(Index(l, p), I1), a, Seq(l))
   // ensures ValidPtr(l', p') && Index(l', p') == AbAdd(Index(l, p), I1)
-  // ensures forall x :: ValidPtr(l, x) ==>
-  //   ValidPtr(l', x) &&
-  //   if AbLeq(Index(l, x), Index(l, p)) then Index(l', x) == Index(l, x) else Index(l', x) == AbAdd(Index(l, x), I1)
+  // ensures forall x :: ValidPtr(l, x) ==> ValidPtr(l', x) && if AbLeq(Index(l, x), Index(l, p)) then Index(l', x) == Index(l, x) else Index(l', x) == AbAdd(Index(l, x), I1)
 {
   l' := l;
   p' := l'.freeStack;
