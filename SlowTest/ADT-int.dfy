@@ -383,6 +383,11 @@ lemma Props_lt_addition_pxa (x: AbInt, a: AbInt)
   ensures forall y {:trigger AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
   { forall y | AbLt(x, y)
     { Props_lt_addition_p3(x, y, a); } }
+lemma Props_lt_addition_pa (a: AbInt)
+  // x < y ==> x + a < y + a
+  ensures forall x, y {:trigger AbAdd(x, a), AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
+  { forall x, y | AbLt(x, y)
+    { Props_lt_addition_p3(x, y, a); } }
 
 lemma Props_lt_subtraction () // loop
   // x < y ==> x + a < y + a
