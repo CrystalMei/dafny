@@ -155,7 +155,7 @@ module ADT_Seq {
         // precond ends
         AbSeqIndex(i, s') == AbSeqIndex(i, s)
     ensures
-      forall i : AI.AbInt // s(k, |s'|) keeps
+      forall i : AI.AbInt // s[k, |s|) shifts one
         {:trigger AbSeqIndex(AI.AbSub(i, AI.I1), s)} ::
         AI.AbLt(k, i) && AI.AbLt(i, AbSeqLen(s')) ==>
         // precond begins

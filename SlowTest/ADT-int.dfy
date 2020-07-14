@@ -334,23 +334,28 @@ lemma Props_lt_is_not_leq_py (y: AbInt)
 lemma Props_lt2leq_add ()
   // x < y ==> x + 1 <= y
   ensures forall x, y {:trigger AbLeq(AbAdd(x, I1), y)} :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
-  { forall x, y | AbLt(x, y)
-    { Props_lt2leq_add_p2(x, y); } }
+  { forall x, y | AbLt(x, y) { Props_lt2leq_add_p2(x, y); } }
+lemma Props_lt2leq_add_px (x: AbInt)
+  // x < y ==> x + 1 <= y
+  ensures forall y {:trigger AbLeq(AbAdd(x, I1), y)} :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
+  { forall y | AbLt(x, y) { Props_lt2leq_add_p2(x, y); } }
+lemma Props_lt2leq_add_py (y: AbInt)
+  // x < y ==> x + 1 <= y
+  ensures forall x {:trigger AbLeq(AbAdd(x, I1), y)} :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
+  { forall x | AbLt(x, y) { Props_lt2leq_add_p2(x, y); } }
+
 lemma Props_lt2leq_sub () // loop
   // x < y ==> x <= y - 1
   ensures forall x, y {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
-  { forall x, y | AbLt(x, y)
-    { Props_lt2leq_sub_p2(x, y); } }
-lemma Props_lt2leq_sub_px (x: AbInt) // loop
+  { forall x, y | AbLt(x, y) { Props_lt2leq_sub_p2(x, y); } }
+lemma Props_lt2leq_sub_px (x: AbInt)
   // x < y ==> x <= y - 1
   ensures forall y {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
-  { forall y | AbLt(x, y)
-    { Props_lt2leq_sub_p2(x, y); } }
+  { forall y | AbLt(x, y) { Props_lt2leq_sub_p2(x, y); } }
 lemma Props_lt2leq_sub_py (y: AbInt) // loop
   // x < y ==> x <= y - 1
   ensures forall x {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
-  { forall x | AbLt(x, y)
-    { Props_lt2leq_sub_p2(x, y); } }
+  { forall x | AbLt(x, y) { Props_lt2leq_sub_p2(x, y); } }
 
 lemma Props_lt2leq_add' ()
   // x < y ==> x + 1 <= y
@@ -363,14 +368,29 @@ lemma Props_lt2leq_sub' ()
 
 lemma Props_leq2lt_add ()
   // x <= y ==> x < y + 1
-  ensures forall x, y :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
-  { forall x, y | AbLeq(x, y)
-    { Props_leq2lt_add_p2(x, y); } }
+  ensures forall x, y {:trigger AbLt(x, AbAdd(y, I1))} :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
+  { forall x, y | AbLeq(x, y) { Props_leq2lt_add_p2(x, y); } }
+lemma Props_leq2lt_add_px (x: AbInt)
+  // x <= y ==> x < y + 1
+  ensures forall y {:trigger AbLt(x, AbAdd(y, I1))} :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
+  { forall y | AbLeq(x, y) { Props_leq2lt_add_p2(x, y); } }
+lemma Props_leq2lt_add_py (y: AbInt)
+  // x <= y ==> x < y + 1
+  ensures forall x {:trigger AbLt(x, AbAdd(y, I1))} :: AbLeq(x, y) ==> AbLt(x, AbAdd(y, I1))
+  { forall x | AbLeq(x, y) { Props_leq2lt_add_p2(x, y); } }
+
 lemma Props_leq2lt_sub ()
   // x <= y ==> x - 1 < y
-  ensures forall x, y :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
-  { forall x, y | AbLeq(x, y)
-    { Props_leq2lt_sub_p2(x, y); } }
+  ensures forall x, y {:trigger AbLt(AbSub(x, I1), y)} :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
+  { forall x, y | AbLeq(x, y) { Props_leq2lt_sub_p2(x, y); } }
+lemma Props_leq2lt_sub_px (x: AbInt)
+  // x <= y ==> x - 1 < y
+  ensures forall y {:trigger AbLt(AbSub(x, I1), y)} :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
+  { forall y | AbLeq(x, y) { Props_leq2lt_sub_p2(x, y); } }
+lemma Props_leq2lt_sub_py (y: AbInt)
+  // x <= y ==> x - 1 < y
+  ensures forall x {:trigger AbLt(AbSub(x, I1), y)} :: AbLeq(x, y) ==> AbLt(AbSub(x, I1), y)
+  { forall x | AbLeq(x, y) { Props_leq2lt_sub_p2(x, y); } }
 
 lemma Props_leq2lt_sub' ()
   // x <= y ==> x - 1 < y
@@ -381,34 +401,36 @@ lemma Props_leq2lt_sub' ()
 lemma Props_lt_addition () // loop
   // x < y ==> x + a < y + a
   ensures forall x, y, a {:trigger AbAdd(x, a), AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
-  { forall x, y, a | AbLt(x, y)
-    { Props_lt_addition_p3(x, y, a); } }
+  { forall x, y, a | AbLt(x, y) { Props_lt_addition_p3(x, y, a); } }
 lemma Props_lt_addition_pya (y: AbInt, a: AbInt)
   // x < y ==> x + a < y + a
   ensures forall x {:trigger AbAdd(x, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
-  { forall x | AbLt(x, y)
-    { Props_lt_addition_p3(x, y, a); } }
+  { forall x | AbLt(x, y) { Props_lt_addition_p3(x, y, a); } }
 lemma Props_lt_addition_pxa (x: AbInt, a: AbInt)
   // x < y ==> x + a < y + a
   ensures forall y {:trigger AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
-  { forall y | AbLt(x, y)
-    { Props_lt_addition_p3(x, y, a); } }
+  { forall y | AbLt(x, y) { Props_lt_addition_p3(x, y, a); } }
 lemma Props_lt_addition_pa (a: AbInt)
   // x < y ==> x + a < y + a
   ensures forall x, y {:trigger AbAdd(x, a), AbAdd(y, a)}:: AbLt(x, y) ==> AbLt(AbAdd(x, a), AbAdd(y, a))
-  { forall x, y | AbLt(x, y)
-    { Props_lt_addition_p3(x, y, a); } }
+  { forall x, y | AbLt(x, y) { Props_lt_addition_p3(x, y, a); } }
 
 lemma Props_lt_subtraction () // loop
   // x < y ==> x + a < y + a
   ensures forall x, y, a {:trigger AbSub(x, a), AbSub(y, a)} :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
-  { forall x, y, a | AbLt(x, y)
-    { Props_lt_subtraction_p3(x, y, a); } }
+  { forall x, y, a | AbLt(x, y) { Props_lt_subtraction_p3(x, y, a); } }
+lemma Props_lt_subtraction_pxa (x: AbInt, a: AbInt)
+  // x < y ==> x + a < y + a
+  ensures forall y {:trigger AbSub(y, a)} :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
+  { forall y | AbLt(x, y) { Props_lt_subtraction_p3(x, y, a); } }
 lemma Props_lt_subtraction_pya (y: AbInt, a: AbInt)
   // x < y ==> x + a < y + a
   ensures forall x {:trigger AbSub(x, a)} :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
-  { forall x | AbLt(x, y)
-    { Props_lt_subtraction_p3(x, y, a); } }
+  { forall x | AbLt(x, y) { Props_lt_subtraction_p3(x, y, a); } }
+lemma Props_lt_subtraction_pa (a: AbInt)
+  // x < y ==> x + a < y + a
+  ensures forall x, y {:trigger AbSub(x, a), AbSub(y, a)} :: AbLt(x, y) ==> AbLt(AbSub(x, a), AbSub(y, a))
+  { forall x, y | AbLt(x, y) { Props_lt_subtraction_p3(x, y, a); } }
 
 lemma Props_lt_transitive ()
   // x < y < z
