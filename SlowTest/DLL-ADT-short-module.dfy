@@ -145,7 +145,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     Props_leq2lt_sub_p2 (I0, index);  // index > sentinel
     Props_lt2leq_sub (); // index > 0 ==> index-1 >= 0, index < |f| ==> index <= |f|-1
     Props_pos(I1);
-    Props_add_sub_is_orig (); // Props_add_sub_is_orig_p2 (index, I1);
+    Props_add1sub1_is_orig (); // Props_add_sub_is_orig ();
     // assert index == AbAdd(AbSub(index, I1), I1);
     Props_add_pos_is_lt (); // index-1 < index; index < index+1
     Props_lt_transitive'_p3 (AbSub(index, I1), index, AbSeqLen(f)); // index-1 < index < |f|
@@ -160,7 +160,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     l' := DList(nodes''', p, s', f', g');
     
     /** forall x :: x != p && ValidPtr(l, x) ==> ValidPtr(l', x) */
-    // Props_lt_transitive'_pxy (I0, index); // 0 < index < x
+    Props_lt_transitive'_pxy (I0, index); // 0 < index < x
     
     /** forall x :: x != p && ValidPtr(l, x) ==> Index(l', x) == Index(l, x) - (if Index(l, x) < Index(l, p) then 0 else 1) */
     Props_lt_is_not_leq_px (index);
@@ -171,8 +171,8 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     Props_lt_transitive'_pyz (index, AbSeqLen(f)); // ? < index < |f|
     Props_lt_transitive'_pyz (index, AbSeqLen(f')); // ? < index <= |f'| = |f|-1
     // assert (forall i : AbInt {:trigger AbSeqIndex(i, f')} :: AbLeqLt(i, I0, index) ==> AbSeqIndex(i, f) == AbSeqIndex(i, f'));
-    Props_lt_transitive'_px (I0); // 0 <= index < ? < ? + 1
-    // Props_lt_transitive'_px_add (I0); // 0 <= index < ? < ? + 1
+    // Props_lt_transitive'_px (I0); // 0 <= index < ? < ? + 1
+    Props_lt_transitive'_px_add (I0); // 0 <= index < ? < ? + 1
     Props_lt_addition_pya (AbSeqLen(f'), I1); // Props_lt_addition ();
     // assert (forall i : AbInt {:trigger AbSeqIndex(AbAdd(i, I1), f)} {:trigger AbSeqIndex(i, f')} :: AbLeqLt(i, index, AbSeqLen(f')) ==> AbSeqIndex(AbAdd(i, I1), f) == AbSeqIndex(i, f'));
 
@@ -180,7 +180,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     // assert (forall i {:trigger AbSeqIndex(i, f')} :: AbLeqLt(i, I0, AbSeqLen(f')) ==> AbLt(I0, AbSeqIndex(i, f')) && AbLt(AbSeqIndex(i, f'), AbSeqLen(nodes''')) );
 
     /* 0 <= i < |f| ==> g[f[i]] == i */
-    Props_lt_transitive'_px(index);
+    Props_lt_transitive'_px_add(index);
     // assert (forall i {:trigger AbSeqIndex(AbSeqIndex(i, f'), g')} :: AbLeqLt(i, I0, AbSeqLen(f')) ==> AbSeqIndex(AbSeqIndex(i, f'), g') == i );
   
     /* 0 <= p < |g| ==> unused <= g[p] < |s| */
@@ -191,7 +191,7 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     // assert (forall p {:trigger AbSeqIndex(p, g')} :: AbLeqLt(p, I0, AbSeqLen(g')) ==> AbLeqLt(AbSeqIndex(p, g'), unused, AbSeqLen(s')) );
 
     /** precond for Update */
-    Props_lt_transitive'_pz (AbSeqLen(nodes));
+    Props_lt_transitive'_pz_add (AbSeqLen(nodes));
     // assert (forall i : AbInt {:trigger AbSeqIndex(i, nodes')} :: AbLeqLt(i, I0, node.prev) ==> AbSeqIndex(i, nodes) == AbSeqIndex(i, nodes'));
     // assert (forall i : AbInt {:trigger AbSeqIndex(i, nodes)} :: AbLtLt(i, node.prev, AbSeqLen(nodes')) ==> AbSeqIndex(i, nodes) == AbSeqIndex(i, nodes'));
     // assert (forall i : AbInt {:trigger AbSeqIndex(i, nodes'')} :: AbLeqLt(i, I0, node.next) ==> AbSeqIndex(i, nodes') == AbSeqIndex(i, nodes''));

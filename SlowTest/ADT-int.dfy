@@ -322,13 +322,13 @@ lemma Props_lt_is_not_leq ()
 
 lemma Props_lt_is_not_leq_px (x: AbInt) // loop
   // x < y or x < y or x == y
-  ensures forall y :: AbLt(x, y) <==> !AbLeq(y, x)
-  ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x) // loop
+  ensures forall y :: AbLt(x, y) <==> !AbLeq(y, x) // loop
+  // ensures forall y :: AbLt(x, y) <==> !(AbLt(y, x) || y == x) // loop
   { forall y { Props_lt_is_not_leq_p2(x, y); } }
 lemma Props_lt_is_not_leq_py (y: AbInt)
   // x < y or x < y or x == y
   ensures forall x :: AbLt(x, y) <==> !AbLeq(y, x)
-  ensures forall x :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
+  // ensures forall x :: AbLt(x, y) <==> !(AbLt(y, x) || y == x)
   { forall x { Props_lt_is_not_leq_p2(x, y); } }
 
 lemma Props_lt2leq_add ()
@@ -336,10 +336,20 @@ lemma Props_lt2leq_add ()
   ensures forall x, y {:trigger AbLeq(AbAdd(x, I1), y)} :: AbLt(x, y) ==> AbLeq(AbAdd(x, I1), y)
   { forall x, y | AbLt(x, y)
     { Props_lt2leq_add_p2(x, y); } }
-lemma Props_lt2leq_sub ()
+lemma Props_lt2leq_sub () // loop
   // x < y ==> x <= y - 1
   ensures forall x, y {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
   { forall x, y | AbLt(x, y)
+    { Props_lt2leq_sub_p2(x, y); } }
+lemma Props_lt2leq_sub_px (x: AbInt) // loop
+  // x < y ==> x <= y - 1
+  ensures forall y {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
+  { forall y | AbLt(x, y)
+    { Props_lt2leq_sub_p2(x, y); } }
+lemma Props_lt2leq_sub_py (y: AbInt) // loop
+  // x < y ==> x <= y - 1
+  ensures forall x {:trigger AbLeq(x, AbSub(y, I1))} :: AbLt(x, y) ==> AbLeq(x, AbSub(y, I1))
+  { forall x | AbLt(x, y)
     { Props_lt2leq_sub_p2(x, y); } }
 
 lemma Props_lt2leq_add' ()
@@ -518,6 +528,11 @@ lemma Props_add_sub_is_orig () // loop
   ensures forall x, y :: AbAdd(AbSub(x, y), y) == x
   ensures forall x, y :: AbSub(AbAdd(x, y), y) == x
   { forall x, y { Props_add_sub_is_orig_p2(x, y); } }
+lemma Props_add1sub1_is_orig ()
+  // x + 1 - 1   == x
+  ensures forall x :: AbAdd(AbSub(x, I1), I1) == x
+  ensures forall x :: AbSub(AbAdd(x, I1), I1) == x
+  { forall x { Props_add_sub_is_orig_p2(x, I1); } }
 
 lemma Props_add_sub_is_add ()
   // x + b + (a - b) == x + a
