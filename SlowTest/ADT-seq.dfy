@@ -144,6 +144,15 @@ module ADT_Seq {
     requires AI.AbLeq(AI.I0, k)
     requires AI.AbLeq(k, AbSeqLen(s))
     ensures AbSeqLen(s') == AI.AbAdd(AbSeqLen(s), AI.I1)
+    ensures
+      forall i : AI.AbInt
+        {:trigger AbSeqIndex(i, s')}
+        {:trigger AbSeqIndex(AI.AbSub(i, AI.I1), s)} ::
+      AI.AbLeqLt(i, AI.I0, AbSeqLen(s')) ==>
+      if AI.AbLt(i, k) then
+        AbSeqIndex(i, s') == AbSeqIndex(i, s)
+      else if i == k then AbSeqIndex(i, s') == v
+      else AbSeqIndex(i, s') == AbSeqIndex(AI.AbSub(i, AI.I1), s);
     ensures AbSeqIndex(k, s') == v
     ensures
       forall i : AI.AbInt // s[0, k) keeps
