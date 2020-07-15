@@ -231,7 +231,17 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   l' := DList(nodes, len' - 1, s, f, seq(|nodes|,
     i requires 0 <= i < |nodes| => if i < |g| then g[i] else unused));
 }
- 
+
+ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
+  ensures |g'| == |g|
+  ensures forall x {:trigger g'[x]} :: 0 <= x < |g| ==>
+    if g[x] == index then g'[x] == unused
+    else if g[x] > index then g'[x] == g[x] - 1
+    else g'[x] == g[x]
+  {
+    g' := seq(|g|, x requires 0 <= x < |g| =>
+      if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+  }
 // Remove from dlist and seq
 // ~2s
 method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
@@ -248,8 +258,9 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   ghost var index := g[p];
   ghost var s' := s[.. index] + s[index + 1 ..];
   ghost var f' := f[.. index] + f[index + 1 ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+  ghost var g' := Remove_SeqInit (g, index);
+  // ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+  //     if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
   var node := seq_get(nodes, p);
   var node_prev := seq_get(nodes, node.prev);
   nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
@@ -259,7 +270,18 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   l' := DList(nodes, p, s', f', g');
 }
 
-// ~8s
+ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
+  ensures |g'| == |g|
+  ensures forall x {:trigger g'[x]} :: 0 <= x < |g| ==>
+    if x == p' then g'[x] == index'
+    else if g[x] > index then g'[x] == g[x] + 1
+    else g'[x] == g[x]
+  {
+    g' := seq(|g|, x requires 0 <= x < |g| =>
+      if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
+  }
+
+// ~7s
 method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -282,8 +304,9 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var index' := index + 1;
   ghost var s' := s[.. index'] + [a] + s[index' ..];
   ghost var f' := f[.. index'] + [p'] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
+  ghost var g' := InsertAfter_SeqInit (g, p', index, index');
+  // ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+  //   if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), node.next, p);
   nodes := seq_set(nodes, p, node.(next := p'));
@@ -292,8 +315,19 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   nodes := seq_set(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
 }
- 
-// ~ 7s
+
+ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g': seq<int>)
+  ensures |g'| == |g|
+  ensures forall x {:trigger g'[x]} :: 0 <= x < |g| ==>
+    if x == p' then g'[x] == index'
+    else if g[x] >= index' then g'[x] == g[x] + 1
+    else g'[x] == g[x]
+  {
+    g' := seq(|g|, x requires 0 <= x < |g| =>
+      if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+  }
+
+// ~ 13s
 method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -315,8 +349,9 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var index' := IndexHi(l, p);
   ghost var s' := s[.. index'] + [a] + s[index' ..];
   ghost var f' := f[.. index'] + [p'] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+  ghost var g' := InsertBefore_SeqInit (g, p', index');
+  // ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+  //   if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), p, node.prev);
   nodes := seq_set(nodes, p, node.(prev := p'));
