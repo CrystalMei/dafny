@@ -15,7 +15,7 @@ module ADT {
       Props_lt_add_notneg_p3,
 
       /* Addition */
-      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
+      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1, Props_sub_identity_p1,
       Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
       Props_add2sub_p3, Props_sub2add_p3, 
       Props_add_sub_is_add_p3, Props_sub_add_is_sub_p3,
@@ -39,7 +39,7 @@ module ADT {
       Props_lt_add_notneg_p3,
 
       /* Addition */
-      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1,
+      Props_add_commutative_p2, Props_add_associative_p3, Props_add_addition_p3, Props_add_identity_p1, Props_sub_identity_p1,
       Props_add_lt_is_lt_p4, Props_add_notneg_is_leq_p3, Props_add_pos_is_lt_p2, Props_add_pos_is_pos_p2,
       Props_add2sub_p3, Props_sub2add_p3, 
       Props_add_sub_is_add_p3, Props_add_sub_is_orig_p2,
@@ -164,6 +164,10 @@ module ADT {
   lemma Props_add_identity_p1 (x: AbInt)
     // x + 0 == 0 + x == x
     ensures AbAdd(x, I0) == AbAdd(I0, x) == x
+    { }
+  lemma Props_sub_identity_p1 (x: AbInt)
+    // x - 0 == x
+    ensures AbSub(x, I0) == x
     { }
 
   lemma Props_add_lt_is_lt_p4 (x: AbInt, y: AbInt, a: AbInt, b: AbInt)
@@ -508,6 +512,11 @@ lemma Props_add_identity ()
   // x + 0 == 0 + x == x
   ensures forall x :: AbAdd(x, I0) == AbAdd(I0, x) == x
   { forall x { Props_add_identity_p1(x); } }
+
+lemma Props_sub_identity ()
+  // x - 0 == x
+  ensures forall x :: AbSub(x, I0) == x
+  { forall x { Props_sub_identity_p1(x); } }
 
 lemma Props_add_lt_is_lt ()
   // x = y + a && a < b ==> x < y + b

@@ -4,8 +4,9 @@ module ADT_Seq {
     provides
       AAI,
       AbSeq, 
-      AbSeqLen, AbSeqIndex, AbSeqConcat, AbSeqIn, AbSeqEmpty, AbSeqSingleton, AbSeqSlice, /* AbSeqInit, */
+      AbSeqLen, AbSeqIndex, AbSeqConcat, AbSeqIn, AbSeqEmpty, AbSeqSingleton, AbSeqSlice, AbSeqResize, /* AbSeqInit, */
       AbSeqGetIdx, AbSeqRemove, AbSeqRemoveIdx, AbSeqUpdate, AbSeqInsertIdx,
+      AbSeqEquivalent,
 
       Seq_Props_length_p1, Seq_Props_concat_length_p2,
       Seq_Props_concat_in_p3,
@@ -42,13 +43,32 @@ module ADT_Seq {
     // ensures forall x :: x != v ==> !AbSeqIn(x, s)
     { [v] }
 
+  function method AbSeqEquivalent<X> (s1: AbSeq<X>, s2: AbSeq<X>): (b: bool)
+    ensures b == (AbSeqLen(s1) == AbSeqLen(s2) &&
+    (forall i : AI.AbInt
+      {:trigger AbSeqIndex(i, s1)} {:trigger AbSeqIndex(i, s2)} ::
+    AI.AbLeqLt(i, AI.I0, AbSeqLen(s1)) ==> AbSeqIndex(i, s1) == AbSeqIndex(i, s2)))
+    // { s1 == s2 } // not work
+  
+  function method AbSeqResize<X>(s: AbSeq<X>, newlen: AI.AbInt, a: X) : (s': AbSeq<X>)
+    requires AI.AbLeq(AI.I0, newlen)
+    ensures AbSeqLen(s') == newlen
+    ensures forall j : AI.AbInt
+      {:trigger AbSeqIndex(j, s)}
+      {:trigger AbSeqIndex(j, s')} ::
+      AI.AbLeqLt(j, AI.I0, newlen) ==>
+      if AI.AbLt(j, AbSeqLen(s)) then AbSeqIndex(j, s') == AbSeqIndex(j, s)
+      else AbSeqIndex(j, s') == a
+    { seq(newlen, i requires 0 <= i < newlen => 
+        if i < |s| then s[i] else a) }
+
   function method AbSeqSlice<X> (i: AI.AbInt, j: AI.AbInt, s: AbSeq<X>) : (s' : AbSeq<X>)
     requires AI.AbLeq(AI.I0, i)
     requires AI.AbLeq(j, AbSeqLen(s))
     requires AI.AbLeq(i, j)
     ensures AbSeqLen(s') == AI.AbSub(j, i)
     ensures forall x : AI.AbInt
-      // {:trigger AbSeqIndex(x, s)}
+      {:trigger AbSeqIndex(x, s)}
       {:trigger AbSeqIndex(AI.AbSub(x, i), s')} ::
       AI.AbLeqLt(x, i, j) ==> // i <= x < j
       // precond begins
@@ -62,6 +82,7 @@ module ADT_Seq {
     requires AbSeqIn(v, s)
     ensures AI.AbLeqLt(i, AI.I0, AbSeqLen(s))
     ensures AbSeqIndex(i, s) == v
+  // TODO
 
   function method AbSeqRemove<X(!new)> (v: X, s: AbSeq<X>): (s': AbSeq<X>)
     requires AbSeqIn(v, s)
@@ -88,6 +109,7 @@ module ADT_Seq {
         AI.AbLt(AI.AbAdd(i, AI.I1), AbSeqLen(s)) ==>
         // precond ends
         AbSeqIndex(AI.AbAdd(i, AI.I1), s) == AbSeqIndex(i, s')
+  // TODO
 
   function method AbSeqRemoveIdx<X(!new)> (k: AI.AbInt, s: AbSeq<X>) : (s': AbSeq<X>)
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
@@ -269,16 +291,11 @@ function method AbSeqInit<X> (len: AbInt, func : AbInt --> X) : (s: AbSeq<X>)
   requires forall i : AbInt :: AbLeqLt(i, I0, len) ==> func.requires(i)
   ensures AbSeqLen(s) == len
   ensures forall i : AbInt
-    {:trigger AbSeqIndex(i, s)} {: trigger func(i)} ::
+    {:trigger AbSeqIndex(i, s)} {:trigger func(i)} ::
     AbLeqLt(i, I0, len) ==> AbSeqIndex(i, s) == func(i)
 
-function method AbSeqResize<X>(s: AbSeq<X>, newlen: AbInt, a: X) : (s': AbSeq<X>)
-  ensures AbSeqLen(s') == newlen
-  ensures forall j : AbInt
-    {:trigger AbSeqIndex(j, s)}
-    {:trigger AbSeqIndex(j, s')} ::
-    AbLeqLt(j, I0, newlen) ==>
-    AbSeqIndex(j, s') == (if AbLt(j, AbSeqLen(s)) then AbSeqIndex(j, s) else a) 
+lemma Seq_Props_Equivalent<X> (s1: AbSeq<X>, s2: AbSeq<X>)
+  ensures AbSeqEquivalent (s1, s2) ==> s1 == s2
 
 lemma Seq_Props_length<X> () // |s| >= 0
   ensures forall s: AbSeq<X> :: AbLeq(I0, AbSeqLen(s))

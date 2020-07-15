@@ -293,6 +293,29 @@ method BuildFreeStack<X(==)> (a: AbSeq<Node<X>>, k: AbInt) returns (b: AbSeq<Nod
   }
 }
 
+function method AbSeqAlloc<A>(length:AbInt, a:A): (s:AbSeq<A>)
+  ensures AbSeqLen(s) == length
+  ensures forall i :: AbLeqLt(i, I0, AbSeqLen(s)) ==> AbSeqIndex(i, s) == a
+
+// initial_len should be the initial capacity plus 1
+method Alloc<A>(initial_len: AbInt) returns(l:DList<A>)
+  requires AbLt(I0, initial_len)
+  ensures Inv(l)
+  ensures Seq(l) == AbSeqEmpty<A> ()
+{
+  var nodes := AbSeqAlloc(initial_len, Node(None, I0, I0));
+  nodes := BuildFreeStack(nodes, I1);
+  ghost var g := AbSeqInit(initial_len, p => if p == I0 then sentinel else unused);
+  l := DList(nodes, AbSub(initial_len, I1), AbSeqEmpty<A> (), AbSeqEmpty<AbInt> (), g);
+}
+
+function method AbSeqFree<A>(s:AbSeq<A>):()
+method Free<A>(l:DList<A>)
+{
+  var DList(nodes, freeStack, s, f, g) := l;
+  var _ := AbSeqFree(nodes);
+}
+
 method Expand<X> (l:DList<X>) returns (l':DList<X>)
   requires Inv(l)
   ensures Inv(l')
@@ -304,11 +327,11 @@ method Expand<X> (l:DList<X>) returns (l':DList<X>)
   var DList(nodes, freeStack, s, f, g) := l;
   var len := AbSeqLen(nodes); // len > 0
   var len' := AbAdd(len, len);
-  var nodes' := AbSeqResize(nodes, len', Node(None, freeStack, I0));
-
   Props_pos(I1);
   Props_add_pos_is_lt(); // len < len+1, len < len'
   Props_lt_transitive'_p3(I0, len, len'); // 0 < len'
+  var nodes' := AbSeqResize(nodes, len', Node(None, freeStack, I0));
+
   Props_lt2leq_add_p2(I0, len); // Props_lt2leq_add(); // both work
   Props_add_identity (); // 1 <= len
   Props_add_commutative ();
@@ -348,7 +371,7 @@ method InsertAfter<X>(l:DList<X>, p:AbInt, a:X) returns(l':DList<X>, p':AbInt)
   requires Inv(l)
   requires MaybePtr(l, p)
   ensures Inv(l')
-  ensures AbLeq(I0, AbAdd(Index(l, p), I1)) && AbLt(AbAdd(Index(l, p), I1), AbSeqLen(Seq(l))) ==> // precond
+  ensures AbLeq(I0, AbAdd(Index(l, p), I1)) && AbLeq(AbAdd(Index(l, p), I1), AbSeqLen(Seq(l))) ==> // precond
     Seq(l') == AbSeqInsertIdx(AbAdd(Index(l, p), I1), a, Seq(l))
   ensures ValidPtr(l', p') && Index(l', p') == AbAdd(Index(l, p), I1)
   ensures forall x :: ValidPtr(l, x) ==> ValidPtr(l', x) && if AbLeq(Index(l, x), Index(l, p)) then Index(l', x) == Index(l, x) else Index(l', x) == AbAdd(Index(l, x), I1)
@@ -587,31 +610,79 @@ method InsertBefore<A>(l:DList<A>, p:AbInt, a:A) returns(l':DList<A>, p':AbInt)
   // assert (forall p {:trigger AbSeqIndex(p, nodes''').prev} :: AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==> if AbLt(I0, AbSeqIndex(p, g')) then AbLeq(I0, AbSub(AbSeqIndex(p, g'), I1)) ==> AbLt(AbSub(AbSeqIndex(p, g'), I1), AbSeqLen(f')) ==> AbSeqIndex(p, nodes''').prev == AbSeqIndex(AbSub(AbSeqIndex(p, g'), I1), f') else if I0 == AbSeqIndex(p, g') || I0 == AbSeqLen(f') then AbSeqIndex(p, nodes''').prev == I0 else AbLeq(I0, AbSub(AbSeqLen(f'), I1)) ==> AbLt(AbSub(AbSeqLen(f'), I1), AbSeqLen(f')) ==> AbSeqIndex(p, nodes''').prev == AbSeqIndex(AbSub(AbSeqLen(f'), I1), f') );
 }
 
-// method Clone<A>(l:DList<A>) returns(l':DList<A>)
-//   ensures l' == l
-// {
-//   var DList(nodes, freeStack, s, f, g) := l;
-//   shared_seq_length_bound(nodes);
-//   var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
-//   l' := DList(nodes', freeStack, s, f, g);
-// }
+method Clone<A>(l:DList<A>) returns(l':DList<A>)
+  ensures l' == l
+{
+  var DList(nodes, freeStack, s, f, g) := l;
+  Seq_Props_length<Node<A>> ();
+  var nodes' := AbSeqSlice(I0, AbSeqLen(nodes), nodes);
+  Props_sub_identity ();
+  Seq_Props_Equivalent<Node<A>> (nodes, nodes');
+  l' := DList(nodes', freeStack, s, f, g);
+}
 
-// // ~ 1500s
-// method main()
-// {
-//   var l := Alloc<uint64>(3);
-//   var p;
-//   l, p := InsertAfter(l, 0, 100);
-//   l, p := InsertAfter(l, p, 200);
-//   l, p := InsertAfter(l, p, 300);
-//   var p3 := p;
-//   l, p := InsertAfter(l, p, 400);
-//   l, p := InsertAfter(l, p, 500);
-//   assert Seq(l) == [100, 200, 300, 400, 500];
-//   l := Remove(l, p3);
-//   assert Seq(l) == [100, 200, 400, 500];
-//   l, p := InsertAfter(l, p, 600);
-//   l, p := InsertAfter(l, p, 700);
-//   assert Seq(l) == [100, 200, 400, 500, 600, 700];
-//   Free(l);
-// }
+function method main_seq1 (): (s: AbSeq<AbInt>)
+  ensures AbSeqLen(s) == AbAdd(AbAdd(AbAdd(AbAdd(I1, I1), I1), I1), I1)
+  ensures AbSeqIndex(I0, s) == I2A(100)
+  ensures AbSeqIndex(I1, s) == I2A(200)
+  ensures AbSeqIndex(AbAdd(I1, I1), s) == I2A(300)
+  ensures AbSeqIndex(AbAdd(AbAdd(I1, I1), I1), s) == I2A(400)
+  ensures AbSeqIndex(AbAdd(AbAdd(AbAdd(I1, I1), I1), I1), s) == I2A(500)
+
+function method main_seq2 (): (s: AbSeq<AbInt>)
+  ensures AbSeqLen(s) == AbAdd(AbAdd(AbAdd(I1, I1), I1), I1)
+  ensures AbSeqIndex(I0, s) == I2A(100)
+  ensures AbSeqIndex(I1, s) == I2A(200)
+  ensures AbSeqIndex(AbAdd(I1, I1), s) == I2A(400)
+  ensures AbSeqIndex(AbAdd(AbAdd(I1, I1), I1), s) == I2A(500)
+
+function method main_seq3 (): (s: AbSeq<AbInt>)
+  ensures AbSeqLen(s) == AbAdd(AbAdd(AbAdd(AbAdd(I1, I1), I1), I1), I1)
+  ensures AbSeqIndex(I0, s) == I2A(100)
+  ensures AbSeqIndex(I1, s) == I2A(200)
+  ensures AbSeqIndex(AbAdd(I1, I1), s) == I2A(400)
+  ensures AbSeqIndex(AbAdd(AbAdd(I1, I1), I1), s) == I2A(500)
+  ensures AbSeqIndex(AbAdd(AbAdd(AbAdd(I1, I1), I1), I1), s) == I2A(600)
+  ensures AbSeqIndex(AbAdd(AbAdd(AbAdd(AbAdd(I1, I1), I1), I1), I1), s) == I2A(700)
+
+// ~ 1500s
+method main()
+{
+  var I3 := AbAdd(AbAdd(I1, I1), I1);
+  Props_pos(I1);
+  Props_add_pos_is_lt ();
+  Props_lt_transitive'_px_add(I0);
+  var l := Alloc<AbInt>(I3);
+  var p;
+  l, p := InsertAfter(l, I0, I2A(100));
+
+  assume AbLt(I2A(100), I2A(200));
+  Props_lt_transitive'_pxy(I2A(100), I2A(200));
+  l, p := InsertAfter(l, p, I2A(200));
+
+  assume AbLt(I2A(200), I2A(300));
+  Props_lt_transitive'_pxy(I2A(200), I2A(300));
+  l, p := InsertAfter(l, p, I2A(300));
+  var p3 := p;
+
+  assume AbLt(I2A(300), I2A(400));
+  Props_lt_transitive'_pxy(I2A(300), I2A(400));
+  l, p := InsertAfter(l, p, I2A(400));
+
+  assume AbLt(I2A(400), I2A(500));
+  Props_lt_transitive'_pxy(I2A(400), I2A(500));
+  l, p := InsertAfter(l, p, I2A(500));
+
+  Props_add1sub1_is_orig ();
+  Props_lt2leq_add ();
+  assert AbSeqLen(Seq(l)) == AbAdd(AbAdd(AbAdd(AbAdd(I1, I1), I1), I1), I1);
+  assert AbSeqEquivalent (Seq(l), main_seq1 ());
+
+  l := Remove(l, p3);
+
+  assert AbSeqEquivalent (Seq(l), main_seq2 ());
+  l, p := InsertAfter(l, p, I2A(600));
+  l, p := InsertAfter(l, p, I2A(700));
+  assert AbSeqEquivalent (Seq(l), main_seq3 ());
+  Free(l);
+}
