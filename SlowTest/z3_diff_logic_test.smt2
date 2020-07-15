@@ -6,6 +6,13 @@
 (declare-const y Int)
 (declare-const z Int)
 (push)
+(assert (< (+ x 5) 10))
+(assert (> (+ x 7) 10))
+(check-sat)
+(get-model)
+(pop) ; remove the two assertions
+
+(push)
 (assert (< (+ x y) 10)); (smt.diff_logic: non-diff logic expression (+ x y))
 (assert (> (+ x y) 10))
 (check-sat)
