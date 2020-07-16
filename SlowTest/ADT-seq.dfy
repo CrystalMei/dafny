@@ -141,25 +141,33 @@ module ADT_Seq {
   function method AbSeqUpdate<X> (k: AI.AbInt, v: X, s: AbSeq<X>): (s': AbSeq<X>)
     requires AI.AbLeqLt(k, AI.I0, AbSeqLen(s))
     ensures AbSeqLen(s) == AbSeqLen(s')
+    ensures
+      forall i : AI.AbInt
+        {:trigger AbSeqIndex(i, s')} ::
+      AI.AbLeqLt(i, AI.I0, AbSeqLen(s')) ==>
+      if AI.AbLt(i, k) then
+        AbSeqIndex(i, s') == AbSeqIndex(i, s)
+      else if i == k then AbSeqIndex(i, s') == v
+      else AbSeqIndex(i, s') == AbSeqIndex(i, s);
     ensures AbSeqIndex(k, s') == v
-    ensures
-      forall i : AI.AbInt // s[0, k) keeps
-        {:trigger AbSeqIndex(i, s')} ::
-        AI.AbLeqLt(i, AI.I0, k) ==>
-        // precond begins
-        AI.AbLt(i, AbSeqLen(s)) ==>
-        AI.AbLt(i, AbSeqLen(s')) ==>
-        // precond ends
-        AbSeqIndex(i, s) == AbSeqIndex(i, s')
-    ensures
-      forall i : AI.AbInt // s(k, |s|) keeps
-        {:trigger AbSeqIndex(i, s')} ::
-        AI.AbLt(k, i) && AI.AbLt(i, AbSeqLen(s')) ==>
-        // precond begins
-        AI.AbLeq(AI.I0, i) ==>
-        AI.AbLt(i, AbSeqLen(s)) ==>
-        // precond ends
-        AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    // ensures
+    //   forall i : AI.AbInt // s[0, k) keeps
+    //     {:trigger AbSeqIndex(i, s')} ::
+    //     AI.AbLeqLt(i, AI.I0, k) ==>
+    //     // precond begins
+    //     AI.AbLt(i, AbSeqLen(s)) ==>
+    //     AI.AbLt(i, AbSeqLen(s')) ==>
+    //     // precond ends
+    //     AbSeqIndex(i, s) == AbSeqIndex(i, s')
+    // ensures
+    //   forall i : AI.AbInt // s(k, |s|) keeps
+    //     {:trigger AbSeqIndex(i, s')} ::
+    //     AI.AbLt(k, i) && AI.AbLt(i, AbSeqLen(s')) ==>
+    //     // precond begins
+    //     AI.AbLeq(AI.I0, i) ==>
+    //     AI.AbLt(i, AbSeqLen(s)) ==>
+    //     // precond ends
+    //     AbSeqIndex(i, s) == AbSeqIndex(i, s')
     { s[ k := v ] }
 
   function method AbSeqInsertIdx<X(!new)> (k: AI.AbInt, v: X, s: AbSeq<X>) : (s': AbSeq<X>)
@@ -168,6 +176,7 @@ module ADT_Seq {
     ensures AbSeqLen(s') == AI.AbAdd(AbSeqLen(s), AI.I1)
     ensures
       forall i : AI.AbInt
+        // {:trigger AbSeqIndex(AI.AbSub(i, AI.I1), s)}
         {:trigger AbSeqIndex(i, s')} ::
       AI.AbLeqLt(i, AI.I0, AbSeqLen(s')) ==>
       if AI.AbLt(i, k) then
