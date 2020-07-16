@@ -154,7 +154,8 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
 
     /*** precond for AbSeqIndex(node.prev, nodes) */
     Props_leq2lt_sub_p2 (I0, index);  // index > sentinel
-    Props_lt2leq_sub (); // index > 0 ==> index-1 >= 0, index < |f| ==> index <= |f|-1
+    Props_lt2leq_sub_px (I0); // index > 0 ==> index-1 >= 0
+    Props_lt2leq_sub_p2 (index, AbSeqLen(f)); // index < |f| ==> index <= |f|-1
     Props_pos(I1);
     Props_add1sub1_is_orig (); // Props_add_sub_is_orig ();
     Props_add1_is_lt (); // index-1 < index; index < index+1
@@ -188,7 +189,6 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     /* 0 <= p < |g| ==> unused <= g[p] < |s| */
     Props_lt_transitive'_p3 (unused, sentinel, I0); // unused < sentinel < I0
     Props_lt_transitive'_p3 (unused, I0, AbSeqLen(s')); // unused < |s'|
-    Props_lt_transitive'_pz_add (AbSeqLen(s'));
     Props_lt_subtraction_pya (AbSeqLen(s), I1);
 
     /* 0 <= p < |g| ==> 0 <= nodes[p].next < |g| */
@@ -207,6 +207,8 @@ method Remove<A>(l:DList<A>, p:AbInt) returns(l':DList<A>)
     
     /* 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].prev == (if g[p] > 0 then f[g[p] - 1] else if g[p] == 0 || |f| == 0 then 0 else f[|f| - 1]) */
     Props_lt_addition_pya (index, I1);
+
+    Props_lt2leq_sub ();
   }
 
 function IndexHi<A>(l:DList<A>, p:AbInt):(i:AbInt)
