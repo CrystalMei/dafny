@@ -1,0 +1,100 @@
+(QF-LIA probe check)
+(QF-AUFLIA probe check)
+(QF-LRA probe check)
+(QF-LIRA probe check)
+(ILP probe check)
+(QF-NIA probe check)
+(QF-NRA probe check)
+(NIA probe check)
+(NRA probe check)
+(NIRA probe check)
+(LIA probe check)
+(LRA probe check)
+(LIRA probe check)
+(AF-UFNRA probe check)
+	(SMT TACTIC)
+	(PREAMBLE TACTIC)
+PREAMBLE-TACTIC AST:
+^ 2147483684
+^ 2147483683
+sinh 2147483693
++ 2147483673
++ 2147483668
+false 2147483650
+tan 2147483689
+not 2147483654
+asin-u 2147483702
+- 2147483674
+- 2147483669
+cos 2147483688
+pi 2147483699
+bit0 2147483768
+cosh 2147483694
+to_int 2147483681
+asin 2147483690
+mod 2147483678
+atanh 2147483698
+- 2147483672
+neg-root 2147483701
+- 2147483679
+is_int 2147483682
+undef 2147483657
+tanh 2147483695
+/ 2147483671
+<= 2147483664
+asinh 2147483696
+div 2147483676
+acosh 2147483697
+<= 2147483660
+and 2147483651
+acos-u 2147483703
+=> 2147483655
+euler 2147483700
+> 2147483667
+xor 2147483653
+> 2147483663
+or 2147483652
+>= 2147483665
+>= 2147483661
+xor3 2147483771
+carry 2147483770
+sin 2147483687
+< 2147483666
+bit1 2147483769
+< 2147483662
+acos 2147483691
+to_real 2147483680
+* 2147483675
+* 2147483670
+abs 2147483686
+atan 2147483692
+rem 2147483677
+true 2147483649
+abs 2147483685
+(simplifier :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(simplifier :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(propagate-values :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(ctx-simplify :num-steps 20)
+(ctx-simplify :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(simplifier :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(solve_eqs :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(elim-uncnstr :num-exprs 8 :num-asts 177 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(simplifier :num-exprs 12 :num-asts 181 :time 0.00 :before-memory 0.71 :after-memory 0.71)
+(smt.tactic start)
+(smt.propagate-values)
+(smt.reduce-asserted)
+(smt.elim-term-ite)
+(smt.reducing)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+(smt.simplifier-done)
+(smt.searching)
+(smt :num-exprs 0 :num-asts 187 :time 0.00 :before-memory 0.71 :after-memory 0.80)
+sat
+(model 
+  (define-fun y () Int
+    1)
+  (define-fun x () Int
+    0)
+)
