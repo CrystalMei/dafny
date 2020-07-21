@@ -1,6 +1,3 @@
-(set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL)
-
 (set-option :print-success false)
 (set-info :smt-lib-version 2.0)
 (set-option :AUTO_CONFIG false)
@@ -19,6 +16,9 @@
 (set-option :smt.BV.REFLECT true)
 ; (set-option :model_compress false)
 ; done setting options
+
+(set-option :smt.arith.solver 1) ; set diff logic solver
+;(set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
@@ -57,6 +57,9 @@ PreconditionGeneratedEntry_correct))
 (set-option :smt.BV.REFLECT true)
 ; (set-option :model_compress false)
 ; done setting options
+
+(set-option :smt.arith.solver 1) ; set diff logic solver
+;(set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
@@ -97,6 +100,9 @@ PreconditionGeneratedEntry_correct))
 ; (set-option :model_compress false)
 ; done setting options
 
+(set-option :smt.arith.solver 1) ; set diff logic solver
+;(set-logic QF_IDL) 
+
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
 ; Valid
@@ -136,6 +142,9 @@ PreconditionGeneratedEntry_correct))
 ; (set-option :model_compress false)
 ; done setting options
 
+(set-option :smt.arith.solver 1) ; set diff logic solver
+; (set-logic QF_IDL) 
+
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
 ; Valid
@@ -174,6 +183,9 @@ PreconditionGeneratedEntry_correct))
 (set-option :smt.BV.REFLECT true)
 ; (set-option :model_compress false)
 ; done setting options
+
+(set-option :smt.arith.solver 1) ; set diff logic solver
+;(set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
