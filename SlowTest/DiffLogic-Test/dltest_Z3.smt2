@@ -1,12 +1,17 @@
 (set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL) 
+; (set-logic QF_IDL) 
 
 (declare-const x Int)
 (declare-const y Int)
 
 ; (push)
+(assert (< 0 x))
+(assert (< 0 y))
+(assert (< (+ x y) (* x y)))
+(assert (=> (< (* x y) (* 2 y)) (> (* 3 x) (* 3 y))))
 (assert (< x y))
 (assert (< (+ x y) 10)); (smt.diff_logic: non-diff logic expression (+ x y))
+;(assert (< (* x y) 10))
 ;(assert (> (+ x y) 10))
 (check-sat)
 (get-model)
