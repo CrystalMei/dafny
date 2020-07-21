@@ -13,7 +13,7 @@ procedure P2 ()
     assert (x * y == y * x); // (error "line 80 column 1: logic does not support nonlinear arithmetic")
 }
 
-procedure P3 ()
+procedure P3 () // non-diff logic expression (* x y)
 {
     var x : int;
     var y : int;
@@ -27,7 +27,7 @@ procedure P4 ()
     assert (y >= 0 && x - y > 0 ==> x > 0);
 }
 
-procedure P5 ()
+procedure P5 () // non-diff logic expression (+ x y)
 {
     var x : int;
     var y : int;
