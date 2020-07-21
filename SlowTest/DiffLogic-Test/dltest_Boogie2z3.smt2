@@ -1,3 +1,6 @@
+(set-option :smt.arith.solver 1) ; set diff logic solver
+;(set-logic QF_IDL)
+
 (set-option :print-success false)
 (set-info :smt-lib-version 2.0)
 (set-option :AUTO_CONFIG false)
@@ -14,15 +17,11 @@
 (set-option :smt.QI.EAGER_THRESHOLD 100)
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
-(set-option :model_compress false)
+; (set-option :model_compress false)
 ; done setting options
-
-(set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
-
 (declare-fun %lbl%+0 () Bool)
 (declare-fun %lbl%@1 () Bool)
 (declare-fun x () Int)
@@ -56,11 +55,8 @@ PreconditionGeneratedEntry_correct))
 (set-option :smt.QI.EAGER_THRESHOLD 100)
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
-(set-option :model_compress false)
+; (set-option :model_compress false)
 ; done setting options
-
-(set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
@@ -98,11 +94,8 @@ PreconditionGeneratedEntry_correct))
 (set-option :smt.QI.EAGER_THRESHOLD 100)
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
-(set-option :model_compress false)
+; (set-option :model_compress false)
 ; done setting options
-
-(set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
@@ -140,11 +133,8 @@ PreconditionGeneratedEntry_correct))
 (set-option :smt.QI.EAGER_THRESHOLD 100)
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
-(set-option :model_compress false)
+; (set-option :model_compress false)
 ; done setting options
-
-(set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
@@ -182,11 +172,8 @@ PreconditionGeneratedEntry_correct))
 (set-option :smt.QI.EAGER_THRESHOLD 100)
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
-(set-option :model_compress false)
+; (set-option :model_compress false)
 ; done setting options
-
-(set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL) 
 
 ; (declare-fun tickleBool (Bool) Bool)
 ; (assert (and (tickleBool true) (tickleBool false)))
@@ -200,10 +187,11 @@ PreconditionGeneratedEntry_correct))
 (push 1)
 (set-info :boogie-vc-id P5)
 (assert (not
-(let ((anon0_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (! (or %lbl%@1  (=> (> (+ x y) 10) (> (+ x y) 9))) :lblneg @1))))
+(let ((anon0_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (! (or %lbl%@1  (=> (and (> (+ x y) 10) (> y 0)) (> (+ (+ x y) y) 9))) :lblneg @1))))
 (let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+2 true) :lblpos +2) anon0_correct)))
 PreconditionGeneratedEntry_correct))
 ))
 (check-sat)
+(check-sat-using (then qflia simplify smt sat)) ; add qflia first
 (pop 1)
 ; Valid

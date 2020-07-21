@@ -67,7 +67,7 @@ implementation P5()
   var x: int;
   var y: int;
 
-    assert x + y > 10 ==> x + y > 9;
+    assert x + y > 10 && y > 0 ==> x + y + y > 9;
 }
 
 

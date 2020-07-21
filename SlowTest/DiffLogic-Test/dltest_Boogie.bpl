@@ -14,6 +14,7 @@ procedure P2 ()
 }
 
 procedure P3 () // non-diff logic expression (* x y)
+// unknown - (tactic-exception "smt tactic failed to show goal to be sat/unsat (incomplete (theory difference-logic))")
 {
     var x : int;
     var y : int;
@@ -31,5 +32,5 @@ procedure P5 () // non-diff logic expression (+ x y)
 {
     var x : int;
     var y : int;
-    assert (x + y > 10 ==> x + y > 9); // (error "line 206 column 1: logic only supports difference arithmetic")
+    assert (x + y > 10 && y > 0 ==> x + y + y > 9); // (error "line 206 column 1: logic only supports difference arithmetic")
 }
