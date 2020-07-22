@@ -18,10 +18,10 @@
 ; done setting options
 
 (set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL) 
+(set-logic DLA) 
 
-; (declare-fun tickleBool (Bool) Bool)
-; (assert (and (tickleBool true) (tickleBool false)))
+;(declare-fun tickleBool (Bool) Bool)
+;(assert (and (tickleBool true) (tickleBool false)))
 (declare-fun %lbl%+0 () Bool)
 (declare-fun %lbl%@1 () Bool)
 (declare-fun x () Int)
@@ -59,10 +59,10 @@ PreconditionGeneratedEntry_correct))
 ; done setting options
 
 (set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL) 
+(set-logic DLA) 
 
-; (declare-fun tickleBool (Bool) Bool)
-; (assert (and (tickleBool true) (tickleBool false)))
+(declare-fun tickleBool (Bool) Bool)
+(assert (and (tickleBool true) (tickleBool false)))
 ; Valid
 
 (declare-fun %lbl%+0 () Bool)
@@ -101,10 +101,10 @@ PreconditionGeneratedEntry_correct))
 ; done setting options
 
 (set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL) 
+(set-logic DLA) 
 
-; (declare-fun tickleBool (Bool) Bool)
-; (assert (and (tickleBool true) (tickleBool false)))
+(declare-fun tickleBool (Bool) Bool)
+(assert (and (tickleBool true) (tickleBool false)))
 ; Valid
 
 (declare-fun %lbl%+0 () Bool)
@@ -143,10 +143,10 @@ PreconditionGeneratedEntry_correct))
 ; done setting options
 
 (set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL) 
+(set-logic DLA) 
 
-; (declare-fun tickleBool (Bool) Bool)
-; (assert (and (tickleBool true) (tickleBool false)))
+(declare-fun tickleBool (Bool) Bool)
+(assert (and (tickleBool true) (tickleBool false)))
 ; Valid
 
 (declare-fun %lbl%+0 () Bool)
@@ -185,10 +185,10 @@ PreconditionGeneratedEntry_correct))
 ; done setting options
 
 (set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL) 
+(set-logic DLA) 
 
-; (declare-fun tickleBool (Bool) Bool)
-; (assert (and (tickleBool true) (tickleBool false)))
+(declare-fun tickleBool (Bool) Bool)
+(assert (and (tickleBool true) (tickleBool false)))
 ; Valid
 
 (declare-fun %lbl%+0 () Bool)
@@ -204,6 +204,5 @@ PreconditionGeneratedEntry_correct))
 PreconditionGeneratedEntry_correct))
 ))
 (check-sat)
-(check-sat-using (then qflia simplify smt sat)) ; add qflia first
 (pop 1)
 ; Valid

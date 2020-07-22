@@ -1,25 +1,35 @@
-(set-option :produce-proofs true)
+; (set-option :produce-proofs true)
 (set-option :smt.arith.solver 1) ; set diff logic solver
-;(set-logic QF_IDL) 
+; (set-logic QF_IDL)
+
+;(set-logic DLA) 
 
 (declare-const x Int)
 (declare-const y Int)
 
-; (push)
-(assert (< 0 x))
-(assert (< 0 y))
-(assert (< (+ x y) (* x y)))
-(assert (=> (< (* x y) (* 2 y)) (> (* 3 x) (* 3 y))))
+;(push)
 (assert (< x y))
-(assert (> (+ x y) 10)); (smt.diff_logic: non-diff logic expression (+ x y))
+
+(assert (< (+ (+ x y) y) 9) )
+
+(assert (and (< 0 (* x y)) (< (* x y) 10) ) )
+
+(check-sat)
+;(get-model)
+; (check-sat-using qflia)
+; (get-model)
+; (pop) ; remove the two assertions
+
+; (assert (=> (and (< 0 (* x y)) (< (* x y) 10)) (< x 10)))
+; (push)
+; (assert (< 0 x))
+; (assert (< 0 y))
+; (assert (< (+ x y) (* x y)))
+; (assert (=> (< (* x y) (* 2 y)) (> (* 3 x) (* 3 y))))
+; (assert (< x y))
+; (assert (> (+ x y) 10)); (smt.diff_logic: non-diff logic expression (+ x y))
 ;(assert (< (* x y) 10))
 ;(assert (> (+ x y) 10))
-(check-sat)
-(get-model)
-(check-sat-using qflia)
-(get-model)
-;(pop) ; remove the two assertions
-
 ;(push)
 ;(declare-const z Int)
 ;(assert (< (* x y) 10)); (smt.diff_logic: non-diff logic expression (* x y))
