@@ -16,6 +16,8 @@
 	(mk SMT tactic)
 mk_combined_solver...
 	(mk SMT solver)
+func-decl AST: (declare-fun tickleBool (Bool) Bool)
+(smt.simplifying :time 0.00 :before-memory 0.66 :after-memory 0.66)
 func-decl AST: (declare-fun %lbl%+0 () Bool)
 func-decl AST: (declare-fun %lbl%@1 () Bool)
 func-decl AST: (declare-fun x () Int)
@@ -26,20 +28,58 @@ func-decl AST: (declare-fun %lbl%+3 () Bool)
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+(smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.simplifier-start)
 (smt.simplifying :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (started "check-sat")
 check_sat AST:
 
+(and (tickleBool true) (tickleBool false))
+
 (let ((a!1 (=> (< x y) (< (* 2 x) (* 2 y))))
       (a!2 (or %lbl%@2 (=> (<= (* 2 x) (* 2 y)) (<= (* 3 x) (* 3 y))))))
 (let ((a!3 (=> (! (and %lbl%+0 true) :lblpos +0)
                (and (! (or %lbl%@1 a!1) :lblneg @1) (=> a!1 (! a!2 :lblneg @2))))))
   (not (=> (! (and %lbl%+3 true) :lblpos +3) a!3))))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(not (and (! true :lblneg @1) (! true :lblneg @2)))
+(! %lbl%+0 :lblpos +0)
+(! %lbl%+3 :lblpos +3)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -59,6 +99,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -66,6 +114,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.simplifier-start)
 (smt.simplifying :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -78,9 +134,22 @@ check_sat AST:
 (let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
                (=> (! (and %lbl%+0 true) :lblpos +0) a!1))))
   (not a!2)))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(not (! true :lblneg @1))
+(! %lbl%+0 :lblpos +0)
+(! %lbl%+2 :lblpos +2)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -100,6 +169,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -107,6 +184,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.simplifier-start)
 (smt.simplifying :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -120,9 +205,24 @@ check_sat AST:
                (=> (! (and %lbl%+0 true) :lblpos +0)
                    (! (or %lbl%@1 a!1) :lblneg @1)))))
   (not a!2)))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(let ((a!1 (and (not (<= (* x y) 0)) (not (>= (* x y) 10)))))
+(let ((a!2 (! (or %lbl%@1 (not (>= x 10)) (not a!1)) :lblneg @1)))
+  (not a!2)))
+(! %lbl%+0 :lblpos +0)
+(! %lbl%+2 :lblpos +2)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -130,6 +230,23 @@ check_sat AST:
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(not %lbl%@1)
+(>= x 10)
+(not (<= (* x y) 0))
+(not (>= (* x y) 10))
+(! true :lblpos @1)
+%lbl%+0
+(! true :lblpos +0)
+%lbl%+2
+(! true :lblpos +2)
+inconsistent: 0
+
 (smt.diff_logic: non-diff logic expression (* x y))
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.searching)
@@ -168,6 +285,19 @@ check_sat AST:
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+(! %lbl%+0 :lblpos +0)
+(let ((a!1 (and (not (<= (* x y) 0)) (not (>= (* x y) 10)))))
+(let ((a!2 (! (or %lbl%@1 (not (>= x 10)) (not a!1)) :lblneg @1)))
+  (not a!2)))
+(! %lbl%+2 :lblpos +2)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -175,6 +305,23 @@ check_sat AST:
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+%lbl%+0
+(! true :lblpos +0)
+(not %lbl%@1)
+(>= x 10)
+(not (<= (* x y) 0))
+(not (>= (* x y) 10))
+(! true :lblpos @1)
+%lbl%+2
+(! true :lblpos +2)
+inconsistent: 0
+
 (smt.diff_logic: non-diff logic expression (* x y))
 (smt.preprocessing :time 0.00 :before-memory 1.26 :after-memory 1.26)
 (smt.searching)
@@ -206,6 +353,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -213,6 +368,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.simplifier-start)
 (smt.simplifying :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -226,9 +389,24 @@ check_sat AST:
                (=> (! (and %lbl%+0 true) :lblpos +0)
                    (! (or %lbl%@1 a!1) :lblneg @1)))))
   (not a!2)))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(let ((a!1 (not (>= (+ y (* (- 1) x)) 0))))
+(let ((a!2 (or %lbl%@1 (not (<= x 0)) (not (and (>= y 0) a!1)))))
+  (not (! a!2 :lblneg @1))))
+(! %lbl%+0 :lblpos +0)
+(! %lbl%+2 :lblpos +2)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -236,6 +414,23 @@ check_sat AST:
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(not %lbl%@1)
+(<= x 0)
+(>= y 0)
+(not (>= (+ y (* (- 1) x)) 0))
+(! true :lblpos @1)
+%lbl%+0
+(! true :lblpos +0)
+%lbl%+2
+(! true :lblpos +2)
+inconsistent: 0
+
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.searching)
 (smt.stats :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -255,6 +450,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -262,6 +465,14 @@ func-decl AST: (declare-fun %lbl%+2 () Bool)
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+inconsistent: 0
+
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.simplifier-start)
 (smt.simplifying :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -275,9 +486,24 @@ check_sat AST:
                (=> (! (and %lbl%+0 true) :lblpos +0)
                    (! (or %lbl%@1 a!1) :lblneg @1)))))
   (not a!2)))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(let ((a!1 (not (<= (+ x (* 2 y)) 9)))
+      (a!2 (and (not (<= (+ x y) 10)) (not (<= y 0)))))
+  (not (! (or %lbl%@1 a!1 (not a!2)) :lblneg @1)))
+(! %lbl%+0 :lblpos +0)
+(! %lbl%+2 :lblpos +2)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -285,6 +511,23 @@ check_sat AST:
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+(tickleBool true)
+(tickleBool false)
+[HEAD] ==>
+(not %lbl%@1)
+(<= (+ x (* 2 y)) 9)
+(not (<= (+ x y) 10))
+(not (<= y 0))
+(! true :lblpos @1)
+%lbl%+0
+(! true :lblpos +0)
+%lbl%+2
+(! true :lblpos +2)
+inconsistent: 0
+
 (smt.diff_logic: non-diff logic expression (+ x (* 2 y)))
 (smt.preprocessing :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (smt.searching)
@@ -323,6 +566,19 @@ check_sat AST:
 (smt.collecting-features)
 	(setup arith to Diff Logic)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+(let ((a!1 (not (<= (+ x (* 2 y)) 9)))
+      (a!2 (and (not (<= (+ x y) 10)) (not (<= y 0)))))
+  (not (! (or %lbl%@1 a!1 (not a!2)) :lblneg @1)))
+(! %lbl%+0 :lblpos +0)
+(! %lbl%+2 :lblpos +2)
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -330,6 +586,23 @@ check_sat AST:
 (smt.reduce-asserted)
 (smt.flatten-clauses)
 (smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(tickleBool true)
+(tickleBool false)
+(not %lbl%@1)
+(<= (+ x (* 2 y)) 9)
+(not (<= (+ x y) 10))
+(not (<= y 0))
+(! true :lblpos @1)
+%lbl%+0
+(! true :lblpos +0)
+%lbl%+2
+(! true :lblpos +2)
+inconsistent: 0
+
 (smt.diff_logic: non-diff logic expression (+ x (* 2 y)))
 (smt.preprocessing :time 0.00 :before-memory 1.26 :after-memory 1.26)
 (smt.searching)

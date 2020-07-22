@@ -20,8 +20,8 @@
 (set-option :smt.arith.solver 1) ; set diff logic solver
 (set-logic DLA) 
 
-;(declare-fun tickleBool (Bool) Bool)
-;(assert (and (tickleBool true) (tickleBool false)))
+(declare-fun tickleBool (Bool) Bool)
+(assert (and (tickleBool true) (tickleBool false)))
 (declare-fun %lbl%+0 () Bool)
 (declare-fun %lbl%@1 () Bool)
 (declare-fun x () Int)
