@@ -65,8 +65,36 @@ check_sat AST:
                (and (! (or %lbl%@1 a!1) :lblneg @1) (=> a!1 (! a!2 :lblneg @2))))))
   (not (=> (! (and %lbl%+3 true) :lblpos +3) a!3))))
 
+	(call solver...)
+
+combined solver check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@2 () Bool)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+3 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (< x y) (< (* 2 x) (* 2 y))))
+      (a!2 (or %lbl%@2 (=> (<= (* 2 x) (* 2 y)) (<= (* 3 x) (* 3 y))))))
+(let ((a!3 (=> (! (and %lbl%+0 true) :lblpos +0)
+               (and (! (or %lbl%@1 a!1) :lblneg @1) (=> a!1 (! a!2 :lblneg @2))))))
+  (not (=> (! (and %lbl%+3 true) :lblpos +3) a!3)))))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+3 () Bool)
+(assert (tickleBool true))
+(assert (tickleBool false))
+(assert (not (and (! true :lblneg @1) (! true :lblneg @2))))
+(assert (! %lbl%+0 :lblpos +0))
+(assert (! %lbl%+3 :lblpos +3))
+
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 
@@ -135,8 +163,34 @@ check_sat AST:
                (=> (! (and %lbl%+0 true) :lblpos +0) a!1))))
   (not a!2)))
 
+	(call solver...)
+
+combined solver check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (! (or %lbl%@1 (= (* x y) (* y x))) :lblneg @1)))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0) a!1))))
+  (not a!2))))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (tickleBool true))
+(assert (tickleBool false))
+(assert (not (! true :lblneg @1)))
+(assert (! %lbl%+0 :lblpos +0))
+(assert (! %lbl%+2 :lblpos +2))
+
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 
@@ -206,8 +260,40 @@ check_sat AST:
                    (! (or %lbl%@1 a!1) :lblneg @1)))))
   (not a!2)))
 
+	(call solver...)
+
+combined solver check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (< 0 (* x y)) (< (* x y) 10)) (< x 10))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (tickleBool true))
+(assert (tickleBool false))
+(assert (let ((a!1 (and (not (<= (* x y) 0)) (not (>= (* x y) 10)))))
+(let ((a!2 (! (or %lbl%@1 (not (>= x 10)) (not a!1)) :lblneg @1)))
+  (not a!2))))
+(assert (! %lbl%+0 :lblpos +0))
+(assert (! %lbl%+2 :lblpos +2))
+
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 
@@ -263,6 +349,21 @@ inconsistent: 0
 (combined-solver "solver 2 failed, trying solver1")
 (combined-solver "using solver 1")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (< 0 (* x y)) (< (* x y) 10)) (< x 10))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 (simplifier :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (simplifier :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (propagate-values :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -390,8 +491,40 @@ check_sat AST:
                    (! (or %lbl%@1 a!1) :lblneg @1)))))
   (not a!2)))
 
+	(call solver...)
+
+combined solver check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (>= y 0) (> (- x y) 0)) (> x 0))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (tickleBool true))
+(assert (tickleBool false))
+(assert (let ((a!1 (not (>= (+ y (* (- 1) x)) 0))))
+(let ((a!2 (or %lbl%@1 (not (<= x 0)) (not (and (>= y 0) a!1)))))
+  (not (! a!2 :lblneg @1)))))
+(assert (! %lbl%+0 :lblpos +0))
+(assert (! %lbl%+2 :lblpos +2))
+
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 
@@ -487,8 +620,40 @@ check_sat AST:
                    (! (or %lbl%@1 a!1) :lblneg @1)))))
   (not a!2)))
 
+	(call solver...)
+
+combined solver check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (> (+ x y) 10) (> y 0)) (> (+ (+ x y) y) 9))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 (combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (tickleBool true))
+(assert (tickleBool false))
+(assert (let ((a!1 (not (<= (+ x (* 2 y)) 9)))
+      (a!2 (and (not (<= (+ x y) 10)) (not (<= y 0)))))
+  (not (! (or %lbl%@1 a!1 (not a!2)) :lblneg @1))))
+(assert (! %lbl%+0 :lblpos +0))
+(assert (! %lbl%+2 :lblpos +2))
+
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 
@@ -544,6 +709,21 @@ inconsistent: 0
 (combined-solver "solver 2 failed, trying solver1")
 (combined-solver "using solver 1")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (> (+ x y) 10) (> y 0)) (> (+ (+ x y) y) 9))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 (simplifier :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (simplifier :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (propagate-values :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
