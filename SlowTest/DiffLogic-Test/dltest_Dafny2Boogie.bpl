@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: dltest_Dafny.dfy /proverLog:dafny.smt2 /print:dltest_Dafny2Boogie.bpl
+// Command Line Options: dltest_Dafny.dfy /proverLog:dltest_Dafny2z3.smt2 /print:dltest_Dafny2Boogie.bpl /proverOpt:O:smt.arith.solver=1 /proverOpt:LOGIC=DLA
 
 const $$Language$Dafny: bool;
 
@@ -2643,13 +2643,13 @@ axiom (forall $o: ref, $h: Heap ::
   $IsAlloc($o, Tclass._module.__default(), $h)
      <==> $o == null || read($h, $o, alloc));
 
-procedure CheckWellformed$$_module.__default.Main();
+procedure CheckWellformed$$_module.__default.P1();
   free requires 0 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
 
-procedure Call$$_module.__default.Main();
+procedure Call$$_module.__default.P1();
   modifies $Heap, $Tick;
   // frame condition: object granularity
   free ensures (forall $o: ref :: 
@@ -2660,7 +2660,7 @@ procedure Call$$_module.__default.Main();
 
 
 
-procedure Impl$$_module.__default.Main() returns ($_reverifyPost: bool);
+procedure Impl$$_module.__default.P1() returns ($_reverifyPost: bool);
   free requires 0 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   // frame condition: object granularity
@@ -2672,20 +2672,20 @@ procedure Impl$$_module.__default.Main() returns ($_reverifyPost: bool);
 
 
 
-implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
+implementation Impl$$_module.__default.P1() returns ($_reverifyPost: bool)
 {
   var $_Frame: <beta>[ref,Field beta]bool;
   var x#0: int;
   var y#0: int;
 
-    // AddMethodImpl: Main, Impl$$_module.__default.Main
+    // AddMethodImpl: P1, Impl$$_module.__default.P1
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "dltest_Dafny.dfy(2,0): initial state"} true;
+    assume {:captureState "dltest_Dafny.dfy(4,0): initial state"} true;
     $_reverifyPost := false;
     havoc x#0;
     havoc y#0;
-    // ----- assert statement ----- dltest_Dafny.dfy(6,5)
+    // ----- assert statement ----- dltest_Dafny.dfy(8,5)
     if (x#0 < y#0)
     {
     }
@@ -2693,27 +2693,369 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     assume true;
     assert {:subsumption 0} x#0 < y#0 ==> Mul(LitInt(2), x#0) < Mul(LitInt(2), y#0);
     assume x#0 < y#0 ==> Mul(LitInt(2), x#0) < Mul(LitInt(2), y#0);
-    // ----- assert statement ----- dltest_Dafny.dfy(7,5)
-    if (x#0 >= LitInt(0))
-    {
-    }
-
-    if (x#0 >= LitInt(0) && y#0 >= LitInt(0))
-    {
-    }
-
-    if (x#0 >= LitInt(0) && y#0 >= LitInt(0) && x#0 < y#0)
+    // ----- assert statement ----- dltest_Dafny.dfy(9,5)
+    if (Mul(LitInt(2), x#0) <= Mul(LitInt(2), y#0))
     {
     }
 
     assume true;
-    assert {:subsumption 0} x#0 >= LitInt(0) && y#0 >= LitInt(0) && x#0 < y#0
-       ==> Mul(LitInt(2), x#0) < Mul(LitInt(2), y#0);
-    assume x#0 >= LitInt(0) && y#0 >= LitInt(0) && x#0 < y#0
-       ==> Mul(LitInt(2), x#0) < Mul(LitInt(2), y#0);
-    // ----- assert statement ----- dltest_Dafny.dfy(8,5)
+    assert {:subsumption 0} Mul(LitInt(2), x#0) <= Mul(LitInt(2), y#0)
+       ==> Mul(LitInt(3), x#0) <= Mul(LitInt(3), y#0);
+    assume Mul(LitInt(2), x#0) <= Mul(LitInt(2), y#0)
+       ==> Mul(LitInt(3), x#0) <= Mul(LitInt(3), y#0);
+}
+
+
+
+procedure CheckWellformed$$_module.__default.P2();
+  free requires 1 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.P2();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.P2() returns ($_reverifyPost: bool);
+  free requires 1 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.P2() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var x#0: int;
+  var y#0: int;
+
+    // AddMethodImpl: P2, Impl$$_module.__default.P2
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "dltest_Dafny.dfy(16,0): initial state"} true;
+    $_reverifyPost := false;
+    havoc x#0;
+    havoc y#0;
+    // ----- assert statement ----- dltest_Dafny.dfy(19,5)
     assume true;
-    assert x#0 + y#0 > 10;
+    assert Mul(x#0, y#0) == Mul(y#0, x#0);
+}
+
+
+
+procedure CheckWellformed$$_module.__default.P3();
+  free requires 2 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.P3();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.P3() returns ($_reverifyPost: bool);
+  free requires 2 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.P3() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var x#0: int;
+  var y#0: int;
+
+    // AddMethodImpl: P3, Impl$$_module.__default.P3
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "dltest_Dafny.dfy(25,0): initial state"} true;
+    $_reverifyPost := false;
+    havoc x#0;
+    havoc y#0;
+    // ----- assert statement ----- dltest_Dafny.dfy(28,5)
+    if (0 < Mul(x#0, y#0))
+    {
+    }
+
+    if (0 < Mul(x#0, y#0) && Mul(x#0, y#0) < 10)
+    {
+    }
+
+    assume true;
+    assert {:subsumption 0} 0 < Mul(x#0, y#0) && Mul(x#0, y#0) < 10 ==> x#0 < 10;
+    assume 0 < Mul(x#0, y#0) && Mul(x#0, y#0) < 10 ==> x#0 < 10;
+}
+
+
+
+procedure CheckWellformed$$_module.__default.P4();
+  free requires 3 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.P4();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.P4() returns ($_reverifyPost: bool);
+  free requires 3 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.P4() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var x#0: int;
+  var y#0: int;
+
+    // AddMethodImpl: P4, Impl$$_module.__default.P4
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "dltest_Dafny.dfy(33,0): initial state"} true;
+    $_reverifyPost := false;
+    havoc x#0;
+    havoc y#0;
+    // ----- assert statement ----- dltest_Dafny.dfy(36,5)
+    if (y#0 >= LitInt(0))
+    {
+    }
+
+    if (y#0 >= LitInt(0) && x#0 - y#0 > 0)
+    {
+    }
+
+    assume true;
+    assert {:subsumption 0} y#0 >= LitInt(0) && x#0 - y#0 > 0 ==> x#0 > 0;
+    assume y#0 >= LitInt(0) && x#0 - y#0 > 0 ==> x#0 > 0;
+}
+
+
+
+procedure CheckWellformed$$_module.__default.P5();
+  free requires 4 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.P5();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.P5() returns ($_reverifyPost: bool);
+  free requires 4 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.P5() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var x#0: int;
+  var y#0: int;
+
+    // AddMethodImpl: P5, Impl$$_module.__default.P5
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "dltest_Dafny.dfy(42,0): initial state"} true;
+    $_reverifyPost := false;
+    havoc x#0;
+    havoc y#0;
+    // ----- assert statement ----- dltest_Dafny.dfy(45,5)
+    if (x#0 + y#0 > 10)
+    {
+    }
+
+    if (x#0 + y#0 > 10 && y#0 > 0)
+    {
+    }
+
+    assume true;
+    assert {:subsumption 0} x#0 + y#0 > 10 && y#0 > 0 ==> x#0 + y#0 + y#0 > 9;
+    assume x#0 + y#0 > 10 && y#0 > 0 ==> x#0 + y#0 + y#0 > 9;
+}
+
+
+
+procedure CheckWellformed$$_module.__default.P6();
+  free requires 5 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.P6();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.P6() returns ($_reverifyPost: bool);
+  free requires 5 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.P6() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var x#0: int;
+  var y#0: int;
+
+    // AddMethodImpl: P6, Impl$$_module.__default.P6
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "dltest_Dafny.dfy(51,0): initial state"} true;
+    $_reverifyPost := false;
+    havoc x#0;
+    havoc y#0;
+    // ----- assert statement ----- dltest_Dafny.dfy(54,5)
+    if (LitInt(0) <= x#0)
+    {
+    }
+
+    if (LitInt(0) <= x#0 && LitInt(0) <= y#0)
+    {
+    }
+
+    if (LitInt(0) <= x#0
+       && LitInt(0) <= y#0
+       && Mul(LitInt(2), x#0) <= Mul(LitInt(2), y#0))
+    {
+    }
+
+    assume true;
+    assert {:subsumption 0} LitInt(0) <= x#0
+         && LitInt(0) <= y#0
+         && Mul(LitInt(2), x#0) <= Mul(LitInt(2), y#0)
+       ==> Mul(LitInt(3), x#0) <= Mul(LitInt(4), y#0);
+    assume LitInt(0) <= x#0
+         && LitInt(0) <= y#0
+         && Mul(LitInt(2), x#0) <= Mul(LitInt(2), y#0)
+       ==> Mul(LitInt(3), x#0) <= Mul(LitInt(4), y#0);
+}
+
+
+
+procedure CheckWellformed$$_module.__default.P7();
+  free requires 6 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.P7();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.P7() returns ($_reverifyPost: bool);
+  free requires 6 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.P7() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var x#0: int;
+  var y#0: int;
+  var z#0: int;
+
+    // AddMethodImpl: P7, Impl$$_module.__default.P7
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "dltest_Dafny.dfy(59,0): initial state"} true;
+    $_reverifyPost := false;
+    havoc x#0;
+    havoc y#0;
+    havoc z#0;
+    // ----- assert statement ----- dltest_Dafny.dfy(63,5)
+    if (LitInt(0) <= Mul(x#0, y#0))
+    {
+    }
+
+    if (LitInt(0) <= Mul(x#0, y#0) && Mul(x#0, y#0) + 10 <= z#0)
+    {
+    }
+
+    assume true;
+    assert {:subsumption 0} LitInt(0) <= Mul(x#0, y#0) && Mul(x#0, y#0) + 10 <= z#0 ==> LitInt(0) <= z#0;
+    assume LitInt(0) <= Mul(x#0, y#0) && Mul(x#0, y#0) + 10 <= z#0 ==> LitInt(0) <= z#0;
 }
 
 

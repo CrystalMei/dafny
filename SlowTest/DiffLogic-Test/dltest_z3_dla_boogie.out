@@ -83,6 +83,22 @@ combined solver check_sat
   (not (=> (! (and %lbl%+3 true) :lblpos +3) a!3)))))
 
 (combined-solver "using solver 2 (without a timeout)")
+
+before solver2 check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@2 () Bool)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+3 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (< x y) (< (* 2 x) (* 2 y))))
+      (a!2 (or %lbl%@2 (=> (<= (* 2 x) (* 2 y)) (<= (* 3 x) (* 3 y))))))
+(let ((a!3 (=> (! (and %lbl%+0 true) :lblpos +0)
+               (and (! (or %lbl%@1 a!1) :lblneg @1) (=> a!1 (! a!2 :lblneg @2))))))
+  (not (=> (! (and %lbl%+3 true) :lblpos +3) a!3)))))
+
 	(solver_na2as check_sat_core)
 
 solver check_sat_core
@@ -117,7 +133,7 @@ unsat
 mk_combined_solver...
 	(mk SMT solver)
 func-decl AST: (declare-fun tickleBool (Bool) Bool)
-(smt.simplifying :time 0.00 :before-memory 0.66 :after-memory 0.66)
+(smt.simplifying :time 0.00 :before-memory 0.67 :after-memory 0.67)
 func-decl AST: (declare-fun %lbl%+0 () Bool)
 func-decl AST: (declare-fun %lbl%@1 () Bool)
 func-decl AST: (declare-fun x () Int)
@@ -179,6 +195,20 @@ combined solver check_sat
   (not a!2))))
 
 (combined-solver "using solver 2 (without a timeout)")
+
+before solver2 check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (! (or %lbl%@1 (= (* x y) (* y x))) :lblneg @1)))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0) a!1))))
+  (not a!2))))
+
 	(solver_na2as check_sat_core)
 
 solver check_sat_core
@@ -213,7 +243,7 @@ unsat
 mk_combined_solver...
 	(mk SMT solver)
 func-decl AST: (declare-fun tickleBool (Bool) Bool)
-(smt.simplifying :time 0.00 :before-memory 0.66 :after-memory 0.66)
+(smt.simplifying :time 0.00 :before-memory 0.67 :after-memory 0.67)
 func-decl AST: (declare-fun %lbl%+0 () Bool)
 func-decl AST: (declare-fun %lbl%@1 () Bool)
 func-decl AST: (declare-fun x () Int)
@@ -277,6 +307,21 @@ combined solver check_sat
   (not a!2))))
 
 (combined-solver "using solver 2 (without a timeout)")
+
+before solver2 check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (< 0 (* x y)) (< (* x y) 10)) (< x 10))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 	(solver_na2as check_sat_core)
 
 solver check_sat_core
@@ -366,6 +411,7 @@ solver check_sat_core
 
 (simplifier :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (simplifier :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
+(fix-dl-var :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (propagate-values :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (ctx-simplify :num-steps 146)
 (ctx-simplify :num-exprs 26 :num-asts 214 :time 0.00 :before-memory 0.86 :after-memory 0.86)
@@ -436,7 +482,7 @@ inconsistent: 0
 (smt.final-check "fpa")
 (smt.final-check "unknown")
 (smt.stats :time 0.00 :before-memory 1.26 :after-memory 1.26)
-(smt :num-exprs 26 :num-asts 211 :time 0.00 :before-memory 0.86 :after-memory 0.91)
+(smt :num-exprs 26 :num-asts 211 :time 0.00 :before-memory 0.86 :after-memory 0.92)
 (tactic-exception "smt tactic failed to show goal to be sat/unsat (incomplete (theory difference-logic))")
 unknown
 	(mk DLA tactic)
@@ -444,7 +490,7 @@ unknown
 mk_combined_solver...
 	(mk SMT solver)
 func-decl AST: (declare-fun tickleBool (Bool) Bool)
-(smt.simplifying :time 0.00 :before-memory 0.66 :after-memory 0.66)
+(smt.simplifying :time 0.00 :before-memory 0.67 :after-memory 0.67)
 func-decl AST: (declare-fun %lbl%+0 () Bool)
 func-decl AST: (declare-fun %lbl%@1 () Bool)
 func-decl AST: (declare-fun y () Int)
@@ -508,6 +554,21 @@ combined solver check_sat
   (not a!2))))
 
 (combined-solver "using solver 2 (without a timeout)")
+
+before solver2 check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun x () Int)
+(declare-fun y () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (>= y 0) (> (- x y) 0)) (> x 0))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 	(solver_na2as check_sat_core)
 
 solver check_sat_core
@@ -573,7 +634,7 @@ unsat
 mk_combined_solver...
 	(mk SMT solver)
 func-decl AST: (declare-fun tickleBool (Bool) Bool)
-(smt.simplifying :time 0.00 :before-memory 0.66 :after-memory 0.66)
+(smt.simplifying :time 0.00 :before-memory 0.67 :after-memory 0.67)
 func-decl AST: (declare-fun %lbl%+0 () Bool)
 func-decl AST: (declare-fun %lbl%@1 () Bool)
 func-decl AST: (declare-fun x () Int)
@@ -637,6 +698,21 @@ combined solver check_sat
   (not a!2))))
 
 (combined-solver "using solver 2 (without a timeout)")
+
+before solver2 check_sat
+(declare-fun tickleBool (Bool) Bool)
+(declare-fun y () Int)
+(declare-fun x () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun %lbl%+0 () Bool)
+(declare-fun %lbl%+2 () Bool)
+(assert (and (tickleBool true) (tickleBool false)))
+(assert (let ((a!1 (=> (and (> (+ x y) 10) (> y 0)) (> (+ (+ x y) y) 9))))
+(let ((a!2 (=> (! (and %lbl%+2 true) :lblpos +2)
+               (=> (! (and %lbl%+0 true) :lblpos +0)
+                   (! (or %lbl%@1 a!1) :lblneg @1)))))
+  (not a!2))))
+
 	(solver_na2as check_sat_core)
 
 solver check_sat_core
@@ -726,6 +802,7 @@ solver check_sat_core
 
 (simplifier :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (simplifier :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
+(fix-dl-var :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (propagate-values :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
 (ctx-simplify :num-steps 146)
 (ctx-simplify :num-exprs 30 :num-asts 218 :time 0.00 :before-memory 0.86 :after-memory 0.86)
