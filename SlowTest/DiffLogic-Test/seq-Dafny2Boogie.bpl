@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: seq_Dafny.dfy /compile:0 /print:seq-Dafny2Boogie.dpl
+// Command Line Options: seq_Dafny.dfy /compile:0 /proverOpt:O:smt.arith.solver=1 /proverOpt:LOGIC=DLA /print:seq-Dafny2Boogie.bpl /proverLog:seq-Dafny2z3.smt2
 
 const $$Language$Dafny: bool;
 
@@ -2690,25 +2690,26 @@ implementation Impl$$_module.__default.S(a#0: Seq Box) returns ($_reverifyPost: 
   var $w$loop#0: bool;
   var j#0: int;
   var $decr$loop#00: int;
+  var j#0_0: int;
   var j#2: int;
 
     // AddMethodImpl: S, Impl$$_module.__default.S
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "seq_Dafny.dfy(2,0): initial state"} true;
+    assume {:captureState "seq_Dafny.dfy(3,0): initial state"} true;
     $_reverifyPost := false;
     havoc a#1 /* where $Is(a#1, TSeq(TBool)) && $IsAlloc(a#1, TSeq(TBool), $Heap) */;
-    // ----- assignment statement ----- seq_Dafny.dfy(4,18)
+    // ----- assignment statement ----- seq_Dafny.dfy(5,18)
     assume true;
     assume true;
     len#0 := Seq#Length(a#1);
-    assume {:captureState "seq_Dafny.dfy(4,23)"} true;
-    // ----- assignment statement ----- seq_Dafny.dfy(5,16)
+    assume {:captureState "seq_Dafny.dfy(5,23)"} true;
+    // ----- assignment statement ----- seq_Dafny.dfy(6,16)
     assume true;
     assume true;
     i#0 := LitInt(0);
-    assume {:captureState "seq_Dafny.dfy(5,19)"} true;
-    // ----- while statement ----- seq_Dafny.dfy(6,5)
+    assume {:captureState "seq_Dafny.dfy(6,19)"} true;
+    // ----- while statement ----- seq_Dafny.dfy(7,5)
     // Assume Fuel Constant
     $PreLoopHeap$loop#0 := $Heap;
     $decr_init$loop#00 := len#0 - i#0;
@@ -2718,7 +2719,7 @@ implementation Impl$$_module.__default.S(a#0: Seq Box) returns ($_reverifyPost: 
       invariant $w$loop#0 ==> Seq#Length(a#1) == len#0;
       free invariant $w$loop#0 ==> true;
       invariant $w$loop#0 ==> LitInt(0) <= i#0;
-      invariant $w$loop#0 ==> i#0 <= Seq#Length(a#1);
+      invariant $w$loop#0 ==> i#0 <= len#0;
       free invariant $w$loop#0 ==> true;
       invariant $w$loop#0
          ==> (forall j#1: int :: 
@@ -2736,7 +2737,7 @@ implementation Impl$$_module.__default.S(a#0: Seq Box) returns ($_reverifyPost: 
       free invariant len#0 - i#0 <= $decr_init$loop#00
          && (len#0 - i#0 == $decr_init$loop#00 ==> true);
     {
-        assume {:captureState "seq_Dafny.dfy(6,4): after some loop iterations"} true;
+        assume {:captureState "seq_Dafny.dfy(7,4): after some loop iterations"} true;
         if (!$w$loop#0)
         {
             assume true;
@@ -2746,7 +2747,7 @@ implementation Impl$$_module.__default.S(a#0: Seq Box) returns ($_reverifyPost: 
             }
 
             assume true;
-            assume LitInt(0) <= i#0 && i#0 <= Seq#Length(a#1);
+            assume LitInt(0) <= i#0 && i#0 <= len#0;
             havoc j#0;
             // Begin Comprehension WF check
             if (LitInt(0) <= j#0)
@@ -2774,18 +2775,42 @@ implementation Impl$$_module.__default.S(a#0: Seq Box) returns ($_reverifyPost: 
         }
 
         $decr$loop#00 := len#0 - i#0;
-        // ----- assignment statement ----- seq_Dafny.dfy(12,11)
+        // ----- assignment statement ----- seq_Dafny.dfy(13,11)
         assume true;
         assert 0 <= i#0 && i#0 < Seq#Length(a#1);
         assume true;
         a#1 := Seq#Update(a#1, i#0, $Box(Lit(true)));
-        assume {:captureState "seq_Dafny.dfy(12,25)"} true;
-        // ----- assignment statement ----- seq_Dafny.dfy(13,11)
+        assume {:captureState "seq_Dafny.dfy(13,25)"} true;
+        // ----- assert statement ----- seq_Dafny.dfy(14,9)
+        assume true;
+        assert len#0 - (i#0 + 1) < len#0 - i#0;
+        // ----- assert statement ----- seq_Dafny.dfy(15,9)
+        if (i#0 < len#0)
+        {
+        }
+
+        assume true;
+        assert {:subsumption 0} i#0 < len#0 ==> i#0 + 1 <= len#0;
+        assume i#0 < len#0 ==> i#0 + 1 <= len#0;
+        // ----- assume statement ----- seq_Dafny.dfy(17,9)
+        havoc j#0_0;
+        // Begin Comprehension WF check
+        if (i#0 == j#0_0)
+        {
+            assert {:subsumption 0} 0 <= j#0_0 && j#0_0 < Seq#Length(a#1);
+        }
+
+        // End Comprehension WF check
+        assume true;
+        assume (forall j#0_1: int :: 
+          { $Unbox(Seq#Index(a#1, j#0_1)): bool } 
+          true ==> i#0 == j#0_1 ==> $Unbox(Seq#Index(a#1, j#0_1)): bool);
+        // ----- assignment statement ----- seq_Dafny.dfy(18,11)
         assume true;
         assume true;
         i#0 := i#0 + 1;
-        assume {:captureState "seq_Dafny.dfy(13,18)"} true;
-        // ----- loop termination check ----- seq_Dafny.dfy(6,5)
+        assume {:captureState "seq_Dafny.dfy(18,18)"} true;
+        // ----- loop termination check ----- seq_Dafny.dfy(7,5)
         assert 0 <= $decr$loop#00 || len#0 - i#0 == $decr$loop#00;
         assert len#0 - i#0 < $decr$loop#00;
         assume true;
@@ -2793,7 +2818,7 @@ implementation Impl$$_module.__default.S(a#0: Seq Box) returns ($_reverifyPost: 
         assume true;
     }
 
-    // ----- assert statement ----- seq_Dafny.dfy(15,5)
+    // ----- assert statement ----- seq_Dafny.dfy(20,5)
     havoc j#2;
     // Begin Comprehension WF check
     if (LitInt(0) <= j#2)
