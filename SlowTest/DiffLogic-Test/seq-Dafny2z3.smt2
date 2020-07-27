@@ -1,6 +1,6 @@
 (set-option :print-success false)
 (set-info :smt-lib-version 2.0)
-(set-option :smt.arith.solver 1)
+(set-option :smt.arith.solver 3)
 (set-option :AUTO_CONFIG false)
 (set-option :pp.bv_literals false)
 (set-option :MODEL.V2 true)

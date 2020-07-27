@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: seq_Dafny.dfy /compile:0 /trace /print:seq-Dafny2Boogie.bpl /proverLog:seq-Dafny2z3.smt2 /proverOpt:O:smt.arith.solver=1 /proverOpt:LOGIC=DLA
+// Command Line Options: seq_Dafny.dfy /compile:0 /trace /print:seq-Dafny2Boogie.bpl /proverLog:seq-Dafny2z3.smt2 /proverOpt:O:smt.arith.solver=3 /proverOpt:LOGIC=DLA
 
 const $$Language$Dafny: bool;
 
