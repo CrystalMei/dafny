@@ -2395,6 +2395,534 @@ axiom (forall #$R: Ty, f#0: HandleType, $h: Heap ::
   $IsAlloc(f#0, Tclass._System.___hTotalFunc0(#$R), $h)
      <==> $IsAlloc(f#0, Tclass._System.___hPartialFunc0(#$R), $h));
 
+function Tclass._System.___hFunc3(Ty, Ty, Ty, Ty) : Ty;
+
+// Tclass._System.___hFunc3 Tag
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tag(Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+     == Tagclass._System.___hFunc3);
+
+const unique Tagclass._System.___hFunc3: TyTag;
+
+// Tclass._System.___hFunc3 injectivity 0
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hFunc3_0(Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T0);
+
+function Tclass._System.___hFunc3_0(Ty) : Ty;
+
+// Tclass._System.___hFunc3 injectivity 1
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hFunc3_1(Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T1);
+
+function Tclass._System.___hFunc3_1(Ty) : Ty;
+
+// Tclass._System.___hFunc3 injectivity 2
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hFunc3_2(Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T2);
+
+function Tclass._System.___hFunc3_2(Ty) : Ty;
+
+// Tclass._System.___hFunc3 injectivity 3
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hFunc3_3(Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$R);
+
+function Tclass._System.___hFunc3_3(Ty) : Ty;
+
+// Box/unbox axiom for Tclass._System.___hFunc3
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, bx: Box :: 
+  { $IsBox(bx, Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R)) } 
+  $IsBox(bx, Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+     ==> $Box($Unbox(bx): HandleType) == bx
+       && $Is($Unbox(bx): HandleType, Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R)));
+
+function Handle3([Heap,Box,Box,Box]Box, [Heap,Box,Box,Box]bool, [Heap,Box,Box,Box]Set Box)
+   : HandleType;
+
+function Apply3(Ty, Ty, Ty, Ty, Heap, HandleType, Box, Box, Box) : Box;
+
+function Requires3(Ty, Ty, Ty, Ty, Heap, HandleType, Box, Box, Box) : bool;
+
+function Reads3(Ty, Ty, Ty, Ty, Heap, HandleType, Box, Box, Box) : Set Box;
+
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    h: [Heap,Box,Box,Box]Box, 
+    r: [Heap,Box,Box,Box]bool, 
+    rd: [Heap,Box,Box,Box]Set Box, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { Apply3(t0, t1, t2, t3, heap, Handle3(h, r, rd), bx0, bx1, bx2) } 
+  Apply3(t0, t1, t2, t3, heap, Handle3(h, r, rd), bx0, bx1, bx2)
+     == h[heap, bx0, bx1, bx2]);
+
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    h: [Heap,Box,Box,Box]Box, 
+    r: [Heap,Box,Box,Box]bool, 
+    rd: [Heap,Box,Box,Box]Set Box, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { Requires3(t0, t1, t2, t3, heap, Handle3(h, r, rd), bx0, bx1, bx2) } 
+  r[heap, bx0, bx1, bx2]
+     ==> Requires3(t0, t1, t2, t3, heap, Handle3(h, r, rd), bx0, bx1, bx2));
+
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    h: [Heap,Box,Box,Box]Box, 
+    r: [Heap,Box,Box,Box]bool, 
+    rd: [Heap,Box,Box,Box]Set Box, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box, 
+    bx: Box :: 
+  { Reads3(t0, t1, t2, t3, heap, Handle3(h, r, rd), bx0, bx1, bx2)[bx] } 
+  Reads3(t0, t1, t2, t3, heap, Handle3(h, r, rd), bx0, bx1, bx2)[bx]
+     == rd[heap, bx0, bx1, bx2][bx]);
+
+function {:inline} Requires3#canCall(t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box)
+   : bool
+{
+  true
+}
+
+function {:inline} Reads3#canCall(t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box)
+   : bool
+{
+  true
+}
+
+// frame axiom for Reads3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    h0: Heap, 
+    h1: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { $HeapSucc(h0, h1), Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2) } 
+  $HeapSucc(h0, h1)
+       && 
+      $IsGoodHeap(h0)
+       && $IsGoodHeap(h1)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall<a> o: ref, fld: Field a :: 
+        o != null && Reads3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)[$Box(o)]
+           ==> read(h0, o, fld) == read(h1, o, fld))
+     ==> Reads3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)
+       == Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2));
+
+// frame axiom for Reads3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    h0: Heap, 
+    h1: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { $HeapSucc(h0, h1), Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2) } 
+  $HeapSucc(h0, h1)
+       && 
+      $IsGoodHeap(h0)
+       && $IsGoodHeap(h1)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall<a> o: ref, fld: Field a :: 
+        o != null && Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2)[$Box(o)]
+           ==> read(h0, o, fld) == read(h1, o, fld))
+     ==> Reads3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)
+       == Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2));
+
+// frame axiom for Requires3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    h0: Heap, 
+    h1: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { $HeapSucc(h0, h1), Requires3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2) } 
+  $HeapSucc(h0, h1)
+       && 
+      $IsGoodHeap(h0)
+       && $IsGoodHeap(h1)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall<a> o: ref, fld: Field a :: 
+        o != null && Reads3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)[$Box(o)]
+           ==> read(h0, o, fld) == read(h1, o, fld))
+     ==> Requires3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)
+       == Requires3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2));
+
+// frame axiom for Requires3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    h0: Heap, 
+    h1: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { $HeapSucc(h0, h1), Requires3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2) } 
+  $HeapSucc(h0, h1)
+       && 
+      $IsGoodHeap(h0)
+       && $IsGoodHeap(h1)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall<a> o: ref, fld: Field a :: 
+        o != null && Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2)[$Box(o)]
+           ==> read(h0, o, fld) == read(h1, o, fld))
+     ==> Requires3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)
+       == Requires3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2));
+
+// frame axiom for Apply3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    h0: Heap, 
+    h1: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { $HeapSucc(h0, h1), Apply3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2) } 
+  $HeapSucc(h0, h1)
+       && 
+      $IsGoodHeap(h0)
+       && $IsGoodHeap(h1)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall<a> o: ref, fld: Field a :: 
+        o != null && Reads3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)[$Box(o)]
+           ==> read(h0, o, fld) == read(h1, o, fld))
+     ==> Apply3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)
+       == Apply3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2));
+
+// frame axiom for Apply3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    h0: Heap, 
+    h1: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { $HeapSucc(h0, h1), Apply3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2) } 
+  $HeapSucc(h0, h1)
+       && 
+      $IsGoodHeap(h0)
+       && $IsGoodHeap(h1)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall<a> o: ref, fld: Field a :: 
+        o != null && Reads3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2)[$Box(o)]
+           ==> read(h0, o, fld) == read(h1, o, fld))
+     ==> Apply3(t0, t1, t2, t3, h0, f, bx0, bx1, bx2)
+       == Apply3(t0, t1, t2, t3, h1, f, bx0, bx1, bx2));
+
+// empty-reads property for Reads3 
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { Reads3(t0, t1, t2, t3, $OneHeap, f, bx0, bx1, bx2), $IsGoodHeap(heap) } 
+    { Reads3(t0, t1, t2, t3, heap, f, bx0, bx1, bx2) } 
+  $IsGoodHeap(heap)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+     ==> (Set#Equal(Reads3(t0, t1, t2, t3, $OneHeap, f, bx0, bx1, bx2), Set#Empty(): Set Box)
+       <==> Set#Equal(Reads3(t0, t1, t2, t3, heap, f, bx0, bx1, bx2), Set#Empty(): Set Box)));
+
+// empty-reads property for Requires3
+axiom (forall t0: Ty, 
+    t1: Ty, 
+    t2: Ty, 
+    t3: Ty, 
+    heap: Heap, 
+    f: HandleType, 
+    bx0: Box, 
+    bx1: Box, 
+    bx2: Box :: 
+  { Requires3(t0, t1, t2, t3, $OneHeap, f, bx0, bx1, bx2), $IsGoodHeap(heap) } 
+    { Requires3(t0, t1, t2, t3, heap, f, bx0, bx1, bx2) } 
+  $IsGoodHeap(heap)
+       && 
+      $IsBox(bx0, t0)
+       && $IsBox(bx1, t1)
+       && $IsBox(bx2, t2)
+       && $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && Set#Equal(Reads3(t0, t1, t2, t3, $OneHeap, f, bx0, bx1, bx2), Set#Empty(): Set Box)
+     ==> Requires3(t0, t1, t2, t3, $OneHeap, f, bx0, bx1, bx2)
+       == Requires3(t0, t1, t2, t3, heap, f, bx0, bx1, bx2));
+
+axiom (forall f: HandleType, t0: Ty, t1: Ty, t2: Ty, t3: Ty :: 
+  { $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3)) } 
+  $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+     <==> (forall h: Heap, bx0: Box, bx1: Box, bx2: Box :: 
+      { Apply3(t0, t1, t2, t3, h, f, bx0, bx1, bx2) } 
+      $IsGoodHeap(h)
+           && 
+          $IsBox(bx0, t0)
+           && $IsBox(bx1, t1)
+           && $IsBox(bx2, t2)
+           && Requires3(t0, t1, t2, t3, h, f, bx0, bx1, bx2)
+         ==> $IsBox(Apply3(t0, t1, t2, t3, h, f, bx0, bx1, bx2), t3)));
+
+axiom (forall f: HandleType, t0: Ty, t1: Ty, t2: Ty, t3: Ty, u0: Ty, u1: Ty, u2: Ty, u3: Ty :: 
+  { $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3)), $Is(f, Tclass._System.___hFunc3(u0, u1, u2, u3)) } 
+  $Is(f, Tclass._System.___hFunc3(t0, t1, t2, t3))
+       && (forall bx: Box :: 
+        { $IsBox(bx, u0) } { $IsBox(bx, t0) } 
+        $IsBox(bx, u0) ==> $IsBox(bx, t0))
+       && (forall bx: Box :: 
+        { $IsBox(bx, u1) } { $IsBox(bx, t1) } 
+        $IsBox(bx, u1) ==> $IsBox(bx, t1))
+       && (forall bx: Box :: 
+        { $IsBox(bx, u2) } { $IsBox(bx, t2) } 
+        $IsBox(bx, u2) ==> $IsBox(bx, t2))
+       && (forall bx: Box :: 
+        { $IsBox(bx, t3) } { $IsBox(bx, u3) } 
+        $IsBox(bx, t3) ==> $IsBox(bx, u3))
+     ==> $Is(f, Tclass._System.___hFunc3(u0, u1, u2, u3)));
+
+axiom (forall f: HandleType, t0: Ty, t1: Ty, t2: Ty, t3: Ty, h: Heap :: 
+  { $IsAlloc(f, Tclass._System.___hFunc3(t0, t1, t2, t3), h) } 
+  $IsGoodHeap(h)
+     ==> ($IsAlloc(f, Tclass._System.___hFunc3(t0, t1, t2, t3), h)
+       <==> (forall bx0: Box, bx1: Box, bx2: Box :: 
+        { Apply3(t0, t1, t2, t3, h, f, bx0, bx1, bx2) } 
+          { Reads3(t0, t1, t2, t3, h, f, bx0, bx1, bx2) } 
+        $IsBox(bx0, t0)
+             && $IsAllocBox(bx0, t0, h)
+             && 
+            $IsBox(bx1, t1)
+             && $IsAllocBox(bx1, t1, h)
+             && 
+            $IsBox(bx2, t2)
+             && $IsAllocBox(bx2, t2, h)
+             && Requires3(t0, t1, t2, t3, h, f, bx0, bx1, bx2)
+           ==> (forall r: ref :: 
+            { Reads3(t0, t1, t2, t3, h, f, bx0, bx1, bx2)[$Box(r)] } 
+            r != null && Reads3(t0, t1, t2, t3, h, f, bx0, bx1, bx2)[$Box(r)]
+               ==> read(h, r, alloc)))));
+
+axiom (forall f: HandleType, t0: Ty, t1: Ty, t2: Ty, t3: Ty, h: Heap :: 
+  { $IsAlloc(f, Tclass._System.___hFunc3(t0, t1, t2, t3), h) } 
+  $IsGoodHeap(h) && $IsAlloc(f, Tclass._System.___hFunc3(t0, t1, t2, t3), h)
+     ==> (forall bx0: Box, bx1: Box, bx2: Box :: 
+      { Apply3(t0, t1, t2, t3, h, f, bx0, bx1, bx2) } 
+      $IsAllocBox(bx0, t0, h)
+           && $IsAllocBox(bx1, t1, h)
+           && $IsAllocBox(bx2, t2, h)
+           && Requires3(t0, t1, t2, t3, h, f, bx0, bx1, bx2)
+         ==> $IsAllocBox(Apply3(t0, t1, t2, t3, h, f, bx0, bx1, bx2), t3, h)));
+
+function Tclass._System.___hPartialFunc3(Ty, Ty, Ty, Ty) : Ty;
+
+// Tclass._System.___hPartialFunc3 Tag
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tag(Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     == Tagclass._System.___hPartialFunc3);
+
+const unique Tagclass._System.___hPartialFunc3: TyTag;
+
+// Tclass._System.___hPartialFunc3 injectivity 0
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hPartialFunc3_0(Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T0);
+
+function Tclass._System.___hPartialFunc3_0(Ty) : Ty;
+
+// Tclass._System.___hPartialFunc3 injectivity 1
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hPartialFunc3_1(Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T1);
+
+function Tclass._System.___hPartialFunc3_1(Ty) : Ty;
+
+// Tclass._System.___hPartialFunc3 injectivity 2
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hPartialFunc3_2(Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T2);
+
+function Tclass._System.___hPartialFunc3_2(Ty) : Ty;
+
+// Tclass._System.___hPartialFunc3 injectivity 3
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hPartialFunc3_3(Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$R);
+
+function Tclass._System.___hPartialFunc3_3(Ty) : Ty;
+
+// Box/unbox axiom for Tclass._System.___hPartialFunc3
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, bx: Box :: 
+  { $IsBox(bx, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R)) } 
+  $IsBox(bx, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     ==> $Box($Unbox(bx): HandleType) == bx
+       && $Is($Unbox(bx): HandleType, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R)));
+
+// _System._#PartialFunc3: subset type $Is
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, f#0: HandleType :: 
+  { $Is(f#0, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R)) } 
+  $Is(f#0, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+     <==> $Is(f#0, Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R))
+       && (forall x0#0: Box, x1#0: Box, x2#0: Box :: 
+        $IsBox(x0#0, #$T0) && $IsBox(x1#0, #$T1) && $IsBox(x2#0, #$T2)
+           ==> Set#Equal(Reads3(#$T0, #$T1, #$T2, #$R, $OneHeap, f#0, x0#0, x1#0, x2#0), 
+            Set#Empty(): Set Box)));
+
+// _System._#PartialFunc3: subset type $IsAlloc
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, f#0: HandleType, $h: Heap :: 
+  { $IsAlloc(f#0, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R), $h) } 
+  $IsAlloc(f#0, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R), $h)
+     <==> $IsAlloc(f#0, Tclass._System.___hFunc3(#$T0, #$T1, #$T2, #$R), $h));
+
+function Tclass._System.___hTotalFunc3(Ty, Ty, Ty, Ty) : Ty;
+
+// Tclass._System.___hTotalFunc3 Tag
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tag(Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     == Tagclass._System.___hTotalFunc3);
+
+const unique Tagclass._System.___hTotalFunc3: TyTag;
+
+// Tclass._System.___hTotalFunc3 injectivity 0
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hTotalFunc3_0(Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T0);
+
+function Tclass._System.___hTotalFunc3_0(Ty) : Ty;
+
+// Tclass._System.___hTotalFunc3 injectivity 1
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hTotalFunc3_1(Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T1);
+
+function Tclass._System.___hTotalFunc3_1(Ty) : Ty;
+
+// Tclass._System.___hTotalFunc3 injectivity 2
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hTotalFunc3_2(Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$T2);
+
+function Tclass._System.___hTotalFunc3_2(Ty) : Ty;
+
+// Tclass._System.___hTotalFunc3 injectivity 3
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty :: 
+  { Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R) } 
+  Tclass._System.___hTotalFunc3_3(Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     == #$R);
+
+function Tclass._System.___hTotalFunc3_3(Ty) : Ty;
+
+// Box/unbox axiom for Tclass._System.___hTotalFunc3
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, bx: Box :: 
+  { $IsBox(bx, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R)) } 
+  $IsBox(bx, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     ==> $Box($Unbox(bx): HandleType) == bx
+       && $Is($Unbox(bx): HandleType, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R)));
+
+// _System._#TotalFunc3: subset type $Is
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, f#0: HandleType :: 
+  { $Is(f#0, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R)) } 
+  $Is(f#0, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R))
+     <==> $Is(f#0, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R))
+       && (forall x0#0: Box, x1#0: Box, x2#0: Box :: 
+        $IsBox(x0#0, #$T0) && $IsBox(x1#0, #$T1) && $IsBox(x2#0, #$T2)
+           ==> Requires3(#$T0, #$T1, #$T2, #$R, $OneHeap, f#0, x0#0, x1#0, x2#0)));
+
+// _System._#TotalFunc3: subset type $IsAlloc
+axiom (forall #$T0: Ty, #$T1: Ty, #$T2: Ty, #$R: Ty, f#0: HandleType, $h: Heap :: 
+  { $IsAlloc(f#0, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R), $h) } 
+  $IsAlloc(f#0, Tclass._System.___hTotalFunc3(#$T0, #$T1, #$T2, #$R), $h)
+     <==> $IsAlloc(f#0, Tclass._System.___hPartialFunc3(#$T0, #$T1, #$T2, #$R), $h));
+
 // Constructor function declaration
 function #_System._tuple#2._#Make2(Box, Box) : DatatypeType;
 
@@ -2649,12 +3177,160 @@ axiom (forall $o: ref, $h: Heap ::
   $IsAlloc($o, Tclass._module.__default(), $h)
      <==> $o == null || read($h, $o, alloc));
 
+// function declaration for _module._default.SeqUpdate
+function _module.__default.SeqUpdate(_module._default.SeqUpdate$X: Ty, s#0: Seq Box, k#0: int, v#0: Box) : Seq Box;
+
+function _module.__default.SeqUpdate#canCall(_module._default.SeqUpdate$X: Ty, s#0: Seq Box, k#0: int, v#0: Box) : bool;
+
+// consequence axiom for _module.__default.SeqUpdate
+axiom 0 <= $FunctionContextHeight
+   ==> (forall _module._default.SeqUpdate$X: Ty, s#0: Seq Box, k#0: int, v#0: Box :: 
+    { _module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0) } 
+    _module.__default.SeqUpdate#canCall(_module._default.SeqUpdate$X, s#0, k#0, v#0)
+         || (0 != $FunctionContextHeight
+           && 
+          $Is(s#0, TSeq(_module._default.SeqUpdate$X))
+           && $IsBox(v#0, _module._default.SeqUpdate$X)
+           && 
+          LitInt(0) <= k#0
+           && k#0 < Seq#Length(s#0))
+       ==> Seq#Length(s#0)
+           == Seq#Length(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0))
+         && (forall i#0: int :: 
+          { Seq#Index(s#0, i#0) } 
+            { Seq#Index(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0), i#0) } 
+          true
+             ==> 
+            LitInt(0) <= i#0 && i#0 < Seq#Length(s#0)
+             ==> (if i#0 < k#0
+               then Seq#Index(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0), i#0)
+                 == Seq#Index(s#0, i#0)
+               else (if i#0 == k#0
+                 then Seq#Index(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0), k#0)
+                   == v#0
+                 else Seq#Index(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0), i#0)
+                   == Seq#Index(s#0, i#0))))
+         && $Is(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0), 
+          TSeq(_module._default.SeqUpdate$X)));
+
+function _module.__default.SeqUpdate#requires(Ty, Seq Box, int, Box) : bool;
+
+// #requires axiom for _module.__default.SeqUpdate
+axiom (forall _module._default.SeqUpdate$X: Ty, s#0: Seq Box, k#0: int, v#0: Box :: 
+  { _module.__default.SeqUpdate#requires(_module._default.SeqUpdate$X, s#0, k#0, v#0) } 
+  $Is(s#0, TSeq(_module._default.SeqUpdate$X))
+       && $IsBox(v#0, _module._default.SeqUpdate$X)
+     ==> _module.__default.SeqUpdate#requires(_module._default.SeqUpdate$X, s#0, k#0, v#0)
+       == (LitInt(0) <= k#0 && k#0 < Seq#Length(s#0)));
+
+procedure CheckWellformed$$_module.__default.SeqUpdate(_module._default.SeqUpdate$X: Ty, 
+    s#0: Seq Box where $Is(s#0, TSeq(_module._default.SeqUpdate$X)), 
+    k#0: int, 
+    v#0: Box where $IsBox(v#0, _module._default.SeqUpdate$X))
+   returns (s'#0: Seq Box where $Is(s'#0, TSeq(_module._default.SeqUpdate$X)));
+  free requires 0 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  ensures Seq#Length(s#0) == Seq#Length(s'#0);
+  ensures (forall i#1: int :: 
+    { Seq#Index(s#0, i#1) } { Seq#Index(s'#0, i#1) } 
+    true
+       ==> 
+      LitInt(0) <= i#1 && i#1 < Seq#Length(s#0)
+       ==> (if i#1 < k#0
+         then Seq#Index(s'#0, i#1) == Seq#Index(s#0, i#1)
+         else (if i#1 == k#0
+           then Seq#Index(s'#0, k#0) == v#0
+           else Seq#Index(s'#0, i#1) == Seq#Index(s#0, i#1))));
+
+
+
+implementation CheckWellformed$$_module.__default.SeqUpdate(_module._default.SeqUpdate$X: Ty, s#0: Seq Box, k#0: int, v#0: Box)
+   returns (s'#0: Seq Box)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var i#2: int;
+
+
+    // AddWellformednessCheck for function SeqUpdate
+    assume {:captureState "seq3_Dafny.dfy(1,16): initial state"} true;
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    if (LitInt(0) <= k#0)
+    {
+    }
+
+    assume LitInt(0) <= k#0 && k#0 < Seq#Length(s#0);
+    if (*)
+    {
+        assume $Is(_module.__default.SeqUpdate(_module._default.SeqUpdate$X, s#0, k#0, v#0), 
+          TSeq(_module._default.SeqUpdate$X));
+        assume Seq#Length(s#0) == Seq#Length(s'#0);
+        havoc i#2;
+        if (*)
+        {
+            assume LitInt(0) <= i#2;
+            assume i#2 < Seq#Length(s#0);
+            if (*)
+            {
+                assume i#2 < k#0;
+                assert 0 <= i#2 && i#2 < Seq#Length(s'#0);
+                assert 0 <= i#2 && i#2 < Seq#Length(s#0);
+                assume Seq#Index(s'#0, i#2) == Seq#Index(s#0, i#2);
+            }
+            else
+            {
+                assume k#0 <= i#2;
+                if (*)
+                {
+                    assume i#2 == k#0;
+                    assert 0 <= k#0 && k#0 < Seq#Length(s'#0);
+                    assume Seq#Index(s'#0, k#0) == v#0;
+                }
+                else
+                {
+                    assume i#2 != k#0;
+                    assert 0 <= i#2 && i#2 < Seq#Length(s'#0);
+                    assert 0 <= i#2 && i#2 < Seq#Length(s#0);
+                    assume Seq#Index(s'#0, i#2) == Seq#Index(s#0, i#2);
+                }
+            }
+        }
+        else
+        {
+            assume LitInt(0) <= i#2 && i#2 < Seq#Length(s#0)
+               ==> (if i#2 < k#0
+                 then Seq#Index(s'#0, i#2) == Seq#Index(s#0, i#2)
+                 else (if i#2 == k#0
+                   then Seq#Index(s'#0, k#0) == v#0
+                   else Seq#Index(s'#0, i#2) == Seq#Index(s#0, i#2)));
+        }
+
+        assume (forall i#1: int :: 
+          { Seq#Index(s#0, i#1) } { Seq#Index(s'#0, i#1) } 
+          true
+             ==> 
+            LitInt(0) <= i#1 && i#1 < Seq#Length(s#0)
+             ==> (if i#1 < k#0
+               then Seq#Index(s'#0, i#1) == Seq#Index(s#0, i#1)
+               else (if i#1 == k#0
+                 then Seq#Index(s'#0, k#0) == v#0
+                 else Seq#Index(s'#0, i#1) == Seq#Index(s#0, i#1))));
+        assume false;
+    }
+    else
+    {
+        assume false;
+    }
+}
+
+
+
 procedure CheckWellformed$$_module.__default.Sequence(s#0: Seq Box where $Is(s#0, TSeq(TBool)) && $IsAlloc(s#0, TSeq(TBool), $Heap), 
     j#0: int, 
     b#0: bool, 
     c#0: bool)
    returns (t#0: Seq Box where $Is(t#0, TSeq(TBool)) && $IsAlloc(t#0, TSeq(TBool), $Heap));
-  free requires 0 == $FunctionContextHeight;
+  free requires 1 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -2666,7 +3342,7 @@ implementation CheckWellformed$$_module.__default.Sequence(s#0: Seq Box, j#0: in
     // AddMethodImpl: Sequence, CheckWellformed$$_module.__default.Sequence
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "seq3_Dafny.dfy(1,7): initial state"} true;
+    assume {:captureState "seq3_Dafny.dfy(9,7): initial state"} true;
     assume LitInt(10) <= Seq#Length(s#0);
     if (LitInt(8) <= j#0)
     {
@@ -2679,7 +3355,7 @@ implementation CheckWellformed$$_module.__default.Sequence(s#0: Seq Box, j#0: in
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc t#0;
-    assume {:captureState "seq3_Dafny.dfy(4,16): post-state"} true;
+    assume {:captureState "seq3_Dafny.dfy(12,16): post-state"} true;
     assume Seq#Length(t#0) == Seq#Length(s#0);
     if (*)
     {
@@ -2739,7 +3415,7 @@ procedure Impl$$_module.__default.Sequence(s#0: Seq Box where $Is(s#0, TSeq(TBoo
     c#0: bool)
    returns (t#0: Seq Box where $Is(t#0, TSeq(TBool)) && $IsAlloc(t#0, TSeq(TBool), $Heap), 
     $_reverifyPost: bool);
-  free requires 0 == $FunctionContextHeight;
+  free requires 1 == $FunctionContextHeight;
   // user-defined preconditions
   requires LitInt(10) <= Seq#Length(s#0);
   requires LitInt(8) <= j#0;
@@ -2768,33 +3444,46 @@ implementation Impl$$_module.__default.Sequence(s#0: Seq Box, j#0: int, b#0: boo
    returns (t#0: Seq Box, $_reverifyPost: bool)
 {
   var $_Frame: <beta>[ref,Field beta]bool;
+  var ##s#0: Seq Box;
+  var ##k#0: int;
+  var ##v#0: bool;
 
     // AddMethodImpl: Sequence, Impl$$_module.__default.Sequence
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "seq3_Dafny.dfy(7,2): initial state"} true;
+    assume {:captureState "seq3_Dafny.dfy(15,2): initial state"} true;
     $_reverifyPost := false;
-    // ----- if statement ----- seq3_Dafny.dfy(8,5)
+    // ----- if statement ----- seq3_Dafny.dfy(16,5)
     assume true;
     if (c#0)
     {
-        // ----- assignment statement ----- seq3_Dafny.dfy(9,9)
+        // ----- assignment statement ----- seq3_Dafny.dfy(17,9)
         assume true;
         assert 0 <= j#0 && j#0 < Seq#Length(s#0);
         assume true;
         t#0 := Seq#Update(s#0, j#0, $Box(b#0));
-        assume {:captureState "seq3_Dafny.dfy(9,20)"} true;
+        assume {:captureState "seq3_Dafny.dfy(17,20)"} true;
     }
     else
     {
-        // ----- assignment statement ----- seq3_Dafny.dfy(11,9)
+        // ----- assignment statement ----- seq3_Dafny.dfy(19,11)
         assume true;
-        assert 0 <= j#0 && j#0 <= Seq#Length(s#0);
-        assert 0 <= j#0 + 1 && j#0 + 1 <= Seq#Length(s#0);
-        assume true;
-        t#0 := Seq#Append(Seq#Append(Seq#Take(s#0, j#0), Seq#Build(Seq#Empty(): Seq Box, $Box(b#0))), 
-          Seq#Drop(s#0, j#0 + 1));
-        assume {:captureState "seq3_Dafny.dfy(11,34)"} true;
+        ##s#0 := s#0;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##s#0, TSeq(TBool), $Heap);
+        ##k#0 := j#0;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##k#0, TInt, $Heap);
+        ##v#0 := b#0;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##v#0, TBool, $Heap);
+        assert {:subsumption 0} LitInt(0) <= ##k#0;
+        assert {:subsumption 0} ##k#0 < Seq#Length(##s#0);
+        assume LitInt(0) <= ##k#0 && ##k#0 < Seq#Length(##s#0);
+        assume _module.__default.SeqUpdate#canCall(TBool, s#0, j#0, $Box(b#0));
+        assume _module.__default.SeqUpdate#canCall(TBool, s#0, j#0, $Box(b#0));
+        t#0 := _module.__default.SeqUpdate(TBool, s#0, j#0, $Box(b#0));
+        assume {:captureState "seq3_Dafny.dfy(19,38)"} true;
     }
 }
 
