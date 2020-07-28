@@ -4223,7 +4223,7 @@
 (assert (not
 (let ((anon5_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (=> (and (and (and (<= 0 |i#0@0|) (< |i#0@0| |j#0@0|)) (< |j#0@0| 5)) (and (= |l##0@0| 0) (= |h##0@0| 5))) (and (! (or %lbl%@1 (forall (($o@@11 T@U) ($f@@1 T@U) ) (! (let ((alpha@@7 (FieldTypeInv0 (type $f@@1))))
  (=> (and (and (= (type $o@@11) refType) (= (type $f@@1) (FieldType alpha@@7))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@11 $f@@1))))
- :qid |seq2Dafn.40:27|
+ :qid |seq2Dafn.38:27|
  :skolemid |821|
  :no-pattern (type $o@@11)
  :no-pattern (type $f@@1)
@@ -4233,7 +4233,7 @@
  :no-pattern (U_2_bool $f@@1)
 ))) :lblneg @1) (=> (forall (($o@@12 T@U) ($f@@2 T@U) ) (! (let ((alpha@@8 (FieldTypeInv0 (type $f@@2))))
  (=> (and (and (= (type $o@@12) refType) (= (type $f@@2) (FieldType alpha@@8))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@12 $f@@2))))
- :qid |seq2Dafn.40:27|
+ :qid |seq2Dafn.38:27|
  :skolemid |821|
  :no-pattern (type@@0 $o@@10)
  :no-pattern (type@@0 $f@@0)
@@ -4257,7 +4257,7 @@
 (let ((anon17_Else_correct  (=> (! (and %lbl%+17 true) :lblpos +17) (=> (< |i#2@0| 0) (and anon18_Then_correct anon18_Else_correct)))))
 (let ((anon17_Then_correct  (=> (! (and %lbl%+18 true) :lblpos +18) (=> (<= 0 |i#2@0|) (and anon18_Then_correct anon18_Else_correct)))))
 (let ((anon14_Else_correct  (=> (! (and %lbl%+19 true) :lblpos +19) (=> (forall ((|i#1| Int) (|j#1| Int) ) (!  (=> (and (and (<= 0 |i#1|) (< |i#1| |j#1|)) (< |j#1| 5)) (and (<= 0 (_module.__default.add |i#1| |j#1|)) (< (_module.__default.add |i#1| |j#1|) 10)))
- :qid |seq2Dafn.35:12|
+ :qid |seq2Dafn.33:12|
  :skolemid |822|
  :pattern ( (_module.__default.add |i#1| |j#1|))
 )) (and anon17_Then_correct anon17_Else_correct)))))

@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: seq2_Dafny.dfy /compile:0 /trace /proverOpt:O:smt.arith.solver=3 /proverOpt:LOGIC=DLA /print:seq2-Dafny2Boogie.bpl /proverLog:seq2-Dafny2z3.smt2
+// Command Line Options: /compile:0 /trace VU_Dafny.dfy /proverOpt:O:smt.arith.solver=3 /proverOpt:LOGIC=DLA /print:VU-Dafny2Boogie.bpl /proverLog:VU-Dafny2z3.smt2
 
 const $$Language$Dafny: bool;
 
@@ -3027,240 +3027,1760 @@ axiom (forall $o: ref, $h: Heap ::
   $IsAlloc($o, Tclass._module.__default(), $h)
      <==> $o == null || read($h, $o, alloc));
 
-// function declaration for _module._default.add
-function _module.__default.add(x#0: int, y#0: int) : int;
+// function declaration for _module._default.Dec
+function _module.__default.Dec(a#0: int, b#0: int) : int;
 
-function _module.__default.add#canCall(x#0: int, y#0: int) : bool;
+function _module.__default.Dec#canCall(a#0: int, b#0: int) : bool;
 
-// consequence axiom for _module.__default.add
-axiom 0 <= $FunctionContextHeight
-   ==> (forall x#0: int, y#0: int :: 
-    { _module.__default.add(x#0, y#0) } 
-    _module.__default.add#canCall(x#0, y#0) || 0 != $FunctionContextHeight ==> true);
+// consequence axiom for _module.__default.Dec
+axiom 2 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Dec(a#0, b#0) } 
+    _module.__default.Dec#canCall(a#0, b#0) || 2 != $FunctionContextHeight ==> true);
 
-function _module.__default.add#requires(int, int) : bool;
+function _module.__default.Dec#requires(int, int) : bool;
 
-// #requires axiom for _module.__default.add
-axiom (forall x#0: int, y#0: int :: 
-  { _module.__default.add#requires(x#0, y#0) } 
-  _module.__default.add#requires(x#0, y#0) == true);
+// #requires axiom for _module.__default.Dec
+axiom (forall a#0: int, b#0: int :: 
+  { _module.__default.Dec#requires(a#0, b#0) } 
+  _module.__default.Dec#requires(a#0, b#0) == true);
 
-// definition axiom for _module.__default.add (revealed)
-axiom 0 <= $FunctionContextHeight
-   ==> (forall x#0: int, y#0: int :: 
-    { _module.__default.add(x#0, y#0) } 
-    _module.__default.add#canCall(x#0, y#0) || 0 != $FunctionContextHeight
-       ==> _module.__default.add(x#0, y#0) == x#0 + y#0);
-
-// definition axiom for _module.__default.add for all literals (revealed)
-axiom 0 <= $FunctionContextHeight
-   ==> (forall x#0: int, y#0: int :: 
-    {:weight 3} { _module.__default.add(LitInt(x#0), LitInt(y#0)) } 
-    _module.__default.add#canCall(LitInt(x#0), LitInt(y#0))
-         || 0 != $FunctionContextHeight
-       ==> _module.__default.add(LitInt(x#0), LitInt(y#0)) == LitInt(x#0 + y#0));
-
-procedure CheckWellformed$$_module.__default.add(x#0: int, y#0: int);
-  free requires 0 == $FunctionContextHeight;
-  modifies $Heap, $Tick;
-
-
-
-procedure CheckWellformed$$_module.__default.addition__bound__instance();
-  free requires 1 == $FunctionContextHeight;
-  modifies $Heap, $Tick;
-
-
-
-procedure Call$$_module.__default.addition__bound__instance();
-  modifies $Heap, $Tick;
-  // user-defined postconditions
-  free ensures (forall i#1: int, j#1: int :: 
-    { _module.__default.add(i#1, j#1) } 
-    LitInt(0) <= i#1
-       ==> 
-      LitInt(0) <= j#1
-       ==> _module.__default.add#canCall(i#1, j#1));
-  ensures (forall i#1: int, j#1: int :: 
-    { _module.__default.add(i#1, j#1) } 
-    true
-       ==> 
-      LitInt(0) <= i#1 && LitInt(0) <= j#1
-       ==> LitInt(0) <= _module.__default.add(i#1, j#1));
-  free ensures (forall i#3: int, j#3: int :: 
-    { _module.__default.add(i#3, j#3) } 
-    i#3 < 5 ==> j#3 < 5 ==> _module.__default.add#canCall(i#3, j#3));
-  ensures (forall i#3: int, j#3: int :: 
-    { _module.__default.add(i#3, j#3) } 
-    true ==> i#3 < 5 && j#3 < 5 ==> _module.__default.add(i#3, j#3) < 10);
-  // frame condition
-  free ensures old($Heap) == $Heap;
-
-
-
-procedure CheckWellformed$$_module.__default.addition__bound(i#0: int, j#0: int, l#0: int, h#0: int);
+procedure CheckWellformed$$_module.__default.Dec(a#0: int, b#0: int);
   free requires 2 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
 
-procedure Call$$_module.__default.addition__bound(i#0: int, j#0: int, l#0: int, h#0: int);
+procedure CheckWellformed$$_module.__default.Props__dec__one(sum#0: int);
+  free requires 3 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Props__dec__one(sum#0: int);
   modifies $Heap, $Tick;
   // user-defined postconditions
-  free ensures l#0 <= i#0 ==> l#0 <= j#0 ==> _module.__default.add#canCall(i#0, j#0);
-  ensures l#0 <= i#0 && l#0 <= j#0 ==> l#0 + l#0 <= _module.__default.add(i#0, j#0);
-  free ensures i#0 < h#0 ==> j#0 < h#0 ==> _module.__default.add#canCall(i#0, j#0);
-  ensures i#0 < h#0 && j#0 < h#0 ==> _module.__default.add(i#0, j#0) < h#0 + h#0;
+  free ensures (forall j#1: int, _t#0#0: int :: 
+    { _module.__default.Dec(sum#0, j#1), _module.__default.Dec(sum#0, _t#0#0) } 
+    _t#0#0 == j#1 + 1
+       ==> _module.__default.Dec#canCall(sum#0, _t#0#0)
+         && _module.__default.Dec#canCall(sum#0, j#1));
+  ensures (forall j#1: int, _t#0#0: int :: 
+    { _module.__default.Dec(sum#0, j#1), _module.__default.Dec(sum#0, _t#0#0) } 
+    _t#0#0 == j#1 + 1
+       ==> _module.__default.Dec(sum#0, _t#0#0) < _module.__default.Dec(sum#0, j#1));
   // frame condition
   free ensures old($Heap) == $Heap;
 
 
 
-procedure CheckWellformed$$_module.__default.P1(s#0: Seq Box where $Is(s#0, TSeq(TInt)) && $IsAlloc(s#0, TSeq(TInt), $Heap))
-   returns (b#0: bool);
-  free requires 3 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.Props__dec__lower__bound(sum#0: int, x#0: int);
+  free requires 4 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
 
-procedure Call$$_module.__default.P1(s#0: Seq Box where $Is(s#0, TSeq(TInt)) && $IsAlloc(s#0, TSeq(TInt), $Heap))
-   returns (b#0: bool);
+procedure Call$$_module.__default.Props__dec__lower__bound(sum#0: int, x#0: int);
   // user-defined preconditions
-  requires 10 < Seq#Length(s#0);
+  requires x#0 <= sum#0;
   modifies $Heap, $Tick;
-  // frame condition: object granularity
-  free ensures (forall $o: ref :: 
-    { $Heap[$o] } 
-    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
-  // boilerplate
-  free ensures $HeapSucc(old($Heap), $Heap);
+  // user-defined postconditions
+  free ensures _module.__default.Dec#canCall(sum#0, x#0);
+  ensures LitInt(0) <= _module.__default.Dec(sum#0, x#0);
+  // frame condition
+  free ensures old($Heap) == $Heap;
 
 
 
-procedure Impl$$_module.__default.P1(s#0: Seq Box where $Is(s#0, TSeq(TInt)) && $IsAlloc(s#0, TSeq(TInt), $Heap))
-   returns (b#0: bool, $_reverifyPost: bool);
-  free requires 3 == $FunctionContextHeight;
-  // user-defined preconditions
-  requires 10 < Seq#Length(s#0);
+// function declaration for _module._default.Div
+function _module.__default.Div(a#0: int, b#0: int) : int;
+
+function _module.__default.Div#canCall(a#0: int, b#0: int) : bool;
+
+// consequence axiom for _module.__default.Div
+axiom 7 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Div(a#0, b#0) } 
+    _module.__default.Div#canCall(a#0, b#0)
+         || (7 != $FunctionContextHeight && b#0 != 0)
+       ==> (a#0 == LitInt(100) && b#0 == LitInt(9)
+           ==> _module.__default.Div(a#0, b#0) == LitInt(11))
+         && (a#0 == LitInt(100) && b#0 == LitInt(10)
+           ==> _module.__default.Div(a#0, b#0) == LitInt(10)));
+
+function _module.__default.Div#requires(int, int) : bool;
+
+// #requires axiom for _module.__default.Div
+axiom (forall a#0: int, b#0: int :: 
+  { _module.__default.Div#requires(a#0, b#0) } 
+  _module.__default.Div#requires(a#0, b#0) == (b#0 != 0));
+
+// definition axiom for _module.__default.Div (revealed)
+axiom 7 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Div(a#0, b#0) } 
+    _module.__default.Div#canCall(a#0, b#0)
+         || (7 != $FunctionContextHeight && b#0 != 0)
+       ==> _module.__default.Div(a#0, b#0) == Div(a#0, b#0));
+
+// definition axiom for _module.__default.Div for all literals (revealed)
+axiom 7 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    {:weight 3} { _module.__default.Div(LitInt(a#0), LitInt(b#0)) } 
+    _module.__default.Div#canCall(LitInt(a#0), LitInt(b#0))
+         || (7 != $FunctionContextHeight && Lit(b#0 != 0))
+       ==> _module.__default.Div(LitInt(a#0), LitInt(b#0)) == LitInt(Div(a#0, LitInt(b#0))));
+
+procedure CheckWellformed$$_module.__default.Div(a#0: int, b#0: int) returns (c#0: int);
+  free requires 7 == $FunctionContextHeight;
   modifies $Heap, $Tick;
-  // frame condition: object granularity
-  free ensures (forall $o: ref :: 
-    { $Heap[$o] } 
-    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
-  // boilerplate
-  free ensures $HeapSucc(old($Heap), $Heap);
+  ensures a#0 == LitInt(100) && b#0 == LitInt(9) ==> c#0 == LitInt(11);
+  ensures a#0 == LitInt(100) && b#0 == LitInt(10) ==> c#0 == LitInt(10);
 
 
 
-implementation Impl$$_module.__default.P1(s#0: Seq Box) returns (b#0: bool, $_reverifyPost: bool)
+implementation CheckWellformed$$_module.__default.Div(a#0: int, b#0: int) returns (c#0: int)
 {
   var $_Frame: <beta>[ref,Field beta]bool;
-  var i#0: int;
-  var j#0: int;
-  var i##0: int;
-  var j##0: int;
-  var l##0: int;
-  var h##0: int;
-  var i#2: int;
-  var j#2: int;
-  var ##x#0: int;
-  var ##y#0: int;
 
-    // AddMethodImpl: P1, Impl$$_module.__default.P1
+
+    // AddWellformednessCheck for function Div
+    assume {:captureState "VU_Dafny.dfy(10,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "seq2_Dafny.dfy(32,0): initial state"} true;
-    $_reverifyPost := false;
-    // ----- forall statement (proof) ----- seq2_Dafny.dfy(33,5)
+    assume b#0 != 0;
     if (*)
     {
-        // Assume Fuel Constant
-        havoc i#0, j#0;
-        assume true;
-        if (LitInt(0) <= i#0)
+        if (*)
         {
+            assume a#0 == LitInt(100);
+            assume b#0 == LitInt(9);
+            assume c#0 == LitInt(11);
+        }
+        else
+        {
+            assume a#0 == LitInt(100) && b#0 == LitInt(9) ==> c#0 == LitInt(11);
         }
 
-        if (LitInt(0) <= i#0 && i#0 < j#0)
+        if (*)
         {
+            assume a#0 == LitInt(100);
+            assume b#0 == LitInt(10);
+            assume c#0 == LitInt(10);
+        }
+        else
+        {
+            assume a#0 == LitInt(100) && b#0 == LitInt(10) ==> c#0 == LitInt(10);
         }
 
-        assume true;
-        assume LitInt(0) <= i#0 && i#0 < j#0 && j#0 < 5;
-        // ----- call statement ----- seq2_Dafny.dfy(38,27)
-        // TrCallStmt: Before ProcessCallStmt
-        assume true;
-        // ProcessCallStmt: CheckSubrange
-        i##0 := i#0;
-        assume true;
-        // ProcessCallStmt: CheckSubrange
-        j##0 := j#0;
-        assume true;
-        // ProcessCallStmt: CheckSubrange
-        l##0 := LitInt(0);
-        assume true;
-        // ProcessCallStmt: CheckSubrange
-        h##0 := LitInt(5);
-        assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-        // ProcessCallStmt: Make the call
-        call Call$$_module.__default.addition__bound(i##0, j##0, l##0, h##0);
-        // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "seq2_Dafny.dfy(38,38)"} true;
-        assert LitInt(0) <= _module.__default.add(i#0, j#0);
-        assert _module.__default.add(i#0, j#0) < 10;
         assume false;
     }
     else
     {
-        assume (forall i#1: int, j#1: int :: 
-          { _module.__default.add(i#1, j#1) } 
-          LitInt(0) <= i#1 && i#1 < j#1 && j#1 < 5
-             ==> LitInt(0) <= _module.__default.add(i#1, j#1)
-               && _module.__default.add(i#1, j#1) < 10);
+        $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        assert b#0 != 0;
+        assume _module.__default.Div(a#0, b#0) == Div(a#0, b#0);
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(_module.__default.Div(a#0, b#0), TInt);
+        assume _module.__default.Div(a#0, b#0) == c#0;
+    }
+}
+
+
+
+// function declaration for _module._default.Add
+function _module.__default.Add(a#0: int, b#0: int) : int;
+
+function _module.__default.Add#canCall(a#0: int, b#0: int) : bool;
+
+// consequence axiom for _module.__default.Add
+axiom 8 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Add(a#0, b#0) } 
+    _module.__default.Add#canCall(a#0, b#0) || 8 != $FunctionContextHeight
+       ==> 
+      a#0 == LitInt(11) && b#0 == LitInt(10)
+       ==> _module.__default.Add(a#0, b#0) == LitInt(21));
+
+function _module.__default.Add#requires(int, int) : bool;
+
+// #requires axiom for _module.__default.Add
+axiom (forall a#0: int, b#0: int :: 
+  { _module.__default.Add#requires(a#0, b#0) } 
+  _module.__default.Add#requires(a#0, b#0) == true);
+
+// definition axiom for _module.__default.Add (revealed)
+axiom 8 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Add(a#0, b#0) } 
+    _module.__default.Add#canCall(a#0, b#0) || 8 != $FunctionContextHeight
+       ==> _module.__default.Add(a#0, b#0) == a#0 + b#0);
+
+// definition axiom for _module.__default.Add for all literals (revealed)
+axiom 8 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    {:weight 3} { _module.__default.Add(LitInt(a#0), LitInt(b#0)) } 
+    _module.__default.Add#canCall(LitInt(a#0), LitInt(b#0))
+         || 8 != $FunctionContextHeight
+       ==> _module.__default.Add(LitInt(a#0), LitInt(b#0)) == LitInt(a#0 + b#0));
+
+procedure CheckWellformed$$_module.__default.Add(a#0: int, b#0: int) returns (c#0: int);
+  free requires 8 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  ensures a#0 == LitInt(11) && b#0 == LitInt(10) ==> c#0 == LitInt(21);
+
+
+
+implementation CheckWellformed$$_module.__default.Add(a#0: int, b#0: int) returns (c#0: int)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+
+
+    // AddWellformednessCheck for function Add
+    assume {:captureState "VU_Dafny.dfy(16,16): initial state"} true;
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    if (*)
+    {
+        if (*)
+        {
+            assume a#0 == LitInt(11);
+            assume b#0 == LitInt(10);
+            assume c#0 == LitInt(21);
+        }
+        else
+        {
+            assume a#0 == LitInt(11) && b#0 == LitInt(10) ==> c#0 == LitInt(21);
+        }
+
+        assume false;
+    }
+    else
+    {
+        $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        // ----- assert statement ----- VU_Dafny.dfy(18,7)
+        assume true;
+        assert LitInt(11 + 10) == LitInt(21);
+        // ----- assert statement ----- VU_Dafny.dfy(19,7)
+        if (a#0 == LitInt(11))
+        {
+        }
+
+        if (a#0 == LitInt(11) && b#0 == LitInt(10))
+        {
+        }
+
+        assume true;
+        assert {:subsumption 0} a#0 == LitInt(11) && b#0 == LitInt(10) ==> a#0 + b#0 == LitInt(21);
+        assume a#0 == LitInt(11) && b#0 == LitInt(10) ==> a#0 + b#0 == LitInt(21);
+        assume _module.__default.Add(a#0, b#0) == a#0 + b#0;
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(_module.__default.Add(a#0, b#0), TInt);
+        assume _module.__default.Add(a#0, b#0) == c#0;
+    }
+}
+
+
+
+procedure CheckWellformed$$_module.__default.VectorUpdate(_module._default.VectorUpdate$A: Ty, 
+    N#0: int, 
+    a#0: Seq Box
+       where $Is(a#0, TSeq(_module._default.VectorUpdate$A))
+         && $IsAlloc(a#0, TSeq(_module._default.VectorUpdate$A), $Heap), 
+    f#0: HandleType
+       where $Is(f#0, 
+          Tclass._System.___hFunc2(TInt, _module._default.VectorUpdate$A, _module._default.VectorUpdate$A))
+         && $IsAlloc(f#0, 
+          Tclass._System.___hFunc2(TInt, _module._default.VectorUpdate$A, _module._default.VectorUpdate$A), 
+          $Heap))
+   returns (a'#0: Seq Box
+       where $Is(a'#0, TSeq(_module._default.VectorUpdate$A))
+         && $IsAlloc(a'#0, TSeq(_module._default.VectorUpdate$A), $Heap));
+  free requires 5 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+implementation CheckWellformed$$_module.__default.VectorUpdate(_module._default.VectorUpdate$A: Ty, N#0: int, a#0: Seq Box, f#0: HandleType)
+   returns (a'#0: Seq Box)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var j#0: int;
+  var ##x0#0: int;
+  var ##x1#0: Box;
+  var j#2: int;
+
+    // AddMethodImpl: VectorUpdate, CheckWellformed$$_module.__default.VectorUpdate
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "VU_Dafny.dfy(22,7): initial state"} true;
+    assume N#0 == Seq#Length(a#0);
+    havoc j#0;
+    if (*)
+    {
+        assume LitInt(0) <= j#0;
+        assume j#0 < N#0;
+        assert 0 <= j#0 && j#0 < Seq#Length(a#0);
+        ##x0#0 := j#0;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##x0#0, TInt, $Heap);
+        ##x1#0 := Seq#Index(a#0, j#0);
+        // assume allocatedness for argument to function
+        assume $IsAllocBox(##x1#0, _module._default.VectorUpdate$A, $Heap);
+        assume Requires2#canCall(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(j#0), 
+          Seq#Index(a#0, j#0));
+        assume Requires2(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(j#0), 
+          Seq#Index(a#0, j#0));
+    }
+    else
+    {
+        assume LitInt(0) <= j#0 && j#0 < N#0
+           ==> Requires2(TInt, 
+            _module._default.VectorUpdate$A, 
+            _module._default.VectorUpdate$A, 
+            $Heap, 
+            f#0, 
+            $Box(j#0), 
+            Seq#Index(a#0, j#0));
     }
 
-    assume {:captureState "seq2_Dafny.dfy(39,8)"} true;
-    // ----- assignment statement ----- seq2_Dafny.dfy(42,7)
-    assume true;
-    havoc i#2;
+    assume (forall j#1: int :: 
+      { Seq#Index(a#0, j#1) } 
+      true
+         ==> 
+        LitInt(0) <= j#1 && j#1 < N#0
+         ==> Requires2(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(j#1), 
+          Seq#Index(a#0, j#1)));
+    havoc $Heap;
+    assume (forall $o: ref :: 
+      { $Heap[$o] } 
+      $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+    assume $HeapSucc(old($Heap), $Heap);
+    havoc a'#0;
+    assume {:captureState "VU_Dafny.dfy(25,14): post-state"} true;
+    assume Seq#Length(a#0) == Seq#Length(a'#0);
     havoc j#2;
+    if (*)
+    {
+        assume LitInt(0) <= j#2;
+        assume j#2 < N#0;
+        assert 0 <= j#2 && j#2 < Seq#Length(a'#0);
+        assert 0 <= j#2 && j#2 < Seq#Length(a#0);
+        assert Requires2(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(j#2), 
+          Seq#Index(a#0, j#2));
+        assume Seq#Index(a'#0, j#2)
+           == Apply2(TInt, 
+            _module._default.VectorUpdate$A, 
+            _module._default.VectorUpdate$A, 
+            $Heap, 
+            f#0, 
+            $Box(j#2), 
+            Seq#Index(a#0, j#2));
+    }
+    else
+    {
+        assume LitInt(0) <= j#2 && j#2 < N#0
+           ==> Seq#Index(a'#0, j#2)
+             == Apply2(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#2), 
+              Seq#Index(a#0, j#2));
+    }
+
+    assume (forall j#3: int :: 
+      { Seq#Index(a#0, j#3) } { Seq#Index(a'#0, j#3) } 
+      true
+         ==> 
+        LitInt(0) <= j#3 && j#3 < N#0
+         ==> Seq#Index(a'#0, j#3)
+           == Apply2(TInt, 
+            _module._default.VectorUpdate$A, 
+            _module._default.VectorUpdate$A, 
+            $Heap, 
+            f#0, 
+            $Box(j#3), 
+            Seq#Index(a#0, j#3)));
+}
+
+
+
+procedure Call$$_module.__default.VectorUpdate(_module._default.VectorUpdate$A: Ty, 
+    N#0: int, 
+    a#0: Seq Box
+       where $Is(a#0, TSeq(_module._default.VectorUpdate$A))
+         && $IsAlloc(a#0, TSeq(_module._default.VectorUpdate$A), $Heap), 
+    f#0: HandleType
+       where $Is(f#0, 
+          Tclass._System.___hFunc2(TInt, _module._default.VectorUpdate$A, _module._default.VectorUpdate$A))
+         && $IsAlloc(f#0, 
+          Tclass._System.___hFunc2(TInt, _module._default.VectorUpdate$A, _module._default.VectorUpdate$A), 
+          $Heap))
+   returns (a'#0: Seq Box
+       where $Is(a'#0, TSeq(_module._default.VectorUpdate$A))
+         && $IsAlloc(a'#0, TSeq(_module._default.VectorUpdate$A), $Heap));
+  // user-defined preconditions
+  requires N#0 == Seq#Length(a#0);
+  requires (forall j#1: int :: 
+    { Seq#Index(a#0, j#1) } 
+    true
+       ==> 
+      LitInt(0) <= j#1 && j#1 < N#0
+       ==> Requires2(TInt, 
+        _module._default.VectorUpdate$A, 
+        _module._default.VectorUpdate$A, 
+        $Heap, 
+        f#0, 
+        $Box(j#1), 
+        Seq#Index(a#0, j#1)));
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures true;
+  ensures Seq#Length(a#0) == Seq#Length(a'#0);
+  free ensures true;
+  ensures (forall j#3: int :: 
+    { Seq#Index(a#0, j#3) } { Seq#Index(a'#0, j#3) } 
+    true
+       ==> 
+      LitInt(0) <= j#3 && j#3 < N#0
+       ==> Seq#Index(a'#0, j#3)
+         == Apply2(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(j#3), 
+          Seq#Index(a#0, j#3)));
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdate$A: Ty, 
+    N#0: int, 
+    a#0: Seq Box
+       where $Is(a#0, TSeq(_module._default.VectorUpdate$A))
+         && $IsAlloc(a#0, TSeq(_module._default.VectorUpdate$A), $Heap), 
+    f#0: HandleType
+       where $Is(f#0, 
+          Tclass._System.___hFunc2(TInt, _module._default.VectorUpdate$A, _module._default.VectorUpdate$A))
+         && $IsAlloc(f#0, 
+          Tclass._System.___hFunc2(TInt, _module._default.VectorUpdate$A, _module._default.VectorUpdate$A), 
+          $Heap))
+   returns (a'#0: Seq Box
+       where $Is(a'#0, TSeq(_module._default.VectorUpdate$A))
+         && $IsAlloc(a'#0, TSeq(_module._default.VectorUpdate$A), $Heap), 
+    $_reverifyPost: bool);
+  free requires 5 == $FunctionContextHeight;
+  // user-defined preconditions
+  requires N#0 == Seq#Length(a#0);
+  requires (forall j#1: int :: 
+    { Seq#Index(a#0, j#1) } 
+    true
+       ==> 
+      LitInt(0) <= j#1 && j#1 < N#0
+       ==> Requires2(TInt, 
+        _module._default.VectorUpdate$A, 
+        _module._default.VectorUpdate$A, 
+        $Heap, 
+        f#0, 
+        $Box(j#1), 
+        Seq#Index(a#0, j#1)));
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures true;
+  ensures Seq#Length(a#0) == Seq#Length(a'#0);
+  free ensures true;
+  ensures (forall j#3: int :: 
+    { Seq#Index(a#0, j#3) } { Seq#Index(a'#0, j#3) } 
+    true
+       ==> 
+      LitInt(0) <= j#3 && j#3 < N#0
+       ==> Seq#Index(a'#0, j#3)
+         == Apply2(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(j#3), 
+          Seq#Index(a#0, j#3)));
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdate$A: Ty, N#0: int, a#0: Seq Box, f#0: HandleType)
+   returns (a'#0: Seq Box, $_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var i#0: int;
+  var $PreLoopHeap$loop#0: Heap;
+  var $decr_init$loop#00: int;
+  var $w$loop#0: bool;
+  var j#4: int;
+  var ##x0#1: int;
+  var ##x1#1: Box;
+  var j#6: int;
+  var ##x0#2: int;
+  var ##x1#2: Box;
+  var j#8: int;
+  var j#10: int;
+  var ##a#0: int;
+  var ##b#0: int;
+  var $decr$loop#00: int;
+  var sum##0_0: int;
+  var sum##0_1: int;
+  var x##0_0: int;
+
+    // AddMethodImpl: VectorUpdate, Impl$$_module.__default.VectorUpdate
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "VU_Dafny.dfy(27,0): initial state"} true;
+    $_reverifyPost := false;
+    // ----- assignment statement ----- VU_Dafny.dfy(28,9)
+    assume true;
+    assume true;
+    i#0 := LitInt(0);
+    assume {:captureState "VU_Dafny.dfy(28,12)"} true;
+    // ----- assignment statement ----- VU_Dafny.dfy(29,6)
+    assume true;
+    assume true;
+    a'#0 := a#0;
+    assume {:captureState "VU_Dafny.dfy(29,9)"} true;
+    // ----- while statement ----- VU_Dafny.dfy(30,3)
+    // Assume Fuel Constant
+    $PreLoopHeap$loop#0 := $Heap;
+    $decr_init$loop#00 := _module.__default.Dec(N#0, i#0);
+    havoc $w$loop#0;
+    while (true)
+      free invariant $w$loop#0 ==> true;
+      invariant $w$loop#0 ==> LitInt(0) <= i#0;
+      invariant $w$loop#0 ==> i#0 <= N#0;
+      free invariant $w$loop#0 ==> true;
+      invariant $w$loop#0 ==> Seq#Length(a#0) == Seq#Length(a'#0);
+      free invariant $w$loop#0
+         ==> (forall j#5: int :: 
+          { Seq#Index(a#0, j#5) } 
+          i#0 <= j#5 && j#5 < N#0
+             ==> Requires2#canCall(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#5), 
+              Seq#Index(a#0, j#5)));
+      invariant $w$loop#0
+         ==> (forall j#5: int :: 
+          { Seq#Index(a#0, j#5) } 
+          true
+             ==> 
+            i#0 <= j#5 && j#5 < N#0
+             ==> Requires2(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#5), 
+              Seq#Index(a#0, j#5)));
+      free invariant $w$loop#0
+         ==> (forall j#7: int :: 
+          { Seq#Index(a#0, j#7) } 
+          LitInt(0) <= j#7 && j#7 < N#0
+             ==> Requires2#canCall(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#7), 
+              Seq#Index(a#0, j#7)));
+      invariant $w$loop#0
+         ==> (forall j#7: int :: 
+          { Seq#Index(a#0, j#7) } 
+          true
+             ==> 
+            LitInt(0) <= j#7 && j#7 < N#0
+             ==> Requires2(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#7), 
+              Seq#Index(a#0, j#7)));
+      free invariant $w$loop#0 ==> true;
+      invariant $w$loop#0
+         ==> (forall j#9: int :: 
+          { Seq#Index(a#0, j#9) } { Seq#Index(a'#0, j#9) } 
+          true ==> i#0 <= j#9 && j#9 < N#0 ==> Seq#Index(a'#0, j#9) == Seq#Index(a#0, j#9));
+      free invariant $w$loop#0 ==> true;
+      invariant $w$loop#0
+         ==> (forall j#11: int :: 
+          { Seq#Index(a#0, j#11) } { Seq#Index(a'#0, j#11) } 
+          true
+             ==> 
+            LitInt(0) <= j#11 && j#11 < i#0
+             ==> Seq#Index(a'#0, j#11)
+               == Apply2(TInt, 
+                _module._default.VectorUpdate$A, 
+                _module._default.VectorUpdate$A, 
+                $Heap, 
+                f#0, 
+                $Box(j#11), 
+                Seq#Index(a#0, j#11)));
+      free invariant (forall $o: ref :: 
+        { $Heap[$o] } 
+        $o != null && read(old($Heap), $o, alloc)
+           ==> $Heap[$o] == $PreLoopHeap$loop#0[$o]);
+      free invariant $HeapSucc($PreLoopHeap$loop#0, $Heap);
+      free invariant (forall<alpha> $o: ref, $f: Field alpha :: 
+        { read($Heap, $o, $f) } 
+        $o != null && read($PreLoopHeap$loop#0, $o, alloc)
+           ==> read($Heap, $o, $f) == read($PreLoopHeap$loop#0, $o, $f) || $_Frame[$o, $f]);
+      free invariant _module.__default.Dec(N#0, i#0) <= $decr_init$loop#00
+         && (_module.__default.Dec(N#0, i#0) == $decr_init$loop#00 ==> true);
+    {
+        assume {:captureState "VU_Dafny.dfy(30,2): after some loop iterations"} true;
+        if (!$w$loop#0)
+        {
+            if (LitInt(0) <= i#0)
+            {
+            }
+
+            assume true;
+            assume LitInt(0) <= i#0 && i#0 <= N#0;
+            assume true;
+            assume Seq#Length(a#0) == Seq#Length(a'#0);
+            havoc j#4;
+            // Begin Comprehension WF check
+            if (i#0 <= j#4)
+            {
+            }
+
+            if (i#0 <= j#4 && j#4 < N#0)
+            {
+                assert {:subsumption 0} 0 <= j#4 && j#4 < Seq#Length(a#0);
+                ##x0#1 := j#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##x0#1, TInt, $Heap);
+                ##x1#1 := Seq#Index(a#0, j#4);
+                // assume allocatedness for argument to function
+                assume $IsAllocBox(##x1#1, _module._default.VectorUpdate$A, $Heap);
+                assume Requires2#canCall(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#4), 
+                  Seq#Index(a#0, j#4));
+            }
+
+            // End Comprehension WF check
+            assume (forall j#5: int :: 
+              { Seq#Index(a#0, j#5) } 
+              i#0 <= j#5 && j#5 < N#0
+                 ==> Requires2#canCall(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#5), 
+                  Seq#Index(a#0, j#5)));
+            assume (forall j#5: int :: 
+              { Seq#Index(a#0, j#5) } 
+              true
+                 ==> 
+                i#0 <= j#5 && j#5 < N#0
+                 ==> Requires2(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#5), 
+                  Seq#Index(a#0, j#5)));
+            havoc j#6;
+            // Begin Comprehension WF check
+            if (LitInt(0) <= j#6)
+            {
+            }
+
+            if (LitInt(0) <= j#6 && j#6 < N#0)
+            {
+                assert {:subsumption 0} 0 <= j#6 && j#6 < Seq#Length(a#0);
+                ##x0#2 := j#6;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##x0#2, TInt, $Heap);
+                ##x1#2 := Seq#Index(a#0, j#6);
+                // assume allocatedness for argument to function
+                assume $IsAllocBox(##x1#2, _module._default.VectorUpdate$A, $Heap);
+                assume Requires2#canCall(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#6), 
+                  Seq#Index(a#0, j#6));
+            }
+
+            // End Comprehension WF check
+            assume (forall j#7: int :: 
+              { Seq#Index(a#0, j#7) } 
+              LitInt(0) <= j#7 && j#7 < N#0
+                 ==> Requires2#canCall(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#7), 
+                  Seq#Index(a#0, j#7)));
+            assume (forall j#7: int :: 
+              { Seq#Index(a#0, j#7) } 
+              true
+                 ==> 
+                LitInt(0) <= j#7 && j#7 < N#0
+                 ==> Requires2(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#7), 
+                  Seq#Index(a#0, j#7)));
+            havoc j#8;
+            // Begin Comprehension WF check
+            if (i#0 <= j#8)
+            {
+            }
+
+            if (i#0 <= j#8 && j#8 < N#0)
+            {
+                assert {:subsumption 0} 0 <= j#8 && j#8 < Seq#Length(a'#0);
+                assert {:subsumption 0} 0 <= j#8 && j#8 < Seq#Length(a#0);
+            }
+
+            // End Comprehension WF check
+            assume true;
+            assume (forall j#9: int :: 
+              { Seq#Index(a#0, j#9) } { Seq#Index(a'#0, j#9) } 
+              true ==> i#0 <= j#9 && j#9 < N#0 ==> Seq#Index(a'#0, j#9) == Seq#Index(a#0, j#9));
+            havoc j#10;
+            // Begin Comprehension WF check
+            if (LitInt(0) <= j#10)
+            {
+            }
+
+            if (LitInt(0) <= j#10 && j#10 < i#0)
+            {
+                assert {:subsumption 0} 0 <= j#10 && j#10 < Seq#Length(a'#0);
+                assert {:subsumption 0} 0 <= j#10 && j#10 < Seq#Length(a#0);
+                assert Requires2(TInt, 
+                  _module._default.VectorUpdate$A, 
+                  _module._default.VectorUpdate$A, 
+                  $Heap, 
+                  f#0, 
+                  $Box(j#10), 
+                  Seq#Index(a#0, j#10));
+            }
+
+            // End Comprehension WF check
+            assume true;
+            assume (forall j#11: int :: 
+              { Seq#Index(a#0, j#11) } { Seq#Index(a'#0, j#11) } 
+              true
+                 ==> 
+                LitInt(0) <= j#11 && j#11 < i#0
+                 ==> Seq#Index(a'#0, j#11)
+                   == Apply2(TInt, 
+                    _module._default.VectorUpdate$A, 
+                    _module._default.VectorUpdate$A, 
+                    $Heap, 
+                    f#0, 
+                    $Box(j#11), 
+                    Seq#Index(a#0, j#11)));
+            ##a#0 := N#0;
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##a#0, TInt, $Heap);
+            ##b#0 := i#0;
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##b#0, TInt, $Heap);
+            assume _module.__default.Dec#canCall(N#0, i#0);
+            assume _module.__default.Dec#canCall(N#0, i#0);
+            assume false;
+        }
+
+        assume true;
+        if (N#0 <= i#0)
+        {
+            break;
+        }
+
+        $decr$loop#00 := _module.__default.Dec(N#0, i#0);
+        // ----- assignment statement ----- VU_Dafny.dfy(39,8)
+        assume true;
+        assert 0 <= i#0 && i#0 < Seq#Length(a'#0);
+        assert 0 <= i#0 && i#0 < Seq#Length(a#0);
+        assert Requires2(TInt, 
+          _module._default.VectorUpdate$A, 
+          _module._default.VectorUpdate$A, 
+          $Heap, 
+          f#0, 
+          $Box(i#0), 
+          Seq#Index(a#0, i#0));
+        assume true;
+        a'#0 := Seq#Update(a'#0, 
+          i#0, 
+          Apply2(TInt, 
+            _module._default.VectorUpdate$A, 
+            _module._default.VectorUpdate$A, 
+            $Heap, 
+            f#0, 
+            $Box(i#0), 
+            Seq#Index(a#0, i#0)));
+        assume {:captureState "VU_Dafny.dfy(39,28)"} true;
+        // ----- call statement ----- VU_Dafny.dfy(40,19)
+        // TrCallStmt: Before ProcessCallStmt
+        assume true;
+        // ProcessCallStmt: CheckSubrange
+        sum##0_0 := N#0;
+        assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+        // ProcessCallStmt: Make the call
+        call Call$$_module.__default.Props__dec__one(sum##0_0);
+        // TrCallStmt: After ProcessCallStmt
+        assume {:captureState "VU_Dafny.dfy(40,21)"} true;
+        // ----- call statement ----- VU_Dafny.dfy(41,26)
+        // TrCallStmt: Before ProcessCallStmt
+        assume true;
+        // ProcessCallStmt: CheckSubrange
+        sum##0_1 := N#0;
+        assume true;
+        // ProcessCallStmt: CheckSubrange
+        x##0_0 := i#0;
+        assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+        // ProcessCallStmt: Make the call
+        call Call$$_module.__default.Props__dec__lower__bound(sum##0_1, x##0_0);
+        // TrCallStmt: After ProcessCallStmt
+        assume {:captureState "VU_Dafny.dfy(41,31)"} true;
+        // ----- assignment statement ----- VU_Dafny.dfy(42,7)
+        assume true;
+        assume true;
+        i#0 := i#0 + 1;
+        assume {:captureState "VU_Dafny.dfy(42,14)"} true;
+        // ----- loop termination check ----- VU_Dafny.dfy(30,3)
+        assert 0 <= $decr$loop#00 || _module.__default.Dec(N#0, i#0) == $decr$loop#00;
+        assert _module.__default.Dec(N#0, i#0) < $decr$loop#00;
+        assume true;
+        assume true;
+        assume (forall j#5: int :: 
+          { Seq#Index(a#0, j#5) } 
+          i#0 <= j#5 && j#5 < N#0
+             ==> Requires2#canCall(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#5), 
+              Seq#Index(a#0, j#5)));
+        assume (forall j#7: int :: 
+          { Seq#Index(a#0, j#7) } 
+          LitInt(0) <= j#7 && j#7 < N#0
+             ==> Requires2#canCall(TInt, 
+              _module._default.VectorUpdate$A, 
+              _module._default.VectorUpdate$A, 
+              $Heap, 
+              f#0, 
+              $Box(j#7), 
+              Seq#Index(a#0, j#7)));
+        assume true;
+        assume true;
+    }
+}
+
+
+
+// function declaration for _module._default.SeqInit
+function _module.__default.SeqInit(_module._default.SeqInit$X: Ty, len#0: int, func#0: HandleType) : Seq Box;
+
+function _module.__default.SeqInit#canCall(_module._default.SeqInit$X: Ty, len#0: int, func#0: HandleType) : bool;
+
+// consequence axiom for _module.__default.SeqInit
+axiom 1 <= $FunctionContextHeight
+   ==> (forall _module._default.SeqInit$X: Ty, $Heap: Heap, len#0: int, func#0: HandleType :: 
+    { _module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), $IsGoodHeap($Heap) } 
+    _module.__default.SeqInit#canCall(_module._default.SeqInit$X, len#0, func#0)
+         || (1 != $FunctionContextHeight
+           && 
+          $IsGoodHeap($Heap)
+           && $Is(func#0, Tclass._System.___hPartialFunc1(TInt, _module._default.SeqInit$X))
+           && 
+          len#0 >= LitInt(0)
+           && (forall i#0: int :: 
+            { Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#0)) } 
+            true
+               ==> 
+              LitInt(0) <= i#0 && i#0 < len#0
+               ==> Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#0))))
+       ==> Seq#Length(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0))
+           == len#0
+         && (forall i#1: int :: 
+          { Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#1)) } 
+            { Seq#Index(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), i#1) } 
+          true
+             ==> 
+            LitInt(0) <= i#1 && i#1 < len#0
+             ==> Seq#Index(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), i#1)
+               == Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#1)))
+         && $Is(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), 
+          TSeq(_module._default.SeqInit$X)));
+
+function _module.__default.SeqInit#requires(Ty, int, HandleType) : bool;
+
+// #requires axiom for _module.__default.SeqInit
+axiom (forall _module._default.SeqInit$X: Ty, $Heap: Heap, len#0: int, func#0: HandleType :: 
+  { _module.__default.SeqInit#requires(_module._default.SeqInit$X, len#0, func#0), $IsGoodHeap($Heap) } 
+  $IsGoodHeap($Heap)
+       && $Is(func#0, Tclass._System.___hPartialFunc1(TInt, _module._default.SeqInit$X))
+     ==> _module.__default.SeqInit#requires(_module._default.SeqInit$X, len#0, func#0)
+       == (len#0 >= LitInt(0)
+         && (forall i#2: int :: 
+          { Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#2)) } 
+          true
+             ==> 
+            LitInt(0) <= i#2 && i#2 < len#0
+             ==> Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#2)))));
+
+procedure CheckWellformed$$_module.__default.SeqInit(_module._default.SeqInit$X: Ty, 
+    len#0: int, 
+    func#0: HandleType
+       where $Is(func#0, Tclass._System.___hPartialFunc1(TInt, _module._default.SeqInit$X)))
+   returns (s#0: Seq Box where $Is(s#0, TSeq(_module._default.SeqInit$X)));
+  free requires 1 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  ensures Seq#Length(s#0) == len#0;
+  ensures (forall i#3: int :: 
+    { Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#3)) } 
+      { Seq#Index(s#0, i#3) } 
+    true
+       ==> 
+      LitInt(0) <= i#3 && i#3 < len#0
+       ==> Seq#Index(s#0, i#3)
+         == Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#3)));
+
+
+
+implementation CheckWellformed$$_module.__default.SeqInit(_module._default.SeqInit$X: Ty, len#0: int, func#0: HandleType)
+   returns (s#0: Seq Box)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var i#4: int;
+  var ##x0#0: int;
+  var b$reqreads#0: bool;
+  var i#6: int;
+
+    b$reqreads#0 := true;
+
+    // AddWellformednessCheck for function SeqInit
+    assume {:captureState "VU_Dafny.dfy(46,16): initial state"} true;
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume len#0 >= LitInt(0);
+    havoc i#4;
+    if (*)
+    {
+        assume LitInt(0) <= i#4;
+        assume i#4 < len#0;
+        ##x0#0 := i#4;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##x0#0, TInt, $Heap);
+        b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: 
+          $o != null
+               && read($Heap, $o, alloc)
+               && Reads1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(##x0#0))[$Box($o)]
+             ==> $_Frame[$o, $f]);
+        assume Requires1#canCall(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#4));
+        assume Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#4));
+    }
+    else
+    {
+        assume LitInt(0) <= i#4 && i#4 < len#0
+           ==> Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#4));
+    }
+
+    assume (forall i#5: int :: 
+      { Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#5)) } 
+      true
+         ==> 
+        LitInt(0) <= i#5 && i#5 < len#0
+         ==> Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#5)));
+    assert b$reqreads#0;
+    if (*)
+    {
+        assume $Is(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), 
+          TSeq(_module._default.SeqInit$X));
+        assume Seq#Length(s#0) == len#0;
+        havoc i#6;
+        if (*)
+        {
+            assume LitInt(0) <= i#6;
+            assume i#6 < len#0;
+            assert 0 <= i#6 && i#6 < Seq#Length(s#0);
+            assert Requires1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#6));
+            assume Seq#Index(s#0, i#6)
+               == Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#6));
+        }
+        else
+        {
+            assume LitInt(0) <= i#6 && i#6 < len#0
+               ==> Seq#Index(s#0, i#6)
+                 == Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#6));
+        }
+
+        assume (forall i#3: int :: 
+          { Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#3)) } 
+            { Seq#Index(s#0, i#3) } 
+          true
+             ==> 
+            LitInt(0) <= i#3 && i#3 < len#0
+             ==> Seq#Index(s#0, i#3)
+               == Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#3)));
+        assume false;
+    }
+    else
+    {
+        assume false;
+    }
+}
+
+
+
+procedure CheckWellformed$$_module.__default.Main();
+  free requires 9 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Main();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.Main() returns ($_reverifyPost: bool);
+  free requires 9 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+  var v#0: Seq Box where $Is(v#0, TSeq(TInt)) && $IsAlloc(v#0, TSeq(TInt), $Heap);
+  var _v0#0: int;
+  var $oldHeap#0: Heap;
+  var $_Frame#l0: <beta>[ref,Field beta]bool;
+  var lambdaResult#0: int;
+  var ##len#0: int;
+  var ##func#0: HandleType;
+  var v'#0: Seq Box where $Is(v'#0, TSeq(TInt)) && $IsAlloc(v'#0, TSeq(TInt), $Heap);
+  var $rhs##0: Seq Box
+     where $Is($rhs##0, TSeq(TInt)) && $IsAlloc($rhs##0, TSeq(TInt), $Heap);
+  var N##0: int;
+  var a##0: Seq Box;
+  var f##0: HandleType;
+  var i#1: int;
+  var _v1#0: int;
+  var $oldHeap#1: Heap;
+  var $_Frame#l1: <beta>[ref,Field beta]bool;
+  var lambdaResult#1: int;
+  var a##1: Seq Box;
+  var $rhs##1: Seq Box
+     where $Is($rhs##1, TSeq(TInt)) && $IsAlloc($rhs##1, TSeq(TInt), $Heap);
+  var N##1: int;
+  var a##2: Seq Box;
+  var f##1: HandleType;
+  var _v2#0: int;
+  var x#0: int;
+  var $oldHeap#2: Heap;
+  var $_Frame#l2: <beta>[ref,Field beta]bool;
+  var lambdaResult#2: int;
+  var a##3: Seq Box;
+  var $rhs##2: Seq Box
+     where $Is($rhs##2, TSeq(TInt)) && $IsAlloc($rhs##2, TSeq(TInt), $Heap);
+  var N##2: int;
+  var a##4: Seq Box;
+  var f##2: HandleType;
+  var _v3#0: int;
+  var x#1: int;
+  var $oldHeap#3: Heap;
+  var $_Frame#l3: <beta>[ref,Field beta]bool;
+  var lambdaResult#3: int;
+  var ##a#0: int;
+  var ##b#0: int;
+  var a##5: Seq Box;
+  var u#0: Seq Box where $Is(u#0, TSeq(TInt)) && $IsAlloc(u#0, TSeq(TInt), $Heap);
+  var _v4#0: int;
+  var $oldHeap#4: Heap;
+  var $_Frame#l4: <beta>[ref,Field beta]bool;
+  var lambdaResult#4: int;
+  var ##len#1: int;
+  var ##func#1: HandleType;
+  var $rhs##3: Seq Box
+     where $Is($rhs##3, TSeq(TInt)) && $IsAlloc($rhs##3, TSeq(TInt), $Heap);
+  var N##3: int;
+  var a##6: Seq Box;
+  var f##3: HandleType;
+  var i#3: int;
+  var _v5#0: int;
+  var $oldHeap#5: Heap;
+  var $_Frame#l5: <beta>[ref,Field beta]bool;
+  var lambdaResult#5: int;
+  var a##7: Seq Box;
+  var z#0: Seq Box where $Is(z#0, TSeq(TInt)) && $IsAlloc(z#0, TSeq(TInt), $Heap);
+  var _v6#0: int;
+  var $oldHeap#6: Heap;
+  var $_Frame#l6: <beta>[ref,Field beta]bool;
+  var lambdaResult#6: int;
+  var ##len#2: int;
+  var ##func#2: HandleType;
+  var $rhs##4: Seq Box
+     where $Is($rhs##4, TSeq(TInt)) && $IsAlloc($rhs##4, TSeq(TInt), $Heap);
+  var N##4: int;
+  var a##8: Seq Box;
+  var f##4: HandleType;
+  var i#5: int;
+  var _v7#0: int;
+  var $oldHeap#7: Heap;
+  var $_Frame#l7: <beta>[ref,Field beta]bool;
+  var lambdaResult#7: int;
+  var ##a#1: int;
+  var ##b#1: int;
+  var a##9: Seq Box;
+
+    // AddMethodImpl: Main, Impl$$_module.__default.Main
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "VU_Dafny.dfy(53,0): initial state"} true;
+    $_reverifyPost := false;
+    // ----- assignment statement ----- VU_Dafny.dfy(55,9)
+    assume true;
+    havoc _v0#0;
     // Begin Comprehension WF check
-    if (LitInt(0) <= i#2)
+    if (*)
     {
-    }
-
-    if (LitInt(0) <= i#2 && i#2 < j#2)
-    {
-    }
-
-    if (LitInt(0) <= i#2 && i#2 < j#2 && j#2 < 5)
-    {
-        ##x#0 := i#2;
-        // assume allocatedness for argument to function
-        assume $IsAlloc(##x#0, TInt, $Heap);
-        ##y#0 := j#2;
-        // assume allocatedness for argument to function
-        assume $IsAlloc(##y#0, TInt, $Heap);
-        assume _module.__default.add#canCall(i#2, j#2);
-        assert 0 <= _module.__default.add(i#2, j#2)
-           && _module.__default.add(i#2, j#2) < Seq#Length(s#0);
-        assert 0 <= i#2 && i#2 < Seq#Length(s#0);
-        assert 0 <= j#2 && j#2 < Seq#Length(s#0);
+        $oldHeap#0 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#0 == $Heap || $HeapSucc($oldHeap#0, $Heap);
+        $_Frame#l0 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        assume lambdaResult#0 == LitInt(0);
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(lambdaResult#0, TInt);
+        assume false;
     }
 
     // End Comprehension WF check
-    assume (forall i#3: int, j#3: int :: 
-      { $Unbox(Seq#Index(s#0, i#3)): int, $Unbox(Seq#Index(s#0, j#3)): int } 
-      LitInt(0) <= i#3 && i#3 < j#3 && j#3 < 5
-         ==> _module.__default.add#canCall(i#3, j#3));
-    b#0 := (forall i#3: int, j#3: int :: 
-      { $Unbox(Seq#Index(s#0, i#3)): int, $Unbox(Seq#Index(s#0, j#3)): int } 
+    ##len#0 := LitInt(10);
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##len#0, TInt, $Heap);
+    ##func#0 := Lit(AtLayer((lambda $l#1#ly#0: LayerType :: 
+          Handle1((lambda $l#1#heap#0: Heap, $l#1#_v0#0: Box :: $Box(LitInt(0))), 
+            (lambda $l#1#heap#0: Heap, $l#1#_v0#0: Box :: $IsBox($l#1#_v0#0, TInt)), 
+            (lambda $l#1#heap#0: Heap, $l#1#_v0#0: Box :: 
+              SetRef_to_SetBox((lambda $l#1#o#0: ref :: false))))), 
+        $LS($LZ)));
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##func#0, Tclass._System.___hPartialFunc1(TInt, TInt), $Heap);
+    assert {:subsumption 0} ##len#0 >= LitInt(0);
+    assume ##len#0 >= LitInt(0);
+    assert {:subsumption 0} (forall i#0: int :: 
+      { Requires1(TInt, TInt, $Heap, ##func#0, $Box(i#0)) } 
       true
          ==> 
-        LitInt(0) <= i#3 && i#3 < j#3 && j#3 < 5
-         ==> $Unbox(Seq#Index(s#0, _module.__default.add(i#3, j#3))): int
-           == $Unbox(Seq#Index(s#0, i#3)): int + $Unbox(Seq#Index(s#0, j#3)): int);
-    assume {:captureState "seq2_Dafny.dfy(42,101)"} true;
+        LitInt(0) <= i#0 && i#0 < ##len#0
+         ==> Requires1(TInt, TInt, $Heap, ##func#0, $Box(i#0)));
+    assume (forall i#0: int :: 
+      { Requires1(TInt, TInt, $Heap, ##func#0, $Box(i#0)) } 
+      true
+         ==> 
+        LitInt(0) <= i#0 && i#0 < ##len#0
+         ==> Requires1(TInt, TInt, $Heap, ##func#0, $Box(i#0)));
+    assume _module.__default.SeqInit#canCall(TInt, 
+      LitInt(10), 
+      Lit(AtLayer((lambda $l#2#ly#0: LayerType :: 
+            Handle1((lambda $l#2#heap#0: Heap, $l#2#_v0#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#2#heap#0: Heap, $l#2#_v0#0: Box :: $IsBox($l#2#_v0#0, TInt)), 
+              (lambda $l#2#heap#0: Heap, $l#2#_v0#0: Box :: 
+                SetRef_to_SetBox((lambda $l#2#o#0: ref :: false))))), 
+          $LS($LZ))));
+    assume _module.__default.SeqInit#canCall(TInt, 
+      LitInt(10), 
+      Lit(AtLayer((lambda $l#4#ly#0: LayerType :: 
+            Handle1((lambda $l#4#heap#0: Heap, $l#4#_v0#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#4#heap#0: Heap, $l#4#_v0#0: Box :: $IsBox($l#4#_v0#0, TInt)), 
+              (lambda $l#4#heap#0: Heap, $l#4#_v0#0: Box :: 
+                SetRef_to_SetBox((lambda $l#4#o#0: ref :: false))))), 
+          $LS($LZ))));
+    v#0 := _module.__default.SeqInit(TInt, 
+      LitInt(10), 
+      Lit(AtLayer((lambda $l#5#ly#0: LayerType :: 
+            Handle1((lambda $l#5#heap#0: Heap, $l#5#_v0#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#5#heap#0: Heap, $l#5#_v0#0: Box :: $IsBox($l#5#_v0#0, TInt)), 
+              (lambda $l#5#heap#0: Heap, $l#5#_v0#0: Box :: 
+                SetRef_to_SetBox((lambda $l#5#o#0: ref :: false))))), 
+          $LS($LZ))));
+    assume {:captureState "VU_Dafny.dfy(55,30)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(57,25)
+    assume true;
+    // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type seq<int>
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    N##0 := LitInt(10);
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##0 := v#0;
+    havoc i#1;
+    havoc _v1#0;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#1 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#1 == $Heap || $HeapSucc($oldHeap#1, $Heap);
+        $_Frame#l1 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        assume lambdaResult#1 == i#1;
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(lambdaResult#1, TInt);
+        assume false;
+    }
+
+    // End Comprehension WF check
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    f##0 := Lit(AtLayer((lambda $l#7#ly#0: LayerType :: 
+          Handle2((lambda $l#7#heap#0: Heap, $l#7#i#0: Box, $l#7#_v1#0: Box :: 
+              $Box($Unbox($l#7#i#0): int)), 
+            (lambda $l#7#heap#0: Heap, $l#7#i#0: Box, $l#7#_v1#0: Box :: 
+              $IsBox($l#7#i#0, TInt) && $IsBox($l#7#_v1#0, TInt)), 
+            (lambda $l#7#heap#0: Heap, $l#7#i#0: Box, $l#7#_v1#0: Box :: 
+              SetRef_to_SetBox((lambda $l#7#o#0: ref :: false))))), 
+        $LS($LZ)));
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call $rhs##0 := Call$$_module.__default.VectorUpdate(TInt, N##0, a##0, f##0);
+    // TrCallStmt: After ProcessCallStmt
+    v'#0 := $rhs##0;
+    assume {:captureState "VU_Dafny.dfy(57,43)"} true;
+    // ----- assert statement ----- VU_Dafny.dfy(58,3)
+    assume true;
+    assert Seq#Length(v'#0) == Seq#Length(v#0);
+    // ----- call statement ----- VU_Dafny.dfy(59,11)
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##1 := v'#0;
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call Call$$_module.__default.PrintSeq(a##1);
+    // TrCallStmt: After ProcessCallStmt
+    assume {:captureState "VU_Dafny.dfy(59,14)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(61,21)
+    assume true;
+    // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    N##1 := LitInt(10);
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##2 := v'#0;
+    havoc _v2#0;
+    havoc x#0;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#2 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#2 == $Heap || $HeapSucc($oldHeap#2, $Heap);
+        $_Frame#l2 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        assume lambdaResult#2 == x#0 + 1;
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(lambdaResult#2, TInt);
+        assume false;
+    }
+
+    // End Comprehension WF check
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    f##1 := Lit(AtLayer((lambda $l#9#ly#0: LayerType :: 
+          Handle2((lambda $l#9#heap#0: Heap, $l#9#_v2#0: Box, $l#9#x#0: Box :: 
+              $Box($Unbox($l#9#x#0): int + 1)), 
+            (lambda $l#9#heap#0: Heap, $l#9#_v2#0: Box, $l#9#x#0: Box :: 
+              $IsBox($l#9#_v2#0, TInt) && $IsBox($l#9#x#0, TInt)), 
+            (lambda $l#9#heap#0: Heap, $l#9#_v2#0: Box, $l#9#x#0: Box :: 
+              SetRef_to_SetBox((lambda $l#9#o#0: ref :: false))))), 
+        $LS($LZ)));
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call $rhs##1 := Call$$_module.__default.VectorUpdate(TInt, N##1, a##2, f##1);
+    // TrCallStmt: After ProcessCallStmt
+    v'#0 := $rhs##1;
+    assume {:captureState "VU_Dafny.dfy(61,44)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(62,11)
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##3 := v'#0;
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call Call$$_module.__default.PrintSeq(a##3);
+    // TrCallStmt: After ProcessCallStmt
+    assume {:captureState "VU_Dafny.dfy(62,14)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(64,21)
+    assume true;
+    // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    N##2 := LitInt(10);
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##4 := v'#0;
+    havoc _v3#0;
+    havoc x#1;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#3 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#3 == $Heap || $HeapSucc($oldHeap#3, $Heap);
+        $_Frame#l3 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        if (x#1 != 0)
+        {
+            ##a#0 := LitInt(100);
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##a#0, TInt, $Heap);
+            ##b#0 := x#1;
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##b#0, TInt, $Heap);
+            assert {:subsumption 0} ##b#0 != 0;
+            assume ##b#0 != 0;
+            assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame#l3[$o, $f]);
+            assume _module.__default.Div#canCall(LitInt(100), x#1);
+            assume lambdaResult#3 == _module.__default.Div(LitInt(100), x#1);
+            assume _module.__default.Div#canCall(LitInt(100), x#1);
+            // CheckWellformedWithResult: any expression
+            assume $Is(lambdaResult#3, TInt);
+        }
+
+        assume false;
+    }
+
+    // End Comprehension WF check
+    assume (forall $l#10#x#0: int :: 
+      $l#10#x#0 != 0 ==> _module.__default.Div#canCall(LitInt(100), $l#10#x#0));
+    // ProcessCallStmt: CheckSubrange
+    f##2 := Lit(AtLayer((lambda $l#11#ly#0: LayerType :: 
+          Handle2((lambda $l#11#heap#0: Heap, $l#11#_v3#0: Box, $l#11#x#0: Box :: 
+              $Box(_module.__default.Div(LitInt(100), $Unbox($l#11#x#0): int))), 
+            (lambda $l#11#heap#0: Heap, $l#11#_v3#0: Box, $l#11#x#0: Box :: 
+              $IsBox($l#11#_v3#0, TInt)
+                 && $IsBox($l#11#x#0, TInt)
+                 && $Unbox($l#11#x#0): int != 0), 
+            (lambda $l#11#heap#0: Heap, $l#11#_v3#0: Box, $l#11#x#0: Box :: 
+              SetRef_to_SetBox((lambda $l#11#o#0: ref :: false))))), 
+        $LS($LZ)));
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call $rhs##2 := Call$$_module.__default.VectorUpdate(TInt, N##2, a##4, f##2);
+    // TrCallStmt: After ProcessCallStmt
+    v'#0 := $rhs##2;
+    assume {:captureState "VU_Dafny.dfy(64,66)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(65,11)
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##5 := v'#0;
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call Call$$_module.__default.PrintSeq(a##5);
+    // TrCallStmt: After ProcessCallStmt
+    assume {:captureState "VU_Dafny.dfy(65,14)"} true;
+    // ----- assignment statement ----- VU_Dafny.dfy(68,9)
+    assume true;
+    havoc _v4#0;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#4 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#4 == $Heap || $HeapSucc($oldHeap#4, $Heap);
+        $_Frame#l4 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        assume lambdaResult#4 == LitInt(0);
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(lambdaResult#4, TInt);
+        assume false;
+    }
+
+    // End Comprehension WF check
+    ##len#1 := LitInt(10);
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##len#1, TInt, $Heap);
+    ##func#1 := Lit(AtLayer((lambda $l#13#ly#0: LayerType :: 
+          Handle1((lambda $l#13#heap#0: Heap, $l#13#_v4#0: Box :: $Box(LitInt(0))), 
+            (lambda $l#13#heap#0: Heap, $l#13#_v4#0: Box :: $IsBox($l#13#_v4#0, TInt)), 
+            (lambda $l#13#heap#0: Heap, $l#13#_v4#0: Box :: 
+              SetRef_to_SetBox((lambda $l#13#o#0: ref :: false))))), 
+        $LS($LZ)));
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##func#1, Tclass._System.___hPartialFunc1(TInt, TInt), $Heap);
+    assert {:subsumption 0} ##len#1 >= LitInt(0);
+    assume ##len#1 >= LitInt(0);
+    assert {:subsumption 0} (forall i#2: int :: 
+      { Requires1(TInt, TInt, $Heap, ##func#1, $Box(i#2)) } 
+      true
+         ==> 
+        LitInt(0) <= i#2 && i#2 < ##len#1
+         ==> Requires1(TInt, TInt, $Heap, ##func#1, $Box(i#2)));
+    assume (forall i#2: int :: 
+      { Requires1(TInt, TInt, $Heap, ##func#1, $Box(i#2)) } 
+      true
+         ==> 
+        LitInt(0) <= i#2 && i#2 < ##len#1
+         ==> Requires1(TInt, TInt, $Heap, ##func#1, $Box(i#2)));
+    assume _module.__default.SeqInit#canCall(TInt, 
+      LitInt(10), 
+      Lit(AtLayer((lambda $l#14#ly#0: LayerType :: 
+            Handle1((lambda $l#14#heap#0: Heap, $l#14#_v4#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#14#heap#0: Heap, $l#14#_v4#0: Box :: $IsBox($l#14#_v4#0, TInt)), 
+              (lambda $l#14#heap#0: Heap, $l#14#_v4#0: Box :: 
+                SetRef_to_SetBox((lambda $l#14#o#0: ref :: false))))), 
+          $LS($LZ))));
+    assume _module.__default.SeqInit#canCall(TInt, 
+      LitInt(10), 
+      Lit(AtLayer((lambda $l#16#ly#0: LayerType :: 
+            Handle1((lambda $l#16#heap#0: Heap, $l#16#_v4#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#16#heap#0: Heap, $l#16#_v4#0: Box :: $IsBox($l#16#_v4#0, TInt)), 
+              (lambda $l#16#heap#0: Heap, $l#16#_v4#0: Box :: 
+                SetRef_to_SetBox((lambda $l#16#o#0: ref :: false))))), 
+          $LS($LZ))));
+    u#0 := _module.__default.SeqInit(TInt, 
+      LitInt(10), 
+      Lit(AtLayer((lambda $l#17#ly#0: LayerType :: 
+            Handle1((lambda $l#17#heap#0: Heap, $l#17#_v4#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#17#heap#0: Heap, $l#17#_v4#0: Box :: $IsBox($l#17#_v4#0, TInt)), 
+              (lambda $l#17#heap#0: Heap, $l#17#_v4#0: Box :: 
+                SetRef_to_SetBox((lambda $l#17#o#0: ref :: false))))), 
+          $LS($LZ))));
+    assume {:captureState "VU_Dafny.dfy(68,30)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(70,20)
+    assume true;
+    // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    N##3 := LitInt(10);
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##6 := u#0;
+    havoc i#3;
+    havoc _v5#0;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#5 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#5 == $Heap || $HeapSucc($oldHeap#5, $Heap);
+        $_Frame#l5 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        if (LitInt(0) <= i#3)
+        {
+        }
+
+        if (LitInt(0) <= i#3 && i#3 < 10)
+        {
+            assert 0 <= i#3 && i#3 < Seq#Length(v'#0);
+            assume lambdaResult#5 == $Unbox(Seq#Index(v'#0, i#3)): int;
+            assume true;
+            // CheckWellformedWithResult: any expression
+            assume $Is(lambdaResult#5, TInt);
+        }
+
+        assume false;
+    }
+
+    // End Comprehension WF check
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    f##3 := Lit(AtLayer((lambda $l#19#ly#0: LayerType :: 
+          Handle2((lambda $l#19#heap#0: Heap, $l#19#i#0: Box, $l#19#_v5#0: Box :: 
+              $Box($Unbox(Seq#Index(v'#0, $Unbox($l#19#i#0): int)): int)), 
+            (lambda $l#19#heap#0: Heap, $l#19#i#0: Box, $l#19#_v5#0: Box :: 
+              $IsBox($l#19#i#0, TInt)
+                 && $IsBox($l#19#_v5#0, TInt)
+                 && 
+                LitInt(0) <= $Unbox($l#19#i#0): int
+                 && $Unbox($l#19#i#0): int < 10), 
+            (lambda $l#19#heap#0: Heap, $l#19#i#0: Box, $l#19#_v5#0: Box :: 
+              SetRef_to_SetBox((lambda $l#19#o#0: ref :: false))))), 
+        $LS($LZ)));
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call $rhs##3 := Call$$_module.__default.VectorUpdate(TInt, N##3, a##6, f##3);
+    // TrCallStmt: After ProcessCallStmt
+    u#0 := $rhs##3;
+    assume {:captureState "VU_Dafny.dfy(70,63)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(71,11)
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##7 := u#0;
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call Call$$_module.__default.PrintSeq(a##7);
+    // TrCallStmt: After ProcessCallStmt
+    assume {:captureState "VU_Dafny.dfy(71,13)"} true;
+    // ----- assignment statement ----- VU_Dafny.dfy(74,9)
+    assume true;
+    havoc _v6#0;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#6 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#6 == $Heap || $HeapSucc($oldHeap#6, $Heap);
+        $_Frame#l6 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        assume lambdaResult#6 == LitInt(0);
+        assume true;
+        // CheckWellformedWithResult: any expression
+        assume $Is(lambdaResult#6, TInt);
+        assume false;
+    }
+
+    // End Comprehension WF check
+    ##len#2 := LitInt(9);
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##len#2, TInt, $Heap);
+    ##func#2 := Lit(AtLayer((lambda $l#21#ly#0: LayerType :: 
+          Handle1((lambda $l#21#heap#0: Heap, $l#21#_v6#0: Box :: $Box(LitInt(0))), 
+            (lambda $l#21#heap#0: Heap, $l#21#_v6#0: Box :: $IsBox($l#21#_v6#0, TInt)), 
+            (lambda $l#21#heap#0: Heap, $l#21#_v6#0: Box :: 
+              SetRef_to_SetBox((lambda $l#21#o#0: ref :: false))))), 
+        $LS($LZ)));
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##func#2, Tclass._System.___hPartialFunc1(TInt, TInt), $Heap);
+    assert {:subsumption 0} ##len#2 >= LitInt(0);
+    assume ##len#2 >= LitInt(0);
+    assert {:subsumption 0} (forall i#4: int :: 
+      { Requires1(TInt, TInt, $Heap, ##func#2, $Box(i#4)) } 
+      true
+         ==> 
+        LitInt(0) <= i#4 && i#4 < ##len#2
+         ==> Requires1(TInt, TInt, $Heap, ##func#2, $Box(i#4)));
+    assume (forall i#4: int :: 
+      { Requires1(TInt, TInt, $Heap, ##func#2, $Box(i#4)) } 
+      true
+         ==> 
+        LitInt(0) <= i#4 && i#4 < ##len#2
+         ==> Requires1(TInt, TInt, $Heap, ##func#2, $Box(i#4)));
+    assume _module.__default.SeqInit#canCall(TInt, 
+      LitInt(9), 
+      Lit(AtLayer((lambda $l#22#ly#0: LayerType :: 
+            Handle1((lambda $l#22#heap#0: Heap, $l#22#_v6#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#22#heap#0: Heap, $l#22#_v6#0: Box :: $IsBox($l#22#_v6#0, TInt)), 
+              (lambda $l#22#heap#0: Heap, $l#22#_v6#0: Box :: 
+                SetRef_to_SetBox((lambda $l#22#o#0: ref :: false))))), 
+          $LS($LZ))));
+    assume _module.__default.SeqInit#canCall(TInt, 
+      LitInt(9), 
+      Lit(AtLayer((lambda $l#24#ly#0: LayerType :: 
+            Handle1((lambda $l#24#heap#0: Heap, $l#24#_v6#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#24#heap#0: Heap, $l#24#_v6#0: Box :: $IsBox($l#24#_v6#0, TInt)), 
+              (lambda $l#24#heap#0: Heap, $l#24#_v6#0: Box :: 
+                SetRef_to_SetBox((lambda $l#24#o#0: ref :: false))))), 
+          $LS($LZ))));
+    z#0 := _module.__default.SeqInit(TInt, 
+      LitInt(9), 
+      Lit(AtLayer((lambda $l#25#ly#0: LayerType :: 
+            Handle1((lambda $l#25#heap#0: Heap, $l#25#_v6#0: Box :: $Box(LitInt(0))), 
+              (lambda $l#25#heap#0: Heap, $l#25#_v6#0: Box :: $IsBox($l#25#_v6#0, TInt)), 
+              (lambda $l#25#heap#0: Heap, $l#25#_v6#0: Box :: 
+                SetRef_to_SetBox((lambda $l#25#o#0: ref :: false))))), 
+          $LS($LZ))));
+    assume {:captureState "VU_Dafny.dfy(74,29)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(77,20)
+    assume true;
+    // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    N##4 := LitInt(9);
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##8 := z#0;
+    havoc i#5;
+    havoc _v7#0;
+    // Begin Comprehension WF check
+    if (*)
+    {
+        $oldHeap#7 := $Heap;
+        havoc $Heap;
+        assume $IsGoodHeap($Heap);
+        assume $oldHeap#7 == $Heap || $HeapSucc($oldHeap#7, $Heap);
+        $_Frame#l7 := (lambda<alpha> $o: ref, $f: Field alpha :: 
+          $o != null && read($Heap, $o, alloc) ==> false);
+        if (LitInt(0) <= i#5)
+        {
+        }
+
+        if (LitInt(0) <= i#5 && i#5 < 9)
+        {
+            assert 0 <= i#5 && i#5 < Seq#Length(u#0);
+            assert 0 <= i#5 + 1 && i#5 + 1 < Seq#Length(u#0);
+            ##a#1 := $Unbox(Seq#Index(u#0, i#5)): int;
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##a#1, TInt, $Heap);
+            ##b#1 := $Unbox(Seq#Index(u#0, i#5 + 1)): int;
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##b#1, TInt, $Heap);
+            assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame#l7[$o, $f]);
+            assume _module.__default.Add#canCall($Unbox(Seq#Index(u#0, i#5)): int, $Unbox(Seq#Index(u#0, i#5 + 1)): int);
+            assume lambdaResult#7
+               == _module.__default.Add($Unbox(Seq#Index(u#0, i#5)): int, $Unbox(Seq#Index(u#0, i#5 + 1)): int);
+            assume _module.__default.Add#canCall($Unbox(Seq#Index(u#0, i#5)): int, $Unbox(Seq#Index(u#0, i#5 + 1)): int);
+            // CheckWellformedWithResult: any expression
+            assume $Is(lambdaResult#7, TInt);
+        }
+
+        assume false;
+    }
+
+    // End Comprehension WF check
+    assume (forall $l#26#i#0: int :: 
+      LitInt(0) <= $l#26#i#0 && $l#26#i#0 < 9
+         ==> _module.__default.Add#canCall($Unbox(Seq#Index(u#0, $l#26#i#0)): int, 
+          $Unbox(Seq#Index(u#0, $l#26#i#0 + 1)): int));
+    // ProcessCallStmt: CheckSubrange
+    f##4 := Lit(AtLayer((lambda $l#27#ly#0: LayerType :: 
+          Handle2((lambda $l#27#heap#0: Heap, $l#27#i#0: Box, $l#27#_v7#0: Box :: 
+              $Box(_module.__default.Add($Unbox(Seq#Index(u#0, $Unbox($l#27#i#0): int)): int, 
+                  $Unbox(Seq#Index(u#0, $Unbox($l#27#i#0): int + 1)): int))), 
+            (lambda $l#27#heap#0: Heap, $l#27#i#0: Box, $l#27#_v7#0: Box :: 
+              $IsBox($l#27#i#0, TInt)
+                 && $IsBox($l#27#_v7#0, TInt)
+                 && 
+                LitInt(0) <= $Unbox($l#27#i#0): int
+                 && $Unbox($l#27#i#0): int < 9), 
+            (lambda $l#27#heap#0: Heap, $l#27#i#0: Box, $l#27#_v7#0: Box :: 
+              SetRef_to_SetBox((lambda $l#27#o#0: ref :: false))))), 
+        $LS($LZ)));
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call $rhs##4 := Call$$_module.__default.VectorUpdate(TInt, N##4, a##8, f##4);
+    // TrCallStmt: After ProcessCallStmt
+    z#0 := $rhs##4;
+    assume {:captureState "VU_Dafny.dfy(77,73)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(78,11)
+    // TrCallStmt: Before ProcessCallStmt
+    assume true;
+    // ProcessCallStmt: CheckSubrange
+    a##9 := z#0;
+    assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+    // ProcessCallStmt: Make the call
+    call Call$$_module.__default.PrintSeq(a##9);
+    // TrCallStmt: After ProcessCallStmt
+    assume {:captureState "VU_Dafny.dfy(78,13)"} true;
+    // ----- assert statement ----- VU_Dafny.dfy(79,3)
+    assert {:subsumption 0} 0 <= LitInt(8) && LitInt(8) < Seq#Length(z#0);
+    assume true;
+    assert $Unbox(Seq#Index(z#0, LitInt(8))): int == LitInt(21);
 }
+
+
+
+procedure CheckWellformed$$_module.__default.PrintSeq(a#0: Seq Box where $Is(a#0, TSeq(TInt)) && $IsAlloc(a#0, TSeq(TInt), $Heap));
+  free requires 6 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.PrintSeq(a#0: Seq Box where $Is(a#0, TSeq(TInt)) && $IsAlloc(a#0, TSeq(TInt), $Heap));
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.PrintSeq(a#0: Seq Box where $Is(a#0, TSeq(TInt)) && $IsAlloc(a#0, TSeq(TInt), $Heap))
+   returns ($_reverifyPost: bool);
+  free requires 6 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
 
 
