@@ -27,7 +27,7 @@ function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
   requires len >= 0
   requires forall i : int :: 0 <= i < len ==> func.requires(i)
   ensures |s| == len
-  ensures forall i : int :: 0 <= i < len ==> s[i] == func(i)
+  ensures forall i : int {:trigger s[i]} :: 0 <= i < len ==> s[i] == func(i)
 
 datatype Option<V> = None | Some(value:V) 
 
@@ -47,7 +47,7 @@ function method {:extern "LinearExtern", "seq_empty"} seq_empty<A>():(s:seq<A>)
 
 function method {:extern "LinearExtern", "seq_alloc"} seq_alloc<A>(length:int, a:A):(s:seq<A>)
   ensures |s| == length
-  ensures forall i :: 0 <= i < |s| ==> s[i] == a 
+  ensures forall i {:trigger s[i]} :: 0 <= i < |s| ==> s[i] == a 
 
 function method {:extern "LinearExtern", "seq_free"} seq_free<A>(s:seq<A>):() 
 
@@ -56,7 +56,7 @@ function method {:extern "LinearExtern", "seq_unleash"} seq_unleash<A>(s1:seq<A>
 
 method SeqResize<A>(s: seq<A>, newlen: int, a: A) returns (s2: seq<A>)
   ensures |s2| == newlen
-  ensures forall j :: 0 <= j < newlen ==> s2[j] == (if j < |s| then s[j] else a) 
+  ensures forall j {:trigger s2[j]} :: 0 <= j < newlen ==> s2[j] == (if j < |s| then s[j] else a) 
 
 method AllocAndCopy<A>(source: seq<A>, from: int, to: int)
   returns (dest: seq<A>)
@@ -188,8 +188,8 @@ function method Prev<A>(l:DList<A>, p:int):(p':int)
 method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   requires 0 < k <= |a|
   ensures |b| == |a|
-  ensures forall i :: 0 <= i < k ==> b[i] == a[i]
-  ensures forall i :: k <= i < |a| ==> b[i] == Node(None, Sub(i, 1), 0)
+  ensures forall i {:trigger b[i]} :: 0 <= i < k ==> b[i] == a[i]
+  ensures forall i {:trigger b[i]} :: k <= i < |a| ==> b[i] == Node(None, Sub(i, 1), 0)
 {
   b := a;
   var n := k;
@@ -230,7 +230,7 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   requires Inv(l)
   ensures Inv(l')
   ensures l'.s == l.s
-  ensures forall x :: ValidPtr(l, x) ==> ValidPtr(l', x) && l'.g[x] == l.g[x]
+  ensures forall x {:trigger l'.g[x]} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==> ValidPtr(l', x) && l'.g[x] == l.g[x]
   ensures l'.freeStack != 0 && l'.nodes[l'.freeStack].data.None?
 {
   var DList(nodes, freeStack, s, f, g) := l;
@@ -258,13 +258,13 @@ ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
     if g[x] == index then unused else if g[x] > index then Sub(g[x], 1) else g[x]);
   }
 
-// 32.668 s
+// 32.668 s -> 14.920 s
 method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
   ensures Inv(l')
   ensures Seq(l') == SeqRemove(Seq(l), Index(l, p))
-  ensures forall x :: x != p && ValidPtr(l, x) ==>
+  ensures forall x {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: x != p && ValidPtr(l, x) ==>
     ValidPtr(l', x) && 
     if Index(l, x) < Index(l, p) then Index(l', x) == Index(l, x)
     else Index(l', x) == Sub(Index(l, x), 1)
@@ -297,14 +297,14 @@ ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) 
       if x == p' then index' else if index < g[x] then Add(g[x], 1) else g[x]);
   }
 
-// 233.006 s
+// 233.006 s -> 86.248 s
 method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
   ensures Inv(l')
   ensures Seq(l') == SeqInsert(Seq(l), Add(Index(l, p), 1), a)
   ensures ValidPtr(l', p') && Index(l', p') == Add(Index(l, p), 1)
-  ensures forall x :: ValidPtr(l, x) ==>
+  ensures forall x {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==>
     ValidPtr(l', x) && 
     if Index(l, x) <= Index(l, p) then Index(l', x) == Index(l, x)
     else Index(l', x) == Add(Index(l, x), 1)
@@ -347,14 +347,14 @@ ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g'
     if x == p' then index' else if g[x] >= index' then Add(g[x], 1) else g[x]);
   }
 
-// 72.399 s
+// 72.399 s -> 307.398 s
 method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
   ensures Inv(l')
   ensures Seq(l') == SeqInsert(Seq(l), IndexHi(l, p), a)
   ensures ValidPtr(l', p') && Index(l', p') == IndexHi(l, p)
-  ensures forall x :: ValidPtr(l, x) ==>
+  ensures forall x {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==>
     ValidPtr(l', x) && 
     if Index(l, x) < IndexHi(l, p) then Index(l', x) == Index(l, x)
     else Index(l', x) == Add(Index(l, x), 1)
