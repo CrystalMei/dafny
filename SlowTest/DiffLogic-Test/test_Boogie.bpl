@@ -5,6 +5,14 @@ function {:inline} LitInt(x: int) : int
 }
 
 procedure Impl$$_module.__default.myAdd(a#0: int, b#0: int) returns ($_reverifyPost: bool);
+  // free requires 0 == $FunctionContextHeight;
+  // modifies $Heap, $Tick;
+  // // frame condition: object granularity
+  // free ensures (forall $o: ref :: 
+  //   { $Heap[$o] } 
+  //   $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // // boilerplate
+  // free ensures $HeapSucc(old($Heap), $Heap);
 
 implementation Impl$$_module.__default.myAdd(a#0: int, b#0: int) returns ($_reverifyPost: bool)
 {
