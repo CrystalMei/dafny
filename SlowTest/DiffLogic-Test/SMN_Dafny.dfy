@@ -1,17 +1,27 @@
 // SMN-orig.dfy
+function method Add(a: int, b: int): int { a + b }
+lemma Add_Commutative()
+    ensures forall a: int, b: int :: Add(a, b) == Add(b, a)
+lemma Add_Associative()
+    ensures forall a: int, b: int, c: int :: Add(Add(a, b), c) == Add(a, Add(b, c))
+lemma Add_Identity()
+    ensures forall a: int :: Add(a, 0) == Add(0, a) == a
 
 datatype List<X> = Nil | Cons(head: X, tail: List<X>)
 
-function method Length(xs: List): nat // verified
+function method Length(xs: List): int // verified
 {
   match xs
   case Nil => 0
-  case Cons(_, tail) => 1 + Length(tail)
+  case Cons(_, tail) => Add(1, Length(tail))
 }
 
-function method Split(xs: List<nat>, b: nat): (List<nat>, List<nat>)
-  ensures var r := Split(xs, b); Length(xs) == Length(r.0) + Length(r.1)
+function method Split(xs: List<int>, b: int): (List<int>, List<int>)
+  ensures var r := Split(xs, b); Length(xs) == Add(Length(r.0), Length(r.1))
 {
+  Add_Commutative();
+  Add_Associative ();
+  Add_Identity();
   match xs
   case Nil => (Nil, Nil)
   case Cons(x, tail) =>
@@ -22,7 +32,7 @@ function method Split(xs: List<nat>, b: nat): (List<nat>, List<nat>)
       (L, Cons(x, R))
 }
 
-lemma Split_Correct(xs: List<nat>, b: nat)
+lemma Split_Correct(xs: List<int>, b: int) // verified
   requires NoDuplicates(xs)
   ensures var r := Split(xs, b);
     Elements(r.0) == (set x | x in Elements(xs) && x < b) &&
@@ -35,7 +45,7 @@ lemma Split_Correct(xs: List<nat>, b: nat)
     Split_Correct(tail, b);
 }
 
-function Elements(xs: List): set
+function Elements(xs: List): set // verified
 {
   match xs
   case Nil => {}
@@ -48,7 +58,7 @@ lemma Elements_Property(xs: List)
 {
 }
 
-predicate NoDuplicates(xs: List)
+predicate NoDuplicates(xs: List) // verified
 {
   match xs
   case Nil => true
@@ -77,7 +87,7 @@ lemma SetEquality(A: set, B: set)
   }
 }
 
-function IntRange(lo: nat, len: nat): set<nat>
+function IntRange(lo: int, len: int): set<int>
   ensures |IntRange(lo, len)| == len
 {
   var S := set x | lo <= x < lo + len;
@@ -85,12 +95,12 @@ function IntRange(lo: nat, len: nat): set<nat>
   S
 }
 
-function method SmallestMissingNumber(xs: List<nat>): nat
+function method SmallestMissingNumber(xs: List<int>): int
 {
   SMN(xs, 0, Length(xs))
 }
 
-function method SMN(xs: List<nat>, n: nat, len: nat): nat
+function method SMN(xs: List<int>, n: int, len: int): int
   requires len == Length(xs)
   decreases len
 {
@@ -107,10 +117,10 @@ function method SMN(xs: List<nat>, n: nat, len: nat): nat
     n
 }
 
-// Here is an alternative version, with a different splitting
+// Here is an alterintive version, with a different splitting
 // condition (using the ceiling of len/2.0 instead of the floor)
 // and only two cases.
-function method SMN'(xs: List<nat>, n: nat, len: nat): nat
+function method SMN'(xs: List<int>, n: int, len: int): int
   requires len == Length(xs)
   decreases len
 {
@@ -129,7 +139,7 @@ function method SMN'(xs: List<nat>, n: nat, len: nat): nat
 // Here is yet one more version. This time, the splitting condition
 // is 1 more than then floor of len/2.0. This is the version of the
 // algorithm in Richard Bird's book.
-function method SMN''(xs: List<nat>, n: nat, len: nat): nat
+function method SMN''(xs: List<int>, n: int, len: int): int
   requires len == Length(xs)
   decreases len
 {
@@ -147,7 +157,7 @@ function method SMN''(xs: List<nat>, n: nat, len: nat): nat
 
 // correctness theorem
 
-lemma SmallestMissingNumber_Correct(xs: List<nat>)
+lemma SmallestMissingNumber_Correct(xs: List<int>)
   requires NoDuplicates(xs)
   ensures var s := SmallestMissingNumber(xs);
     s !in Elements(xs) &&
@@ -159,7 +169,7 @@ lemma SmallestMissingNumber_Correct(xs: List<nat>)
 // proof of lemmas supporting proof of main theorem
 
 // element, len, index -> abstract type
-lemma SMN_Correct(xs: List<nat>, n: nat, len: nat)
+lemma SMN_Correct(xs: List<int>, n: int, len: int)
   requires NoDuplicates(xs)
   requires forall x :: x in Elements(xs) ==> n <= x
   requires len == Length(xs)
@@ -210,9 +220,9 @@ method Main() {
 
 // Timeout proofs
 
-// // ----- Proofs of alternative versions
+// // ----- Proofs of alterintive versions
 
-// lemma SMN'_Correct(xs: List<nat>, n: nat, len: nat)
+// lemma SMN'_Correct(xs: List<int>, n: int, len: int)
 //   requires NoDuplicates(xs)
 //   requires forall x :: x in Elements(xs) ==> n <= x
 //   requires len == Length(xs)
@@ -247,7 +257,7 @@ method Main() {
 //   }
 // }
 
-// lemma SMN''_Correct(xs: List<nat>, n: nat, len: nat)
+// lemma SMN''_Correct(xs: List<int>, n: int, len: int)
 //   requires NoDuplicates(xs)
 //   requires forall x :: x in Elements(xs) ==> n <= x
 //   requires len == Length(xs)

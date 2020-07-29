@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: /compile:0 /trace SMN_Dafny.dfy /proverOpt:O:smt.arith.solver=3 /proverOpt:LOGIC=DLA /print:SMN-Dafny2Boogie.bpl /proverLog:SMN-Dafny2z3.smt2
+// Command Line Options: /compile:0 /trace SMN_Dafny.dfy /proverOpt:LOGIC=DLA /print:SMN-Dafny2Boogie.bpl /proverLog:SMN-Dafny2z3.smt2 /proc:*Split*
 
 const $$Language$Dafny: bool;
 
@@ -2395,158 +2395,6 @@ axiom (forall #$R: Ty, f#0: HandleType, $h: Heap ::
   $IsAlloc(f#0, Tclass._System.___hTotalFunc0(#$R), $h)
      <==> $IsAlloc(f#0, Tclass._System.___hPartialFunc0(#$R), $h));
 
-// Constructor function declaration
-function #_System._tuple#2._#Make2(Box, Box) : DatatypeType;
-
-const unique ##_System._tuple#2._#Make2: DtCtorId;
-
-// Constructor identifier
-axiom (forall a#0#0#0: Box, a#0#1#0: Box :: 
-  { #_System._tuple#2._#Make2(a#0#0#0, a#0#1#0) } 
-  DatatypeCtorId(#_System._tuple#2._#Make2(a#0#0#0, a#0#1#0))
-     == ##_System._tuple#2._#Make2);
-
-function _System.Tuple2.___hMake2_q(DatatypeType) : bool;
-
-// Questionmark and identifier
-axiom (forall d: DatatypeType :: 
-  { _System.Tuple2.___hMake2_q(d) } 
-  _System.Tuple2.___hMake2_q(d)
-     <==> DatatypeCtorId(d) == ##_System._tuple#2._#Make2);
-
-// Constructor questionmark has arguments
-axiom (forall d: DatatypeType :: 
-  { _System.Tuple2.___hMake2_q(d) } 
-  _System.Tuple2.___hMake2_q(d)
-     ==> (exists a#1#0#0: Box, a#1#1#0: Box :: 
-      d == #_System._tuple#2._#Make2(a#1#0#0, a#1#1#0)));
-
-function Tclass._System.Tuple2(Ty, Ty) : Ty;
-
-// Tclass._System.Tuple2 Tag
-axiom (forall #$T0: Ty, #$T1: Ty :: 
-  { Tclass._System.Tuple2(#$T0, #$T1) } 
-  Tag(Tclass._System.Tuple2(#$T0, #$T1)) == Tagclass._System.Tuple2);
-
-const unique Tagclass._System.Tuple2: TyTag;
-
-// Tclass._System.Tuple2 injectivity 0
-axiom (forall #$T0: Ty, #$T1: Ty :: 
-  { Tclass._System.Tuple2(#$T0, #$T1) } 
-  Tclass._System.Tuple2_0(Tclass._System.Tuple2(#$T0, #$T1)) == #$T0);
-
-function Tclass._System.Tuple2_0(Ty) : Ty;
-
-// Tclass._System.Tuple2 injectivity 1
-axiom (forall #$T0: Ty, #$T1: Ty :: 
-  { Tclass._System.Tuple2(#$T0, #$T1) } 
-  Tclass._System.Tuple2_1(Tclass._System.Tuple2(#$T0, #$T1)) == #$T1);
-
-function Tclass._System.Tuple2_1(Ty) : Ty;
-
-// Box/unbox axiom for Tclass._System.Tuple2
-axiom (forall #$T0: Ty, #$T1: Ty, bx: Box :: 
-  { $IsBox(bx, Tclass._System.Tuple2(#$T0, #$T1)) } 
-  $IsBox(bx, Tclass._System.Tuple2(#$T0, #$T1))
-     ==> $Box($Unbox(bx): DatatypeType) == bx
-       && $Is($Unbox(bx): DatatypeType, Tclass._System.Tuple2(#$T0, #$T1)));
-
-// Constructor $Is
-axiom (forall #$T0: Ty, #$T1: Ty, a#2#0#0: Box, a#2#1#0: Box :: 
-  { $Is(#_System._tuple#2._#Make2(a#2#0#0, a#2#1#0), Tclass._System.Tuple2(#$T0, #$T1)) } 
-  $Is(#_System._tuple#2._#Make2(a#2#0#0, a#2#1#0), Tclass._System.Tuple2(#$T0, #$T1))
-     <==> $IsBox(a#2#0#0, #$T0) && $IsBox(a#2#1#0, #$T1));
-
-// Constructor $IsAlloc
-axiom (forall #$T0: Ty, #$T1: Ty, a#3#0#0: Box, a#3#1#0: Box, $h: Heap :: 
-  { $IsAlloc(#_System._tuple#2._#Make2(a#3#0#0, a#3#1#0), 
-      Tclass._System.Tuple2(#$T0, #$T1), 
-      $h) } 
-  $IsGoodHeap($h)
-     ==> ($IsAlloc(#_System._tuple#2._#Make2(a#3#0#0, a#3#1#0), 
-        Tclass._System.Tuple2(#$T0, #$T1), 
-        $h)
-       <==> $IsAllocBox(a#3#0#0, #$T0, $h) && $IsAllocBox(a#3#1#0, #$T1, $h)));
-
-// Destructor $IsAlloc
-axiom (forall d: DatatypeType, #$T0: Ty, $h: Heap :: 
-  { $IsAllocBox(_System.Tuple2._0(d), #$T0, $h) } 
-  $IsGoodHeap($h)
-       && 
-      _System.Tuple2.___hMake2_q(d)
-       && (exists #$T1: Ty :: 
-        { $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h) } 
-        $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h))
-     ==> $IsAllocBox(_System.Tuple2._0(d), #$T0, $h));
-
-// Destructor $IsAlloc
-axiom (forall d: DatatypeType, #$T1: Ty, $h: Heap :: 
-  { $IsAllocBox(_System.Tuple2._1(d), #$T1, $h) } 
-  $IsGoodHeap($h)
-       && 
-      _System.Tuple2.___hMake2_q(d)
-       && (exists #$T0: Ty :: 
-        { $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h) } 
-        $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h))
-     ==> $IsAllocBox(_System.Tuple2._1(d), #$T1, $h));
-
-// Constructor literal
-axiom (forall a#4#0#0: Box, a#4#1#0: Box :: 
-  { #_System._tuple#2._#Make2(Lit(a#4#0#0), Lit(a#4#1#0)) } 
-  #_System._tuple#2._#Make2(Lit(a#4#0#0), Lit(a#4#1#0))
-     == Lit(#_System._tuple#2._#Make2(a#4#0#0, a#4#1#0)));
-
-// Constructor injectivity
-axiom (forall a#5#0#0: Box, a#5#1#0: Box :: 
-  { #_System._tuple#2._#Make2(a#5#0#0, a#5#1#0) } 
-  _System.Tuple2._0(#_System._tuple#2._#Make2(a#5#0#0, a#5#1#0)) == a#5#0#0);
-
-// Inductive rank
-axiom (forall a#6#0#0: Box, a#6#1#0: Box :: 
-  { #_System._tuple#2._#Make2(a#6#0#0, a#6#1#0) } 
-  BoxRank(a#6#0#0) < DtRank(#_System._tuple#2._#Make2(a#6#0#0, a#6#1#0)));
-
-// Constructor injectivity
-axiom (forall a#7#0#0: Box, a#7#1#0: Box :: 
-  { #_System._tuple#2._#Make2(a#7#0#0, a#7#1#0) } 
-  _System.Tuple2._1(#_System._tuple#2._#Make2(a#7#0#0, a#7#1#0)) == a#7#1#0);
-
-// Inductive rank
-axiom (forall a#8#0#0: Box, a#8#1#0: Box :: 
-  { #_System._tuple#2._#Make2(a#8#0#0, a#8#1#0) } 
-  BoxRank(a#8#1#0) < DtRank(#_System._tuple#2._#Make2(a#8#0#0, a#8#1#0)));
-
-// Depth-one case-split function
-function $IsA#_System.Tuple2(DatatypeType) : bool;
-
-// Depth-one case-split axiom
-axiom (forall d: DatatypeType :: 
-  { $IsA#_System.Tuple2(d) } 
-  $IsA#_System.Tuple2(d) ==> _System.Tuple2.___hMake2_q(d));
-
-// Questionmark data type disjunctivity
-axiom (forall #$T0: Ty, #$T1: Ty, d: DatatypeType :: 
-  { _System.Tuple2.___hMake2_q(d), $Is(d, Tclass._System.Tuple2(#$T0, #$T1)) } 
-  $Is(d, Tclass._System.Tuple2(#$T0, #$T1)) ==> _System.Tuple2.___hMake2_q(d));
-
-// Datatype extensional equality declaration
-function _System.Tuple2#Equal(DatatypeType, DatatypeType) : bool;
-
-// Datatype extensional equality definition: #_System._tuple#2._#Make2
-axiom (forall a: DatatypeType, b: DatatypeType :: 
-  { _System.Tuple2#Equal(a, b) } 
-  true
-     ==> (_System.Tuple2#Equal(a, b)
-       <==> _System.Tuple2._0(a) == _System.Tuple2._0(b)
-         && _System.Tuple2._1(a) == _System.Tuple2._1(b)));
-
-// Datatype extensionality axiom: _System._tuple#2
-axiom (forall a: DatatypeType, b: DatatypeType :: 
-  { _System.Tuple2#Equal(a, b) } 
-  _System.Tuple2#Equal(a, b) <==> a == b);
-
-const unique class._System.Tuple2: ClassName;
-
 function Tclass._System.___hFunc2(Ty, Ty, Ty) : Ty;
 
 // Tclass._System.___hFunc2 Tag
@@ -2924,6 +2772,158 @@ axiom (forall #$T0: Ty, #$T1: Ty, #$R: Ty, f#0: HandleType, $h: Heap ::
   { $IsAlloc(f#0, Tclass._System.___hTotalFunc2(#$T0, #$T1, #$R), $h) } 
   $IsAlloc(f#0, Tclass._System.___hTotalFunc2(#$T0, #$T1, #$R), $h)
      <==> $IsAlloc(f#0, Tclass._System.___hPartialFunc2(#$T0, #$T1, #$R), $h));
+
+// Constructor function declaration
+function #_System._tuple#2._#Make2(Box, Box) : DatatypeType;
+
+const unique ##_System._tuple#2._#Make2: DtCtorId;
+
+// Constructor identifier
+axiom (forall a#0#0#0: Box, a#0#1#0: Box :: 
+  { #_System._tuple#2._#Make2(a#0#0#0, a#0#1#0) } 
+  DatatypeCtorId(#_System._tuple#2._#Make2(a#0#0#0, a#0#1#0))
+     == ##_System._tuple#2._#Make2);
+
+function _System.Tuple2.___hMake2_q(DatatypeType) : bool;
+
+// Questionmark and identifier
+axiom (forall d: DatatypeType :: 
+  { _System.Tuple2.___hMake2_q(d) } 
+  _System.Tuple2.___hMake2_q(d)
+     <==> DatatypeCtorId(d) == ##_System._tuple#2._#Make2);
+
+// Constructor questionmark has arguments
+axiom (forall d: DatatypeType :: 
+  { _System.Tuple2.___hMake2_q(d) } 
+  _System.Tuple2.___hMake2_q(d)
+     ==> (exists a#1#0#0: Box, a#1#1#0: Box :: 
+      d == #_System._tuple#2._#Make2(a#1#0#0, a#1#1#0)));
+
+function Tclass._System.Tuple2(Ty, Ty) : Ty;
+
+// Tclass._System.Tuple2 Tag
+axiom (forall #$T0: Ty, #$T1: Ty :: 
+  { Tclass._System.Tuple2(#$T0, #$T1) } 
+  Tag(Tclass._System.Tuple2(#$T0, #$T1)) == Tagclass._System.Tuple2);
+
+const unique Tagclass._System.Tuple2: TyTag;
+
+// Tclass._System.Tuple2 injectivity 0
+axiom (forall #$T0: Ty, #$T1: Ty :: 
+  { Tclass._System.Tuple2(#$T0, #$T1) } 
+  Tclass._System.Tuple2_0(Tclass._System.Tuple2(#$T0, #$T1)) == #$T0);
+
+function Tclass._System.Tuple2_0(Ty) : Ty;
+
+// Tclass._System.Tuple2 injectivity 1
+axiom (forall #$T0: Ty, #$T1: Ty :: 
+  { Tclass._System.Tuple2(#$T0, #$T1) } 
+  Tclass._System.Tuple2_1(Tclass._System.Tuple2(#$T0, #$T1)) == #$T1);
+
+function Tclass._System.Tuple2_1(Ty) : Ty;
+
+// Box/unbox axiom for Tclass._System.Tuple2
+axiom (forall #$T0: Ty, #$T1: Ty, bx: Box :: 
+  { $IsBox(bx, Tclass._System.Tuple2(#$T0, #$T1)) } 
+  $IsBox(bx, Tclass._System.Tuple2(#$T0, #$T1))
+     ==> $Box($Unbox(bx): DatatypeType) == bx
+       && $Is($Unbox(bx): DatatypeType, Tclass._System.Tuple2(#$T0, #$T1)));
+
+// Constructor $Is
+axiom (forall #$T0: Ty, #$T1: Ty, a#2#0#0: Box, a#2#1#0: Box :: 
+  { $Is(#_System._tuple#2._#Make2(a#2#0#0, a#2#1#0), Tclass._System.Tuple2(#$T0, #$T1)) } 
+  $Is(#_System._tuple#2._#Make2(a#2#0#0, a#2#1#0), Tclass._System.Tuple2(#$T0, #$T1))
+     <==> $IsBox(a#2#0#0, #$T0) && $IsBox(a#2#1#0, #$T1));
+
+// Constructor $IsAlloc
+axiom (forall #$T0: Ty, #$T1: Ty, a#3#0#0: Box, a#3#1#0: Box, $h: Heap :: 
+  { $IsAlloc(#_System._tuple#2._#Make2(a#3#0#0, a#3#1#0), 
+      Tclass._System.Tuple2(#$T0, #$T1), 
+      $h) } 
+  $IsGoodHeap($h)
+     ==> ($IsAlloc(#_System._tuple#2._#Make2(a#3#0#0, a#3#1#0), 
+        Tclass._System.Tuple2(#$T0, #$T1), 
+        $h)
+       <==> $IsAllocBox(a#3#0#0, #$T0, $h) && $IsAllocBox(a#3#1#0, #$T1, $h)));
+
+// Destructor $IsAlloc
+axiom (forall d: DatatypeType, #$T0: Ty, $h: Heap :: 
+  { $IsAllocBox(_System.Tuple2._0(d), #$T0, $h) } 
+  $IsGoodHeap($h)
+       && 
+      _System.Tuple2.___hMake2_q(d)
+       && (exists #$T1: Ty :: 
+        { $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h) } 
+        $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h))
+     ==> $IsAllocBox(_System.Tuple2._0(d), #$T0, $h));
+
+// Destructor $IsAlloc
+axiom (forall d: DatatypeType, #$T1: Ty, $h: Heap :: 
+  { $IsAllocBox(_System.Tuple2._1(d), #$T1, $h) } 
+  $IsGoodHeap($h)
+       && 
+      _System.Tuple2.___hMake2_q(d)
+       && (exists #$T0: Ty :: 
+        { $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h) } 
+        $IsAlloc(d, Tclass._System.Tuple2(#$T0, #$T1), $h))
+     ==> $IsAllocBox(_System.Tuple2._1(d), #$T1, $h));
+
+// Constructor literal
+axiom (forall a#4#0#0: Box, a#4#1#0: Box :: 
+  { #_System._tuple#2._#Make2(Lit(a#4#0#0), Lit(a#4#1#0)) } 
+  #_System._tuple#2._#Make2(Lit(a#4#0#0), Lit(a#4#1#0))
+     == Lit(#_System._tuple#2._#Make2(a#4#0#0, a#4#1#0)));
+
+// Constructor injectivity
+axiom (forall a#5#0#0: Box, a#5#1#0: Box :: 
+  { #_System._tuple#2._#Make2(a#5#0#0, a#5#1#0) } 
+  _System.Tuple2._0(#_System._tuple#2._#Make2(a#5#0#0, a#5#1#0)) == a#5#0#0);
+
+// Inductive rank
+axiom (forall a#6#0#0: Box, a#6#1#0: Box :: 
+  { #_System._tuple#2._#Make2(a#6#0#0, a#6#1#0) } 
+  BoxRank(a#6#0#0) < DtRank(#_System._tuple#2._#Make2(a#6#0#0, a#6#1#0)));
+
+// Constructor injectivity
+axiom (forall a#7#0#0: Box, a#7#1#0: Box :: 
+  { #_System._tuple#2._#Make2(a#7#0#0, a#7#1#0) } 
+  _System.Tuple2._1(#_System._tuple#2._#Make2(a#7#0#0, a#7#1#0)) == a#7#1#0);
+
+// Inductive rank
+axiom (forall a#8#0#0: Box, a#8#1#0: Box :: 
+  { #_System._tuple#2._#Make2(a#8#0#0, a#8#1#0) } 
+  BoxRank(a#8#1#0) < DtRank(#_System._tuple#2._#Make2(a#8#0#0, a#8#1#0)));
+
+// Depth-one case-split function
+function $IsA#_System.Tuple2(DatatypeType) : bool;
+
+// Depth-one case-split axiom
+axiom (forall d: DatatypeType :: 
+  { $IsA#_System.Tuple2(d) } 
+  $IsA#_System.Tuple2(d) ==> _System.Tuple2.___hMake2_q(d));
+
+// Questionmark data type disjunctivity
+axiom (forall #$T0: Ty, #$T1: Ty, d: DatatypeType :: 
+  { _System.Tuple2.___hMake2_q(d), $Is(d, Tclass._System.Tuple2(#$T0, #$T1)) } 
+  $Is(d, Tclass._System.Tuple2(#$T0, #$T1)) ==> _System.Tuple2.___hMake2_q(d));
+
+// Datatype extensional equality declaration
+function _System.Tuple2#Equal(DatatypeType, DatatypeType) : bool;
+
+// Datatype extensional equality definition: #_System._tuple#2._#Make2
+axiom (forall a: DatatypeType, b: DatatypeType :: 
+  { _System.Tuple2#Equal(a, b) } 
+  true
+     ==> (_System.Tuple2#Equal(a, b)
+       <==> _System.Tuple2._0(a) == _System.Tuple2._0(b)
+         && _System.Tuple2._1(a) == _System.Tuple2._1(b)));
+
+// Datatype extensionality axiom: _System._tuple#2
+axiom (forall a: DatatypeType, b: DatatypeType :: 
+  { _System.Tuple2#Equal(a, b) } 
+  _System.Tuple2#Equal(a, b) <==> a == b);
+
+const unique class._System.Tuple2: ClassName;
 
 function Tclass._System.___hFunc3(Ty, Ty, Ty, Ty) : Ty;
 
@@ -3740,6 +3740,119 @@ axiom (forall $o: ref, $h: Heap ::
   $IsAlloc($o, Tclass._module.__default(), $h)
      <==> $o == null || read($h, $o, alloc));
 
+// function declaration for _module._default.Add
+function _module.__default.Add(a#0: int, b#0: int) : int;
+
+function _module.__default.Add#canCall(a#0: int, b#0: int) : bool;
+
+// consequence axiom for _module.__default.Add
+axiom 1 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Add(a#0, b#0) } 
+    _module.__default.Add#canCall(a#0, b#0) || 1 != $FunctionContextHeight ==> true);
+
+function _module.__default.Add#requires(int, int) : bool;
+
+// #requires axiom for _module.__default.Add
+axiom (forall a#0: int, b#0: int :: 
+  { _module.__default.Add#requires(a#0, b#0) } 
+  _module.__default.Add#requires(a#0, b#0) == true);
+
+// definition axiom for _module.__default.Add (revealed)
+axiom 1 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    { _module.__default.Add(a#0, b#0) } 
+    _module.__default.Add#canCall(a#0, b#0) || 1 != $FunctionContextHeight
+       ==> _module.__default.Add(a#0, b#0) == a#0 + b#0);
+
+// definition axiom for _module.__default.Add for all literals (revealed)
+axiom 1 <= $FunctionContextHeight
+   ==> (forall a#0: int, b#0: int :: 
+    {:weight 3} { _module.__default.Add(LitInt(a#0), LitInt(b#0)) } 
+    _module.__default.Add#canCall(LitInt(a#0), LitInt(b#0))
+         || 1 != $FunctionContextHeight
+       ==> _module.__default.Add(LitInt(a#0), LitInt(b#0)) == LitInt(a#0 + b#0));
+
+procedure CheckWellformed$$_module.__default.Add(a#0: int, b#0: int);
+  free requires 1 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure CheckWellformed$$_module.__default.Add__Commutative();
+  free requires 4 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Add__Commutative();
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures (forall a#1: int, b#1: int :: 
+    { _module.__default.Add(b#1, a#1) } { _module.__default.Add(a#1, b#1) } 
+    _module.__default.Add#canCall(a#1, b#1)
+       && _module.__default.Add#canCall(b#1, a#1));
+  ensures (forall a#1: int, b#1: int :: 
+    { _module.__default.Add(b#1, a#1) } { _module.__default.Add(a#1, b#1) } 
+    true ==> _module.__default.Add(a#1, b#1) == _module.__default.Add(b#1, a#1));
+  // frame condition
+  free ensures old($Heap) == $Heap;
+
+
+
+procedure CheckWellformed$$_module.__default.Add__Associative();
+  free requires 5 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Add__Associative();
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures (forall a#1: int, b#1: int, c#1: int :: 
+    { _module.__default.Add(a#1, _module.__default.Add(b#1, c#1)) } 
+      { _module.__default.Add(_module.__default.Add(a#1, b#1), c#1) } 
+    _module.__default.Add#canCall(a#1, b#1)
+       && _module.__default.Add#canCall(_module.__default.Add(a#1, b#1), c#1)
+       && 
+      _module.__default.Add#canCall(b#1, c#1)
+       && _module.__default.Add#canCall(a#1, _module.__default.Add(b#1, c#1)));
+  ensures (forall a#1: int, b#1: int, c#1: int :: 
+    { _module.__default.Add(a#1, _module.__default.Add(b#1, c#1)) } 
+      { _module.__default.Add(_module.__default.Add(a#1, b#1), c#1) } 
+    true
+       ==> _module.__default.Add(_module.__default.Add(a#1, b#1), c#1)
+         == _module.__default.Add(a#1, _module.__default.Add(b#1, c#1)));
+  // frame condition
+  free ensures old($Heap) == $Heap;
+
+
+
+procedure CheckWellformed$$_module.__default.Add__Identity();
+  free requires 6 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Add__Identity();
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures (forall a#1: int :: 
+    { _module.__default.Add(0, a#1) } { _module.__default.Add(a#1, 0) } 
+    _module.__default.Add#canCall(a#1, LitInt(0))
+       && _module.__default.Add#canCall(LitInt(0), a#1)
+       && (_module.__default.Add(a#1, LitInt(0)) == _module.__default.Add(LitInt(0), a#1)
+         ==> _module.__default.Add#canCall(LitInt(0), a#1)));
+  ensures (forall a#1: int :: 
+    { _module.__default.Add(0, a#1) } { _module.__default.Add(a#1, 0) } 
+    true
+       ==> _module.__default.Add(a#1, LitInt(0)) == _module.__default.Add(LitInt(0), a#1)
+         && _module.__default.Add(LitInt(0), a#1) == a#1);
+  // frame condition
+  free ensures old($Heap) == $Heap;
+
+
+
 // function declaration for _module._default.Length
 function _module.__default.Length(_module._default.Length$_T0: Ty, $ly: LayerType, xs#0: DatatypeType) : int;
 
@@ -3764,7 +3877,7 @@ axiom 2 <= $FunctionContextHeight
     _module.__default.Length#canCall(_module._default.Length$_T0, xs#0)
          || (2 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.Length$_T0)))
-       ==> LitInt(0) <= _module.__default.Length(_module._default.Length$_T0, $ly, xs#0));
+       ==> true);
 
 function _module.__default.Length#requires(Ty, LayerType, DatatypeType) : bool;
 
@@ -3784,12 +3897,13 @@ axiom 2 <= $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.Length$_T0)))
        ==> (!_module.List.Nil_q(xs#0)
            ==> (var tail#1 := _module.List.tail(xs#0); 
-            _module.__default.Length#canCall(_module._default.Length$_T0, tail#1)))
+            _module.__default.Length#canCall(_module._default.Length$_T0, tail#1)
+               && _module.__default.Add#canCall(LitInt(1), _module.__default.Length(_module._default.Length$_T0, $ly, tail#1))))
          && _module.__default.Length(_module._default.Length$_T0, $LS($ly), xs#0)
            == (if _module.List.Nil_q(xs#0)
              then 0
              else (var tail#0 := _module.List.tail(xs#0); 
-              1 + _module.__default.Length(_module._default.Length$_T0, $ly, tail#0))));
+              _module.__default.Add(LitInt(1), _module.__default.Length(_module._default.Length$_T0, $ly, tail#0)))));
 
 // definition axiom for _module.__default.Length for all literals (revealed)
 axiom 2 <= $FunctionContextHeight
@@ -3800,12 +3914,15 @@ axiom 2 <= $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.Length$_T0)))
        ==> (!Lit(_module.List.Nil_q(Lit(xs#0)))
            ==> (var tail#3 := Lit(_module.List.tail(Lit(xs#0))); 
-            _module.__default.Length#canCall(_module._default.Length$_T0, tail#3)))
+            _module.__default.Length#canCall(_module._default.Length$_T0, tail#3)
+               && _module.__default.Add#canCall(LitInt(1), 
+                _module.__default.Length(_module._default.Length$_T0, $LS($ly), tail#3))))
          && _module.__default.Length(_module._default.Length$_T0, $LS($ly), Lit(xs#0))
            == (if _module.List.Nil_q(Lit(xs#0))
              then 0
              else (var tail#2 := Lit(_module.List.tail(Lit(xs#0))); 
-              LitInt(1 + _module.__default.Length(_module._default.Length$_T0, $LS($ly), tail#2)))));
+              LitInt(_module.__default.Add(LitInt(1), 
+                  LitInt(_module.__default.Length(_module._default.Length$_T0, $LS($ly), tail#2)))))));
 
 procedure CheckWellformed$$_module.__default.Length(_module._default.Length$_T0: Ty, 
     xs#0: DatatypeType
@@ -3823,18 +3940,20 @@ implementation CheckWellformed$$_module.__default.Length(_module._default.Length
   var tail#4: DatatypeType;
   var let#0#0#0: DatatypeType;
   var ##xs#0: DatatypeType;
+  var ##a#0: int;
+  var ##b#0: int;
   var b$reqreads#0: bool;
+  var b$reqreads#1: bool;
 
     b$reqreads#0 := true;
+    b$reqreads#1 := true;
 
     // AddWellformednessCheck for function Length
-    assume {:captureState "SMN_Dafny.dfy(5,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(12,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
     {
-        assume LitInt(0)
-           <= _module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0);
         assume false;
     }
     else
@@ -3843,13 +3962,11 @@ implementation CheckWellformed$$_module.__default.Length(_module._default.Length
           $o != null && read($Heap, $o, alloc) ==> false);
         if (xs#0 == #_module.List.Nil())
         {
-            assert $Is(LitInt(0), Tclass._System.nat());
             assume _module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0)
                == LitInt(0);
             assume true;
             // CheckWellformedWithResult: any expression
-            assume $Is(_module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0), 
-              Tclass._System.nat());
+            assume $Is(_module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0), TInt);
         }
         else if (xs#0 == #_module.List.Cons(_mcc#0#0, _mcc#1#0))
         {
@@ -3868,14 +3985,23 @@ implementation CheckWellformed$$_module.__default.Length(_module._default.Length
             b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
             assert DtRank(##xs#0) < DtRank(xs#0);
             assume _module.__default.Length#canCall(_module._default.Length$_T0, tail#4);
-            assert $Is(1 + _module.__default.Length(_module._default.Length$_T0, $LS($LZ), tail#4), 
-              Tclass._System.nat());
+            ##a#0 := LitInt(1);
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##a#0, TInt, $Heap);
+            ##b#0 := _module.__default.Length(_module._default.Length$_T0, $LS($LZ), tail#4);
+            // assume allocatedness for argument to function
+            assume $IsAlloc(##b#0, TInt, $Heap);
+            b$reqreads#1 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
+            assume _module.__default.Add#canCall(LitInt(1), 
+              _module.__default.Length(_module._default.Length$_T0, $LS($LZ), tail#4));
             assume _module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0)
-               == 1 + _module.__default.Length(_module._default.Length$_T0, $LS($LZ), tail#4);
-            assume _module.__default.Length#canCall(_module._default.Length$_T0, tail#4);
+               == _module.__default.Add(LitInt(1), 
+                _module.__default.Length(_module._default.Length$_T0, $LS($LZ), tail#4));
+            assume _module.__default.Length#canCall(_module._default.Length$_T0, tail#4)
+               && _module.__default.Add#canCall(LitInt(1), 
+                _module.__default.Length(_module._default.Length$_T0, $LS($LZ), tail#4));
             // CheckWellformedWithResult: any expression
-            assume $Is(_module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0), 
-              Tclass._System.nat());
+            assume $Is(_module.__default.Length(_module._default.Length$_T0, $LS($LZ), xs#0), TInt);
         }
         else
         {
@@ -3883,6 +4009,7 @@ implementation CheckWellformed$$_module.__default.Length(_module._default.Length
         }
 
         assert b$reqreads#0;
+        assert b$reqreads#1;
     }
 }
 
@@ -3906,39 +4033,32 @@ axiom (forall $ly: LayerType, xs#0: DatatypeType, b#0: int ::
      == _module.__default.Split($LZ, xs#0, b#0));
 
 // consequence axiom for _module.__default.Split
-axiom 4 <= $FunctionContextHeight
+axiom 7 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, b#0: int :: 
     { _module.__default.Split($ly, xs#0, b#0) } 
     _module.__default.Split#canCall(xs#0, b#0)
-         || (4 != $FunctionContextHeight
-           && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= b#0)
+         || (7 != $FunctionContextHeight && $Is(xs#0, Tclass._module.List(TInt)))
        ==> (var r#0 := _module.__default.Split($ly, xs#0, b#0); 
-          _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0)
-             == _module.__default.Length(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#0)): DatatypeType)
-               + _module.__default.Length(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._1(r#0)): DatatypeType))
+          _module.__default.Length(TInt, $LS($LZ), xs#0)
+             == _module.__default.Add(_module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#0)): DatatypeType), 
+              _module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#0)): DatatypeType)))
          && $Is(_module.__default.Split($ly, xs#0, b#0), 
-          Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-            Tclass._module.List(Tclass._System.nat()))));
+          Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt))));
 
 function _module.__default.Split#requires(LayerType, DatatypeType, int) : bool;
 
 // #requires axiom for _module.__default.Split
 axiom (forall $ly: LayerType, xs#0: DatatypeType, b#0: int :: 
   { _module.__default.Split#requires($ly, xs#0, b#0) } 
-  $Is(xs#0, Tclass._module.List(Tclass._System.nat())) && LitInt(0) <= b#0
+  $Is(xs#0, Tclass._module.List(TInt))
      ==> _module.__default.Split#requires($ly, xs#0, b#0) == true);
 
 // definition axiom for _module.__default.Split (revealed)
-axiom 4 <= $FunctionContextHeight
+axiom 7 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, b#0: int :: 
     { _module.__default.Split($LS($ly), xs#0, b#0) } 
     _module.__default.Split#canCall(xs#0, b#0)
-         || (4 != $FunctionContextHeight
-           && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= b#0)
+         || (7 != $FunctionContextHeight && $Is(xs#0, Tclass._module.List(TInt)))
        ==> (!_module.List.Nil_q(xs#0)
            ==> (var tail#1 := _module.List.tail(xs#0); 
             _module.__default.Split#canCall(tail#1, b#0)))
@@ -3954,14 +4074,11 @@ axiom 4 <= $FunctionContextHeight
                      else #_System._tuple#2._#Make2($Box(L#0), $Box(#_module.List.Cons($Box(x#0), R#0)))))))));
 
 // definition axiom for _module.__default.Split for all literals (revealed)
-axiom 4 <= $FunctionContextHeight
+axiom 7 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, b#0: int :: 
     {:weight 3} { _module.__default.Split($LS($ly), Lit(xs#0), LitInt(b#0)) } 
     _module.__default.Split#canCall(Lit(xs#0), LitInt(b#0))
-         || (4 != $FunctionContextHeight
-           && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= b#0)
+         || (7 != $FunctionContextHeight && $Is(xs#0, Tclass._module.List(TInt)))
        ==> (!Lit(_module.List.Nil_q(Lit(xs#0)))
            ==> (var tail#3 := Lit(_module.List.tail(Lit(xs#0))); 
             _module.__default.Split#canCall(tail#3, LitInt(b#0))))
@@ -3976,18 +4093,13 @@ axiom 4 <= $FunctionContextHeight
                      then #_System._tuple#2._#Make2($Box(#_module.List.Cons($Box(x#2), L#2)), $Box(R#2))
                      else #_System._tuple#2._#Make2($Box(L#2), $Box(#_module.List.Cons($Box(x#2), R#2)))))))));
 
-procedure CheckWellformed$$_module.__default.Split(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(Tclass._System.nat())), 
-    b#0: int where LitInt(0) <= b#0);
-  free requires 4 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.Split(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(TInt)), b#0: int);
+  free requires 7 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), xs#0)
-       == _module.__default.Length(Tclass._System.nat(), 
-          $LS($LS($LZ)), 
-          $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
-         + _module.__default.Length(Tclass._System.nat(), 
-          $LS($LS($LZ)), 
-          $Unbox(_System.Tuple2._1(r#1)): DatatypeType));
+    _module.__default.Length(TInt, $LS($LS($LZ)), xs#0)
+       == _module.__default.Add(_module.__default.Length(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
+        _module.__default.Length(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._1(r#1)): DatatypeType)));
 
 
 
@@ -4001,6 +4113,8 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
   var ##xs#1: DatatypeType;
   var ##xs#2: DatatypeType;
   var ##xs#3: DatatypeType;
+  var ##a#0: int;
+  var ##b#1: int;
   var _mcc#0#0: int;
   var _mcc#1#0: DatatypeType;
   var tail#4: DatatypeType;
@@ -4011,30 +4125,27 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
   var R#4: DatatypeType;
   var let#3#0#0: DatatypeType;
   var ##xs#4: DatatypeType;
-  var ##b#1: int;
+  var ##b#2: int;
   var b$reqreads#0: bool;
 
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function Split
-    assume {:captureState "SMN_Dafny.dfy(12,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(19,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
     {
         assume $Is(_module.__default.Split($LS($LZ), xs#0, b#0), 
-          Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-            Tclass._module.List(Tclass._System.nat())));
+          Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
         havoc r#2;
-        assume $Is(r#2, 
-          Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-            Tclass._module.List(Tclass._System.nat())));
+        assume $Is(r#2, Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
         ##xs#0 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+        assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
         ##b#0 := b#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##b#0, Tclass._System.nat(), $Heap);
+        assume $IsAlloc(##b#0, TInt, $Heap);
         assert 0 <= b#0 || DtRank(##xs#0) < DtRank(xs#0) || ##b#0 == b#0;
         assert (xs#0 == xs#0 && b#0 == b#0)
            || 
@@ -4046,33 +4157,58 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
         assume _module.__default.Split#canCall(xs#0, b#0);
         // CheckWellformedWithResult: any expression
         assume $Is(let#0#0#0, 
-          Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-            Tclass._module.List(Tclass._System.nat())));
+          Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
         assume r#2 == let#0#0#0;
         ##xs#1 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
+        assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Length#canCall(TInt, xs#0);
         assume _System.Tuple2.___hMake2_q(r#2);
         ##xs#2 := $Unbox(_System.Tuple2._0(r#2)): DatatypeType;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#2, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Length#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._0(r#2)): DatatypeType);
+        assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Length#canCall(TInt, $Unbox(_System.Tuple2._0(r#2)): DatatypeType);
         assume _System.Tuple2.___hMake2_q(r#2);
         ##xs#3 := $Unbox(_System.Tuple2._1(r#2)): DatatypeType;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#3, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Length#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._1(r#2)): DatatypeType);
+        assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Length#canCall(TInt, $Unbox(_System.Tuple2._1(r#2)): DatatypeType);
+        ##a#0 := _module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#2)): DatatypeType);
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##a#0, TInt, $Heap);
+        ##b#1 := _module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#2)): DatatypeType);
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##b#1, TInt, $Heap);
+        assume _module.__default.Add#canCall(_module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#2)): DatatypeType), 
+          _module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#2)): DatatypeType));
         assume (var r#1 := _module.__default.Split($LS($LZ), xs#0, b#0); 
-          _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0)
-             == _module.__default.Length(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
-               + _module.__default.Length(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._1(r#1)): DatatypeType));
+          _module.__default.Length(TInt, $LS($LZ), xs#0)
+             == _module.__default.Add(_module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
+              _module.__default.Length(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#1)): DatatypeType)));
         assume false;
     }
     else
     {
         $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
           $o != null && read($Heap, $o, alloc) ==> false);
+        // ----- call statement ----- SMN_Dafny.dfy(22,18)
+        // TrCallStmt: Before ProcessCallStmt
+        // ProcessCallStmt: Make the call
+        call Call$$_module.__default.Add__Commutative();
+        // TrCallStmt: After ProcessCallStmt
+        assume {:captureState "SMN_Dafny.dfy(22,19)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(23,19)
+        // TrCallStmt: Before ProcessCallStmt
+        // ProcessCallStmt: Make the call
+        call Call$$_module.__default.Add__Associative();
+        // TrCallStmt: After ProcessCallStmt
+        assume {:captureState "SMN_Dafny.dfy(23,20)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(24,15)
+        // TrCallStmt: Before ProcessCallStmt
+        // ProcessCallStmt: Make the call
+        call Call$$_module.__default.Add__Identity();
+        // TrCallStmt: After ProcessCallStmt
+        assume {:captureState "SMN_Dafny.dfy(24,16)"} true;
         if (xs#0 == #_module.List.Nil())
         {
             assume _module.__default.Split($LS($LZ), xs#0, b#0)
@@ -4080,19 +4216,17 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
             assume true;
             // CheckWellformedWithResult: any expression
             assume $Is(_module.__default.Split($LS($LZ), xs#0, b#0), 
-              Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                Tclass._module.List(Tclass._System.nat())));
+              Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
         }
         else if (xs#0 == #_module.List.Cons($Box(_mcc#0#0), _mcc#1#0))
         {
-            assume LitInt(0) <= _mcc#0#0;
-            assume $Is(_mcc#1#0, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(_mcc#1#0, Tclass._module.List(TInt));
             havoc tail#4;
-            assume $Is(tail#4, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(tail#4, Tclass._module.List(TInt));
             assume let#1#0#0 == _mcc#1#0;
             assume true;
             // CheckWellformedWithResult: any expression
-            assume $Is(let#1#0#0, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(let#1#0#0, Tclass._module.List(TInt));
             assume tail#4 == let#1#0#0;
             havoc x#4;
             assume let#2#0#0 == _mcc#0#0;
@@ -4101,50 +4235,45 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
             assume $Is(let#2#0#0, TInt);
             assume x#4 == let#2#0#0;
             havoc L#4;
-            assume $Is(L#4, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(L#4, Tclass._module.List(TInt));
             havoc R#4;
-            assume $Is(R#4, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(R#4, Tclass._module.List(TInt));
             ##xs#4 := tail#4;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#4, Tclass._module.List(Tclass._System.nat()), $Heap);
-            ##b#1 := b#0;
+            assume $IsAlloc(##xs#4, Tclass._module.List(TInt), $Heap);
+            ##b#2 := b#0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##b#1, Tclass._System.nat(), $Heap);
+            assume $IsAlloc(##b#2, TInt, $Heap);
             b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-            assert 0 <= b#0 || DtRank(##xs#4) < DtRank(xs#0) || ##b#1 == b#0;
-            assert DtRank(##xs#4) < DtRank(xs#0) || (DtRank(##xs#4) == DtRank(xs#0) && ##b#1 < b#0);
+            assert 0 <= b#0 || DtRank(##xs#4) < DtRank(xs#0) || ##b#2 == b#0;
+            assert DtRank(##xs#4) < DtRank(xs#0) || (DtRank(##xs#4) == DtRank(xs#0) && ##b#2 < b#0);
             assume _module.__default.Split#canCall(tail#4, b#0);
             assume _System.Tuple2.___hMake2_q(_module.__default.Split($LS($LZ), tail#4, b#0));
             assume let#3#0#0 == _module.__default.Split($LS($LZ), tail#4, b#0);
             assume _module.__default.Split#canCall(tail#4, b#0);
             // CheckWellformedWithResult: any expression
             assume $Is(let#3#0#0, 
-              Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                Tclass._module.List(Tclass._System.nat())));
+              Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
             assume _System.Tuple2.___hMake2_q(let#3#0#0);
             assume _System.Tuple2.___hMake2_q(let#3#0#0);
             assume #_System._tuple#2._#Make2($Box(L#4), $Box(R#4)) == let#3#0#0;
             if (x#4 < b#0)
             {
-                assert $Is(x#4, Tclass._System.nat());
                 assume _module.__default.Split($LS($LZ), xs#0, b#0)
                    == #_System._tuple#2._#Make2($Box(#_module.List.Cons($Box(x#4), L#4)), $Box(R#4));
                 assume true;
                 // CheckWellformedWithResult: any expression
                 assume $Is(_module.__default.Split($LS($LZ), xs#0, b#0), 
-                  Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                    Tclass._module.List(Tclass._System.nat())));
+                  Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
             }
             else
             {
-                assert $Is(x#4, Tclass._System.nat());
                 assume _module.__default.Split($LS($LZ), xs#0, b#0)
                    == #_System._tuple#2._#Make2($Box(L#4), $Box(#_module.List.Cons($Box(x#4), R#4)));
                 assume true;
                 // CheckWellformedWithResult: any expression
                 assume $Is(_module.__default.Split($LS($LZ), xs#0, b#0), 
-                  Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                    Tclass._module.List(Tclass._System.nat())));
+                  Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
             }
         }
         else
@@ -4159,142 +4288,126 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
 
 
 procedure {:_induction xs#0, b#0} CheckWellformed$$_module.__default.Split__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0), 
-    b#0: int where LitInt(0) <= b#0);
-  free requires 7 == $FunctionContextHeight;
+    b#0: int);
+  free requires 10 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
 
 procedure {:_induction xs#0, b#0} Call$$_module.__default.Split__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0), 
-    b#0: int where LitInt(0) <= b#0);
+    b#0: int);
   // user-defined preconditions
-  requires _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
   // user-defined postconditions
   free ensures _module.__default.Split#canCall(xs#0, b#0)
      && (var r#1 := _module.__default.Split($LS($LZ), xs#0, b#0); 
       _System.Tuple2.___hMake2_q(r#1)
-         && _module.__default.Elements#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
-         && _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-         && (Set#Equal(_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
+         && _module.__default.Elements#canCall(TInt, $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
+         && _module.__default.Elements#canCall(TInt, xs#0)
+         && (Set#Equal(_module.__default.Elements(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
             (lambda $y#8: Box :: 
               $IsBox($y#8, TInt)
                  && 
-                _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$y#8]
+                _module.__default.Elements(TInt, $LS($LZ), xs#0)[$y#8]
                  && $Unbox($y#8): int < b#0))
            ==> _System.Tuple2.___hMake2_q(r#1)
-             && _module.__default.Elements#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._1(r#1)): DatatypeType)
-             && _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-             && (Set#Equal(_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
+             && _module.__default.Elements#canCall(TInt, $Unbox(_System.Tuple2._1(r#1)): DatatypeType)
+             && _module.__default.Elements#canCall(TInt, xs#0)
+             && (Set#Equal(_module.__default.Elements(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
                 (lambda $y#7: Box :: 
                   $IsBox($y#7, TInt)
                      && 
-                    _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$y#7]
+                    _module.__default.Elements(TInt, $LS($LZ), xs#0)[$y#7]
                      && b#0 <= $Unbox($y#7): int))
                ==> _System.Tuple2.___hMake2_q(r#1)
-                 && _module.__default.NoDuplicates#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
-                 && (_module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
+                 && _module.__default.NoDuplicates#canCall(TInt, $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
+                 && (_module.__default.NoDuplicates(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
                    ==> _System.Tuple2.___hMake2_q(r#1)
-                     && _module.__default.NoDuplicates#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._1(r#1)): DatatypeType)))));
+                     && _module.__default.NoDuplicates#canCall(TInt, $Unbox(_System.Tuple2._1(r#1)): DatatypeType)))));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    Set#Equal(_module.__default.Elements(Tclass._System.nat(), 
-        $LS($LS($LZ)), 
-        $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
+    Set#Equal(_module.__default.Elements(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
       (lambda $y#9: Box :: 
         $IsBox($y#9, TInt)
            && 
-          _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$y#9]
+          _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$y#9]
            && $Unbox($y#9): int < b#0)));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    Set#Equal(_module.__default.Elements(Tclass._System.nat(), 
-        $LS($LS($LZ)), 
-        $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
+    Set#Equal(_module.__default.Elements(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
       (lambda $y#10: Box :: 
         $IsBox($y#10, TInt)
            && 
-          _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$y#10]
+          _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$y#10]
            && b#0 <= $Unbox($y#10): int)));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    _module.__default.NoDuplicates(Tclass._System.nat(), 
-      $LS($LS($LZ)), 
-      $Unbox(_System.Tuple2._0(r#1)): DatatypeType));
+    _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._0(r#1)): DatatypeType));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    _module.__default.NoDuplicates(Tclass._System.nat(), 
-      $LS($LS($LZ)), 
-      $Unbox(_System.Tuple2._1(r#1)): DatatypeType));
+    _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._1(r#1)): DatatypeType));
   // frame condition
   free ensures old($Heap) == $Heap;
 
 
 
 procedure {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0), 
-    b#0: int where LitInt(0) <= b#0)
+    b#0: int)
    returns ($_reverifyPost: bool);
-  free requires 7 == $FunctionContextHeight;
+  free requires 10 == $FunctionContextHeight;
   // user-defined preconditions
-  requires _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
   // user-defined postconditions
   free ensures _module.__default.Split#canCall(xs#0, b#0)
      && (var r#1 := _module.__default.Split($LS($LZ), xs#0, b#0); 
       _System.Tuple2.___hMake2_q(r#1)
-         && _module.__default.Elements#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
-         && _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-         && (Set#Equal(_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
+         && _module.__default.Elements#canCall(TInt, $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
+         && _module.__default.Elements#canCall(TInt, xs#0)
+         && (Set#Equal(_module.__default.Elements(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
             (lambda $y#12: Box :: 
               $IsBox($y#12, TInt)
                  && 
-                _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$y#12]
+                _module.__default.Elements(TInt, $LS($LZ), xs#0)[$y#12]
                  && $Unbox($y#12): int < b#0))
            ==> _System.Tuple2.___hMake2_q(r#1)
-             && _module.__default.Elements#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._1(r#1)): DatatypeType)
-             && _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-             && (Set#Equal(_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
+             && _module.__default.Elements#canCall(TInt, $Unbox(_System.Tuple2._1(r#1)): DatatypeType)
+             && _module.__default.Elements#canCall(TInt, xs#0)
+             && (Set#Equal(_module.__default.Elements(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
                 (lambda $y#11: Box :: 
                   $IsBox($y#11, TInt)
                      && 
-                    _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$y#11]
+                    _module.__default.Elements(TInt, $LS($LZ), xs#0)[$y#11]
                      && b#0 <= $Unbox($y#11): int))
                ==> _System.Tuple2.___hMake2_q(r#1)
-                 && _module.__default.NoDuplicates#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
-                 && (_module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
+                 && _module.__default.NoDuplicates#canCall(TInt, $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
+                 && (_module.__default.NoDuplicates(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#1)): DatatypeType)
                    ==> _System.Tuple2.___hMake2_q(r#1)
-                     && _module.__default.NoDuplicates#canCall(Tclass._System.nat(), $Unbox(_System.Tuple2._1(r#1)): DatatypeType)))));
+                     && _module.__default.NoDuplicates#canCall(TInt, $Unbox(_System.Tuple2._1(r#1)): DatatypeType)))));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    Set#Equal(_module.__default.Elements(Tclass._System.nat(), 
-        $LS($LS($LZ)), 
-        $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
+    Set#Equal(_module.__default.Elements(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._0(r#1)): DatatypeType), 
       (lambda $y#13: Box :: 
         $IsBox($y#13, TInt)
            && 
-          _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$y#13]
+          _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$y#13]
            && $Unbox($y#13): int < b#0)));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    Set#Equal(_module.__default.Elements(Tclass._System.nat(), 
-        $LS($LS($LZ)), 
-        $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
+    Set#Equal(_module.__default.Elements(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._1(r#1)): DatatypeType), 
       (lambda $y#14: Box :: 
         $IsBox($y#14, TInt)
            && 
-          _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$y#14]
+          _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$y#14]
            && b#0 <= $Unbox($y#14): int)));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    _module.__default.NoDuplicates(Tclass._System.nat(), 
-      $LS($LS($LZ)), 
-      $Unbox(_System.Tuple2._0(r#1)): DatatypeType));
+    _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._0(r#1)): DatatypeType));
   ensures (var r#1 := _module.__default.Split($LS($LS($LZ)), xs#0, b#0); 
-    _module.__default.NoDuplicates(Tclass._System.nat(), 
-      $LS($LS($LZ)), 
-      $Unbox(_System.Tuple2._1(r#1)): DatatypeType));
+    _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), $Unbox(_System.Tuple2._1(r#1)): DatatypeType));
   // frame condition
   free ensures old($Heap) == $Heap;
 
@@ -4314,32 +4427,31 @@ implementation {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs
     // AddMethodImpl: Split_Correct, Impl$$_module.__default.Split__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(31,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(41,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
     assume $initHeapForallStmt#0 == $Heap;
     assume (forall $ih#xs0#0: DatatypeType, $ih#b0#0: int :: 
-      $Is($ih#xs0#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= $ih#b0#0
-           && _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)
+      $Is($ih#xs0#0, Tclass._module.List(TInt))
+           && _module.__default.NoDuplicates(TInt, $LS($LZ), $ih#xs0#0)
            && (DtRank($ih#xs0#0) < DtRank(xs#0)
              || (DtRank($ih#xs0#0) == DtRank(xs#0) && 0 <= $ih#b0#0 && $ih#b0#0 < b#0))
          ==> (var r#2 := _module.__default.Split($LS($LZ), $ih#xs0#0, $ih#b0#0); 
-          Set#Equal(_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#2)): DatatypeType), 
+          Set#Equal(_module.__default.Elements(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#2)): DatatypeType), 
               (lambda $y#15: Box :: 
                 $IsBox($y#15, TInt)
                    && 
-                  _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$y#15]
+                  _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$y#15]
                    && $Unbox($y#15): int < $ih#b0#0))
-             && Set#Equal(_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._1(r#2)): DatatypeType), 
+             && Set#Equal(_module.__default.Elements(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#2)): DatatypeType), 
               (lambda $y#16: Box :: 
                 $IsBox($y#16, TInt)
                    && 
-                  _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$y#16]
+                  _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$y#16]
                    && $ih#b0#0 <= $Unbox($y#16): int))
-             && _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._0(r#2)): DatatypeType)
-             && _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $Unbox(_System.Tuple2._1(r#2)): DatatypeType)));
+             && _module.__default.NoDuplicates(TInt, $LS($LZ), $Unbox(_System.Tuple2._0(r#2)): DatatypeType)
+             && _module.__default.NoDuplicates(TInt, $LS($LZ), $Unbox(_System.Tuple2._1(r#2)): DatatypeType)));
     $_reverifyPost := false;
     assume true;
     havoc _mcc#0#0_0, _mcc#1#0_0;
@@ -4348,17 +4460,16 @@ implementation {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs
     }
     else if (xs#0 == #_module.List.Cons($Box(_mcc#0#0_0), _mcc#1#0_0))
     {
-        assume LitInt(0) <= _mcc#0#0_0;
-        assume $Is(_mcc#1#0_0, Tclass._module.List(Tclass._System.nat()));
+        assume $Is(_mcc#1#0_0, Tclass._module.List(TInt));
         havoc tail#0_0;
-        assume $Is(tail#0_0, Tclass._module.List(Tclass._System.nat()))
-           && $IsAlloc(tail#0_0, Tclass._module.List(Tclass._System.nat()), $Heap);
+        assume $Is(tail#0_0, Tclass._module.List(TInt))
+           && $IsAlloc(tail#0_0, Tclass._module.List(TInt), $Heap);
         assume let#0_0#0#0 == _mcc#1#0_0;
         assume true;
         // CheckWellformedWithResult: any expression
-        assume $Is(let#0_0#0#0, Tclass._module.List(Tclass._System.nat()));
+        assume $Is(let#0_0#0#0, Tclass._module.List(TInt));
         assume tail#0_0 == let#0_0#0#0;
-        // ----- call statement ----- SMN_Dafny.dfy(35,18)
+        // ----- call statement ----- SMN_Dafny.dfy(45,18)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -4373,7 +4484,7 @@ implementation {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Split__Correct(xs##0_0, b##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(35,26)"} true;
+        assume {:captureState "SMN_Dafny.dfy(45,26)"} true;
     }
     else
     {
@@ -4401,11 +4512,11 @@ axiom (forall _module._default.Elements$_T0: Ty, $ly: LayerType, xs#0: DatatypeT
      == _module.__default.Elements(_module._default.Elements$_T0, $LZ, xs#0));
 
 // consequence axiom for _module.__default.Elements
-axiom 5 <= $FunctionContextHeight
+axiom 8 <= $FunctionContextHeight
    ==> (forall _module._default.Elements$_T0: Ty, $ly: LayerType, xs#0: DatatypeType :: 
     { _module.__default.Elements(_module._default.Elements$_T0, $ly, xs#0) } 
     _module.__default.Elements#canCall(_module._default.Elements$_T0, xs#0)
-         || (5 != $FunctionContextHeight
+         || (8 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.Elements$_T0)))
        ==> $Is(_module.__default.Elements(_module._default.Elements$_T0, $ly, xs#0), 
         TSet(_module._default.Elements$_T0)));
@@ -4420,11 +4531,11 @@ axiom (forall _module._default.Elements$_T0: Ty, $ly: LayerType, xs#0: DatatypeT
        == true);
 
 // definition axiom for _module.__default.Elements (revealed)
-axiom 5 <= $FunctionContextHeight
+axiom 8 <= $FunctionContextHeight
    ==> (forall _module._default.Elements$_T0: Ty, $ly: LayerType, xs#0: DatatypeType :: 
     { _module.__default.Elements(_module._default.Elements$_T0, $LS($ly), xs#0) } 
     _module.__default.Elements#canCall(_module._default.Elements$_T0, xs#0)
-         || (5 != $FunctionContextHeight
+         || (8 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.Elements$_T0)))
        ==> (!_module.List.Nil_q(xs#0)
            ==> (var tail#1 := _module.List.tail(xs#0); 
@@ -4438,11 +4549,11 @@ axiom 5 <= $FunctionContextHeight
                   _module.__default.Elements(_module._default.Elements$_T0, $ly, tail#0))))));
 
 // definition axiom for _module.__default.Elements for all literals (revealed)
-axiom 5 <= $FunctionContextHeight
+axiom 8 <= $FunctionContextHeight
    ==> (forall _module._default.Elements$_T0: Ty, $ly: LayerType, xs#0: DatatypeType :: 
     {:weight 3} { _module.__default.Elements(_module._default.Elements$_T0, $LS($ly), Lit(xs#0)) } 
     _module.__default.Elements#canCall(_module._default.Elements$_T0, Lit(xs#0))
-         || (5 != $FunctionContextHeight
+         || (8 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.Elements$_T0)))
        ==> (!Lit(_module.List.Nil_q(Lit(xs#0)))
            ==> (var tail#3 := Lit(_module.List.tail(Lit(xs#0))); 
@@ -4458,7 +4569,7 @@ axiom 5 <= $FunctionContextHeight
 procedure CheckWellformed$$_module.__default.Elements(_module._default.Elements$_T0: Ty, 
     xs#0: DatatypeType
        where $Is(xs#0, Tclass._module.List(_module._default.Elements$_T0)));
-  free requires 5 == $FunctionContextHeight;
+  free requires 8 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -4478,7 +4589,7 @@ implementation CheckWellformed$$_module.__default.Elements(_module._default.Elem
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function Elements
-    assume {:captureState "SMN_Dafny.dfy(38,9): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(48,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -4548,7 +4659,7 @@ procedure {:_induction xs#0} CheckWellformed$$_module.__default.Elements__Proper
        where $Is(xs#0, Tclass._module.List(_module._default.Elements_Property$_T0))
          && $IsAlloc(xs#0, Tclass._module.List(_module._default.Elements_Property$_T0), $Heap)
          && $IsA#_module.List(xs#0));
-  free requires 8 == $FunctionContextHeight;
+  free requires 11 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -4577,7 +4688,7 @@ procedure {:_induction xs#0} Impl$$_module.__default.Elements__Property(_module.
          && $IsAlloc(xs#0, Tclass._module.List(_module._default.Elements_Property$_T0), $Heap)
          && $IsA#_module.List(xs#0))
    returns ($_reverifyPost: bool);
-  free requires 8 == $FunctionContextHeight;
+  free requires 11 == $FunctionContextHeight;
   // user-defined preconditions
   requires _module.__default.NoDuplicates(_module._default.Elements_Property$_T0, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
@@ -4600,7 +4711,7 @@ implementation {:_induction xs#0} Impl$$_module.__default.Elements__Property(_mo
     // AddMethodImpl: Elements_Property, Impl$$_module.__default.Elements__Property
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(48,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(58,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
@@ -4635,11 +4746,11 @@ axiom (forall _module._default.NoDuplicates$_T0: Ty, $ly: LayerType, xs#0: Datat
      == _module.__default.NoDuplicates(_module._default.NoDuplicates$_T0, $LZ, xs#0));
 
 // consequence axiom for _module.__default.NoDuplicates
-axiom 6 <= $FunctionContextHeight
+axiom 9 <= $FunctionContextHeight
    ==> (forall _module._default.NoDuplicates$_T0: Ty, $ly: LayerType, xs#0: DatatypeType :: 
     { _module.__default.NoDuplicates(_module._default.NoDuplicates$_T0, $ly, xs#0) } 
     _module.__default.NoDuplicates#canCall(_module._default.NoDuplicates$_T0, xs#0)
-         || (6 != $FunctionContextHeight
+         || (9 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.NoDuplicates$_T0)))
        ==> true);
 
@@ -4653,11 +4764,11 @@ axiom (forall _module._default.NoDuplicates$_T0: Ty, $ly: LayerType, xs#0: Datat
        == true);
 
 // definition axiom for _module.__default.NoDuplicates (revealed)
-axiom 6 <= $FunctionContextHeight
+axiom 9 <= $FunctionContextHeight
    ==> (forall _module._default.NoDuplicates$_T0: Ty, $ly: LayerType, xs#0: DatatypeType :: 
     { _module.__default.NoDuplicates(_module._default.NoDuplicates$_T0, $LS($ly), xs#0) } 
     _module.__default.NoDuplicates#canCall(_module._default.NoDuplicates$_T0, xs#0)
-         || (6 != $FunctionContextHeight
+         || (9 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.NoDuplicates$_T0)))
        ==> (!_module.List.Nil_q(xs#0)
            ==> (var tail#1 := _module.List.tail(xs#0); 
@@ -4674,11 +4785,11 @@ axiom 6 <= $FunctionContextHeight
                    && _module.__default.NoDuplicates(_module._default.NoDuplicates$_T0, $ly, tail#0)))));
 
 // definition axiom for _module.__default.NoDuplicates for all literals (revealed)
-axiom 6 <= $FunctionContextHeight
+axiom 9 <= $FunctionContextHeight
    ==> (forall _module._default.NoDuplicates$_T0: Ty, $ly: LayerType, xs#0: DatatypeType :: 
     {:weight 3} { _module.__default.NoDuplicates(_module._default.NoDuplicates$_T0, $LS($ly), Lit(xs#0)) } 
     _module.__default.NoDuplicates#canCall(_module._default.NoDuplicates$_T0, Lit(xs#0))
-         || (6 != $FunctionContextHeight
+         || (9 != $FunctionContextHeight
            && $Is(xs#0, Tclass._module.List(_module._default.NoDuplicates$_T0)))
        ==> (!Lit(_module.List.Nil_q(Lit(xs#0)))
            ==> (var tail#3 := Lit(_module.List.tail(Lit(xs#0))); 
@@ -4697,7 +4808,7 @@ axiom 6 <= $FunctionContextHeight
 procedure CheckWellformed$$_module.__default.NoDuplicates(_module._default.NoDuplicates$_T0: Ty, 
     xs#0: DatatypeType
        where $Is(xs#0, Tclass._module.List(_module._default.NoDuplicates$_T0)));
-  free requires 6 == $FunctionContextHeight;
+  free requires 9 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -4720,7 +4831,7 @@ implementation CheckWellformed$$_module.__default.NoDuplicates(_module._default.
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function NoDuplicates
-    assume {:captureState "SMN_Dafny.dfy(51,10): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(61,10): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -4802,7 +4913,7 @@ procedure CheckWellformed$$_module.__default.Cardinality(_module._default.Cardin
     B#0: Set Box
        where $Is(B#0, TSet(_module._default.Cardinality$_T0))
          && $IsAlloc(B#0, TSet(_module._default.Cardinality$_T0), $Heap));
-  free requires 14 == $FunctionContextHeight;
+  free requires 17 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -4833,7 +4944,7 @@ procedure Impl$$_module.__default.Cardinality(_module._default.Cardinality$_T0: 
        where $Is(B#0, TSet(_module._default.Cardinality$_T0))
          && $IsAlloc(B#0, TSet(_module._default.Cardinality$_T0), $Heap))
    returns ($_reverifyPost: bool);
-  free requires 14 == $FunctionContextHeight;
+  free requires 17 == $FunctionContextHeight;
   // user-defined preconditions
   requires Set#Subset(A#0, B#0);
   modifies $Heap, $Tick;
@@ -4858,21 +4969,21 @@ implementation Impl$$_module.__default.Cardinality(_module._default.Cardinality$
     // AddMethodImpl: Cardinality, Impl$$_module.__default.Cardinality
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(62,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(72,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- if statement ----- SMN_Dafny.dfy(63,3)
+    // ----- if statement ----- SMN_Dafny.dfy(73,3)
     assume true;
     if (!Set#Equal(A#0, Set#Empty(): Set Box))
     {
-        // ----- assign-such-that statement ----- SMN_Dafny.dfy(64,11)
+        // ----- assign-such-that statement ----- SMN_Dafny.dfy(74,11)
         assume true;
         havoc x#0_0;
         assume true;
         assert (exists $as#x0_0#0_0: Box :: 
           $IsBox($as#x0_0#0_0, _module._default.Cardinality$_T0) && A#0[$as#x0_0#0_0]);
         assume A#0[x#0_0];
-        assume {:captureState "SMN_Dafny.dfy(64,19)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(65,16)
+        assume {:captureState "SMN_Dafny.dfy(74,19)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(75,16)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -4886,7 +4997,7 @@ implementation Impl$$_module.__default.Cardinality(_module._default.Cardinality$
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Cardinality(_module._default.Cardinality$_T0, A##0_0, B##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(65,33)"} true;
+        assume {:captureState "SMN_Dafny.dfy(75,33)"} true;
     }
     else
     {
@@ -4902,7 +5013,7 @@ procedure CheckWellformed$$_module.__default.SetEquality(_module._default.SetEqu
     B#0: Set Box
        where $Is(B#0, TSet(_module._default.SetEquality$_T0))
          && $IsAlloc(B#0, TSet(_module._default.SetEquality$_T0), $Heap));
-  free requires 15 == $FunctionContextHeight;
+  free requires 18 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -4934,7 +5045,7 @@ procedure Impl$$_module.__default.SetEquality(_module._default.SetEquality$_T0: 
        where $Is(B#0, TSet(_module._default.SetEquality$_T0))
          && $IsAlloc(B#0, TSet(_module._default.SetEquality$_T0), $Heap))
    returns ($_reverifyPost: bool);
-  free requires 15 == $FunctionContextHeight;
+  free requires 18 == $FunctionContextHeight;
   // user-defined preconditions
   requires Set#Subset(A#0, B#0);
   requires Set#Card(A#0) == Set#Card(B#0);
@@ -4960,24 +5071,24 @@ implementation Impl$$_module.__default.SetEquality(_module._default.SetEquality$
     // AddMethodImpl: SetEquality, Impl$$_module.__default.SetEquality
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(72,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(82,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- if statement ----- SMN_Dafny.dfy(73,3)
+    // ----- if statement ----- SMN_Dafny.dfy(83,3)
     assume true;
     if (Set#Equal(A#0, Set#Empty(): Set Box))
     {
     }
     else
     {
-        // ----- assign-such-that statement ----- SMN_Dafny.dfy(75,11)
+        // ----- assign-such-that statement ----- SMN_Dafny.dfy(85,11)
         assume true;
         havoc x#0;
         assume true;
         assert (exists $as#x0#0: Box :: 
           $IsBox($as#x0#0, _module._default.SetEquality$_T0) && A#0[$as#x0#0]);
         assume A#0[x#0];
-        assume {:captureState "SMN_Dafny.dfy(75,19)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(76,16)
+        assume {:captureState "SMN_Dafny.dfy(85,19)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(86,16)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -4991,7 +5102,7 @@ implementation Impl$$_module.__default.SetEquality(_module._default.SetEquality$
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.SetEquality(_module._default.SetEquality$_T0, A##0, B##0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(76,33)"} true;
+        assume {:captureState "SMN_Dafny.dfy(86,33)"} true;
     }
 }
 
@@ -5015,28 +5126,25 @@ axiom (forall $ly: LayerType, lo#0: int, len#0: int ::
      == _module.__default.IntRange($LZ, lo#0, len#0));
 
 // consequence axiom for _module.__default.IntRange
-axiom 9 <= $FunctionContextHeight
+axiom 16 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, lo#0: int, len#0: int :: 
     { _module.__default.IntRange($ly, lo#0, len#0) } 
-    _module.__default.IntRange#canCall(lo#0, len#0)
-         || (9 != $FunctionContextHeight && LitInt(0) <= lo#0 && LitInt(0) <= len#0)
+    _module.__default.IntRange#canCall(lo#0, len#0) || 16 != $FunctionContextHeight
        ==> Set#Card(_module.__default.IntRange($ly, lo#0, len#0)) == len#0
-         && $Is(_module.__default.IntRange($ly, lo#0, len#0), TSet(Tclass._System.nat())));
+         && $Is(_module.__default.IntRange($ly, lo#0, len#0), TSet(TInt)));
 
 function _module.__default.IntRange#requires(LayerType, int, int) : bool;
 
 // #requires axiom for _module.__default.IntRange
 axiom (forall $ly: LayerType, lo#0: int, len#0: int :: 
   { _module.__default.IntRange#requires($ly, lo#0, len#0) } 
-  LitInt(0) <= lo#0 && LitInt(0) <= len#0
-     ==> _module.__default.IntRange#requires($ly, lo#0, len#0) == true);
+  _module.__default.IntRange#requires($ly, lo#0, len#0) == true);
 
 // definition axiom for _module.__default.IntRange (revealed)
-axiom 9 <= $FunctionContextHeight
+axiom 16 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, lo#0: int, len#0: int :: 
     { _module.__default.IntRange($LS($ly), lo#0, len#0) } 
-    _module.__default.IntRange#canCall(lo#0, len#0)
-         || (9 != $FunctionContextHeight && LitInt(0) <= lo#0 && LitInt(0) <= len#0)
+    _module.__default.IntRange#canCall(lo#0, len#0) || 16 != $FunctionContextHeight
        ==> _module.__default.IntRange($LS($ly), lo#0, len#0)
          == (var S#0 := (lambda $y#0: Box :: 
               $IsBox($y#0, TInt)
@@ -5046,11 +5154,11 @@ axiom 9 <= $FunctionContextHeight
           S#0));
 
 // definition axiom for _module.__default.IntRange for all literals (revealed)
-axiom 9 <= $FunctionContextHeight
+axiom 16 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, lo#0: int, len#0: int :: 
     {:weight 3} { _module.__default.IntRange($LS($ly), LitInt(lo#0), LitInt(len#0)) } 
     _module.__default.IntRange#canCall(LitInt(lo#0), LitInt(len#0))
-         || (9 != $FunctionContextHeight && LitInt(0) <= lo#0 && LitInt(0) <= len#0)
+         || 16 != $FunctionContextHeight
        ==> _module.__default.IntRange($LS($ly), LitInt(lo#0), LitInt(len#0))
          == (var S#1 := (lambda $y#2: Box :: 
               $IsBox($y#2, TInt)
@@ -5059,8 +5167,8 @@ axiom 9 <= $FunctionContextHeight
                  && $Unbox($y#2): int < lo#0 + len#0); 
           S#1));
 
-procedure CheckWellformed$$_module.__default.IntRange(lo#0: int where LitInt(0) <= lo#0, len#0: int where LitInt(0) <= len#0);
-  free requires 9 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.IntRange(lo#0: int, len#0: int);
+  free requires 16 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   ensures Set#Card(_module.__default.IntRange($LS($LS($LZ)), lo#0, len#0)) == len#0;
 
@@ -5079,18 +5187,18 @@ implementation CheckWellformed$$_module.__default.IntRange(lo#0: int, len#0: int
 
 
     // AddWellformednessCheck for function IntRange
-    assume {:captureState "SMN_Dafny.dfy(80,9): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(90,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
     {
-        assume $Is(_module.__default.IntRange($LS($LZ), lo#0, len#0), TSet(Tclass._System.nat()));
+        assume $Is(_module.__default.IntRange($LS($LZ), lo#0, len#0), TSet(TInt));
         ##lo#0 := lo#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##lo#0, Tclass._System.nat(), $Heap);
+        assume $IsAlloc(##lo#0, TInt, $Heap);
         ##len#0 := len#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##len#0, Tclass._System.nat(), $Heap);
+        assume $IsAlloc(##len#0, TInt, $Heap);
         assert 0 <= lo#0 || ##lo#0 == lo#0;
         assert 0 <= len#0 || ##lo#0 < lo#0 || ##len#0 == len#0;
         assert (lo#0 == lo#0 && len#0 == len#0)
@@ -5129,16 +5237,15 @@ implementation CheckWellformed$$_module.__default.IntRange(lo#0: int, len#0: int
         // CheckWellformedWithResult: any expression
         assume $Is(let#0#0#0, TSet(TInt));
         assume S#2 == let#0#0#0;
-        // ----- assert statement ----- SMN_Dafny.dfy(84,3)
+        // ----- assert statement ----- SMN_Dafny.dfy(94,3)
         if (len#0 != 0)
         {
             ##lo#1 := lo#0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##lo#1, Tclass._System.nat(), $Heap);
-            assert $Is(len#0 - 1, Tclass._System.nat());
+            assume $IsAlloc(##lo#1, TInt, $Heap);
             ##len#1 := len#0 - 1;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##len#1, Tclass._System.nat(), $Heap);
+            assume $IsAlloc(##len#1, TInt, $Heap);
             assert 0 <= lo#0 || ##lo#1 == lo#0;
             assert 0 <= len#0 || ##lo#1 < lo#0 || ##len#1 == len#0;
             assert ##lo#1 < lo#0 || (##lo#1 == lo#0 && ##len#1 < len#0);
@@ -5154,11 +5261,10 @@ implementation CheckWellformed$$_module.__default.IntRange(lo#0: int, len#0: int
            ==> Set#Equal(S#2, 
             Set#Union(_module.__default.IntRange($LS($LZ), lo#0, len#0 - 1), 
               Set#UnionOne(Set#Empty(): Set Box, $Box(lo#0 + len#0 - 1))));
-        assert $Is(S#2, TSet(Tclass._System.nat()));
         assume _module.__default.IntRange($LS($LZ), lo#0, len#0) == S#2;
         assume true;
         // CheckWellformedWithResult: any expression
-        assume $Is(_module.__default.IntRange($LS($LZ), lo#0, len#0), TSet(Tclass._System.nat()));
+        assume $Is(_module.__default.IntRange($LS($LZ), lo#0, len#0), TSet(TInt));
     }
 }
 
@@ -5170,56 +5276,50 @@ function _module.__default.SmallestMissingNumber(xs#0: DatatypeType) : int;
 function _module.__default.SmallestMissingNumber#canCall(xs#0: DatatypeType) : bool;
 
 // consequence axiom for _module.__default.SmallestMissingNumber
-axiom 11 <= $FunctionContextHeight
+axiom 13 <= $FunctionContextHeight
    ==> (forall xs#0: DatatypeType :: 
     { _module.__default.SmallestMissingNumber(xs#0) } 
     _module.__default.SmallestMissingNumber#canCall(xs#0)
-         || (11 != $FunctionContextHeight
-           && $Is(xs#0, Tclass._module.List(Tclass._System.nat())))
-       ==> LitInt(0) <= _module.__default.SmallestMissingNumber(xs#0));
+         || (13 != $FunctionContextHeight && $Is(xs#0, Tclass._module.List(TInt)))
+       ==> true);
 
 function _module.__default.SmallestMissingNumber#requires(DatatypeType) : bool;
 
 // #requires axiom for _module.__default.SmallestMissingNumber
 axiom (forall xs#0: DatatypeType :: 
   { _module.__default.SmallestMissingNumber#requires(xs#0) } 
-  $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
+  $Is(xs#0, Tclass._module.List(TInt))
      ==> _module.__default.SmallestMissingNumber#requires(xs#0) == true);
 
 // definition axiom for _module.__default.SmallestMissingNumber (revealed)
-axiom 11 <= $FunctionContextHeight
+axiom 13 <= $FunctionContextHeight
    ==> (forall xs#0: DatatypeType :: 
     { _module.__default.SmallestMissingNumber(xs#0) } 
     _module.__default.SmallestMissingNumber#canCall(xs#0)
-         || (11 != $FunctionContextHeight
-           && $Is(xs#0, Tclass._module.List(Tclass._System.nat())))
-       ==> _module.__default.Length#canCall(Tclass._System.nat(), xs#0)
-         && _module.__default.SMN#canCall(xs#0, LitInt(0), _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+         || (13 != $FunctionContextHeight && $Is(xs#0, Tclass._module.List(TInt)))
+       ==> _module.__default.Length#canCall(TInt, xs#0)
+         && _module.__default.SMN#canCall(xs#0, LitInt(0), _module.__default.Length(TInt, $LS($LZ), xs#0))
          && _module.__default.SmallestMissingNumber(xs#0)
-           == _module.__default.SMN($LS($LZ), 
-            xs#0, 
-            LitInt(0), 
-            _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0)));
+           == _module.__default.SMN($LS($LZ), xs#0, LitInt(0), _module.__default.Length(TInt, $LS($LZ), xs#0)));
 
 // definition axiom for _module.__default.SmallestMissingNumber for all literals (revealed)
-axiom 11 <= $FunctionContextHeight
+axiom 13 <= $FunctionContextHeight
    ==> (forall xs#0: DatatypeType :: 
     {:weight 3} { _module.__default.SmallestMissingNumber(Lit(xs#0)) } 
     _module.__default.SmallestMissingNumber#canCall(Lit(xs#0))
-         || (11 != $FunctionContextHeight
-           && $Is(xs#0, Tclass._module.List(Tclass._System.nat())))
-       ==> _module.__default.Length#canCall(Tclass._System.nat(), Lit(xs#0))
+         || (13 != $FunctionContextHeight && $Is(xs#0, Tclass._module.List(TInt)))
+       ==> _module.__default.Length#canCall(TInt, Lit(xs#0))
          && _module.__default.SMN#canCall(Lit(xs#0), 
           LitInt(0), 
-          LitInt(_module.__default.Length(Tclass._System.nat(), $LS($LZ), Lit(xs#0))))
+          LitInt(_module.__default.Length(TInt, $LS($LZ), Lit(xs#0))))
          && _module.__default.SmallestMissingNumber(Lit(xs#0))
            == LitInt(_module.__default.SMN($LS($LZ), 
               Lit(xs#0), 
               LitInt(0), 
-              LitInt(_module.__default.Length(Tclass._System.nat(), $LS($LZ), Lit(xs#0))))));
+              LitInt(_module.__default.Length(TInt, $LS($LZ), Lit(xs#0))))));
 
-procedure CheckWellformed$$_module.__default.SmallestMissingNumber(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(Tclass._System.nat())));
-  free requires 11 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.SmallestMissingNumber(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(TInt)));
+  free requires 13 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -5238,12 +5338,11 @@ implementation CheckWellformed$$_module.__default.SmallestMissingNumber(xs#0: Da
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function SmallestMissingNumber
-    assume {:captureState "SMN_Dafny.dfy(88,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(98,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
     {
-        assume LitInt(0) <= _module.__default.SmallestMissingNumber(xs#0);
         assume false;
     }
     else
@@ -5252,32 +5351,28 @@ implementation CheckWellformed$$_module.__default.SmallestMissingNumber(xs#0: Da
           $o != null && read($Heap, $o, alloc) ==> false);
         ##xs#0 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+        assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
         b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-        assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
+        assume _module.__default.Length#canCall(TInt, xs#0);
         ##xs#1 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assert $Is(LitInt(0), Tclass._System.nat());
+        assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
         ##n#0 := LitInt(0);
         // assume allocatedness for argument to function
-        assume $IsAlloc(##n#0, Tclass._System.nat(), $Heap);
-        ##len#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0);
+        assume $IsAlloc(##n#0, TInt, $Heap);
+        ##len#0 := _module.__default.Length(TInt, $LS($LZ), xs#0);
         // assume allocatedness for argument to function
-        assume $IsAlloc(##len#0, Tclass._System.nat(), $Heap);
-        assert {:subsumption 0} ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#1);
-        assume ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#1);
+        assume $IsAlloc(##len#0, TInt, $Heap);
+        assert {:subsumption 0} ##len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#1);
+        assume ##len#0 == _module.__default.Length(TInt, $LS($LZ), ##xs#1);
         b$reqreads#1 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-        assume _module.__default.SMN#canCall(xs#0, LitInt(0), _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0));
+        assume _module.__default.SMN#canCall(xs#0, LitInt(0), _module.__default.Length(TInt, $LS($LZ), xs#0));
         assume _module.__default.SmallestMissingNumber(xs#0)
-           == _module.__default.SMN($LS($LZ), 
-            xs#0, 
-            LitInt(0), 
-            _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0));
-        assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0)
-           && _module.__default.SMN#canCall(xs#0, LitInt(0), _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0));
+           == _module.__default.SMN($LS($LZ), xs#0, LitInt(0), _module.__default.Length(TInt, $LS($LZ), xs#0));
+        assume _module.__default.Length#canCall(TInt, xs#0)
+           && _module.__default.SMN#canCall(xs#0, LitInt(0), _module.__default.Length(TInt, $LS($LZ), xs#0));
         // CheckWellformedWithResult: any expression
-        assume $Is(_module.__default.SmallestMissingNumber(xs#0), Tclass._System.nat());
+        assume $Is(_module.__default.SmallestMissingNumber(xs#0), TInt);
         assert b$reqreads#0;
         assert b$reqreads#1;
     }
@@ -5303,48 +5398,42 @@ axiom (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int ::
      == _module.__default.SMN($LZ, xs#0, n#0, len#0));
 
 // consequence axiom for _module.__default.SMN
-axiom 10 <= $FunctionContextHeight
+axiom 12 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     { _module.__default.SMN($ly, xs#0, n#0, len#0) } 
     _module.__default.SMN#canCall(xs#0, n#0, len#0)
-         || (10 != $FunctionContextHeight
+         || (12 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
-       ==> LitInt(0) <= _module.__default.SMN($ly, xs#0, n#0, len#0));
+          $Is(xs#0, Tclass._module.List(TInt))
+           && len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0))
+       ==> true);
 
 function _module.__default.SMN#requires(LayerType, DatatypeType, int, int) : bool;
 
 // #requires axiom for _module.__default.SMN
 axiom (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
   { _module.__default.SMN#requires($ly, xs#0, n#0, len#0) } 
-  $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-       && LitInt(0) <= n#0
-       && LitInt(0) <= len#0
+  $Is(xs#0, Tclass._module.List(TInt))
      ==> _module.__default.SMN#requires($ly, xs#0, n#0, len#0)
        == 
       (len#0
-       == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0)));
+       == _module.__default.Length(TInt, $LS($LZ), xs#0)));
 
 // definition axiom for _module.__default.SMN (revealed)
-axiom 10 <= $FunctionContextHeight
+axiom 12 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     { _module.__default.SMN($LS($ly), xs#0, n#0, len#0) } 
     _module.__default.SMN#canCall(xs#0, n#0, len#0)
-         || (10 != $FunctionContextHeight
+         || (12 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0))
        ==> (LitInt(2) <= len#0
            ==> _module.__default.Split#canCall(xs#0, n#0 + Div(len#0, LitInt(2)))
              && (var L#0, R#0 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType, 
                 $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType; 
-              _module.__default.Length#canCall(Tclass._System.nat(), L#0)
-                 && (var llen#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0); 
+              _module.__default.Length#canCall(TInt, L#0)
+                 && (var llen#0 := _module.__default.Length(TInt, $LS($LZ), L#0); 
                   (llen#0 < Div(len#0, LitInt(2))
                        ==> _module.__default.SMN#canCall(L#0, n#0, llen#0))
                      && (Div(len#0, LitInt(2)) <= llen#0
@@ -5353,7 +5442,7 @@ axiom 10 <= $FunctionContextHeight
            == (if LitInt(2) <= len#0
              then (var L#0, R#0 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType, 
                 $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType; 
-              (var llen#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0); 
+              (var llen#0 := _module.__default.Length(TInt, $LS($LZ), L#0); 
                 (if llen#0 < Div(len#0, LitInt(2))
                    then _module.__default.SMN($ly, L#0, n#0, llen#0)
                    else _module.__default.SMN($ly, R#0, n#0 + llen#0, len#0 - llen#0))))
@@ -5362,22 +5451,20 @@ axiom 10 <= $FunctionContextHeight
                else n#0)));
 
 // definition axiom for _module.__default.SMN for decreasing-related literals (revealed)
-axiom 10 <= $FunctionContextHeight
+axiom 12 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     {:weight 3} { _module.__default.SMN($LS($ly), xs#0, n#0, LitInt(len#0)) } 
     _module.__default.SMN#canCall(xs#0, n#0, LitInt(len#0))
-         || (10 != $FunctionContextHeight
+         || (12 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && LitInt(len#0) == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && LitInt(len#0) == _module.__default.Length(TInt, $LS($LZ), xs#0))
        ==> (LitInt(2) <= LitInt(len#0)
            ==> _module.__default.Split#canCall(xs#0, n#0 + Div(len#0, LitInt(2)))
              && (var L#1, R#1 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType, 
                 $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType; 
-              _module.__default.Length#canCall(Tclass._System.nat(), L#1)
-                 && (var llen#1 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#1); 
+              _module.__default.Length#canCall(TInt, L#1)
+                 && (var llen#1 := _module.__default.Length(TInt, $LS($LZ), L#1); 
                   (llen#1 < Div(len#0, LitInt(2))
                        ==> _module.__default.SMN#canCall(L#1, n#0, llen#1))
                      && (Div(len#0, LitInt(2)) <= llen#1
@@ -5386,7 +5473,7 @@ axiom 10 <= $FunctionContextHeight
            == (if LitInt(2) <= LitInt(len#0)
              then (var L#1, R#1 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType, 
                 $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))))): DatatypeType; 
-              (var llen#1 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#1); 
+              (var llen#1 := _module.__default.Length(TInt, $LS($LZ), L#1); 
                 (if llen#1 < Div(len#0, LitInt(2))
                    then _module.__default.SMN($LS($ly), L#1, n#0, llen#1)
                    else _module.__default.SMN($LS($ly), R#1, n#0 + llen#1, len#0 - llen#1))))
@@ -5395,23 +5482,20 @@ axiom 10 <= $FunctionContextHeight
                else n#0)));
 
 // definition axiom for _module.__default.SMN for all literals (revealed)
-axiom 10 <= $FunctionContextHeight
+axiom 12 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     {:weight 3} { _module.__default.SMN($LS($ly), Lit(xs#0), LitInt(n#0), LitInt(len#0)) } 
     _module.__default.SMN#canCall(Lit(xs#0), LitInt(n#0), LitInt(len#0))
-         || (10 != $FunctionContextHeight
+         || (12 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && LitInt(len#0)
-             == LitInt(_module.__default.Length(Tclass._System.nat(), $LS($LZ), Lit(xs#0))))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && LitInt(len#0) == LitInt(_module.__default.Length(TInt, $LS($LZ), Lit(xs#0))))
        ==> (LitInt(2) <= LitInt(len#0)
            ==> _module.__default.Split#canCall(Lit(xs#0), LitInt(n#0 + Div(len#0, LitInt(2))))
              && (var L#2, R#2 := $Unbox(_System.Tuple2._0(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + Div(len#0, LitInt(2))))))): DatatypeType, 
                 $Unbox(_System.Tuple2._1(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + Div(len#0, LitInt(2))))))): DatatypeType; 
-              _module.__default.Length#canCall(Tclass._System.nat(), L#2)
-                 && (var llen#2 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#2); 
+              _module.__default.Length#canCall(TInt, L#2)
+                 && (var llen#2 := _module.__default.Length(TInt, $LS($LZ), L#2); 
                   (llen#2 < Div(len#0, LitInt(2))
                        ==> _module.__default.SMN#canCall(L#2, LitInt(n#0), llen#2))
                      && (Div(len#0, LitInt(2)) <= llen#2
@@ -5420,7 +5504,7 @@ axiom 10 <= $FunctionContextHeight
            == (if LitInt(2) <= LitInt(len#0)
              then (var L#2, R#2 := $Unbox(_System.Tuple2._0(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + Div(len#0, LitInt(2))))))): DatatypeType, 
                 $Unbox(_System.Tuple2._1(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + Div(len#0, LitInt(2))))))): DatatypeType; 
-              (var llen#2 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#2); 
+              (var llen#2 := _module.__default.Length(TInt, $LS($LZ), L#2); 
                 (if llen#2 < Div(len#0, LitInt(2))
                    then _module.__default.SMN($LS($ly), L#2, LitInt(n#0), llen#2)
                    else _module.__default.SMN($LS($ly), R#2, n#0 + llen#2, len#0 - llen#2))))
@@ -5430,10 +5514,10 @@ axiom 10 <= $FunctionContextHeight
                  else n#0)
                else n#0)));
 
-procedure CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(Tclass._System.nat())), 
-    n#0: int where LitInt(0) <= n#0, 
-    len#0: int where LitInt(0) <= len#0);
-  free requires 10 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(TInt)), 
+    n#0: int, 
+    len#0: int);
+  free requires 12 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -5469,19 +5553,18 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
     b$reqreads#4 := true;
 
     // AddWellformednessCheck for function SMN
-    assume {:captureState "SMN_Dafny.dfy(93,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(103,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
     b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-    assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
-    assume len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0);
+    assume _module.__default.Length#canCall(TInt, xs#0);
+    assume len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0);
     assert b$reqreads#0;
     if (*)
     {
-        assume LitInt(0) <= _module.__default.SMN($LS($LZ), xs#0, n#0, len#0);
         assume false;
     }
     else
@@ -5491,17 +5574,16 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
         if (LitInt(2) <= len#0)
         {
             havoc L#3;
-            assume $Is(L#3, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(L#3, Tclass._module.List(TInt));
             havoc R#3;
-            assume $Is(R#3, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(R#3, Tclass._module.List(TInt));
             assert LitInt(2) != 0;
             ##xs#1 := xs#0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
-            assert $Is(n#0 + Div(len#0, LitInt(2)), Tclass._System.nat());
+            assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
             ##b#0 := n#0 + Div(len#0, LitInt(2));
             // assume allocatedness for argument to function
-            assume $IsAlloc(##b#0, Tclass._System.nat(), $Heap);
+            assume $IsAlloc(##b#0, TInt, $Heap);
             b$reqreads#1 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
             assume _module.__default.Split#canCall(xs#0, n#0 + Div(len#0, LitInt(2)));
             assume _System.Tuple2.___hMake2_q(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))));
@@ -5510,37 +5592,35 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
             assume _module.__default.Split#canCall(xs#0, n#0 + Div(len#0, LitInt(2)));
             // CheckWellformedWithResult: any expression
             assume $Is(let#0#0#0, 
-              Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                Tclass._module.List(Tclass._System.nat())));
+              Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
             assume _System.Tuple2.___hMake2_q(let#0#0#0);
             assume _System.Tuple2.___hMake2_q(let#0#0#0);
             assume #_System._tuple#2._#Make2($Box(L#3), $Box(R#3)) == let#0#0#0;
             havoc llen#3;
-            assume LitInt(0) <= llen#3;
             ##xs#2 := L#3;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#2, Tclass._module.List(Tclass._System.nat()), $Heap);
+            assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
             b$reqreads#2 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-            assume _module.__default.Length#canCall(Tclass._System.nat(), L#3);
-            assume let#1#0#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#3);
-            assume _module.__default.Length#canCall(Tclass._System.nat(), L#3);
+            assume _module.__default.Length#canCall(TInt, L#3);
+            assume let#1#0#0 == _module.__default.Length(TInt, $LS($LZ), L#3);
+            assume _module.__default.Length#canCall(TInt, L#3);
             // CheckWellformedWithResult: any expression
-            assume $Is(let#1#0#0, Tclass._System.nat());
+            assume $Is(let#1#0#0, TInt);
             assume llen#3 == let#1#0#0;
             assert LitInt(2) != 0;
             if (llen#3 < Div(len#0, LitInt(2)))
             {
                 ##xs#3 := L#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##xs#3, Tclass._module.List(Tclass._System.nat()), $Heap);
+                assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);
                 ##n#0 := n#0;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##n#0, Tclass._System.nat(), $Heap);
+                assume $IsAlloc(##n#0, TInt, $Heap);
                 ##len#0 := llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##len#0, Tclass._System.nat(), $Heap);
-                assert {:subsumption 0} ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#3);
-                assume ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#3);
+                assume $IsAlloc(##len#0, TInt, $Heap);
+                assert {:subsumption 0} ##len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#3);
+                assume ##len#0 == _module.__default.Length(TInt, $LS($LZ), ##xs#3);
                 b$reqreads#3 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                 assert 0 <= len#0 || ##len#0 == len#0;
                 assert ##len#0 < len#0;
@@ -5549,23 +5629,21 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
                    == _module.__default.SMN($LS($LZ), L#3, n#0, llen#3);
                 assume _module.__default.SMN#canCall(L#3, n#0, llen#3);
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), TInt);
             }
             else
             {
                 ##xs#4 := R#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##xs#4, Tclass._module.List(Tclass._System.nat()), $Heap);
-                assert $Is(n#0 + llen#3, Tclass._System.nat());
+                assume $IsAlloc(##xs#4, Tclass._module.List(TInt), $Heap);
                 ##n#1 := n#0 + llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##n#1, Tclass._System.nat(), $Heap);
-                assert $Is(len#0 - llen#3, Tclass._System.nat());
+                assume $IsAlloc(##n#1, TInt, $Heap);
                 ##len#1 := len#0 - llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##len#1, Tclass._System.nat(), $Heap);
-                assert {:subsumption 0} ##len#1 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#4);
-                assume ##len#1 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#4);
+                assume $IsAlloc(##len#1, TInt, $Heap);
+                assert {:subsumption 0} ##len#1 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#4);
+                assume ##len#1 == _module.__default.Length(TInt, $LS($LZ), ##xs#4);
                 b$reqreads#4 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                 assert 0 <= len#0 || ##len#1 == len#0;
                 assert ##len#1 < len#0;
@@ -5574,7 +5652,7 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
                    == _module.__default.SMN($LS($LZ), R#3, n#0 + llen#3, len#0 - llen#3);
                 assume _module.__default.SMN#canCall(R#3, n#0 + llen#3, len#0 - llen#3);
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), TInt);
             }
         }
         else
@@ -5584,18 +5662,17 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
                 assert _module.List.Cons_q(xs#0);
                 if ($Unbox(_module.List.head(xs#0)): int == n#0)
                 {
-                    assert $Is(n#0 + 1, Tclass._System.nat());
                     assume _module.__default.SMN($LS($LZ), xs#0, n#0, len#0) == n#0 + 1;
                     assume true;
                     // CheckWellformedWithResult: any expression
-                    assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                    assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), TInt);
                 }
                 else
                 {
                     assume _module.__default.SMN($LS($LZ), xs#0, n#0, len#0) == n#0;
                     assume true;
                     // CheckWellformedWithResult: any expression
-                    assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                    assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), TInt);
                 }
             }
             else
@@ -5603,7 +5680,7 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
                 assume _module.__default.SMN($LS($LZ), xs#0, n#0, len#0) == n#0;
                 assume true;
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN($LS($LZ), xs#0, n#0, len#0), TInt);
             }
         }
 
@@ -5634,50 +5711,44 @@ axiom (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int ::
      == _module.__default.SMN_k($LZ, xs#0, n#0, len#0));
 
 // consequence axiom for _module.__default.SMN_k
-axiom 12 <= $FunctionContextHeight
+axiom 14 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     { _module.__default.SMN_k($ly, xs#0, n#0, len#0) } 
     _module.__default.SMN_k#canCall(xs#0, n#0, len#0)
-         || (12 != $FunctionContextHeight
+         || (14 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
-       ==> LitInt(0) <= _module.__default.SMN_k($ly, xs#0, n#0, len#0));
+          $Is(xs#0, Tclass._module.List(TInt))
+           && len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0))
+       ==> true);
 
 function _module.__default.SMN_k#requires(LayerType, DatatypeType, int, int) : bool;
 
 // #requires axiom for _module.__default.SMN_k
 axiom (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
   { _module.__default.SMN_k#requires($ly, xs#0, n#0, len#0) } 
-  $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-       && LitInt(0) <= n#0
-       && LitInt(0) <= len#0
+  $Is(xs#0, Tclass._module.List(TInt))
      ==> _module.__default.SMN_k#requires($ly, xs#0, n#0, len#0)
        == 
       (len#0
-       == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0)));
+       == _module.__default.Length(TInt, $LS($LZ), xs#0)));
 
 // definition axiom for _module.__default.SMN_k (revealed)
-axiom 12 <= $FunctionContextHeight
+axiom 14 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     { _module.__default.SMN_k($LS($ly), xs#0, n#0, len#0) } 
     _module.__default.SMN_k#canCall(xs#0, n#0, len#0)
-         || (12 != $FunctionContextHeight
+         || (14 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0))
        ==> $IsA#_module.List(xs#0)
          && (!_module.List#Equal(xs#0, #_module.List.Nil())
            ==> (var half#0 := Div(len#0 + 1, LitInt(2)); 
             _module.__default.Split#canCall(xs#0, n#0 + half#0)
                && (var L#0, R#0 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType; 
-                _module.__default.Length#canCall(Tclass._System.nat(), L#0)
-                   && (var llen#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0); 
+                _module.__default.Length#canCall(TInt, L#0)
+                   && (var llen#0 := _module.__default.Length(TInt, $LS($LZ), L#0); 
                     (llen#0 < half#0 ==> _module.__default.SMN_k#canCall(L#0, n#0, llen#0))
                        && (half#0 <= llen#0
                          ==> _module.__default.SMN_k#canCall(R#0, n#0 + llen#0, len#0 - llen#0))))))
@@ -5687,30 +5758,28 @@ axiom 12 <= $FunctionContextHeight
              else (var half#0 := Div(len#0 + 1, LitInt(2)); 
               (var L#0, R#0 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType; 
-                (var llen#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0); 
+                (var llen#0 := _module.__default.Length(TInt, $LS($LZ), L#0); 
                   (if llen#0 < half#0
                      then _module.__default.SMN_k($ly, L#0, n#0, llen#0)
                      else _module.__default.SMN_k($ly, R#0, n#0 + llen#0, len#0 - llen#0)))))));
 
 // definition axiom for _module.__default.SMN_k for decreasing-related literals (revealed)
-axiom 12 <= $FunctionContextHeight
+axiom 14 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     {:weight 3} { _module.__default.SMN_k($LS($ly), xs#0, n#0, LitInt(len#0)) } 
     _module.__default.SMN_k#canCall(xs#0, n#0, LitInt(len#0))
-         || (12 != $FunctionContextHeight
+         || (14 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && LitInt(len#0) == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && LitInt(len#0) == _module.__default.Length(TInt, $LS($LZ), xs#0))
        ==> $IsA#_module.List(xs#0)
          && (!_module.List#Equal(xs#0, #_module.List.Nil())
            ==> (var half#1 := LitInt(Div(len#0 + 1, LitInt(2))); 
             _module.__default.Split#canCall(xs#0, n#0 + half#1)
                && (var L#1, R#1 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType; 
-                _module.__default.Length#canCall(Tclass._System.nat(), L#1)
-                   && (var llen#1 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#1); 
+                _module.__default.Length#canCall(TInt, L#1)
+                   && (var llen#1 := _module.__default.Length(TInt, $LS($LZ), L#1); 
                     (llen#1 < half#1 ==> _module.__default.SMN_k#canCall(L#1, n#0, llen#1))
                        && (half#1 <= llen#1
                          ==> _module.__default.SMN_k#canCall(R#1, n#0 + llen#1, len#0 - llen#1))))))
@@ -5720,31 +5789,28 @@ axiom 12 <= $FunctionContextHeight
              else (var half#1 := LitInt(Div(len#0 + 1, LitInt(2))); 
               (var L#1, R#1 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType; 
-                (var llen#1 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#1); 
+                (var llen#1 := _module.__default.Length(TInt, $LS($LZ), L#1); 
                   (if llen#1 < half#1
                      then _module.__default.SMN_k($LS($ly), L#1, n#0, llen#1)
                      else _module.__default.SMN_k($LS($ly), R#1, n#0 + llen#1, len#0 - llen#1)))))));
 
 // definition axiom for _module.__default.SMN_k for all literals (revealed)
-axiom 12 <= $FunctionContextHeight
+axiom 14 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     {:weight 3} { _module.__default.SMN_k($LS($ly), Lit(xs#0), LitInt(n#0), LitInt(len#0)) } 
     _module.__default.SMN_k#canCall(Lit(xs#0), LitInt(n#0), LitInt(len#0))
-         || (12 != $FunctionContextHeight
+         || (14 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && LitInt(len#0)
-             == LitInt(_module.__default.Length(Tclass._System.nat(), $LS($LZ), Lit(xs#0))))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && LitInt(len#0) == LitInt(_module.__default.Length(TInt, $LS($LZ), Lit(xs#0))))
        ==> $IsA#_module.List(Lit(xs#0))
          && (!_module.List#Equal(xs#0, #_module.List.Nil())
            ==> (var half#2 := LitInt(Div(len#0 + 1, LitInt(2))); 
             _module.__default.Split#canCall(Lit(xs#0), n#0 + half#2)
                && (var L#2, R#2 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), Lit(xs#0), n#0 + half#2))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), Lit(xs#0), n#0 + half#2))): DatatypeType; 
-                _module.__default.Length#canCall(Tclass._System.nat(), L#2)
-                   && (var llen#2 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#2); 
+                _module.__default.Length#canCall(TInt, L#2)
+                   && (var llen#2 := _module.__default.Length(TInt, $LS($LZ), L#2); 
                     (llen#2 < half#2 ==> _module.__default.SMN_k#canCall(L#2, LitInt(n#0), llen#2))
                        && (half#2 <= llen#2
                          ==> _module.__default.SMN_k#canCall(R#2, n#0 + llen#2, len#0 - llen#2))))))
@@ -5754,15 +5820,15 @@ axiom 12 <= $FunctionContextHeight
              else (var half#2 := LitInt(Div(len#0 + 1, LitInt(2))); 
               (var L#2, R#2 := $Unbox(_System.Tuple2._0(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + half#2))))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + half#2))))): DatatypeType; 
-                (var llen#2 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#2); 
+                (var llen#2 := _module.__default.Length(TInt, $LS($LZ), L#2); 
                   (if llen#2 < half#2
                      then _module.__default.SMN_k($LS($ly), L#2, LitInt(n#0), llen#2)
                      else _module.__default.SMN_k($LS($ly), R#2, n#0 + llen#2, len#0 - llen#2)))))));
 
-procedure CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(Tclass._System.nat())), 
-    n#0: int where LitInt(0) <= n#0, 
-    len#0: int where LitInt(0) <= len#0);
-  free requires 12 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(TInt)), 
+    n#0: int, 
+    len#0: int);
+  free requires 14 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -5800,19 +5866,18 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
     b$reqreads#4 := true;
 
     // AddWellformednessCheck for function SMN'
-    assume {:captureState "SMN_Dafny.dfy(113,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(123,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
     b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-    assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
-    assume len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0);
+    assume _module.__default.Length#canCall(TInt, xs#0);
+    assume len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0);
     assert b$reqreads#0;
     if (*)
     {
-        assume LitInt(0) <= _module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0);
         assume false;
     }
     else
@@ -5824,7 +5889,7 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
             assume _module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0) == n#0;
             assume true;
             // CheckWellformedWithResult: any expression
-            assume $Is(_module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+            assume $Is(_module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0), TInt);
         }
         else
         {
@@ -5836,16 +5901,15 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
             assume $Is(let#0#0#0, TInt);
             assume half#3 == let#0#0#0;
             havoc L#3;
-            assume $Is(L#3, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(L#3, Tclass._module.List(TInt));
             havoc R#3;
-            assume $Is(R#3, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(R#3, Tclass._module.List(TInt));
             ##xs#1 := xs#0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
-            assert $Is(n#0 + half#3, Tclass._System.nat());
+            assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
             ##b#0 := n#0 + half#3;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##b#0, Tclass._System.nat(), $Heap);
+            assume $IsAlloc(##b#0, TInt, $Heap);
             b$reqreads#1 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
             assume _module.__default.Split#canCall(xs#0, n#0 + half#3);
             assume _System.Tuple2.___hMake2_q(_module.__default.Split($LS($LZ), xs#0, n#0 + half#3));
@@ -5853,36 +5917,34 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
             assume _module.__default.Split#canCall(xs#0, n#0 + half#3);
             // CheckWellformedWithResult: any expression
             assume $Is(let#1#0#0, 
-              Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                Tclass._module.List(Tclass._System.nat())));
+              Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
             assume _System.Tuple2.___hMake2_q(let#1#0#0);
             assume _System.Tuple2.___hMake2_q(let#1#0#0);
             assume #_System._tuple#2._#Make2($Box(L#3), $Box(R#3)) == let#1#0#0;
             havoc llen#3;
-            assume LitInt(0) <= llen#3;
             ##xs#2 := L#3;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#2, Tclass._module.List(Tclass._System.nat()), $Heap);
+            assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
             b$reqreads#2 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-            assume _module.__default.Length#canCall(Tclass._System.nat(), L#3);
-            assume let#2#0#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#3);
-            assume _module.__default.Length#canCall(Tclass._System.nat(), L#3);
+            assume _module.__default.Length#canCall(TInt, L#3);
+            assume let#2#0#0 == _module.__default.Length(TInt, $LS($LZ), L#3);
+            assume _module.__default.Length#canCall(TInt, L#3);
             // CheckWellformedWithResult: any expression
-            assume $Is(let#2#0#0, Tclass._System.nat());
+            assume $Is(let#2#0#0, TInt);
             assume llen#3 == let#2#0#0;
             if (llen#3 < half#3)
             {
                 ##xs#3 := L#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##xs#3, Tclass._module.List(Tclass._System.nat()), $Heap);
+                assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);
                 ##n#0 := n#0;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##n#0, Tclass._System.nat(), $Heap);
+                assume $IsAlloc(##n#0, TInt, $Heap);
                 ##len#0 := llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##len#0, Tclass._System.nat(), $Heap);
-                assert {:subsumption 0} ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#3);
-                assume ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#3);
+                assume $IsAlloc(##len#0, TInt, $Heap);
+                assert {:subsumption 0} ##len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#3);
+                assume ##len#0 == _module.__default.Length(TInt, $LS($LZ), ##xs#3);
                 b$reqreads#3 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                 assert 0 <= len#0 || ##len#0 == len#0;
                 assert ##len#0 < len#0;
@@ -5891,23 +5953,21 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
                    == _module.__default.SMN_k($LS($LZ), L#3, n#0, llen#3);
                 assume _module.__default.SMN_k#canCall(L#3, n#0, llen#3);
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0), TInt);
             }
             else
             {
                 ##xs#4 := R#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##xs#4, Tclass._module.List(Tclass._System.nat()), $Heap);
-                assert $Is(n#0 + llen#3, Tclass._System.nat());
+                assume $IsAlloc(##xs#4, Tclass._module.List(TInt), $Heap);
                 ##n#1 := n#0 + llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##n#1, Tclass._System.nat(), $Heap);
-                assert $Is(len#0 - llen#3, Tclass._System.nat());
+                assume $IsAlloc(##n#1, TInt, $Heap);
                 ##len#1 := len#0 - llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##len#1, Tclass._System.nat(), $Heap);
-                assert {:subsumption 0} ##len#1 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#4);
-                assume ##len#1 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#4);
+                assume $IsAlloc(##len#1, TInt, $Heap);
+                assert {:subsumption 0} ##len#1 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#4);
+                assume ##len#1 == _module.__default.Length(TInt, $LS($LZ), ##xs#4);
                 b$reqreads#4 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                 assert 0 <= len#0 || ##len#1 == len#0;
                 assert ##len#1 < len#0;
@@ -5916,7 +5976,7 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
                    == _module.__default.SMN_k($LS($LZ), R#3, n#0 + llen#3, len#0 - llen#3);
                 assume _module.__default.SMN_k#canCall(R#3, n#0 + llen#3, len#0 - llen#3);
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN_k($LS($LZ), xs#0, n#0, len#0), TInt);
             }
         }
 
@@ -5947,50 +6007,44 @@ axiom (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int ::
      == _module.__default.SMN_k_k($LZ, xs#0, n#0, len#0));
 
 // consequence axiom for _module.__default.SMN_k_k
-axiom 13 <= $FunctionContextHeight
+axiom 15 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     { _module.__default.SMN_k_k($ly, xs#0, n#0, len#0) } 
     _module.__default.SMN_k_k#canCall(xs#0, n#0, len#0)
-         || (13 != $FunctionContextHeight
+         || (15 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
-       ==> LitInt(0) <= _module.__default.SMN_k_k($ly, xs#0, n#0, len#0));
+          $Is(xs#0, Tclass._module.List(TInt))
+           && len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0))
+       ==> true);
 
 function _module.__default.SMN_k_k#requires(LayerType, DatatypeType, int, int) : bool;
 
 // #requires axiom for _module.__default.SMN_k_k
 axiom (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
   { _module.__default.SMN_k_k#requires($ly, xs#0, n#0, len#0) } 
-  $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-       && LitInt(0) <= n#0
-       && LitInt(0) <= len#0
+  $Is(xs#0, Tclass._module.List(TInt))
      ==> _module.__default.SMN_k_k#requires($ly, xs#0, n#0, len#0)
        == 
       (len#0
-       == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0)));
+       == _module.__default.Length(TInt, $LS($LZ), xs#0)));
 
 // definition axiom for _module.__default.SMN_k_k (revealed)
-axiom 13 <= $FunctionContextHeight
+axiom 15 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     { _module.__default.SMN_k_k($LS($ly), xs#0, n#0, len#0) } 
     _module.__default.SMN_k_k#canCall(xs#0, n#0, len#0)
-         || (13 != $FunctionContextHeight
+         || (15 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0))
        ==> $IsA#_module.List(xs#0)
          && (!_module.List#Equal(xs#0, #_module.List.Nil())
            ==> (var half#0 := Div(len#0, LitInt(2)) + 1; 
             _module.__default.Split#canCall(xs#0, n#0 + half#0)
                && (var L#0, R#0 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType; 
-                _module.__default.Length#canCall(Tclass._System.nat(), L#0)
-                   && (var llen#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0); 
+                _module.__default.Length#canCall(TInt, L#0)
+                   && (var llen#0 := _module.__default.Length(TInt, $LS($LZ), L#0); 
                     (llen#0 < half#0 ==> _module.__default.SMN_k_k#canCall(L#0, n#0, llen#0))
                        && (half#0 <= llen#0
                          ==> _module.__default.SMN_k_k#canCall(R#0, n#0 + llen#0, len#0 - llen#0))))))
@@ -6000,30 +6054,28 @@ axiom 13 <= $FunctionContextHeight
              else (var half#0 := Div(len#0, LitInt(2)) + 1; 
               (var L#0, R#0 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#0))): DatatypeType; 
-                (var llen#0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0); 
+                (var llen#0 := _module.__default.Length(TInt, $LS($LZ), L#0); 
                   (if llen#0 < half#0
                      then _module.__default.SMN_k_k($ly, L#0, n#0, llen#0)
                      else _module.__default.SMN_k_k($ly, R#0, n#0 + llen#0, len#0 - llen#0)))))));
 
 // definition axiom for _module.__default.SMN_k_k for decreasing-related literals (revealed)
-axiom 13 <= $FunctionContextHeight
+axiom 15 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     {:weight 3} { _module.__default.SMN_k_k($LS($ly), xs#0, n#0, LitInt(len#0)) } 
     _module.__default.SMN_k_k#canCall(xs#0, n#0, LitInt(len#0))
-         || (13 != $FunctionContextHeight
+         || (15 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && LitInt(len#0) == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && LitInt(len#0) == _module.__default.Length(TInt, $LS($LZ), xs#0))
        ==> $IsA#_module.List(xs#0)
          && (!_module.List#Equal(xs#0, #_module.List.Nil())
            ==> (var half#1 := LitInt(Div(len#0, LitInt(2)) + 1); 
             _module.__default.Split#canCall(xs#0, n#0 + half#1)
                && (var L#1, R#1 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType; 
-                _module.__default.Length#canCall(Tclass._System.nat(), L#1)
-                   && (var llen#1 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#1); 
+                _module.__default.Length#canCall(TInt, L#1)
+                   && (var llen#1 := _module.__default.Length(TInt, $LS($LZ), L#1); 
                     (llen#1 < half#1 ==> _module.__default.SMN_k_k#canCall(L#1, n#0, llen#1))
                        && (half#1 <= llen#1
                          ==> _module.__default.SMN_k_k#canCall(R#1, n#0 + llen#1, len#0 - llen#1))))))
@@ -6033,31 +6085,28 @@ axiom 13 <= $FunctionContextHeight
              else (var half#1 := LitInt(Div(len#0, LitInt(2)) + 1); 
               (var L#1, R#1 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), xs#0, n#0 + half#1))): DatatypeType; 
-                (var llen#1 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#1); 
+                (var llen#1 := _module.__default.Length(TInt, $LS($LZ), L#1); 
                   (if llen#1 < half#1
                      then _module.__default.SMN_k_k($LS($ly), L#1, n#0, llen#1)
                      else _module.__default.SMN_k_k($LS($ly), R#1, n#0 + llen#1, len#0 - llen#1)))))));
 
 // definition axiom for _module.__default.SMN_k_k for all literals (revealed)
-axiom 13 <= $FunctionContextHeight
+axiom 15 <= $FunctionContextHeight
    ==> (forall $ly: LayerType, xs#0: DatatypeType, n#0: int, len#0: int :: 
     {:weight 3} { _module.__default.SMN_k_k($LS($ly), Lit(xs#0), LitInt(n#0), LitInt(len#0)) } 
     _module.__default.SMN_k_k#canCall(Lit(xs#0), LitInt(n#0), LitInt(len#0))
-         || (13 != $FunctionContextHeight
+         || (15 != $FunctionContextHeight
            && 
-          $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= n#0
-           && LitInt(0) <= len#0
-           && LitInt(len#0)
-             == LitInt(_module.__default.Length(Tclass._System.nat(), $LS($LZ), Lit(xs#0))))
+          $Is(xs#0, Tclass._module.List(TInt))
+           && LitInt(len#0) == LitInt(_module.__default.Length(TInt, $LS($LZ), Lit(xs#0))))
        ==> $IsA#_module.List(Lit(xs#0))
          && (!_module.List#Equal(xs#0, #_module.List.Nil())
            ==> (var half#2 := LitInt(Div(len#0, LitInt(2)) + 1); 
             _module.__default.Split#canCall(Lit(xs#0), n#0 + half#2)
                && (var L#2, R#2 := $Unbox(_System.Tuple2._0(_module.__default.Split($LS($LZ), Lit(xs#0), n#0 + half#2))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(_module.__default.Split($LS($LZ), Lit(xs#0), n#0 + half#2))): DatatypeType; 
-                _module.__default.Length#canCall(Tclass._System.nat(), L#2)
-                   && (var llen#2 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#2); 
+                _module.__default.Length#canCall(TInt, L#2)
+                   && (var llen#2 := _module.__default.Length(TInt, $LS($LZ), L#2); 
                     (llen#2 < half#2
                          ==> _module.__default.SMN_k_k#canCall(L#2, LitInt(n#0), llen#2))
                        && (half#2 <= llen#2
@@ -6068,15 +6117,15 @@ axiom 13 <= $FunctionContextHeight
              else (var half#2 := LitInt(Div(len#0, LitInt(2)) + 1); 
               (var L#2, R#2 := $Unbox(_System.Tuple2._0(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + half#2))))): DatatypeType, 
                   $Unbox(_System.Tuple2._1(Lit(_module.__default.Split($LS($LZ), Lit(xs#0), LitInt(n#0 + half#2))))): DatatypeType; 
-                (var llen#2 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#2); 
+                (var llen#2 := _module.__default.Length(TInt, $LS($LZ), L#2); 
                   (if llen#2 < half#2
                      then _module.__default.SMN_k_k($LS($ly), L#2, LitInt(n#0), llen#2)
                      else _module.__default.SMN_k_k($LS($ly), R#2, n#0 + llen#2, len#0 - llen#2)))))));
 
-procedure CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(Tclass._System.nat())), 
-    n#0: int where LitInt(0) <= n#0, 
-    len#0: int where LitInt(0) <= len#0);
-  free requires 13 == $FunctionContextHeight;
+procedure CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType where $Is(xs#0, Tclass._module.List(TInt)), 
+    n#0: int, 
+    len#0: int);
+  free requires 15 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -6114,19 +6163,18 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
     b$reqreads#4 := true;
 
     // AddWellformednessCheck for function SMN''
-    assume {:captureState "SMN_Dafny.dfy(132,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(142,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
     b$reqreads#0 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-    assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
-    assume len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0);
+    assume _module.__default.Length#canCall(TInt, xs#0);
+    assume len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0);
     assert b$reqreads#0;
     if (*)
     {
-        assume LitInt(0) <= _module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0);
         assume false;
     }
     else
@@ -6138,7 +6186,7 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
             assume _module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0) == n#0;
             assume true;
             // CheckWellformedWithResult: any expression
-            assume $Is(_module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+            assume $Is(_module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0), TInt);
         }
         else
         {
@@ -6150,16 +6198,15 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
             assume $Is(let#0#0#0, TInt);
             assume half#3 == let#0#0#0;
             havoc L#3;
-            assume $Is(L#3, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(L#3, Tclass._module.List(TInt));
             havoc R#3;
-            assume $Is(R#3, Tclass._module.List(Tclass._System.nat()));
+            assume $Is(R#3, Tclass._module.List(TInt));
             ##xs#1 := xs#0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
-            assert $Is(n#0 + half#3, Tclass._System.nat());
+            assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
             ##b#0 := n#0 + half#3;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##b#0, Tclass._System.nat(), $Heap);
+            assume $IsAlloc(##b#0, TInt, $Heap);
             b$reqreads#1 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
             assume _module.__default.Split#canCall(xs#0, n#0 + half#3);
             assume _System.Tuple2.___hMake2_q(_module.__default.Split($LS($LZ), xs#0, n#0 + half#3));
@@ -6167,36 +6214,34 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
             assume _module.__default.Split#canCall(xs#0, n#0 + half#3);
             // CheckWellformedWithResult: any expression
             assume $Is(let#1#0#0, 
-              Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-                Tclass._module.List(Tclass._System.nat())));
+              Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
             assume _System.Tuple2.___hMake2_q(let#1#0#0);
             assume _System.Tuple2.___hMake2_q(let#1#0#0);
             assume #_System._tuple#2._#Make2($Box(L#3), $Box(R#3)) == let#1#0#0;
             havoc llen#3;
-            assume LitInt(0) <= llen#3;
             ##xs#2 := L#3;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#2, Tclass._module.List(Tclass._System.nat()), $Heap);
+            assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
             b$reqreads#2 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
-            assume _module.__default.Length#canCall(Tclass._System.nat(), L#3);
-            assume let#2#0#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#3);
-            assume _module.__default.Length#canCall(Tclass._System.nat(), L#3);
+            assume _module.__default.Length#canCall(TInt, L#3);
+            assume let#2#0#0 == _module.__default.Length(TInt, $LS($LZ), L#3);
+            assume _module.__default.Length#canCall(TInt, L#3);
             // CheckWellformedWithResult: any expression
-            assume $Is(let#2#0#0, Tclass._System.nat());
+            assume $Is(let#2#0#0, TInt);
             assume llen#3 == let#2#0#0;
             if (llen#3 < half#3)
             {
                 ##xs#3 := L#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##xs#3, Tclass._module.List(Tclass._System.nat()), $Heap);
+                assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);
                 ##n#0 := n#0;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##n#0, Tclass._System.nat(), $Heap);
+                assume $IsAlloc(##n#0, TInt, $Heap);
                 ##len#0 := llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##len#0, Tclass._System.nat(), $Heap);
-                assert {:subsumption 0} ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#3);
-                assume ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#3);
+                assume $IsAlloc(##len#0, TInt, $Heap);
+                assert {:subsumption 0} ##len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#3);
+                assume ##len#0 == _module.__default.Length(TInt, $LS($LZ), ##xs#3);
                 b$reqreads#3 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                 assert 0 <= len#0 || ##len#0 == len#0;
                 assert ##len#0 < len#0;
@@ -6205,23 +6250,21 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
                    == _module.__default.SMN_k_k($LS($LZ), L#3, n#0, llen#3);
                 assume _module.__default.SMN_k_k#canCall(L#3, n#0, llen#3);
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0), TInt);
             }
             else
             {
                 ##xs#4 := R#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##xs#4, Tclass._module.List(Tclass._System.nat()), $Heap);
-                assert $Is(n#0 + llen#3, Tclass._System.nat());
+                assume $IsAlloc(##xs#4, Tclass._module.List(TInt), $Heap);
                 ##n#1 := n#0 + llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##n#1, Tclass._System.nat(), $Heap);
-                assert $Is(len#0 - llen#3, Tclass._System.nat());
+                assume $IsAlloc(##n#1, TInt, $Heap);
                 ##len#1 := len#0 - llen#3;
                 // assume allocatedness for argument to function
-                assume $IsAlloc(##len#1, Tclass._System.nat(), $Heap);
-                assert {:subsumption 0} ##len#1 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#4);
-                assume ##len#1 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#4);
+                assume $IsAlloc(##len#1, TInt, $Heap);
+                assert {:subsumption 0} ##len#1 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#4);
+                assume ##len#1 == _module.__default.Length(TInt, $LS($LZ), ##xs#4);
                 b$reqreads#4 := (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                 assert 0 <= len#0 || ##len#1 == len#0;
                 assert ##len#1 < len#0;
@@ -6230,7 +6273,7 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
                    == _module.__default.SMN_k_k($LS($LZ), R#3, n#0 + llen#3, len#0 - llen#3);
                 assume _module.__default.SMN_k_k#canCall(R#3, n#0 + llen#3, len#0 - llen#3);
                 // CheckWellformedWithResult: any expression
-                assume $Is(_module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0), Tclass._System.nat());
+                assume $Is(_module.__default.SMN_k_k($LS($LZ), xs#0, n#0, len#0), TInt);
             }
         }
 
@@ -6244,71 +6287,69 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
 
 
 procedure {:_induction xs#0} CheckWellformed$$_module.__default.SmallestMissingNumber__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0));
-  free requires 17 == $FunctionContextHeight;
+  free requires 20 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
 
 procedure {:_induction xs#0} Call$$_module.__default.SmallestMissingNumber__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0));
   // user-defined preconditions
-  requires _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
   // user-defined postconditions
   free ensures _module.__default.SmallestMissingNumber#canCall(xs#0)
      && (var s#1 := _module.__default.SmallestMissingNumber(xs#0); 
-      _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-         && (!_module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(s#1)]
+      _module.__default.Elements#canCall(TInt, xs#0)
+         && (!_module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(s#1)]
            ==> (forall x#1: int :: 
-            { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)] } 
-            LitInt(0) <= x#1 && x#1 < s#1
-               ==> _module.__default.Elements#canCall(Tclass._System.nat(), xs#0))));
+            { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)] } 
+            LitInt(0) <= x#1 && x#1 < s#1 ==> _module.__default.Elements#canCall(TInt, xs#0))));
   ensures (var s#1 := _module.__default.SmallestMissingNumber(xs#0); 
-    !_module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(s#1)]);
+    !_module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(s#1)]);
   free ensures (var s#1 := _module.__default.SmallestMissingNumber(xs#0); 
     (forall x#1: int :: 
-      { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)] } 
+      { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)] } 
       true
          ==> 
         LitInt(0) <= x#1 && x#1 < s#1
-         ==> _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)]));
+         ==> _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)]));
   // frame condition
   free ensures old($Heap) == $Heap;
 
 
 
 procedure {:_induction xs#0} Impl$$_module.__default.SmallestMissingNumber__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0))
    returns ($_reverifyPost: bool);
-  free requires 17 == $FunctionContextHeight;
+  free requires 20 == $FunctionContextHeight;
   // user-defined preconditions
-  requires _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
   // user-defined postconditions
   free ensures _module.__default.SmallestMissingNumber#canCall(xs#0)
      && (var s#1 := _module.__default.SmallestMissingNumber(xs#0); 
-      _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-         && (!_module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(s#1)]
+      _module.__default.Elements#canCall(TInt, xs#0)
+         && (!_module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(s#1)]
            ==> (forall x#1: int :: 
-            { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)] } 
-            LitInt(0) <= x#1 && x#1 < s#1
-               ==> _module.__default.Elements#canCall(Tclass._System.nat(), xs#0))));
+            { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)] } 
+            LitInt(0) <= x#1 && x#1 < s#1 ==> _module.__default.Elements#canCall(TInt, xs#0))));
   ensures (var s#1 := _module.__default.SmallestMissingNumber(xs#0); 
-    !_module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(s#1)]);
+    !_module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(s#1)]);
   ensures (var s#1 := _module.__default.SmallestMissingNumber(xs#0); 
     (forall x#1: int :: 
-      { _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#1)] } 
+      { _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#1)] } 
       true
          ==> 
         LitInt(0) <= x#1 && x#1 < s#1
-         ==> _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#1)]));
+         ==> _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#1)]));
   // frame condition
   free ensures old($Heap) == $Heap;
 
@@ -6326,56 +6367,55 @@ implementation {:_induction xs#0} Impl$$_module.__default.SmallestMissingNumber_
     // AddMethodImpl: SmallestMissingNumber_Correct, Impl$$_module.__default.SmallestMissingNumber__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(155,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(165,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
     assume $initHeapForallStmt#0 == $Heap;
     assume (forall $ih#xs0#0: DatatypeType :: 
-      $Is($ih#xs0#0, Tclass._module.List(Tclass._System.nat()))
-           && _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)
+      $Is($ih#xs0#0, Tclass._module.List(TInt))
+           && _module.__default.NoDuplicates(TInt, $LS($LZ), $ih#xs0#0)
            && DtRank($ih#xs0#0) < DtRank(xs#0)
          ==> (var s#2 := _module.__default.SmallestMissingNumber($ih#xs0#0); 
-          !_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(s#2)]
+          !_module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(s#2)]
              && (forall x#2: int :: 
-              { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(x#2)] } 
+              { _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#2)] } 
               true
                  ==> 
                 LitInt(0) <= x#2 && x#2 < s#2
-                 ==> _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(x#2)])));
+                 ==> _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#2)])));
     $_reverifyPost := false;
-    // ----- call statement ----- SMN_Dafny.dfy(156,14)
+    // ----- call statement ----- SMN_Dafny.dfy(166,14)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
     xs##0 := xs#0;
     assume true;
     // ProcessCallStmt: CheckSubrange
-    assert $Is(LitInt(0), Tclass._System.nat());
     n##0 := LitInt(0);
     ##xs#4 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#4, Tclass._module.List(Tclass._System.nat()), $Heap);
-    assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
-    assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
+    assume $IsAlloc(##xs#4, Tclass._module.List(TInt), $Heap);
+    assume _module.__default.Length#canCall(TInt, xs#0);
+    assume _module.__default.Length#canCall(TInt, xs#0);
     // ProcessCallStmt: CheckSubrange
-    len##0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0);
+    len##0 := _module.__default.Length(TInt, $LS($LZ), xs#0);
     assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.SMN__Correct(xs##0, n##0, len##0);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "SMN_Dafny.dfy(156,32)"} true;
+    assume {:captureState "SMN_Dafny.dfy(166,32)"} true;
 }
 
 
 
 procedure {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default.SMN__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0), 
-    n#0: int where LitInt(0) <= n#0, 
-    len#0: int where LitInt(0) <= len#0);
-  free requires 16 == $FunctionContextHeight;
+    n#0: int, 
+    len#0: int);
+  free requires 19 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -6399,54 +6439,53 @@ implementation {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default
     // AddMethodImpl: SMN_Correct, CheckWellformed$$_module.__default.SMN__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(162,6): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(172,6): initial state"} true;
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
-    assume _module.__default.NoDuplicates#canCall(Tclass._System.nat(), xs#0);
-    assume _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), xs#0);
+    assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
+    assume _module.__default.NoDuplicates#canCall(TInt, xs#0);
+    assume _module.__default.NoDuplicates(TInt, $LS($LZ), xs#0);
     havoc x#0;
     if (*)
     {
         ##xs#1 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Elements#canCall(Tclass._System.nat(), xs#0);
-        assume _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#0)];
+        assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Elements#canCall(TInt, xs#0);
+        assume _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#0)];
         assume n#0 <= x#0;
     }
     else
     {
-        assume _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#0)]
-           ==> n#0 <= x#0;
+        assume _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#0)] ==> n#0 <= x#0;
     }
 
     assume (forall x#1: int :: 
-      { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)] } 
+      { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)] } 
       true
          ==> 
-        _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)]
+        _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)]
          ==> n#0 <= x#1);
     ##xs#2 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#2, Tclass._module.List(Tclass._System.nat()), $Heap);
-    assume _module.__default.Length#canCall(Tclass._System.nat(), xs#0);
-    assume len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), xs#0);
+    assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
+    assume _module.__default.Length#canCall(TInt, xs#0);
+    assume len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0);
     havoc $Heap;
     assume old($Heap) == $Heap;
-    assume {:captureState "SMN_Dafny.dfy(166,10): post-state"} true;
+    assume {:captureState "SMN_Dafny.dfy(176,10): post-state"} true;
     havoc s#0;
     ##xs#3 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#3, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);
     ##n#0 := n#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##n#0, Tclass._System.nat(), $Heap);
+    assume $IsAlloc(##n#0, TInt, $Heap);
     ##len#0 := len#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##len#0, Tclass._System.nat(), $Heap);
-    assert {:subsumption 0} ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#3);
-    assume ##len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#3);
+    assume $IsAlloc(##len#0, TInt, $Heap);
+    assert {:subsumption 0} ##len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#3);
+    assume ##len#0 == _module.__default.Length(TInt, $LS($LZ), ##xs#3);
     assume _module.__default.SMN#canCall(xs#0, n#0, len#0);
     assume let#0#0#0 == _module.__default.SMN($LS($LZ), xs#0, n#0, len#0);
     assume _module.__default.SMN#canCall(xs#0, n#0, len#0);
@@ -6461,13 +6500,13 @@ implementation {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default
     {
         ##xs#4 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#4, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Elements#canCall(Tclass._System.nat(), xs#0);
+        assume $IsAlloc(##xs#4, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Elements#canCall(TInt, xs#0);
     }
 
     if (n#0 <= s#0
        && s#0 <= n#0 + len#0
-       && !_module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(s#0)])
+       && !_module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(s#0)])
     {
         havoc x#2;
         // Begin Comprehension WF check
@@ -6479,8 +6518,8 @@ implementation {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default
         {
             ##xs#5 := xs#0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#5, Tclass._module.List(Tclass._System.nat()), $Heap);
-            assume _module.__default.Elements#canCall(Tclass._System.nat(), xs#0);
+            assume $IsAlloc(##xs#5, Tclass._module.List(TInt), $Heap);
+            assume _module.__default.Elements#canCall(TInt, xs#0);
         }
 
         // End Comprehension WF check
@@ -6489,100 +6528,98 @@ implementation {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default
     assume (var s#1 := _module.__default.SMN($LS($LZ), xs#0, n#0, len#0); 
       n#0 <= s#1
          && s#1 <= n#0 + len#0
-         && !_module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(s#1)]
+         && !_module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(s#1)]
          && (forall x#3: int :: 
-          { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#3)] } 
+          { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#3)] } 
           true
              ==> 
             n#0 <= x#3 && x#3 < s#1
-             ==> _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#3)]));
+             ==> _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#3)]));
 }
 
 
 
 procedure {:_induction xs#0, n#0, len#0} Call$$_module.__default.SMN__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0), 
-    n#0: int where LitInt(0) <= n#0, 
-    len#0: int where LitInt(0) <= len#0);
+    n#0: int, 
+    len#0: int);
   // user-defined preconditions
-  requires _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), xs#0);
   requires (forall x#1: int :: 
-    { _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#1)] } 
+    { _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#1)] } 
     true
        ==> 
-      _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#1)]
+      _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#1)]
        ==> n#0 <= x#1);
-  requires len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
   // user-defined postconditions
   free ensures _module.__default.SMN#canCall(xs#0, n#0, len#0)
      && (var s#1 := _module.__default.SMN($LS($LZ), xs#0, n#0, len#0); 
       n#0 <= s#1 && s#1 <= n#0 + len#0
-         ==> _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-           && (!_module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(s#1)]
+         ==> _module.__default.Elements#canCall(TInt, xs#0)
+           && (!_module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(s#1)]
              ==> (forall x#3: int :: 
-              { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#3)] } 
-              n#0 <= x#3 && x#3 < s#1
-                 ==> _module.__default.Elements#canCall(Tclass._System.nat(), xs#0))));
+              { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#3)] } 
+              n#0 <= x#3 && x#3 < s#1 ==> _module.__default.Elements#canCall(TInt, xs#0))));
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); n#0 <= s#1);
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); 
     s#1 <= n#0 + len#0);
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); 
-    !_module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(s#1)]);
+    !_module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(s#1)]);
   free ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); 
     (forall x#3: int :: 
-      { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#3)] } 
+      { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#3)] } 
       true
          ==> 
         n#0 <= x#3 && x#3 < s#1
-         ==> _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#3)]));
+         ==> _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#3)]));
   // frame condition
   free ensures old($Heap) == $Heap;
 
 
 
 procedure {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Correct(xs#0: DatatypeType
-       where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-         && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap)
+       where $Is(xs#0, Tclass._module.List(TInt))
+         && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap)
          && $IsA#_module.List(xs#0), 
-    n#0: int where LitInt(0) <= n#0, 
-    len#0: int where LitInt(0) <= len#0)
+    n#0: int, 
+    len#0: int)
    returns ($_reverifyPost: bool);
-  free requires 16 == $FunctionContextHeight;
+  free requires 19 == $FunctionContextHeight;
   // user-defined preconditions
-  requires _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires _module.__default.NoDuplicates(TInt, $LS($LS($LZ)), xs#0);
   free requires (forall x#1: int :: 
-    { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)] } 
+    { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)] } 
     true
        ==> 
-      _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#1)]
+      _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#1)]
        ==> n#0 <= x#1);
-  requires len#0 == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), xs#0);
+  requires len#0 == _module.__default.Length(TInt, $LS($LS($LZ)), xs#0);
   modifies $Heap, $Tick;
   // user-defined postconditions
   free ensures _module.__default.SMN#canCall(xs#0, n#0, len#0)
      && (var s#1 := _module.__default.SMN($LS($LZ), xs#0, n#0, len#0); 
       n#0 <= s#1 && s#1 <= n#0 + len#0
-         ==> _module.__default.Elements#canCall(Tclass._System.nat(), xs#0)
-           && (!_module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(s#1)]
+         ==> _module.__default.Elements#canCall(TInt, xs#0)
+           && (!_module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(s#1)]
              ==> (forall x#3: int :: 
-              { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#3)] } 
-              n#0 <= x#3 && x#3 < s#1
-                 ==> _module.__default.Elements#canCall(Tclass._System.nat(), xs#0))));
+              { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#3)] } 
+              n#0 <= x#3 && x#3 < s#1 ==> _module.__default.Elements#canCall(TInt, xs#0))));
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); n#0 <= s#1);
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); 
     s#1 <= n#0 + len#0);
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); 
-    !_module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(s#1)]);
+    !_module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(s#1)]);
   ensures (var s#1 := _module.__default.SMN($LS($LS($LZ)), xs#0, n#0, len#0); 
     (forall x#3: int :: 
-      { _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#3)] } 
+      { _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#3)] } 
       true
          ==> 
         n#0 <= x#3 && x#3 < s#1
-         ==> _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#3)]));
+         ==> _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#3)]));
   // frame condition
   free ensures old($Heap) == $Heap;
 
@@ -6599,12 +6636,11 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
   var ##b#0_0: int;
   var xs##0_0: DatatypeType;
   var b##0_0: int;
-  var llen#0_0: int where LitInt(0) <= llen#0_0;
+  var llen#0_0: int;
   var ##xs#0_1: DatatypeType;
   var xs##0_1: DatatypeType;
   var bound#0_0: Set Box
-     where $Is(bound#0_0, TSet(Tclass._System.nat()))
-       && $IsAlloc(bound#0_0, TSet(Tclass._System.nat()), $Heap);
+     where $Is(bound#0_0, TSet(TInt)) && $IsAlloc(bound#0_0, TSet(TInt), $Heap);
   var ##lo#0_0: int;
   var ##len#0_0: int;
   var A##0_0: Set Box;
@@ -6613,7 +6649,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
   var xs##0_0_0: DatatypeType;
   var n##0_0_0: int;
   var len##0_0_0: int;
-  var s#0_0: int where LitInt(0) <= s#0_0;
+  var s#0_0: int;
   var ##xs#0_3: DatatypeType;
   var ##n#0_0: int;
   var ##len#0_1: int;
@@ -6628,57 +6664,53 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
     // AddMethodImpl: SMN_Correct, Impl$$_module.__default.SMN__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(171,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(181,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
     assume $initHeapForallStmt#0 == $Heap;
     assume (forall $ih#xs0#0: DatatypeType, $ih#n0#0: int, $ih#len0#0: int :: 
-      $Is($ih#xs0#0, Tclass._module.List(Tclass._System.nat()))
-           && LitInt(0) <= $ih#n0#0
-           && LitInt(0) <= $ih#len0#0
+      $Is($ih#xs0#0, Tclass._module.List(TInt))
            && 
-          _module.__default.NoDuplicates(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)
+          _module.__default.NoDuplicates(TInt, $LS($LZ), $ih#xs0#0)
            && (forall x#4: int :: 
-            { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(x#4)] } 
+            { _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#4)] } 
             true
                ==> 
-              _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(x#4)]
+              _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#4)]
                ==> $ih#n0#0 <= x#4)
-           && $ih#len0#0
-             == _module.__default.Length(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)
+           && $ih#len0#0 == _module.__default.Length(TInt, $LS($LZ), $ih#xs0#0)
            && 
           0 <= $ih#len0#0
            && $ih#len0#0 < len#0
          ==> (var s#2 := _module.__default.SMN($LS($LZ), $ih#xs0#0, $ih#n0#0, $ih#len0#0); 
           $ih#n0#0 <= s#2
              && s#2 <= $ih#n0#0 + $ih#len0#0
-             && !_module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(s#2)]
+             && !_module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(s#2)]
              && (forall x#5: int :: 
-              { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(x#5)] } 
+              { _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#5)] } 
               true
                  ==> 
                 $ih#n0#0 <= x#5 && x#5 < s#2
-                 ==> _module.__default.Elements(Tclass._System.nat(), $LS($LZ), $ih#xs0#0)[$Box(x#5)])));
+                 ==> _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#5)])));
     $_reverifyPost := false;
-    // ----- if statement ----- SMN_Dafny.dfy(172,3)
+    // ----- if statement ----- SMN_Dafny.dfy(182,3)
     assume true;
     if (LitInt(2) <= len#0)
     {
         havoc L#0_0;
-        assume $Is(L#0_0, Tclass._module.List(Tclass._System.nat()))
-           && $IsAlloc(L#0_0, Tclass._module.List(Tclass._System.nat()), $Heap);
+        assume $Is(L#0_0, Tclass._module.List(TInt))
+           && $IsAlloc(L#0_0, Tclass._module.List(TInt), $Heap);
         havoc R#0_0;
-        assume $Is(R#0_0, Tclass._module.List(Tclass._System.nat()))
-           && $IsAlloc(R#0_0, Tclass._module.List(Tclass._System.nat()), $Heap);
+        assume $Is(R#0_0, Tclass._module.List(TInt))
+           && $IsAlloc(R#0_0, Tclass._module.List(TInt), $Heap);
         assert LitInt(2) != 0;
         ##xs#0_0 := xs#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#0_0, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assert $Is(n#0 + Div(len#0, LitInt(2)), Tclass._System.nat());
+        assume $IsAlloc(##xs#0_0, Tclass._module.List(TInt), $Heap);
         ##b#0_0 := n#0 + Div(len#0, LitInt(2));
         // assume allocatedness for argument to function
-        assume $IsAlloc(##b#0_0, Tclass._System.nat(), $Heap);
+        assume $IsAlloc(##b#0_0, TInt, $Heap);
         assume _module.__default.Split#canCall(xs#0, n#0 + Div(len#0, LitInt(2)));
         assume _System.Tuple2.___hMake2_q(_module.__default.Split($LS($LZ), xs#0, n#0 + Div(len#0, LitInt(2))));
         assume let#0_0#0#0
@@ -6686,12 +6718,11 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         assume _module.__default.Split#canCall(xs#0, n#0 + Div(len#0, LitInt(2)));
         // CheckWellformedWithResult: any expression
         assume $Is(let#0_0#0#0, 
-          Tclass._System.Tuple2(Tclass._module.List(Tclass._System.nat()), 
-            Tclass._module.List(Tclass._System.nat())));
+          Tclass._System.Tuple2(Tclass._module.List(TInt), Tclass._module.List(TInt)));
         assume _System.Tuple2.___hMake2_q(let#0_0#0#0);
         assume _System.Tuple2.___hMake2_q(let#0_0#0#0);
         assume #_System._tuple#2._#Make2($Box(L#0_0), $Box(R#0_0)) == let#0_0#0#0;
-        // ----- call statement ----- SMN_Dafny.dfy(174,18)
+        // ----- call statement ----- SMN_Dafny.dfy(184,18)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -6699,69 +6730,67 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         assert LitInt(2) != 0;
         assume true;
         // ProcessCallStmt: CheckSubrange
-        assert $Is(n#0 + Div(len#0, LitInt(2)), Tclass._System.nat());
         b##0_0 := n#0 + Div(len#0, LitInt(2));
         assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Split__Correct(xs##0_0, b##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(174,32)"} true;
-        // ----- assignment statement ----- SMN_Dafny.dfy(175,14)
+        assume {:captureState "SMN_Dafny.dfy(184,32)"} true;
+        // ----- assignment statement ----- SMN_Dafny.dfy(185,14)
         assume true;
         ##xs#0_1 := L#0_0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#0_1, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Length#canCall(Tclass._System.nat(), L#0_0);
-        assume _module.__default.Length#canCall(Tclass._System.nat(), L#0_0);
-        llen#0_0 := _module.__default.Length(Tclass._System.nat(), $LS($LZ), L#0_0);
-        assume {:captureState "SMN_Dafny.dfy(175,25)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(176,22)
+        assume $IsAlloc(##xs#0_1, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Length#canCall(TInt, L#0_0);
+        assume _module.__default.Length#canCall(TInt, L#0_0);
+        llen#0_0 := _module.__default.Length(TInt, $LS($LZ), L#0_0);
+        assume {:captureState "SMN_Dafny.dfy(185,25)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(186,22)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
         xs##0_1 := L#0_0;
         assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
         // ProcessCallStmt: Make the call
-        call Call$$_module.__default.Elements__Property(Tclass._System.nat(), xs##0_1);
+        call Call$$_module.__default.Elements__Property(TInt, xs##0_1);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(176,24)"} true;
-        // ----- assignment statement ----- SMN_Dafny.dfy(177,15)
+        assume {:captureState "SMN_Dafny.dfy(186,24)"} true;
+        // ----- assignment statement ----- SMN_Dafny.dfy(187,15)
         assume true;
         assert LitInt(2) != 0;
         ##lo#0_0 := n#0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##lo#0_0, Tclass._System.nat(), $Heap);
-        assert $Is(Div(len#0, LitInt(2)), Tclass._System.nat());
+        assume $IsAlloc(##lo#0_0, TInt, $Heap);
         ##len#0_0 := Div(len#0, LitInt(2));
         // assume allocatedness for argument to function
-        assume $IsAlloc(##len#0_0, Tclass._System.nat(), $Heap);
+        assume $IsAlloc(##len#0_0, TInt, $Heap);
         assume _module.__default.IntRange#canCall(n#0, Div(len#0, LitInt(2)));
         assume _module.__default.IntRange#canCall(n#0, Div(len#0, LitInt(2)));
         bound#0_0 := _module.__default.IntRange($LS($LZ), n#0, Div(len#0, LitInt(2)));
-        assume {:captureState "SMN_Dafny.dfy(177,35)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(178,16)
+        assume {:captureState "SMN_Dafny.dfy(187,35)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(188,16)
         // TrCallStmt: Before ProcessCallStmt
         ##xs#0_2 := L#0_0;
         // assume allocatedness for argument to function
-        assume $IsAlloc(##xs#0_2, Tclass._module.List(Tclass._System.nat()), $Heap);
-        assume _module.__default.Elements#canCall(Tclass._System.nat(), L#0_0);
-        assume _module.__default.Elements#canCall(Tclass._System.nat(), L#0_0);
+        assume $IsAlloc(##xs#0_2, Tclass._module.List(TInt), $Heap);
+        assume _module.__default.Elements#canCall(TInt, L#0_0);
+        assume _module.__default.Elements#canCall(TInt, L#0_0);
         // ProcessCallStmt: CheckSubrange
-        A##0_0 := _module.__default.Elements(Tclass._System.nat(), $LS($LZ), L#0_0);
+        A##0_0 := _module.__default.Elements(TInt, $LS($LZ), L#0_0);
         assume true;
         // ProcessCallStmt: CheckSubrange
         B##0_0 := bound#0_0;
         assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
         // ProcessCallStmt: Make the call
-        call Call$$_module.__default.Cardinality(Tclass._System.nat(), A##0_0, B##0_0);
+        call Call$$_module.__default.Cardinality(TInt, A##0_0, B##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(178,35)"} true;
-        // ----- if statement ----- SMN_Dafny.dfy(179,5)
+        assume {:captureState "SMN_Dafny.dfy(188,35)"} true;
+        // ----- if statement ----- SMN_Dafny.dfy(189,5)
         assert LitInt(2) != 0;
         assume true;
         if (llen#0_0 < Div(len#0, LitInt(2)))
         {
-            // ----- call statement ----- SMN_Dafny.dfy(180,18)
+            // ----- call statement ----- SMN_Dafny.dfy(190,18)
             // TrCallStmt: Before ProcessCallStmt
             assume true;
             // ProcessCallStmt: CheckSubrange
@@ -6778,42 +6807,37 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
             // ProcessCallStmt: Make the call
             call Call$$_module.__default.SMN__Correct(xs##0_0_0, n##0_0_0, len##0_0_0);
             // TrCallStmt: After ProcessCallStmt
-            assume {:captureState "SMN_Dafny.dfy(180,29)"} true;
+            assume {:captureState "SMN_Dafny.dfy(190,29)"} true;
         }
         else
         {
-            // ----- assignment statement ----- SMN_Dafny.dfy(182,13)
+            // ----- assignment statement ----- SMN_Dafny.dfy(192,13)
             assume true;
             ##xs#0_3 := R#0_0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##xs#0_3, Tclass._module.List(Tclass._System.nat()), $Heap);
-            assert $Is(n#0 + llen#0_0, Tclass._System.nat());
+            assume $IsAlloc(##xs#0_3, Tclass._module.List(TInt), $Heap);
             ##n#0_0 := n#0 + llen#0_0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##n#0_0, Tclass._System.nat(), $Heap);
-            assert $Is(len#0 - llen#0_0, Tclass._System.nat());
+            assume $IsAlloc(##n#0_0, TInt, $Heap);
             ##len#0_1 := len#0 - llen#0_0;
             // assume allocatedness for argument to function
-            assume $IsAlloc(##len#0_1, Tclass._System.nat(), $Heap);
-            assert {:subsumption 0} ##len#0_1
-               == _module.__default.Length(Tclass._System.nat(), $LS($LS($LZ)), ##xs#0_3);
-            assume ##len#0_1 == _module.__default.Length(Tclass._System.nat(), $LS($LZ), ##xs#0_3);
+            assume $IsAlloc(##len#0_1, TInt, $Heap);
+            assert {:subsumption 0} ##len#0_1 == _module.__default.Length(TInt, $LS($LS($LZ)), ##xs#0_3);
+            assume ##len#0_1 == _module.__default.Length(TInt, $LS($LZ), ##xs#0_3);
             assume _module.__default.SMN#canCall(R#0_0, n#0 + llen#0_0, len#0 - llen#0_0);
             assume _module.__default.SMN#canCall(R#0_0, n#0 + llen#0_0, len#0 - llen#0_0);
             s#0_0 := _module.__default.SMN($LS($LZ), R#0_0, n#0 + llen#0_0, len#0 - llen#0_0);
-            assume {:captureState "SMN_Dafny.dfy(182,43)"} true;
-            // ----- call statement ----- SMN_Dafny.dfy(183,18)
+            assume {:captureState "SMN_Dafny.dfy(192,43)"} true;
+            // ----- call statement ----- SMN_Dafny.dfy(193,18)
             // TrCallStmt: Before ProcessCallStmt
             assume true;
             // ProcessCallStmt: CheckSubrange
             xs##0_2 := R#0_0;
             assume true;
             // ProcessCallStmt: CheckSubrange
-            assert $Is(n#0 + llen#0_0, Tclass._System.nat());
             n##0_0 := n#0 + llen#0_0;
             assume true;
             // ProcessCallStmt: CheckSubrange
-            assert $Is(len#0 - llen#0_0, Tclass._System.nat());
             len##0_0 := len#0 - llen#0_0;
             assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
             assert 0 <= len#0 || len##0_0 == len#0;
@@ -6821,8 +6845,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
             // ProcessCallStmt: Make the call
             call Call$$_module.__default.SMN__Correct(xs##0_2, n##0_0, len##0_0);
             // TrCallStmt: After ProcessCallStmt
-            assume {:captureState "SMN_Dafny.dfy(183,42)"} true;
-            // ----- forall statement (proof) ----- SMN_Dafny.dfy(184,7)
+            assume {:captureState "SMN_Dafny.dfy(193,42)"} true;
+            // ----- forall statement (proof) ----- SMN_Dafny.dfy(194,7)
             if (*)
             {
                 // Assume Fuel Constant
@@ -6834,44 +6858,44 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
 
                 assume true;
                 assume n#0 <= x#0_0 && x#0_0 < s#0_0;
-                // ----- if statement ----- SMN_Dafny.dfy(187,9)
+                // ----- if statement ----- SMN_Dafny.dfy(197,9)
                 assume true;
                 if (x#0_0 < n#0 + llen#0_0)
                 {
-                    // ----- call statement ----- SMN_Dafny.dfy(188,22)
+                    // ----- call statement ----- SMN_Dafny.dfy(198,22)
                     // TrCallStmt: Before ProcessCallStmt
                     ##xs#0_1_0 := L#0_0;
                     // assume allocatedness for argument to function
-                    assume $IsAlloc(##xs#0_1_0, Tclass._module.List(Tclass._System.nat()), $Heap);
-                    assume _module.__default.Elements#canCall(Tclass._System.nat(), L#0_0);
-                    assume _module.__default.Elements#canCall(Tclass._System.nat(), L#0_0);
+                    assume $IsAlloc(##xs#0_1_0, Tclass._module.List(TInt), $Heap);
+                    assume _module.__default.Elements#canCall(TInt, L#0_0);
+                    assume _module.__default.Elements#canCall(TInt, L#0_0);
                     // ProcessCallStmt: CheckSubrange
-                    A##0_1_0 := _module.__default.Elements(Tclass._System.nat(), $LS($LZ), L#0_0);
+                    A##0_1_0 := _module.__default.Elements(TInt, $LS($LZ), L#0_0);
                     assume true;
                     // ProcessCallStmt: CheckSubrange
                     B##0_1_0 := bound#0_0;
                     assert (forall<alpha> $o: ref, $f: Field alpha :: false ==> $_Frame[$o, $f]);
                     // ProcessCallStmt: Make the call
-                    call Call$$_module.__default.SetEquality(Tclass._System.nat(), A##0_1_0, B##0_1_0);
+                    call Call$$_module.__default.SetEquality(TInt, A##0_1_0, B##0_1_0);
                     // TrCallStmt: After ProcessCallStmt
-                    assume {:captureState "SMN_Dafny.dfy(188,41)"} true;
+                    assume {:captureState "SMN_Dafny.dfy(198,41)"} true;
                 }
                 else
                 {
                 }
 
-                assert _module.__default.Elements(Tclass._System.nat(), $LS($LS($LZ)), xs#0)[$Box(x#0_0)];
+                assert _module.__default.Elements(TInt, $LS($LS($LZ)), xs#0)[$Box(x#0_0)];
                 assume false;
             }
             else
             {
                 assume (forall x#0_1: int :: 
-                  { _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#0_1)] } 
+                  { _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#0_1)] } 
                   n#0 <= x#0_1 && x#0_1 < s#0_0
-                     ==> _module.__default.Elements(Tclass._System.nat(), $LS($LZ), xs#0)[$Box(x#0_1)]);
+                     ==> _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#0_1)]);
             }
 
-            assume {:captureState "SMN_Dafny.dfy(190,6)"} true;
+            assume {:captureState "SMN_Dafny.dfy(200,6)"} true;
         }
     }
     else
@@ -6882,7 +6906,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
 
 
 procedure CheckWellformed$$_module.__default.Main();
-  free requires 18 == $FunctionContextHeight;
+  free requires 21 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -6899,7 +6923,7 @@ procedure Call$$_module.__default.Main();
 
 
 procedure Impl$$_module.__default.Main() returns ($_reverifyPost: bool);
-  free requires 18 == $FunctionContextHeight;
+  free requires 21 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   // frame condition: object granularity
   free ensures (forall $o: ref :: 
@@ -6914,13 +6938,13 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
 {
   var $_Frame: <beta>[ref,Field beta]bool;
   var xs#0: DatatypeType
-     where $Is(xs#0, Tclass._module.List(Tclass._System.nat()))
-       && $IsAlloc(xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
-  var s#0: int where LitInt(0) <= s#0;
+     where $Is(xs#0, Tclass._module.List(TInt))
+       && $IsAlloc(xs#0, Tclass._module.List(TInt), $Heap);
+  var s#0: int;
   var ##xs#0: DatatypeType;
   var a#0: DatatypeType
-     where $Is(a#0, Tclass._module.List(Tclass._System.nat()))
-       && $IsAlloc(a#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+     where $Is(a#0, Tclass._module.List(TInt))
+       && $IsAlloc(a#0, Tclass._module.List(TInt), $Heap);
   var ##xs#1: DatatypeType;
   var ##xs#2: DatatypeType;
   var ##xs#3: DatatypeType;
@@ -6928,70 +6952,63 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // AddMethodImpl: Main, Impl$$_module.__default.Main
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(195,14): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(205,14): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- SMN_Dafny.dfy(196,10)
+    // ----- assignment statement ----- SMN_Dafny.dfy(206,10)
     assume true;
     assume true;
     xs#0 := Lit(#_module.List.Nil());
-    assume {:captureState "SMN_Dafny.dfy(196,15)"} true;
-    // ----- assignment statement ----- SMN_Dafny.dfy(197,9)
+    assume {:captureState "SMN_Dafny.dfy(206,15)"} true;
+    // ----- assignment statement ----- SMN_Dafny.dfy(207,9)
     assume true;
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#0, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
     assume _module.__default.SmallestMissingNumber#canCall(xs#0);
     assume _module.__default.SmallestMissingNumber#canCall(xs#0);
     s#0 := _module.__default.SmallestMissingNumber(xs#0);
-    assume {:captureState "SMN_Dafny.dfy(197,36)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(198,3)
+    assume {:captureState "SMN_Dafny.dfy(207,36)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(208,3)
     assume true;
     assert s#0 == LitInt(0);
-    // ----- print statement ----- SMN_Dafny.dfy(199,3)
+    // ----- print statement ----- SMN_Dafny.dfy(209,3)
     assume true;
     assume true;
-    // ----- assignment statement ----- SMN_Dafny.dfy(200,9)
+    // ----- assignment statement ----- SMN_Dafny.dfy(210,9)
     assume true;
-    assert $Is(LitInt(2), Tclass._System.nat());
-    assert $Is(LitInt(0), Tclass._System.nat());
     assume true;
     a#0 := Lit(#_module.List.Cons($Box(LitInt(2)), 
         Lit(#_module.List.Cons($Box(LitInt(0)), Lit(#_module.List.Nil())))));
-    assume {:captureState "SMN_Dafny.dfy(200,32)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(201,3)
+    assume {:captureState "SMN_Dafny.dfy(210,32)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(211,3)
     ##xs#1 := a#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#1, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assert _module.__default.SmallestMissingNumber(a#0) == LitInt(1);
-    // ----- assignment statement ----- SMN_Dafny.dfy(203,5)
+    // ----- assignment statement ----- SMN_Dafny.dfy(213,5)
     assume true;
-    assert $Is(LitInt(3), Tclass._System.nat());
-    assert $Is(LitInt(1), Tclass._System.nat());
     assume true;
     a#0 := #_module.List.Cons($Box(LitInt(3)), #_module.List.Cons($Box(LitInt(1)), a#0));
-    assume {:captureState "SMN_Dafny.dfy(203,26)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(204,3)
+    assume {:captureState "SMN_Dafny.dfy(213,26)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(214,3)
     ##xs#2 := a#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#2, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assert _module.__default.SmallestMissingNumber(a#0) == LitInt(4);
-    // ----- assignment statement ----- SMN_Dafny.dfy(206,5)
+    // ----- assignment statement ----- SMN_Dafny.dfy(216,5)
     assume true;
-    assert $Is(LitInt(7), Tclass._System.nat());
-    assert $Is(LitInt(4), Tclass._System.nat());
-    assert $Is(LitInt(6), Tclass._System.nat());
     assume true;
     a#0 := #_module.List.Cons($Box(LitInt(7)), 
       #_module.List.Cons($Box(LitInt(4)), #_module.List.Cons($Box(LitInt(6)), a#0)));
-    assume {:captureState "SMN_Dafny.dfy(206,35)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(207,3)
+    assume {:captureState "SMN_Dafny.dfy(216,35)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(217,3)
     ##xs#3 := a#0;
     // assume allocatedness for argument to function
-    assume $IsAlloc(##xs#3, Tclass._module.List(Tclass._System.nat()), $Heap);
+    assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assert _module.__default.SmallestMissingNumber(a#0) == LitInt(5);

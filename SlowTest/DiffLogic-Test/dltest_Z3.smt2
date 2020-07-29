@@ -1,18 +1,12 @@
 ; (set-option :produce-proofs true)
-(set-option :smt.arith.solver 1) ; set diff logic solver
-; (set-logic QF_IDL)
+; (set-option :smt.arith.solver 3) ; set diff logic solver
+(set-logic DLA) 
 
-;(set-logic DLA) 
-
-(declare-const x Int)
-(declare-const y Int)
+(declare-const a Int)
+(declare-const b Int)
 
 ;(push)
-(assert (< x y))
-
-(assert (< (+ (+ x y) y) 9) )
-
-(assert (and (< 0 (* x y)) (< (* x y) 10) ) )
+(assert (=> (and (= a 10) (= b 11)) (= (+ a b) 21)))
 
 (check-sat)
 ;(get-model)

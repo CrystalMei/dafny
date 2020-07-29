@@ -73,3 +73,6 @@ procedure P7 ()
     var z : int;
     assert (0 <= x * y && x * y + 10 <= z ==> 0 <= z);
 }
+
+procedure P8 (a: int, b: int)
+    { assert (a == 10 && b == 11 ==> a + b == 21); }

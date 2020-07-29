@@ -4211,11 +4211,11 @@
  :pattern ( (_module.__default.SeqInit arg0@@165 arg1@@76 arg2@@32))
 )))
 (assert  (=> (<= 1 $FunctionContextHeight) (forall ((_module._default.SeqInit$X T@U) ($Heap T@U) (|len#0| Int) (|func#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X) TyType) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |func#0|) HandleTypeType)) (or (|_module.__default.SeqInit#canCall| _module._default.SeqInit$X |len#0| |func#0|) (and (not (= 1 $FunctionContextHeight)) (and (and ($IsGoodHeap $Heap) ($Is |func#0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X))) (and (>= |len#0| 0) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| |len#0|)) (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |852|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|))))
 ))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|)) |len#0|) (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| |len#0|)) (= (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|) (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))))
- :qid |VUDafnyd.50:18|
+ :qid |VUDafnyd.49:18|
  :skolemid |853|
  :pattern ( (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))
  :pattern ( (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|))
@@ -4225,11 +4225,11 @@
  :pattern ( (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) ($IsGoodHeap $Heap))
 ))))
 (assert (forall ((_module._default.SeqInit$X@@0 T@U) ($Heap@@0 T@U) (|len#0@@0| Int) (|func#0@@0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X@@0) TyType) (= (type $Heap@@0) (MapType0Type refType MapType1Type))) (= (type |func#0@@0|) HandleTypeType)) (and ($IsGoodHeap $Heap@@0) ($Is |func#0@@0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X@@0)))) (and (=> (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|) (and (>= |len#0@@0| 0) (forall ((|i#2| T@U) ) (!  (=> (and (and (= (type |i#2|) intType) true) (and (<= 0 (U_2_int |i#2|)) (< (U_2_int |i#2|) |len#0@@0|))) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
 )))) (=> (and (>= |len#0@@0| 0) (forall ((|i#2@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@0|) (< |i#2@@0| |len#0@@0|)) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|))))
 ))) (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|))))
@@ -4313,7 +4313,7 @@
 )))
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@3| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@3|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@3|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |891|
  :pattern ( (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
@@ -4323,7 +4323,7 @@
 )))
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@4| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@4|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@4|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |892|
  :pattern ( (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
@@ -4333,7 +4333,7 @@
 )))
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@5| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@5|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@5|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
- :qid |VUDafnyd.46:17|
+ :qid |VUDafnyd.45:17|
  :skolemid |893|
  :pattern ( (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
@@ -4343,7 +4343,7 @@
 )))
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@6| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@6|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@6|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
- :qid |VUDafnyd.52:8|
+ :qid |VUDafnyd.51:8|
  :skolemid |894|
  :pattern ( (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
@@ -4476,7 +4476,7 @@
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@20| T@U) (|l#1@@11| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@20|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@17) |l#2@@10|))) |l#3@@8|))))
- :qid |VUDafnyd.77:27|
+ :qid |VUDafnyd.76:27|
  :skolemid |909|
  :pattern ( (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))
 )))
@@ -4486,7 +4486,7 @@
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@21| T@U) (|l#1@@12| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@21|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@18) |l#2@@11|))) |l#3@@9|))))
- :qid |VUDafnyd.74:23|
+ :qid |VUDafnyd.73:23|
  :skolemid |910|
  :pattern ( (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))
 )))
@@ -4496,7 +4496,7 @@
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@22| T@U) (|l#1@@13| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@22|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@19) |l#2@@12|))) |l#3@@10|))))
- :qid |VUDafnyd.70:28|
+ :qid |VUDafnyd.69:28|
  :skolemid |911|
  :pattern ( (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))
 )))
@@ -4506,7 +4506,7 @@
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@23| T@U) (|l#1@@14| T@U) (|l#2@@13| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@23|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@20) |l#2@@13|))) |l#3@@11|))))
- :qid |VUDafnyd.68:24|
+ :qid |VUDafnyd.67:24|
  :skolemid |912|
  :pattern ( (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))
 )))
@@ -4516,7 +4516,7 @@
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@24| T@U) (|l#1@@15| T@U) (|l#2@@14| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@24|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@21) |l#2@@14|))) |l#3@@12|))))
- :qid |VUDafnyd.64:30|
+ :qid |VUDafnyd.63:30|
  :skolemid |913|
  :pattern ( (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))
 )))
@@ -4526,7 +4526,7 @@
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@25| T@U) (|l#1@@16| T@U) (|l#2@@15| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@25|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@22) |l#2@@15|))) |l#3@@13|))))
- :qid |VUDafnyd.61:30|
+ :qid |VUDafnyd.60:30|
  :skolemid |914|
  :pattern ( (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))
 )))
@@ -4536,7 +4536,7 @@
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@26| T@U) (|l#1@@17| T@U) (|l#2@@16| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@26|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@23) |l#2@@16|))) |l#3@@14|))))
- :qid |VUDafnyd.57:33|
+ :qid |VUDafnyd.56:33|
  :skolemid |915|
  :pattern ( (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))
 )))
@@ -4546,7 +4546,7 @@
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@27| T@U) (|l#1@@18| T@U) (|l#2@@17| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@27|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@24) |l#2@@17|))) |l#3@@15|))))
- :qid |VUDafnyd.55:24|
+ :qid |VUDafnyd.54:24|
  :skolemid |916|
  :pattern ( (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))
 )))
@@ -8809,11 +8809,11 @@ PreconditionGeneratedEntry_correct)))))))))
  :pattern ( (_module.__default.SeqInit arg0@@165 arg1@@76 arg2@@32))
 )))
 (assert  (=> (<= 1 $FunctionContextHeight) (forall ((_module._default.SeqInit$X T@U) ($Heap T@U) (|len#0| Int) (|func#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X) TyType) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |func#0|) HandleTypeType)) (or (|_module.__default.SeqInit#canCall| _module._default.SeqInit$X |len#0| |func#0|) (and (not (= 1 $FunctionContextHeight)) (and (and ($IsGoodHeap $Heap) ($Is |func#0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X))) (and (>= |len#0| 0) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| |len#0|)) (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |852|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|))))
 ))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|)) |len#0|) (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| |len#0|)) (= (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|) (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))))
- :qid |VUDafnyd.50:18|
+ :qid |VUDafnyd.49:18|
  :skolemid |853|
  :pattern ( (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))
  :pattern ( (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|))
@@ -8823,11 +8823,11 @@ PreconditionGeneratedEntry_correct)))))))))
  :pattern ( (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) ($IsGoodHeap $Heap))
 ))))
 (assert (forall ((_module._default.SeqInit$X@@0 T@U) ($Heap@@0 T@U) (|len#0@@0| Int) (|func#0@@0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X@@0) TyType) (= (type $Heap@@0) (MapType0Type refType MapType1Type))) (= (type |func#0@@0|) HandleTypeType)) (and ($IsGoodHeap $Heap@@0) ($Is |func#0@@0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X@@0)))) (and (=> (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|) (and (>= |len#0@@0| 0) (forall ((|i#2| T@U) ) (!  (=> (and (and (= (type |i#2|) intType) true) (and (<= 0 (U_2_int |i#2|)) (< (U_2_int |i#2|) |len#0@@0|))) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
 )))) (=> (and (>= |len#0@@0| 0) (forall ((|i#2@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@0|) (< |i#2@@0| |len#0@@0|)) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|))))
 ))) (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|))))
@@ -8911,7 +8911,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@3| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@3|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@3|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |891|
  :pattern ( (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
@@ -8921,7 +8921,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@4| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@4|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@4|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |892|
  :pattern ( (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
@@ -8931,7 +8931,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@5| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@5|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@5|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
- :qid |VUDafnyd.46:17|
+ :qid |VUDafnyd.45:17|
  :skolemid |893|
  :pattern ( (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
@@ -8941,7 +8941,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@6| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@6|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@6|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
- :qid |VUDafnyd.52:8|
+ :qid |VUDafnyd.51:8|
  :skolemid |894|
  :pattern ( (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
@@ -9074,7 +9074,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@20| T@U) (|l#1@@11| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@20|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@17) |l#2@@10|))) |l#3@@8|))))
- :qid |VUDafnyd.77:27|
+ :qid |VUDafnyd.76:27|
  :skolemid |909|
  :pattern ( (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))
 )))
@@ -9084,7 +9084,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@21| T@U) (|l#1@@12| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@21|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@18) |l#2@@11|))) |l#3@@9|))))
- :qid |VUDafnyd.74:23|
+ :qid |VUDafnyd.73:23|
  :skolemid |910|
  :pattern ( (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))
 )))
@@ -9094,7 +9094,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@22| T@U) (|l#1@@13| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@22|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@19) |l#2@@12|))) |l#3@@10|))))
- :qid |VUDafnyd.70:28|
+ :qid |VUDafnyd.69:28|
  :skolemid |911|
  :pattern ( (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))
 )))
@@ -9104,7 +9104,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@23| T@U) (|l#1@@14| T@U) (|l#2@@13| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@23|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@20) |l#2@@13|))) |l#3@@11|))))
- :qid |VUDafnyd.68:24|
+ :qid |VUDafnyd.67:24|
  :skolemid |912|
  :pattern ( (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))
 )))
@@ -9114,7 +9114,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@24| T@U) (|l#1@@15| T@U) (|l#2@@14| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@24|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@21) |l#2@@14|))) |l#3@@12|))))
- :qid |VUDafnyd.64:30|
+ :qid |VUDafnyd.63:30|
  :skolemid |913|
  :pattern ( (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))
 )))
@@ -9124,7 +9124,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@25| T@U) (|l#1@@16| T@U) (|l#2@@15| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@25|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@22) |l#2@@15|))) |l#3@@13|))))
- :qid |VUDafnyd.61:30|
+ :qid |VUDafnyd.60:30|
  :skolemid |914|
  :pattern ( (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))
 )))
@@ -9134,7 +9134,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@26| T@U) (|l#1@@17| T@U) (|l#2@@16| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@26|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@23) |l#2@@16|))) |l#3@@14|))))
- :qid |VUDafnyd.57:33|
+ :qid |VUDafnyd.56:33|
  :skolemid |915|
  :pattern ( (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))
 )))
@@ -9144,7 +9144,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@27| T@U) (|l#1@@18| T@U) (|l#2@@17| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@27|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@24) |l#2@@17|))) |l#3@@15|))))
- :qid |VUDafnyd.55:24|
+ :qid |VUDafnyd.54:24|
  :skolemid |916|
  :pattern ( (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))
 )))
@@ -9165,12 +9165,11 @@ PreconditionGeneratedEntry_correct)))))))))
 (declare-fun %lbl%+6 () Bool)
 (declare-fun %lbl%+7 () Bool)
 (declare-fun %lbl%+8 () Bool)
-(declare-fun %lbl%@9 () Bool)
+(declare-fun %lbl%+9 () Bool)
 (declare-fun %lbl%+10 () Bool)
 (declare-fun %lbl%+11 () Bool)
 (declare-fun %lbl%+12 () Bool)
 (declare-fun %lbl%+13 () Bool)
-(declare-fun %lbl%+14 () Bool)
 (declare-fun $IsHeapAnchor (T@U) Bool)
 (assert  (and (and (= (type $_Frame@0) (MapType4Type refType boolType)) (= (type $Heap@@1) (MapType0Type refType MapType1Type))) (= (type $_Frame@0@@0) (MapType4Type refType boolType))))
 (push 1)
@@ -9182,12 +9181,12 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((anon14_Then_correct  (=> (! (and %lbl%+5 true) :lblpos +5) (=> (and (= |a#0@@9| 11) (= |b#0@@9| 10)) anon10_correct))))
 (let ((anon13_Else_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (not (= |a#0@@9| 11)) (and anon14_Then_correct anon14_Else_correct)))))
 (let ((anon13_Then_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (= |a#0@@9| 11) (and anon14_Then_correct anon14_Else_correct)))))
-(let ((anon11_Else_correct  (=> (! (and %lbl%+8 true) :lblpos +8) (=> (= $_Frame@0 (|lambda#3| null $Heap@@1 alloc false)) (and (! (or %lbl%@9 (= (+ 11 10) 21)) :lblneg @9) (=> (= (+ 11 10) 21) (and anon13_Then_correct anon13_Else_correct)))))))
-(let ((anon5_correct  (=> (! (and %lbl%+10 true) :lblpos +10) true)))
-(let ((anon12_Else_correct  (=> (! (and %lbl%+11 true) :lblpos +11) (=> (=> (and (= |a#0@@9| 11) (= |b#0@@9| 10)) (= |c#0@@3| 21)) anon5_correct))))
-(let ((anon12_Then_correct  (=> (! (and %lbl%+12 true) :lblpos +12) (=> (= |a#0@@9| 11) (=> (and (= |b#0@@9| 10) (= |c#0@@3| 21)) anon5_correct)))))
-(let ((anon0_correct  (=> (! (and %lbl%+13 true) :lblpos +13) (=> (= $_Frame@0@@0 (|lambda#2| null $Heap@@1 alloc false)) (and (and anon11_Else_correct anon12_Then_correct) anon12_Else_correct)))))
-(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+14 true) :lblpos +14) (=> (and (and ($IsGoodHeap $Heap@@1) ($IsHeapAnchor $Heap@@1)) (= 8 $FunctionContextHeight)) anon0_correct))))
+(let ((anon11_Else_correct  (=> (! (and %lbl%+8 true) :lblpos +8) (=> (= $_Frame@0 (|lambda#3| null $Heap@@1 alloc false)) (and anon13_Then_correct anon13_Else_correct)))))
+(let ((anon5_correct  (=> (! (and %lbl%+9 true) :lblpos +9) true)))
+(let ((anon12_Else_correct  (=> (! (and %lbl%+10 true) :lblpos +10) (=> (=> (and (= |a#0@@9| 11) (= |b#0@@9| 10)) (= |c#0@@3| 21)) anon5_correct))))
+(let ((anon12_Then_correct  (=> (! (and %lbl%+11 true) :lblpos +11) (=> (= |a#0@@9| 11) (=> (and (= |b#0@@9| 10) (= |c#0@@3| 21)) anon5_correct)))))
+(let ((anon0_correct  (=> (! (and %lbl%+12 true) :lblpos +12) (=> (= $_Frame@0@@0 (|lambda#2| null $Heap@@1 alloc false)) (and (and anon11_Else_correct anon12_Then_correct) anon12_Else_correct)))))
+(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+13 true) :lblpos +13) (=> (and (and ($IsGoodHeap $Heap@@1) ($IsHeapAnchor $Heap@@1)) (= 8 $FunctionContextHeight)) anon0_correct))))
 PreconditionGeneratedEntry_correct))))))))))))
 ))
 (check-sat)
@@ -13415,11 +13414,11 @@ PreconditionGeneratedEntry_correct))))))))))))
  :pattern ( (_module.__default.SeqInit arg0@@165 arg1@@76 arg2@@32))
 )))
 (assert  (=> (<= 1 $FunctionContextHeight) (forall ((_module._default.SeqInit$X T@U) ($Heap T@U) (|len#0| Int) (|func#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X) TyType) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |func#0|) HandleTypeType)) (or (|_module.__default.SeqInit#canCall| _module._default.SeqInit$X |len#0| |func#0|) (and (not (= 1 $FunctionContextHeight)) (and (and ($IsGoodHeap $Heap) ($Is |func#0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X))) (and (>= |len#0| 0) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| |len#0|)) (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |852|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|))))
 ))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|)) |len#0|) (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| |len#0|)) (= (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|) (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))))
- :qid |VUDafnyd.50:18|
+ :qid |VUDafnyd.49:18|
  :skolemid |853|
  :pattern ( (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))
  :pattern ( (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|))
@@ -13429,11 +13428,11 @@ PreconditionGeneratedEntry_correct))))))))))))
  :pattern ( (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) ($IsGoodHeap $Heap))
 ))))
 (assert (forall ((_module._default.SeqInit$X@@0 T@U) ($Heap@@0 T@U) (|len#0@@0| Int) (|func#0@@0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X@@0) TyType) (= (type $Heap@@0) (MapType0Type refType MapType1Type))) (= (type |func#0@@0|) HandleTypeType)) (and ($IsGoodHeap $Heap@@0) ($Is |func#0@@0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X@@0)))) (and (=> (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|) (and (>= |len#0@@0| 0) (forall ((|i#2| T@U) ) (!  (=> (and (and (= (type |i#2|) intType) true) (and (<= 0 (U_2_int |i#2|)) (< (U_2_int |i#2|) |len#0@@0|))) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
 )))) (=> (and (>= |len#0@@0| 0) (forall ((|i#2@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@0|) (< |i#2@@0| |len#0@@0|)) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|))))
 ))) (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|))))
@@ -13517,7 +13516,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@3| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@3|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@3|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |891|
  :pattern ( (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
@@ -13527,7 +13526,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@4| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@4|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@4|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |892|
  :pattern ( (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
@@ -13537,7 +13536,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@5| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@5|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@5|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
- :qid |VUDafnyd.46:17|
+ :qid |VUDafnyd.45:17|
  :skolemid |893|
  :pattern ( (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
@@ -13547,7 +13546,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@6| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@6|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@6|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
- :qid |VUDafnyd.52:8|
+ :qid |VUDafnyd.51:8|
  :skolemid |894|
  :pattern ( (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
@@ -13680,7 +13679,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@20| T@U) (|l#1@@11| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@20|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@17) |l#2@@10|))) |l#3@@8|))))
- :qid |VUDafnyd.77:27|
+ :qid |VUDafnyd.76:27|
  :skolemid |909|
  :pattern ( (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))
 )))
@@ -13690,7 +13689,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@21| T@U) (|l#1@@12| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@21|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@18) |l#2@@11|))) |l#3@@9|))))
- :qid |VUDafnyd.74:23|
+ :qid |VUDafnyd.73:23|
  :skolemid |910|
  :pattern ( (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))
 )))
@@ -13700,7 +13699,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@22| T@U) (|l#1@@13| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@22|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@19) |l#2@@12|))) |l#3@@10|))))
- :qid |VUDafnyd.70:28|
+ :qid |VUDafnyd.69:28|
  :skolemid |911|
  :pattern ( (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))
 )))
@@ -13710,7 +13709,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@23| T@U) (|l#1@@14| T@U) (|l#2@@13| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@23|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@20) |l#2@@13|))) |l#3@@11|))))
- :qid |VUDafnyd.68:24|
+ :qid |VUDafnyd.67:24|
  :skolemid |912|
  :pattern ( (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))
 )))
@@ -13720,7 +13719,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@24| T@U) (|l#1@@15| T@U) (|l#2@@14| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@24|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@21) |l#2@@14|))) |l#3@@12|))))
- :qid |VUDafnyd.64:30|
+ :qid |VUDafnyd.63:30|
  :skolemid |913|
  :pattern ( (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))
 )))
@@ -13730,7 +13729,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@25| T@U) (|l#1@@16| T@U) (|l#2@@15| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@25|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@22) |l#2@@15|))) |l#3@@13|))))
- :qid |VUDafnyd.61:30|
+ :qid |VUDafnyd.60:30|
  :skolemid |914|
  :pattern ( (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))
 )))
@@ -13740,7 +13739,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@26| T@U) (|l#1@@17| T@U) (|l#2@@16| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@26|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@23) |l#2@@16|))) |l#3@@14|))))
- :qid |VUDafnyd.57:33|
+ :qid |VUDafnyd.56:33|
  :skolemid |915|
  :pattern ( (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))
 )))
@@ -13750,7 +13749,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@27| T@U) (|l#1@@18| T@U) (|l#2@@17| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@27|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@24) |l#2@@17|))) |l#3@@15|))))
- :qid |VUDafnyd.55:24|
+ :qid |VUDafnyd.54:24|
  :skolemid |916|
  :pattern ( (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))
 )))
@@ -13789,11 +13788,11 @@ PreconditionGeneratedEntry_correct))))))))))))
 (let ((anon8_Else_correct  (=> (! (and %lbl%+1 true) :lblpos +1) (=> (=> (and (<= 0 |j#2@0|) (< |j#2@0| |N#0|)) (= (|Seq#Index| |a'#0@0| |j#2@0|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#2@0|)) (|Seq#Index| |a#0@@9| |j#2@0|)))) anon6_correct))))
 (let ((anon8_Then_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (and (<= 0 |j#2@0|) (< |j#2@0| |N#0|)) (and (! (or %lbl%@3  (and (<= 0 |j#2@0|) (< |j#2@0| (|Seq#Length| |a'#0@0|)))) :lblneg @3) (=> (and (<= 0 |j#2@0|) (< |j#2@0| (|Seq#Length| |a'#0@0|))) (and (! (or %lbl%@4  (and (<= 0 |j#2@0|) (< |j#2@0| (|Seq#Length| |a#0@@9|)))) :lblneg @4) (=> (and (<= 0 |j#2@0|) (< |j#2@0| (|Seq#Length| |a#0@@9|))) (and (! (or %lbl%@5 (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#2@0|)) (|Seq#Index| |a#0@@9| |j#2@0|))) :lblneg @5) (=> (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#2@0|)) (|Seq#Index| |a#0@@9| |j#2@0|)) (=> (= (|Seq#Index| |a'#0@0| |j#2@0|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#2@0|)) (|Seq#Index| |a#0@@9| |j#2@0|))) anon6_correct)))))))))))
 (let ((anon3_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (forall ((|j#1| Int) ) (!  (=> true (=> (and (<= 0 |j#1|) (< |j#1| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#1|)) (|Seq#Index| |a#0@@9| |j#1|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |821|
  :pattern ( (|Seq#Index| |a#0@@9| |j#1|))
 )) (=> (and (and (and ($IsGoodHeap $Heap@0) ($IsHeapAnchor $Heap@0)) (and (forall (($o@@25 T@U) ) (!  (=> (= (type $o@@25) refType) (=> (and (not (= $o@@25 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@25) alloc))) (= (MapType0Select $Heap@0 $o@@25) (MapType0Select $Heap@@1 $o@@25))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |822|
  :pattern ( (MapType0Select $Heap@0 $o@@25))
 )) ($HeapSucc $Heap@@1 $Heap@0))) (and (and ($Is |a'#0@0| (TSeq _module._default.VectorUpdate$A)) ($IsAlloc |a'#0@0| (TSeq _module._default.VectorUpdate$A) $Heap@0)) (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a'#0@0|)))) (and anon8_Then_correct anon8_Else_correct))))))
@@ -18020,11 +18019,11 @@ PreconditionGeneratedEntry_correct))))))))
  :pattern ( (_module.__default.SeqInit arg0@@165 arg1@@76 arg2@@32))
 )))
 (assert  (=> (<= 1 $FunctionContextHeight) (forall ((_module._default.SeqInit$X T@U) ($Heap T@U) (|len#0| Int) (|func#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X) TyType) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |func#0|) HandleTypeType)) (or (|_module.__default.SeqInit#canCall| _module._default.SeqInit$X |len#0| |func#0|) (and (not (= 1 $FunctionContextHeight)) (and (and ($IsGoodHeap $Heap) ($Is |func#0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X))) (and (>= |len#0| 0) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| |len#0|)) (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |852|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|))))
 ))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|)) |len#0|) (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| |len#0|)) (= (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|) (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))))
- :qid |VUDafnyd.50:18|
+ :qid |VUDafnyd.49:18|
  :skolemid |853|
  :pattern ( (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))
  :pattern ( (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|))
@@ -18034,11 +18033,11 @@ PreconditionGeneratedEntry_correct))))))))
  :pattern ( (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) ($IsGoodHeap $Heap))
 ))))
 (assert (forall ((_module._default.SeqInit$X@@0 T@U) ($Heap@@0 T@U) (|len#0@@0| Int) (|func#0@@0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X@@0) TyType) (= (type $Heap@@0) (MapType0Type refType MapType1Type))) (= (type |func#0@@0|) HandleTypeType)) (and ($IsGoodHeap $Heap@@0) ($Is |func#0@@0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X@@0)))) (and (=> (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|) (and (>= |len#0@@0| 0) (forall ((|i#2| T@U) ) (!  (=> (and (and (= (type |i#2|) intType) true) (and (<= 0 (U_2_int |i#2|)) (< (U_2_int |i#2|) |len#0@@0|))) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
 )))) (=> (and (>= |len#0@@0| 0) (forall ((|i#2@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@0|) (< |i#2@@0| |len#0@@0|)) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|))))
 ))) (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|))))
@@ -18122,7 +18121,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@3| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@3|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@3|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |891|
  :pattern ( (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
@@ -18132,7 +18131,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@4| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@4|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@4|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |892|
  :pattern ( (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
@@ -18142,7 +18141,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@5| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@5|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@5|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
- :qid |VUDafnyd.46:17|
+ :qid |VUDafnyd.45:17|
  :skolemid |893|
  :pattern ( (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
@@ -18152,7 +18151,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@6| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@6|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@6|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
- :qid |VUDafnyd.52:8|
+ :qid |VUDafnyd.51:8|
  :skolemid |894|
  :pattern ( (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
@@ -18285,7 +18284,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@20| T@U) (|l#1@@11| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@20|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@17) |l#2@@10|))) |l#3@@8|))))
- :qid |VUDafnyd.77:27|
+ :qid |VUDafnyd.76:27|
  :skolemid |909|
  :pattern ( (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))
 )))
@@ -18295,7 +18294,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@21| T@U) (|l#1@@12| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@21|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@18) |l#2@@11|))) |l#3@@9|))))
- :qid |VUDafnyd.74:23|
+ :qid |VUDafnyd.73:23|
  :skolemid |910|
  :pattern ( (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))
 )))
@@ -18305,7 +18304,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@22| T@U) (|l#1@@13| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@22|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@19) |l#2@@12|))) |l#3@@10|))))
- :qid |VUDafnyd.70:28|
+ :qid |VUDafnyd.69:28|
  :skolemid |911|
  :pattern ( (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))
 )))
@@ -18315,7 +18314,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@23| T@U) (|l#1@@14| T@U) (|l#2@@13| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@23|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@20) |l#2@@13|))) |l#3@@11|))))
- :qid |VUDafnyd.68:24|
+ :qid |VUDafnyd.67:24|
  :skolemid |912|
  :pattern ( (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))
 )))
@@ -18325,7 +18324,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@24| T@U) (|l#1@@15| T@U) (|l#2@@14| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@24|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@21) |l#2@@14|))) |l#3@@12|))))
- :qid |VUDafnyd.64:30|
+ :qid |VUDafnyd.63:30|
  :skolemid |913|
  :pattern ( (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))
 )))
@@ -18335,7 +18334,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@25| T@U) (|l#1@@16| T@U) (|l#2@@15| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@25|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@22) |l#2@@15|))) |l#3@@13|))))
- :qid |VUDafnyd.61:30|
+ :qid |VUDafnyd.60:30|
  :skolemid |914|
  :pattern ( (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))
 )))
@@ -18345,7 +18344,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@26| T@U) (|l#1@@17| T@U) (|l#2@@16| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@26|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@23) |l#2@@16|))) |l#3@@14|))))
- :qid |VUDafnyd.57:33|
+ :qid |VUDafnyd.56:33|
  :skolemid |915|
  :pattern ( (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))
 )))
@@ -18355,7 +18354,7 @@ PreconditionGeneratedEntry_correct))))))))
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@27| T@U) (|l#1@@18| T@U) (|l#2@@17| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@27|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@24) |l#2@@17|))) |l#3@@15|))))
- :qid |VUDafnyd.55:24|
+ :qid |VUDafnyd.54:24|
  :skolemid |916|
  :pattern ( (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))
 )))
@@ -18471,7 +18470,7 @@ PreconditionGeneratedEntry_correct))))))))
 (let ((anon33_Else_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (< |j#10@0| 0) (and anon34_Then_correct anon34_Else_correct)))))
 (let ((anon33_Then_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (<= 0 |j#10@0|) (and anon34_Then_correct anon34_Else_correct)))))
 (let ((anon16_correct  (=> (! (and %lbl%+8 true) :lblpos +8) (=> (forall ((|j#9| Int) ) (!  (=> true (=> (and (<= |i#0@1| |j#9|) (< |j#9| |N#0|)) (= (|Seq#Index| |a'#0@0| |j#9|) (|Seq#Index| |a#0@@9| |j#9|))))
- :qid |VUDafnyd.35:22|
+ :qid |VUDafnyd.34:22|
  :skolemid |840|
  :pattern ( (|Seq#Index| |a#0@@9| |j#9|))
  :pattern ( (|Seq#Index| |a'#0@0| |j#9|))
@@ -18481,11 +18480,11 @@ PreconditionGeneratedEntry_correct))))))))
 (let ((anon31_Else_correct  (=> (! (and %lbl%+13 true) :lblpos +13) (=> (< |j#8@0| |i#0@1|) (and anon32_Then_correct anon32_Else_correct)))))
 (let ((anon31_Then_correct  (=> (! (and %lbl%+14 true) :lblpos +14) (=> (<= |i#0@1| |j#8@0|) (and anon32_Then_correct anon32_Else_correct)))))
 (let ((anon12_correct  (=> (! (and %lbl%+15 true) :lblpos +15) (=> (and (forall ((|j#7| Int) ) (!  (=> (and (<= 0 |j#7|) (< |j#7| |N#0|)) true)
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |835|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7|))
 )) (forall ((|j#7@@0| Int) ) (!  (=> true (=> (and (<= 0 |j#7@@0|) (< |j#7@@0| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#7@@0|)) (|Seq#Index| |a#0@@9| |j#7@@0|))))
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |836|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@0|))
 ))) (and anon31_Then_correct anon31_Else_correct)))))
@@ -18494,11 +18493,11 @@ PreconditionGeneratedEntry_correct))))))))
 (let ((anon29_Else_correct  (=> (! (and %lbl%+19 true) :lblpos +19) (=> (< |j#6@0| 0) (and anon30_Then_correct anon30_Else_correct)))))
 (let ((anon29_Then_correct  (=> (! (and %lbl%+20 true) :lblpos +20) (=> (<= 0 |j#6@0|) (and anon30_Then_correct anon30_Else_correct)))))
 (let ((anon8_correct  (=> (! (and %lbl%+21 true) :lblpos +21) (=> (and (forall ((|j#5| Int) ) (!  (=> (and (<= |i#0@1| |j#5|) (< |j#5| |N#0|)) true)
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |830|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5|))
 )) (forall ((|j#5@@0| Int) ) (!  (=> true (=> (and (<= |i#0@1| |j#5@@0|) (< |j#5@@0| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#5@@0|)) (|Seq#Index| |a#0@@9| |j#5@@0|))))
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |831|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@0|))
 ))) (and anon29_Then_correct anon29_Else_correct)))))
@@ -18511,7 +18510,7 @@ PreconditionGeneratedEntry_correct))))))))
 (let ((anon26_Then_correct  (=> (! (and %lbl%+29 true) :lblpos +29) (=> (<= 0 |i#0@1|) anon4_correct))))
 (let ((anon25_Then_correct  (=> (! (and %lbl%+30 true) :lblpos +30) (=> (not |$w$loop#0@0|) (and anon26_Then_correct anon26_Else_correct)))))
 (let ((GeneratedUnifiedExit_correct  (=> (! (and %lbl%+31 true) :lblpos +31) (and (! (or %lbl%@32 (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a'#0@2|))) :lblneg @32) (=> (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a'#0@2|)) (! (or %lbl%@33 (forall ((|j#3| Int) ) (!  (=> true (=> (and (<= 0 |j#3|) (< |j#3| |N#0|)) (= (|Seq#Index| |a'#0@2| |j#3|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@3 |f#0@@11| ($Box (int_2_U |j#3|)) (|Seq#Index| |a#0@@9| |j#3|)))))
- :qid |VUDafnyd.26:18|
+ :qid |VUDafnyd.25:18|
  :skolemid |828|
  :pattern ( (|Seq#Index| |a#0@@9| |j#3|))
  :pattern ( (|Seq#Index| |a'#0@2| |j#3|))
@@ -18519,7 +18518,7 @@ PreconditionGeneratedEntry_correct))))))))
 (let ((anon35_Then_correct  (=> (! (and %lbl%+34 true) :lblpos +34) (=> (<= |N#0| |i#0@1|) (=> (and (= |a'#0@2| |a'#0@0|) (= $Heap@3 $Heap@0)) GeneratedUnifiedExit_correct)))))
 (let ((anon35_Else_correct  (=> (! (and %lbl%+35 true) :lblpos +35) (=> (and (< |i#0@1| |N#0|) (= |$decr$loop#00@1| (_module.__default.Dec |N#0| |i#0@1|))) (and (! (or %lbl%@36  (and (<= 0 |i#0@1|) (< |i#0@1| (|Seq#Length| |a'#0@0|)))) :lblneg @36) (=> (and (<= 0 |i#0@1|) (< |i#0@1| (|Seq#Length| |a'#0@0|))) (and (! (or %lbl%@37  (and (<= 0 |i#0@1|) (< |i#0@1| (|Seq#Length| |a#0@@9|)))) :lblneg @37) (=> (and (<= 0 |i#0@1|) (< |i#0@1| (|Seq#Length| |a#0@@9|))) (and (! (or %lbl%@38 (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |i#0@1|)) (|Seq#Index| |a#0@@9| |i#0@1|))) :lblneg @38) (=> (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |i#0@1|)) (|Seq#Index| |a#0@@9| |i#0@1|)) (=> (= |a'#0@1| (|Seq#Update| |a'#0@0| |i#0@1| (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |i#0@1|)) (|Seq#Index| |a#0@@9| |i#0@1|)))) (and (! (or %lbl%@39 (forall (($o@@27 T@U) ($f@@17 T@U) ) (! (let ((alpha@@22 (FieldTypeInv0 (type $f@@17))))
  (=> (and (and (= (type $o@@27) refType) (= (type $f@@17) (FieldType alpha@@22))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@27 $f@@17))))
- :qid |VUDafnyd.40:19|
+ :qid |VUDafnyd.39:19|
  :skolemid |848|
  :no-pattern (type $o@@27)
  :no-pattern (type $f@@17)
@@ -18529,7 +18528,7 @@ PreconditionGeneratedEntry_correct))))))))
  :no-pattern (U_2_bool $f@@17)
 ))) :lblneg @39) (=> (forall (($o@@28 T@U) ($f@@18 T@U) ) (! (let ((alpha@@23 (FieldTypeInv0 (type $f@@18))))
  (=> (and (and (= (type $o@@28) refType) (= (type $f@@18) (FieldType alpha@@23))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@28 $f@@18))))
- :qid |VUDafnyd.40:19|
+ :qid |VUDafnyd.39:19|
  :skolemid |848|
  :no-pattern (type@@0 $o@@25)
  :no-pattern (type@@0 $f@@15)
@@ -18549,7 +18548,7 @@ PreconditionGeneratedEntry_correct))))))))
  :pattern ( (_module.__default.Dec |N#0| |j#1@@0|) (_module.__default.Dec |N#0| |_t#0#0@@0|))
 )) (= $Heap@0 $Heap@1))) (and (! (or %lbl%@40 (forall (($o@@29 T@U) ($f@@19 T@U) ) (! (let ((alpha@@24 (FieldTypeInv0 (type $f@@19))))
  (=> (and (and (= (type $o@@29) refType) (= (type $f@@19) (FieldType alpha@@24))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@29 $f@@19))))
- :qid |VUDafnyd.41:26|
+ :qid |VUDafnyd.40:26|
  :skolemid |849|
  :no-pattern (type $o@@29)
  :no-pattern (type $f@@19)
@@ -18559,7 +18558,7 @@ PreconditionGeneratedEntry_correct))))))))
  :no-pattern (U_2_bool $f@@19)
 ))) :lblneg @40) (=> (forall (($o@@30 T@U) ($f@@20 T@U) ) (! (let ((alpha@@25 (FieldTypeInv0 (type $f@@20))))
  (=> (and (and (= (type $o@@30) refType) (= (type $f@@20) (FieldType alpha@@25))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@30 $f@@20))))
- :qid |VUDafnyd.41:26|
+ :qid |VUDafnyd.40:26|
  :skolemid |849|
  :no-pattern (type@@0 $o@@26)
  :no-pattern (type@@0 $f@@16)
@@ -18570,41 +18569,41 @@ PreconditionGeneratedEntry_correct))))))))
  :no-pattern (U_2_int $f@@20)
  :no-pattern (U_2_bool $f@@20)
 )) (and (! (or %lbl%@41 (<= |i#0@1| |N#0|)) :lblneg @41) (=> (<= |i#0@1| |N#0|) (=> (and ($IsGoodHeap $Heap@2) ($IsHeapAnchor $Heap@2)) (=> (and (and (|_module.__default.Dec#canCall| |N#0| |i#0@1|) (<= 0 (_module.__default.Dec |N#0| |i#0@1|))) (and (= $Heap@1 $Heap@2) (= |i#0@2| (+ |i#0@1| 1)))) (and (! (or %lbl%@42  (or (<= 0 |$decr$loop#00@1|) (= (_module.__default.Dec |N#0| |i#0@2|) |$decr$loop#00@1|))) :lblneg @42) (=> (or (<= 0 |$decr$loop#00@1|) (= (_module.__default.Dec |N#0| |i#0@2|) |$decr$loop#00@1|)) (and (! (or %lbl%@43 (< (_module.__default.Dec |N#0| |i#0@2|) |$decr$loop#00@1|)) :lblneg @43) (=> (< (_module.__default.Dec |N#0| |i#0@2|) |$decr$loop#00@1|) (=> (and (forall ((|j#5@@1| Int) ) (!  (=> (and (<= |i#0@2| |j#5@@1|) (< |j#5@@1| |N#0|)) true)
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |850|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@1|))
 )) (forall ((|j#7@@1| Int) ) (!  (=> (and (<= 0 |j#7@@1|) (< |j#7@@1| |N#0|)) true)
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |851|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@1|))
 ))) (and (! (or %lbl%@44  (=> |$w$loop#0@0| (<= 0 |i#0@2|))) :lblneg @44) (=> (=> |$w$loop#0@0| (<= 0 |i#0@2|)) (and (! (or %lbl%@45  (=> |$w$loop#0@0| (<= |i#0@2| |N#0|))) :lblneg @45) (=> (=> |$w$loop#0@0| (<= |i#0@2| |N#0|)) (and (! (or %lbl%@46  (=> |$w$loop#0@0| (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a'#0@1|)))) :lblneg @46) (=> (=> |$w$loop#0@0| (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a'#0@1|))) (and (! (or %lbl%@47  (=> |$w$loop#0@0| (forall ((|j#5@@2| Int) ) (!  (=> true (=> (and (<= |i#0@2| |j#5@@2|) (< |j#5@@2| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@2 |f#0@@11| ($Box (int_2_U |j#5@@2|)) (|Seq#Index| |a#0@@9| |j#5@@2|))))
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |834|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@2|))
 )))) :lblneg @47) (=> (=> |$w$loop#0@0| (forall ((|j#5@@3| Int) ) (!  (=> true (=> (and (<= |i#0@2| |j#5@@3|) (< |j#5@@3| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@2 |f#0@@11| ($Box (int_2_U |j#5@@3|)) (|Seq#Index| |a#0@@9| |j#5@@3|))))
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |834|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@3|))
 ))) (and (! (or %lbl%@48  (=> |$w$loop#0@0| (forall ((|j#7@@2| Int) ) (!  (=> true (=> (and (<= 0 |j#7@@2|) (< |j#7@@2| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@2 |f#0@@11| ($Box (int_2_U |j#7@@2|)) (|Seq#Index| |a#0@@9| |j#7@@2|))))
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |839|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@2|))
 )))) :lblneg @48) (=> (=> |$w$loop#0@0| (forall ((|j#7@@3| Int) ) (!  (=> true (=> (and (<= 0 |j#7@@3|) (< |j#7@@3| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@2 |f#0@@11| ($Box (int_2_U |j#7@@3|)) (|Seq#Index| |a#0@@9| |j#7@@3|))))
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |839|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@3|))
 ))) (and (! (or %lbl%@49  (=> |$w$loop#0@0| (forall ((|j#9@@0| Int) ) (!  (=> true (=> (and (<= |i#0@2| |j#9@@0|) (< |j#9@@0| |N#0|)) (= (|Seq#Index| |a'#0@1| |j#9@@0|) (|Seq#Index| |a#0@@9| |j#9@@0|))))
- :qid |VUDafnyd.35:22|
+ :qid |VUDafnyd.34:22|
  :skolemid |842|
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@0|))
  :pattern ( (|Seq#Index| |a'#0@1| |j#9@@0|))
 )))) :lblneg @49) (=> (=> |$w$loop#0@0| (forall ((|j#9@@1| Int) ) (!  (=> true (=> (and (<= |i#0@2| |j#9@@1|) (< |j#9@@1| |N#0|)) (= (|Seq#Index| |a'#0@1| |j#9@@1|) (|Seq#Index| |a#0@@9| |j#9@@1|))))
- :qid |VUDafnyd.35:22|
+ :qid |VUDafnyd.34:22|
  :skolemid |842|
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@1|))
  :pattern ( (|Seq#Index| |a'#0@1| |j#9@@1|))
 ))) (! (or %lbl%@50  (=> |$w$loop#0@0| (forall ((|j#11| Int) ) (!  (=> true (=> (and (<= 0 |j#11|) (< |j#11| |i#0@2|)) (= (|Seq#Index| |a'#0@1| |j#11|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@2 |f#0@@11| ($Box (int_2_U |j#11|)) (|Seq#Index| |a#0@@9| |j#11|)))))
- :qid |VUDafnyd.36:22|
+ :qid |VUDafnyd.35:22|
  :skolemid |845|
  :pattern ( (|Seq#Index| |a#0@@9| |j#11|))
  :pattern ( (|Seq#Index| |a'#0@1| |j#11|))
@@ -18613,80 +18612,80 @@ PreconditionGeneratedEntry_correct))))))))
 (let ((anon24_LoopBody_correct  (=> (! (and %lbl%+52 true) :lblpos +52) (and anon25_Then_correct anon25_Else_correct))))
 (let ((anon24_LoopDone_correct  (=> (! (and %lbl%+53 true) :lblpos +53) true)))
 (let ((anon24_LoopHead_correct  (=> (! (and %lbl%+54 true) :lblpos +54) (=> (and ($Is |a'#0@0| (TSeq _module._default.VectorUpdate$A)) ($IsAlloc |a'#0@0| (TSeq _module._default.VectorUpdate$A) $Heap@0)) (=> (and (and (and ($IsGoodHeap $Heap@0) ($IsHeapAnchor $Heap@0)) (not false)) (and (=> |$w$loop#0@0| true) (=> |$w$loop#0@0| (<= 0 |i#0@1|)))) (=> (and (and (and (and (=> |$w$loop#0@0| (<= |i#0@1| |N#0|)) (=> |$w$loop#0@0| true)) (and (=> |$w$loop#0@0| (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a'#0@0|))) (=> |$w$loop#0@0| (forall ((|j#5@@4| Int) ) (!  (=> (and (<= |i#0@1| |j#5@@4|) (< |j#5@@4| |N#0|)) true)
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |832|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@4|))
 ))))) (and (and (=> |$w$loop#0@0| (forall ((|j#5@@5| Int) ) (!  (=> true (=> (and (<= |i#0@1| |j#5@@5|) (< |j#5@@5| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#5@@5|)) (|Seq#Index| |a#0@@9| |j#5@@5|))))
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |834|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@5|))
 ))) (=> |$w$loop#0@0| (forall ((|j#7@@4| Int) ) (!  (=> (and (<= 0 |j#7@@4|) (< |j#7@@4| |N#0|)) true)
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |837|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@4|))
 )))) (and (=> |$w$loop#0@0| (forall ((|j#7@@5| Int) ) (!  (=> true (=> (and (<= 0 |j#7@@5|) (< |j#7@@5| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#7@@5|)) (|Seq#Index| |a#0@@9| |j#7@@5|))))
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |839|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@5|))
 ))) (=> |$w$loop#0@0| true)))) (and (and (and (=> |$w$loop#0@0| (forall ((|j#9@@2| Int) ) (!  (=> true (=> (and (<= |i#0@1| |j#9@@2|) (< |j#9@@2| |N#0|)) (= (|Seq#Index| |a'#0@0| |j#9@@2|) (|Seq#Index| |a#0@@9| |j#9@@2|))))
- :qid |VUDafnyd.35:22|
+ :qid |VUDafnyd.34:22|
  :skolemid |842|
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@2|))
  :pattern ( (|Seq#Index| |a'#0@0| |j#9@@2|))
 ))) (=> |$w$loop#0@0| true)) (and (=> |$w$loop#0@0| (forall ((|j#11@@0| Int) ) (!  (=> true (=> (and (<= 0 |j#11@@0|) (< |j#11@@0| |i#0@1|)) (= (|Seq#Index| |a'#0@0| |j#11@@0|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@0 |f#0@@11| ($Box (int_2_U |j#11@@0|)) (|Seq#Index| |a#0@@9| |j#11@@0|)))))
- :qid |VUDafnyd.36:22|
+ :qid |VUDafnyd.35:22|
  :skolemid |845|
  :pattern ( (|Seq#Index| |a#0@@9| |j#11@@0|))
  :pattern ( (|Seq#Index| |a'#0@0| |j#11@@0|))
 ))) (forall (($o@@31 T@U) ) (!  (=> (= (type $o@@31) refType) (=> (and (not (= $o@@31 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@31) alloc))) (= (MapType0Select $Heap@0 $o@@31) (MapType0Select $Heap@@1 $o@@31))))
- :qid |VUDafnyd.30:3|
+ :qid |VUDafnyd.29:3|
  :skolemid |846|
  :pattern ( (MapType0Select $Heap@0 $o@@31))
 )))) (and (and ($HeapSucc $Heap@@1 $Heap@0) (forall (($o@@32 T@U) ($f@@21 T@U) ) (! (let ((alpha@@26 (FieldTypeInv0 (type $f@@21))))
  (=> (and (and (= (type $o@@32) refType) (= (type $f@@21) (FieldType alpha@@26))) (and (not (= $o@@32 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@32) alloc)))) (or (= (MapType1Select (MapType0Select $Heap@0 $o@@32) $f@@21) (MapType1Select (MapType0Select $Heap@@1 $o@@32) $f@@21)) (U_2_bool (MapType4Select $_Frame@0 $o@@32 $f@@21)))))
- :qid |VUDafnyd.30:3|
+ :qid |VUDafnyd.29:3|
  :skolemid |847|
  :pattern ( (MapType1Select (MapType0Select $Heap@0 $o@@32) $f@@21))
 ))) (and (<= (_module.__default.Dec |N#0| |i#0@1|) |$decr_init$loop#00@0|) (=> (= (_module.__default.Dec |N#0| |i#0@1|) |$decr_init$loop#00@0|) true))))) (and anon24_LoopDone_correct anon24_LoopBody_correct)))))))
 (let ((anon0_correct  (=> (! (and %lbl%+55 true) :lblpos +55) (=> (= $_Frame@0 (|lambda#5| null $Heap@@1 alloc false)) (=> (and (= |i#0@0| 0) (= |$decr_init$loop#00@0| (_module.__default.Dec |N#0| |i#0@0|))) (and (! (or %lbl%@56  (=> |$w$loop#0@0| (<= 0 |i#0@0|))) :lblneg @56) (=> (=> |$w$loop#0@0| (<= 0 |i#0@0|)) (and (! (or %lbl%@57  (=> |$w$loop#0@0| (<= |i#0@0| |N#0|))) :lblneg @57) (=> (=> |$w$loop#0@0| (<= |i#0@0| |N#0|)) (and (! (or %lbl%@58  (=> |$w$loop#0@0| (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a#0@@9|)))) :lblneg @58) (=> (=> |$w$loop#0@0| (= (|Seq#Length| |a#0@@9|) (|Seq#Length| |a#0@@9|))) (and (! (or %lbl%@59  (=> |$w$loop#0@0| (forall ((|j#5@@6| Int) ) (!  (=> true (=> (and (<= |i#0@0| |j#5@@6|) (< |j#5@@6| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#5@@6|)) (|Seq#Index| |a#0@@9| |j#5@@6|))))
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |834|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@6|))
 )))) :lblneg @59) (=> (=> |$w$loop#0@0| (forall ((|j#5@@7| Int) ) (!  (=> true (=> (and (<= |i#0@0| |j#5@@7|) (< |j#5@@7| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#5@@7|)) (|Seq#Index| |a#0@@9| |j#5@@7|))))
- :qid |VUDafnyd.33:22|
+ :qid |VUDafnyd.32:22|
  :skolemid |834|
  :pattern ( (|Seq#Index| |a#0@@9| |j#5@@7|))
 ))) (and (! (or %lbl%@60  (=> |$w$loop#0@0| (forall ((|j#7@@6| Int) ) (!  (=> true (=> (and (<= 0 |j#7@@6|) (< |j#7@@6| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#7@@6|)) (|Seq#Index| |a#0@@9| |j#7@@6|))))
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |839|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@6|))
 )))) :lblneg @60) (=> (=> |$w$loop#0@0| (forall ((|j#7@@7| Int) ) (!  (=> true (=> (and (<= 0 |j#7@@7|) (< |j#7@@7| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#7@@7|)) (|Seq#Index| |a#0@@9| |j#7@@7|))))
- :qid |VUDafnyd.34:22|
+ :qid |VUDafnyd.33:22|
  :skolemid |839|
  :pattern ( (|Seq#Index| |a#0@@9| |j#7@@7|))
 ))) (and (! (or %lbl%@61  (=> |$w$loop#0@0| (forall ((|j#9@@3| Int) ) (!  (=> true (=> (and (<= |i#0@0| |j#9@@3|) (< |j#9@@3| |N#0|)) (= (|Seq#Index| |a#0@@9| |j#9@@3|) (|Seq#Index| |a#0@@9| |j#9@@3|))))
- :qid |VUDafnyd.35:22|
+ :qid |VUDafnyd.34:22|
  :skolemid |842|
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@3|))
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@3|))
 )))) :lblneg @61) (=> (=> |$w$loop#0@0| (forall ((|j#9@@4| Int) ) (!  (=> true (=> (and (<= |i#0@0| |j#9@@4|) (< |j#9@@4| |N#0|)) (= (|Seq#Index| |a#0@@9| |j#9@@4|) (|Seq#Index| |a#0@@9| |j#9@@4|))))
- :qid |VUDafnyd.35:22|
+ :qid |VUDafnyd.34:22|
  :skolemid |842|
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@4|))
  :pattern ( (|Seq#Index| |a#0@@9| |j#9@@4|))
 ))) (and (! (or %lbl%@62  (=> |$w$loop#0@0| (forall ((|j#11@@1| Int) ) (!  (=> true (=> (and (<= 0 |j#11@@1|) (< |j#11@@1| |i#0@0|)) (= (|Seq#Index| |a#0@@9| |j#11@@1|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#11@@1|)) (|Seq#Index| |a#0@@9| |j#11@@1|)))))
- :qid |VUDafnyd.36:22|
+ :qid |VUDafnyd.35:22|
  :skolemid |845|
  :pattern ( (|Seq#Index| |a#0@@9| |j#11@@1|))
  :pattern ( (|Seq#Index| |a#0@@9| |j#11@@1|))
 )))) :lblneg @62) (=> (=> |$w$loop#0@0| (forall ((|j#11@@2| Int) ) (!  (=> true (=> (and (<= 0 |j#11@@2|) (< |j#11@@2| |i#0@0|)) (= (|Seq#Index| |a#0@@9| |j#11@@2|) (Apply2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#11@@2|)) (|Seq#Index| |a#0@@9| |j#11@@2|)))))
- :qid |VUDafnyd.36:22|
+ :qid |VUDafnyd.35:22|
  :skolemid |845|
  :pattern ( (|Seq#Index| |a#0@@9| |j#11@@2|))
  :pattern ( (|Seq#Index| |a#0@@9| |j#11@@2|))
 ))) anon24_LoopHead_correct)))))))))))))))))))
 (let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+63 true) :lblpos +63) (=> (and ($IsGoodHeap $Heap@@1) ($IsHeapAnchor $Heap@@1)) (=> (and (and ($Is |a#0@@9| (TSeq _module._default.VectorUpdate$A)) ($IsAlloc |a#0@@9| (TSeq _module._default.VectorUpdate$A) $Heap@@1)) (and ($Is |f#0@@11| (Tclass._System.___hFunc2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A)) ($IsAlloc |f#0@@11| (Tclass._System.___hFunc2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A) $Heap@@1))) (=> (and (and (and ($Is |a'#0| (TSeq _module._default.VectorUpdate$A)) ($IsAlloc |a'#0| (TSeq _module._default.VectorUpdate$A) $Heap@@1)) (= 5 $FunctionContextHeight)) (and (= |N#0| (|Seq#Length| |a#0@@9|)) (forall ((|j#1@@1| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@1|) (< |j#1@@1| |N#0|)) (Requires2 TInt _module._default.VectorUpdate$A _module._default.VectorUpdate$A $Heap@@1 |f#0@@11| ($Box (int_2_U |j#1@@1|)) (|Seq#Index| |a#0@@9| |j#1@@1|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |827|
  :pattern ( (|Seq#Index| |a#0@@9| |j#1@@1|))
 )))) anon0_correct))))))
@@ -22909,11 +22908,11 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
  :pattern ( (_module.__default.SeqInit arg0@@165 arg1@@76 arg2@@32))
 )))
 (assert  (=> (<= 1 $FunctionContextHeight) (forall ((_module._default.SeqInit$X T@U) ($Heap T@U) (|len#0| Int) (|func#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X) TyType) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |func#0|) HandleTypeType)) (or (|_module.__default.SeqInit#canCall| _module._default.SeqInit$X |len#0| |func#0|) (and (not (= 1 $FunctionContextHeight)) (and (and ($IsGoodHeap $Heap) ($Is |func#0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X))) (and (>= |len#0| 0) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| |len#0|)) (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |852|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|))))
 ))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|)) |len#0|) (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| |len#0|)) (= (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|) (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))))
- :qid |VUDafnyd.50:18|
+ :qid |VUDafnyd.49:18|
  :skolemid |853|
  :pattern ( (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))
  :pattern ( (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|))
@@ -22923,11 +22922,11 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
  :pattern ( (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) ($IsGoodHeap $Heap))
 ))))
 (assert (forall ((_module._default.SeqInit$X@@0 T@U) ($Heap@@0 T@U) (|len#0@@0| Int) (|func#0@@0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X@@0) TyType) (= (type $Heap@@0) (MapType0Type refType MapType1Type))) (= (type |func#0@@0|) HandleTypeType)) (and ($IsGoodHeap $Heap@@0) ($Is |func#0@@0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X@@0)))) (and (=> (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|) (and (>= |len#0@@0| 0) (forall ((|i#2| T@U) ) (!  (=> (and (and (= (type |i#2|) intType) true) (and (<= 0 (U_2_int |i#2|)) (< (U_2_int |i#2|) |len#0@@0|))) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
 )))) (=> (and (>= |len#0@@0| 0) (forall ((|i#2@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@0|) (< |i#2@@0| |len#0@@0|)) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|))))
 ))) (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|))))
@@ -23011,7 +23010,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@3| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@3|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@3|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |891|
  :pattern ( (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
@@ -23021,7 +23020,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@4| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@4|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@4|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |892|
  :pattern ( (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
@@ -23031,7 +23030,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@5| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@5|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@5|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
- :qid |VUDafnyd.46:17|
+ :qid |VUDafnyd.45:17|
  :skolemid |893|
  :pattern ( (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
@@ -23041,7 +23040,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@6| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@6|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@6|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
- :qid |VUDafnyd.52:8|
+ :qid |VUDafnyd.51:8|
  :skolemid |894|
  :pattern ( (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
@@ -23174,7 +23173,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@20| T@U) (|l#1@@11| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@20|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@17) |l#2@@10|))) |l#3@@8|))))
- :qid |VUDafnyd.77:27|
+ :qid |VUDafnyd.76:27|
  :skolemid |909|
  :pattern ( (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))
 )))
@@ -23184,7 +23183,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@21| T@U) (|l#1@@12| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@21|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@18) |l#2@@11|))) |l#3@@9|))))
- :qid |VUDafnyd.74:23|
+ :qid |VUDafnyd.73:23|
  :skolemid |910|
  :pattern ( (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))
 )))
@@ -23194,7 +23193,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@22| T@U) (|l#1@@13| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@22|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@19) |l#2@@12|))) |l#3@@10|))))
- :qid |VUDafnyd.70:28|
+ :qid |VUDafnyd.69:28|
  :skolemid |911|
  :pattern ( (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))
 )))
@@ -23204,7 +23203,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@23| T@U) (|l#1@@14| T@U) (|l#2@@13| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@23|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@20) |l#2@@13|))) |l#3@@11|))))
- :qid |VUDafnyd.68:24|
+ :qid |VUDafnyd.67:24|
  :skolemid |912|
  :pattern ( (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))
 )))
@@ -23214,7 +23213,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@24| T@U) (|l#1@@15| T@U) (|l#2@@14| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@24|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@21) |l#2@@14|))) |l#3@@12|))))
- :qid |VUDafnyd.64:30|
+ :qid |VUDafnyd.63:30|
  :skolemid |913|
  :pattern ( (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))
 )))
@@ -23224,7 +23223,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@25| T@U) (|l#1@@16| T@U) (|l#2@@15| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@25|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@22) |l#2@@15|))) |l#3@@13|))))
- :qid |VUDafnyd.61:30|
+ :qid |VUDafnyd.60:30|
  :skolemid |914|
  :pattern ( (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))
 )))
@@ -23234,7 +23233,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@26| T@U) (|l#1@@17| T@U) (|l#2@@16| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@26|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@23) |l#2@@16|))) |l#3@@14|))))
- :qid |VUDafnyd.57:33|
+ :qid |VUDafnyd.56:33|
  :skolemid |915|
  :pattern ( (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))
 )))
@@ -23244,7 +23243,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@27| T@U) (|l#1@@18| T@U) (|l#2@@17| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@27|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@24) |l#2@@17|))) |l#3@@15|))))
- :qid |VUDafnyd.55:24|
+ :qid |VUDafnyd.54:24|
  :skolemid |916|
  :pattern ( (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))
 )))
@@ -23284,14 +23283,14 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
 (let ((anon11_Then_correct  (=> (! (and %lbl%+5 true) :lblpos +5) (=> (and ($Is (_module.__default.SeqInit _module._default.SeqInit$X@@1 |len#0@@1| |func#0@@1|) (TSeq _module._default.SeqInit$X@@1)) (= (|Seq#Length| |s#0|) |len#0@@1|)) (and anon12_Then_correct anon12_Else_correct)))))
 (let ((anon11_Else_correct  (=> (! (and %lbl%+6 true) :lblpos +6) true)))
 (let ((anon4_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (forall ((|i#5| T@U) ) (!  (=> (and (and (= (type |i#5|) intType) true) (and (<= 0 (U_2_int |i#5|)) (< (U_2_int |i#5|) |len#0@@1|))) (Requires1 TInt _module._default.SeqInit$X@@1 $Heap@@1 |func#0@@1| ($Box |i#5|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |859|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@1 $Heap@@1 |func#0@@1| ($Box |i#5|)))
 )) (and (! (or %lbl%@8 |b$reqreads#0@1|) :lblneg @8) (=> |b$reqreads#0@1| (and anon11_Then_correct anon11_Else_correct)))))))
 (let ((anon10_Else_correct  (=> (! (and %lbl%+9 true) :lblpos +9) (=> (=> (and (<= 0 |i#4@0|) (< |i#4@0| |len#0@@1|)) (Requires1 TInt _module._default.SeqInit$X@@1 $Heap@@1 |func#0@@1| ($Box (int_2_U |i#4@0|)))) (=> (and (=> |b$reqreads#0@1| true) (=> true |b$reqreads#0@1|)) anon4_correct)))))
 (let ((anon10_Then_correct  (=> (! (and %lbl%+10 true) :lblpos +10) (=> (<= 0 |i#4@0|) (=> (and (< |i#4@0| |len#0@@1|) ($IsAlloc (int_2_U |i#4@0|) TInt $Heap@@1)) (=> (and (and (and (=> |b$reqreads#0@0| (forall (($o@@25 T@U) ($f@@15 T@U) ) (! (let ((alpha@@22 (FieldTypeInv0 (type $f@@15))))
  (=> (and (= (type $o@@25) refType) (= (type $f@@15) (FieldType alpha@@22))) (=> (and (and (not (= $o@@25 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@25) alloc))) (U_2_bool (MapType0Select (Reads1 TInt _module._default.SeqInit$X@@1 $Heap@@1 |func#0@@1| ($Box (int_2_U |i#4@0|))) ($Box $o@@25)))) (U_2_bool (MapType4Select $_Frame@0 $o@@25 $f@@15)))))
- :qid |VUDafnyd.48:52|
+ :qid |VUDafnyd.47:52|
  :skolemid |858|
  :no-pattern (type $o@@25)
  :no-pattern (type $f@@15)
@@ -23301,7 +23300,7 @@ PreconditionGeneratedEntry_correct)))))))))))))))))))))))))))))))))
  :no-pattern (U_2_bool $f@@15)
 ))) (=> (forall (($o@@26 T@U) ($f@@16 T@U) ) (! (let ((alpha@@23 (FieldTypeInv0 (type $f@@16))))
  (=> (and (= (type $o@@26) refType) (= (type $f@@16) (FieldType alpha@@23))) (=> (and (and (not (= $o@@26 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@26) alloc))) (U_2_bool (MapType0Select (Reads1 TInt _module._default.SeqInit$X@@1 $Heap@@1 |func#0@@1| ($Box (int_2_U |i#4@0|))) ($Box $o@@26)))) (U_2_bool (MapType4Select $_Frame@0 $o@@26 $f@@16)))))
- :qid |VUDafnyd.48:52|
+ :qid |VUDafnyd.47:52|
  :skolemid |858|
  :no-pattern (type $o@@26)
  :no-pattern (type $f@@16)
@@ -27531,11 +27530,11 @@ PreconditionGeneratedEntry_correct))))))))))
  :pattern ( (_module.__default.SeqInit arg0@@165 arg1@@76 arg2@@32))
 )))
 (assert  (=> (<= 1 $FunctionContextHeight) (forall ((_module._default.SeqInit$X T@U) ($Heap T@U) (|len#0| Int) (|func#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X) TyType) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |func#0|) HandleTypeType)) (or (|_module.__default.SeqInit#canCall| _module._default.SeqInit$X |len#0| |func#0|) (and (not (= 1 $FunctionContextHeight)) (and (and ($IsGoodHeap $Heap) ($Is |func#0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X))) (and (>= |len#0| 0) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| |len#0|)) (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |852|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#0|))))
 ))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|)) |len#0|) (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| |len#0|)) (= (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|) (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))))
- :qid |VUDafnyd.50:18|
+ :qid |VUDafnyd.49:18|
  :skolemid |853|
  :pattern ( (Apply1 TInt _module._default.SeqInit$X $Heap |func#0| ($Box (int_2_U |i#1|))))
  :pattern ( (|Seq#Index| (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) |i#1|))
@@ -27545,11 +27544,11 @@ PreconditionGeneratedEntry_correct))))))))))
  :pattern ( (_module.__default.SeqInit _module._default.SeqInit$X |len#0| |func#0|) ($IsGoodHeap $Heap))
 ))))
 (assert (forall ((_module._default.SeqInit$X@@0 T@U) ($Heap@@0 T@U) (|len#0@@0| Int) (|func#0@@0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInit$X@@0) TyType) (= (type $Heap@@0) (MapType0Type refType MapType1Type))) (= (type |func#0@@0|) HandleTypeType)) (and ($IsGoodHeap $Heap@@0) ($Is |func#0@@0| (Tclass._System.___hPartialFunc1 TInt _module._default.SeqInit$X@@0)))) (and (=> (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|) (and (>= |len#0@@0| 0) (forall ((|i#2| T@U) ) (!  (=> (and (and (= (type |i#2|) intType) true) (and (<= 0 (U_2_int |i#2|)) (< (U_2_int |i#2|) |len#0@@0|))) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box |i#2|)))
 )))) (=> (and (>= |len#0@@0| 0) (forall ((|i#2@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@0|) (< |i#2@@0| |len#0@@0|)) (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |855|
  :pattern ( (Requires1 TInt _module._default.SeqInit$X@@0 $Heap@@0 |func#0@@0| ($Box (int_2_U |i#2@@0|))))
 ))) (|_module.__default.SeqInit#requires| _module._default.SeqInit$X@@0 |len#0@@0| |func#0@@0|))))
@@ -27633,7 +27632,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@3| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@3|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@3|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |891|
  :pattern ( (MapType4Select (|lambda#4| |l#0@@3| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
@@ -27643,7 +27642,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@4| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@4|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@4|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |892|
  :pattern ( (MapType4Select (|lambda#5| |l#0@@4| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
@@ -27653,7 +27652,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@5| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@5|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@5|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
- :qid |VUDafnyd.46:17|
+ :qid |VUDafnyd.45:17|
  :skolemid |893|
  :pattern ( (MapType4Select (|lambda#6| |l#0@@5| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
@@ -27663,7 +27662,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@6| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@6|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@6|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
- :qid |VUDafnyd.52:8|
+ :qid |VUDafnyd.51:8|
  :skolemid |894|
  :pattern ( (MapType4Select (|lambda#7| |l#0@@6| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
@@ -27796,7 +27795,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@20| T@U) (|l#1@@11| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@20|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@17) |l#2@@10|))) |l#3@@8|))))
- :qid |VUDafnyd.77:27|
+ :qid |VUDafnyd.76:27|
  :skolemid |909|
  :pattern ( (MapType4Select (|lambda#93| |l#0@@20| |l#1@@11| |l#2@@10| |l#3@@8|) $o@@17 $f@@7))
 )))
@@ -27806,7 +27805,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@21| T@U) (|l#1@@12| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@21|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@18) |l#2@@11|))) |l#3@@9|))))
- :qid |VUDafnyd.74:23|
+ :qid |VUDafnyd.73:23|
  :skolemid |910|
  :pattern ( (MapType4Select (|lambda#94| |l#0@@21| |l#1@@12| |l#2@@11| |l#3@@9|) $o@@18 $f@@8))
 )))
@@ -27816,7 +27815,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@22| T@U) (|l#1@@13| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@22|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@19) |l#2@@12|))) |l#3@@10|))))
- :qid |VUDafnyd.70:28|
+ :qid |VUDafnyd.69:28|
  :skolemid |911|
  :pattern ( (MapType4Select (|lambda#95| |l#0@@22| |l#1@@13| |l#2@@12| |l#3@@10|) $o@@19 $f@@9))
 )))
@@ -27826,7 +27825,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@23| T@U) (|l#1@@14| T@U) (|l#2@@13| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@23|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@20) |l#2@@13|))) |l#3@@11|))))
- :qid |VUDafnyd.68:24|
+ :qid |VUDafnyd.67:24|
  :skolemid |912|
  :pattern ( (MapType4Select (|lambda#96| |l#0@@23| |l#1@@14| |l#2@@13| |l#3@@11|) $o@@20 $f@@10))
 )))
@@ -27836,7 +27835,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@24| T@U) (|l#1@@15| T@U) (|l#2@@14| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@24|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@21) |l#2@@14|))) |l#3@@12|))))
- :qid |VUDafnyd.64:30|
+ :qid |VUDafnyd.63:30|
  :skolemid |913|
  :pattern ( (MapType4Select (|lambda#97| |l#0@@24| |l#1@@15| |l#2@@14| |l#3@@12|) $o@@21 $f@@11))
 )))
@@ -27846,7 +27845,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@25| T@U) (|l#1@@16| T@U) (|l#2@@15| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@25|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@22) |l#2@@15|))) |l#3@@13|))))
- :qid |VUDafnyd.61:30|
+ :qid |VUDafnyd.60:30|
  :skolemid |914|
  :pattern ( (MapType4Select (|lambda#98| |l#0@@25| |l#1@@16| |l#2@@15| |l#3@@13|) $o@@22 $f@@12))
 )))
@@ -27856,7 +27855,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@26| T@U) (|l#1@@17| T@U) (|l#2@@16| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@26|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@23) |l#2@@16|))) |l#3@@14|))))
- :qid |VUDafnyd.57:33|
+ :qid |VUDafnyd.56:33|
  :skolemid |915|
  :pattern ( (MapType4Select (|lambda#99| |l#0@@26| |l#1@@17| |l#2@@16| |l#3@@14|) $o@@23 $f@@13))
 )))
@@ -27866,7 +27865,7 @@ PreconditionGeneratedEntry_correct))))))))))
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@27| T@U) (|l#1@@18| T@U) (|l#2@@17| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@27|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@24) |l#2@@17|))) |l#3@@15|))))
- :qid |VUDafnyd.55:24|
+ :qid |VUDafnyd.54:24|
  :skolemid |916|
  :pattern ( (MapType4Select (|lambda#100| |l#0@@27| |l#1@@18| |l#2@@17| |l#3@@15|) $o@@24 $f@@14))
 )))
@@ -28047,7 +28046,7 @@ PreconditionGeneratedEntry_correct))))))))))
 (let ((anon31_Else_correct  (=> (! (and %lbl%+1 true) :lblpos +1) (=> (= |x#1@0| 0) anon9_correct))))
 (let ((anon31_Then_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (and (and (not (= |x#1@0| 0)) (= |##a#0@0| 100)) (and ($IsAlloc (int_2_U |##a#0@0|) TInt $Heap@7) ($IsAlloc (int_2_U |x#1@0|) TInt $Heap@7))) (and (! (or %lbl%@3 (not (= |x#1@0| 0))) :lblneg @3) (=> (not (= |x#1@0| 0)) (and (! (or %lbl%@4 (forall (($o@@37 T@U) ($f@@27 T@U) ) (! (let ((alpha@@22 (FieldTypeInv0 (type $f@@27))))
  (=> (and (and (= (type $o@@37) refType) (= (type $f@@27) (FieldType alpha@@22))) false) (U_2_bool (MapType4Select |$_Frame#l3@0| $o@@37 $f@@27))))
- :qid |VUDafnyd.64:55|
+ :qid |VUDafnyd.63:55|
  :skolemid |870|
  :no-pattern (type $o@@37)
  :no-pattern (type $f@@27)
@@ -28057,7 +28056,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@27)
 ))) :lblneg @4) (=> (forall (($o@@38 T@U) ($f@@28 T@U) ) (! (let ((alpha@@23 (FieldTypeInv0 (type $f@@28))))
  (=> (and (and (= (type $o@@38) refType) (= (type $f@@28) (FieldType alpha@@23))) false) (U_2_bool (MapType4Select |$_Frame#l3@0| $o@@38 $f@@28))))
- :qid |VUDafnyd.64:55|
+ :qid |VUDafnyd.63:55|
  :skolemid |870|
  :no-pattern (type@@0 $o@@25)
  :no-pattern (type@@0 $f@@15)
@@ -28079,7 +28078,7 @@ PreconditionGeneratedEntry_correct))))))))))
 (let ((anon39_Else_correct  (=> (! (and %lbl%+14 true) :lblpos +14) (=> (not (and (<= 0 |i#5@0|) (< |i#5@0| 9))) anon25_correct))))
 (let ((anon39_Then_correct  (=> (! (and %lbl%+15 true) :lblpos +15) (=> (and (<= 0 |i#5@0|) (< |i#5@0| 9)) (and (! (or %lbl%@16  (and (<= 0 |i#5@0|) (< |i#5@0| (|Seq#Length| |call6formal@a'#0@0|)))) :lblneg @16) (=> (and (<= 0 |i#5@0|) (< |i#5@0| (|Seq#Length| |call6formal@a'#0@0|))) (and (! (or %lbl%@17  (and (<= 0 (+ |i#5@0| 1)) (< (+ |i#5@0| 1) (|Seq#Length| |call6formal@a'#0@0|)))) :lblneg @17) (=> (and (<= 0 (+ |i#5@0| 1)) (< (+ |i#5@0| 1) (|Seq#Length| |call6formal@a'#0@0|))) (=> (and (and (= |##a#1@0| (U_2_int ($Unbox intType (|Seq#Index| |call6formal@a'#0@0| |i#5@0|)))) ($IsAlloc (int_2_U |##a#1@0|) TInt $Heap@15)) (and (= |##b#1@0| (U_2_int ($Unbox intType (|Seq#Index| |call6formal@a'#0@0| (+ |i#5@0| 1))))) ($IsAlloc (int_2_U |##b#1@0|) TInt $Heap@15))) (and (! (or %lbl%@18 (forall (($o@@39 T@U) ($f@@29 T@U) ) (! (let ((alpha@@24 (FieldTypeInv0 (type $f@@29))))
  (=> (and (and (= (type $o@@39) refType) (= (type $f@@29) (FieldType alpha@@24))) false) (U_2_bool (MapType4Select |$_Frame#l7@0| $o@@39 $f@@29))))
- :qid |VUDafnyd.77:56|
+ :qid |VUDafnyd.76:56|
  :skolemid |880|
  :no-pattern (type $o@@39)
  :no-pattern (type $f@@29)
@@ -28089,7 +28088,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@29)
 ))) :lblneg @18) (=> (forall (($o@@40 T@U) ($f@@30 T@U) ) (! (let ((alpha@@25 (FieldTypeInv0 (type $f@@30))))
  (=> (and (and (= (type $o@@40) refType) (= (type $f@@30) (FieldType alpha@@25))) false) (U_2_bool (MapType4Select |$_Frame#l7@0| $o@@40 $f@@30))))
- :qid |VUDafnyd.77:56|
+ :qid |VUDafnyd.76:56|
  :skolemid |880|
  :no-pattern (type@@0 $o@@26)
  :no-pattern (type@@0 $f@@16)
@@ -28108,7 +28107,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :skolemid |881|
 )) (= |f##4@0| (Lit (AtLayer (|lambda#12| (Handle2 (|lambda#88| |call6formal@a'#0@0| |call6formal@a'#0@0| 1) (|lambda#64| TInt TInt 0 9) (|lambda#31| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (and (! (or %lbl%@23 (forall (($o@@41 T@U) ($f@@31 T@U) ) (! (let ((alpha@@26 (FieldTypeInv0 (type $f@@31))))
  (=> (and (and (= (type $o@@41) refType) (= (type $f@@31) (FieldType alpha@@26))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@41 $f@@31))))
- :qid |VUDafnyd.77:20|
+ :qid |VUDafnyd.76:20|
  :skolemid |882|
  :no-pattern (type $o@@41)
  :no-pattern (type $f@@31)
@@ -28118,7 +28117,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@31)
 ))) :lblneg @23) (=> (forall (($o@@42 T@U) ($f@@32 T@U) ) (! (let ((alpha@@27 (FieldTypeInv0 (type $f@@32))))
  (=> (and (and (= (type $o@@42) refType) (= (type $f@@32) (FieldType alpha@@27))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@42 $f@@32))))
- :qid |VUDafnyd.77:20|
+ :qid |VUDafnyd.76:20|
  :skolemid |882|
  :no-pattern (type@@0 $o@@27)
  :no-pattern (type@@0 $f@@17)
@@ -28129,25 +28128,25 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@32)
  :no-pattern (U_2_bool $f@@32)
 )) (=> (and ($Is |call6formal@a'#0| (TSeq call0formal@_module._default.VectorUpdate$A)) ($IsAlloc |call6formal@a'#0| (TSeq call0formal@_module._default.VectorUpdate$A) $Heap@@1)) (and (! (or %lbl%@24 (= |N##4@0| (|Seq#Length| |z#0@0|))) :lblneg @24) (=> (= |N##4@0| (|Seq#Length| |z#0@0|)) (and (! (or %lbl%@25 (forall ((|j#1| Int) ) (!  (=> true (=> (and (<= 0 |j#1|) (< |j#1| |N##4@0|)) (Requires2 TInt TInt TInt $Heap@13 |f##4@0| ($Box (int_2_U |j#1|)) (|Seq#Index| |z#0@0| |j#1|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |z#0@0| |j#1|))
 ))) :lblneg @25) (=> (forall ((|j#1@@0| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@0|) (< |j#1@@0| |N##4@0|)) (Requires2 TInt TInt TInt $Heap@13 |f##4@0| ($Box (int_2_U |j#1@@0|)) (|Seq#Index| |z#0@0| |j#1@@0|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |z#0@0| |j#1@@0|))
 )) (=> (and (and (and ($IsGoodHeap $Heap@16) ($IsHeapAnchor $Heap@16)) (and ($Is |call6formal@a'#0@0@@0| (TSeq TInt)) ($IsAlloc |call6formal@a'#0@0@@0| (TSeq TInt) $Heap@16))) (and (and (= (|Seq#Length| |z#0@0|) (|Seq#Length| |call6formal@a'#0@0@@0|)) (forall ((|j#3| Int) ) (!  (=> true (=> (and (<= 0 |j#3|) (< |j#3| |N##4@0|)) (= (|Seq#Index| |call6formal@a'#0@0@@0| |j#3|) (Apply2 TInt TInt TInt $Heap@16 |f##4@0| ($Box (int_2_U |j#3|)) (|Seq#Index| |z#0@0| |j#3|)))))
- :qid |VUDafnyd.26:18|
+ :qid |VUDafnyd.25:18|
  :skolemid |825|
  :pattern ( (|Seq#Index| |z#0@0| |j#3|))
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@0| |j#3|))
 ))) (and (forall (($o@@43 T@U) ) (!  (=> (= (type $o@@43) refType) (=> (and (not (= $o@@43 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@13 $o@@43) alloc))) (= (MapType0Select $Heap@16 $o@@43) (MapType0Select $Heap@13 $o@@43))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |826|
  :pattern ( (MapType0Select $Heap@16 $o@@43))
 )) ($HeapSucc $Heap@13 $Heap@16)))) (and (! (or %lbl%@26 (forall (($o@@44 T@U) ($f@@33 T@U) ) (! (let ((alpha@@28 (FieldTypeInv0 (type $f@@33))))
  (=> (and (and (= (type $o@@44) refType) (= (type $f@@33) (FieldType alpha@@28))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@44 $f@@33))))
- :qid |VUDafnyd.78:11|
+ :qid |VUDafnyd.77:11|
  :skolemid |883|
  :no-pattern (type $o@@44)
  :no-pattern (type $f@@33)
@@ -28157,7 +28156,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@33)
 ))) :lblneg @26) (=> (forall (($o@@45 T@U) ($f@@34 T@U) ) (! (let ((alpha@@29 (FieldTypeInv0 (type $f@@34))))
  (=> (and (and (= (type $o@@45) refType) (= (type $f@@34) (FieldType alpha@@29))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@45 $f@@34))))
- :qid |VUDafnyd.78:11|
+ :qid |VUDafnyd.77:11|
  :skolemid |883|
  :no-pattern (type@@0 $o@@28)
  :no-pattern (type@@0 $f@@18)
@@ -28168,23 +28167,23 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@34)
  :no-pattern (U_2_bool $f@@34)
 )) (=> (and (and ($IsGoodHeap $Heap@17) ($IsHeapAnchor $Heap@17)) (and (forall (($o@@46 T@U) ) (!  (=> (= (type $o@@46) refType) (=> (and (not (= $o@@46 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@16 $o@@46) alloc))) (= (MapType0Select $Heap@17 $o@@46) (MapType0Select $Heap@16 $o@@46))))
- :qid |VUDafnyd.82:8|
+ :qid |VUDafnyd.81:8|
  :skolemid |885|
  :pattern ( (MapType0Select $Heap@17 $o@@46))
 )) ($HeapSucc $Heap@16 $Heap@17))) (and (! (or %lbl%@27  (and (<= 0 8) (< 8 (|Seq#Length| |call6formal@a'#0@0@@0|)))) :lblneg @27) (! (or %lbl%@28 (= (U_2_int ($Unbox intType (|Seq#Index| |call6formal@a'#0@0@@0| 8))) 21)) :lblneg @28)))))))))))))))))
 (let ((anon36_Else_correct  (=> (! (and %lbl%+29 true) :lblpos +29) (=> (and (and (= |##len#2@0| 9) ($IsAlloc (int_2_U |##len#2@0|) TInt $Heap@13)) (and (= |##func#2@0| (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) ($IsAlloc |##func#2@0| (Tclass._System.___hPartialFunc1 TInt TInt) $Heap@13))) (and (! (or %lbl%@30 (>= |##len#2@0| 0)) :lblneg @30) (=> (>= |##len#2@0| 0) (and (! (or %lbl%@31 (forall ((|i#4| Int) ) (!  (=> true (=> (and (<= 0 |i#4|) (< |i#4| |##len#2@0|)) (Requires1 TInt TInt $Heap@13 |##func#2@0| ($Box (int_2_U |i#4|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |878|
  :pattern ( (Requires1 TInt TInt $Heap@13 |##func#2@0| ($Box (int_2_U |i#4|))))
 ))) :lblneg @31) (=> (forall ((|i#4@@0| T@U) ) (!  (=> (and (and (= (type |i#4@@0|) intType) true) (and (<= 0 (U_2_int |i#4@@0|)) (< (U_2_int |i#4@@0|) |##len#2@0|))) (Requires1 TInt TInt $Heap@13 |##func#2@0| ($Box |i#4@@0|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |879|
  :pattern ( (Requires1 TInt TInt $Heap@13 |##func#2@0| ($Box |i#4@@0|)))
 )) (=> (and (and (|_module.__default.SeqInit#canCall| TInt 9 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) (|_module.__default.SeqInit#canCall| TInt 9 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (and (= |z#0@0| (_module.__default.SeqInit TInt 9 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (= |N##4@0| 9))) (and anon37_Then_correct anon37_Else_correct))))))))))
 (let ((anon36_Then_correct  (=> (! (and %lbl%+32 true) :lblpos +32) true)))
 (let ((anon33_Else_correct  (=> (! (and %lbl%+33 true) :lblpos +33) (=> (= |f##3@0| (Lit (AtLayer (|lambda#12| (Handle2 (|lambda#63| |call6formal@a'#0@0@@1|) (|lambda#64| TInt TInt 0 10) (|lambda#31| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) (and (! (or %lbl%@34 (forall (($o@@47 T@U) ($f@@35 T@U) ) (! (let ((alpha@@30 (FieldTypeInv0 (type $f@@35))))
  (=> (and (and (= (type $o@@47) refType) (= (type $f@@35) (FieldType alpha@@30))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@47 $f@@35))))
- :qid |VUDafnyd.70:20|
+ :qid |VUDafnyd.69:20|
  :skolemid |876|
  :no-pattern (type $o@@47)
  :no-pattern (type $f@@35)
@@ -28194,7 +28193,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@35)
 ))) :lblneg @34) (=> (forall (($o@@48 T@U) ($f@@36 T@U) ) (! (let ((alpha@@31 (FieldTypeInv0 (type $f@@36))))
  (=> (and (and (= (type $o@@48) refType) (= (type $f@@36) (FieldType alpha@@31))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@48 $f@@36))))
- :qid |VUDafnyd.70:20|
+ :qid |VUDafnyd.69:20|
  :skolemid |876|
  :no-pattern (type@@0 $o@@29)
  :no-pattern (type@@0 $f@@19)
@@ -28205,25 +28204,25 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@36)
  :no-pattern (U_2_bool $f@@36)
 )) (=> (and ($Is |call6formal@a'#0@@0| (TSeq call0formal@_module._default.VectorUpdate$A@@0)) ($IsAlloc |call6formal@a'#0@@0| (TSeq call0formal@_module._default.VectorUpdate$A@@0) $Heap@@1)) (and (! (or %lbl%@35 (= |N##3@0| (|Seq#Length| |u#0@0|))) :lblneg @35) (=> (= |N##3@0| (|Seq#Length| |u#0@0|)) (and (! (or %lbl%@36 (forall ((|j#1@@1| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@1|) (< |j#1@@1| |N##3@0|)) (Requires2 TInt TInt TInt $Heap@9 |f##3@0| ($Box (int_2_U |j#1@@1|)) (|Seq#Index| |u#0@0| |j#1@@1|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |u#0@0| |j#1@@1|))
 ))) :lblneg @36) (=> (forall ((|j#1@@2| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@2|) (< |j#1@@2| |N##3@0|)) (Requires2 TInt TInt TInt $Heap@9 |f##3@0| ($Box (int_2_U |j#1@@2|)) (|Seq#Index| |u#0@0| |j#1@@2|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |u#0@0| |j#1@@2|))
 )) (=> (and (and (and ($IsGoodHeap $Heap@12) ($IsHeapAnchor $Heap@12)) (and ($Is |call6formal@a'#0@0| (TSeq TInt)) ($IsAlloc |call6formal@a'#0@0| (TSeq TInt) $Heap@12))) (and (and (= (|Seq#Length| |u#0@0|) (|Seq#Length| |call6formal@a'#0@0|)) (forall ((|j#3@@0| Int) ) (!  (=> true (=> (and (<= 0 |j#3@@0|) (< |j#3@@0| |N##3@0|)) (= (|Seq#Index| |call6formal@a'#0@0| |j#3@@0|) (Apply2 TInt TInt TInt $Heap@12 |f##3@0| ($Box (int_2_U |j#3@@0|)) (|Seq#Index| |u#0@0| |j#3@@0|)))))
- :qid |VUDafnyd.26:18|
+ :qid |VUDafnyd.25:18|
  :skolemid |825|
  :pattern ( (|Seq#Index| |u#0@0| |j#3@@0|))
  :pattern ( (|Seq#Index| |call6formal@a'#0@0| |j#3@@0|))
 ))) (and (forall (($o@@49 T@U) ) (!  (=> (= (type $o@@49) refType) (=> (and (not (= $o@@49 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@9 $o@@49) alloc))) (= (MapType0Select $Heap@12 $o@@49) (MapType0Select $Heap@9 $o@@49))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |826|
  :pattern ( (MapType0Select $Heap@12 $o@@49))
 )) ($HeapSucc $Heap@9 $Heap@12)))) (and (! (or %lbl%@37 (forall (($o@@50 T@U) ($f@@37 T@U) ) (! (let ((alpha@@32 (FieldTypeInv0 (type $f@@37))))
  (=> (and (and (= (type $o@@50) refType) (= (type $f@@37) (FieldType alpha@@32))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@50 $f@@37))))
- :qid |VUDafnyd.71:11|
+ :qid |VUDafnyd.70:11|
  :skolemid |877|
  :no-pattern (type $o@@50)
  :no-pattern (type $f@@37)
@@ -28233,7 +28232,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@37)
 ))) :lblneg @37) (=> (forall (($o@@51 T@U) ($f@@38 T@U) ) (! (let ((alpha@@33 (FieldTypeInv0 (type $f@@38))))
  (=> (and (and (= (type $o@@51) refType) (= (type $f@@38) (FieldType alpha@@33))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@51 $f@@38))))
- :qid |VUDafnyd.71:11|
+ :qid |VUDafnyd.70:11|
  :skolemid |877|
  :no-pattern (type@@0 $o@@30)
  :no-pattern (type@@0 $f@@20)
@@ -28244,16 +28243,16 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@38)
  :no-pattern (U_2_bool $f@@38)
 )) (=> (and (and ($IsGoodHeap $Heap@13) ($IsHeapAnchor $Heap@13)) (and (forall (($o@@52 T@U) ) (!  (=> (= (type $o@@52) refType) (=> (and (not (= $o@@52 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@12 $o@@52) alloc))) (= (MapType0Select $Heap@13 $o@@52) (MapType0Select $Heap@12 $o@@52))))
- :qid |VUDafnyd.82:8|
+ :qid |VUDafnyd.81:8|
  :skolemid |885|
  :pattern ( (MapType0Select $Heap@13 $o@@52))
 )) ($HeapSucc $Heap@12 $Heap@13))) (and anon36_Then_correct anon36_Else_correct))))))))))))))))
 (let ((anon32_Else_correct  (=> (! (and %lbl%+38 true) :lblpos +38) (=> (and (and (= |##len#1@0| 10) ($IsAlloc (int_2_U |##len#1@0|) TInt $Heap@9)) (and (= |##func#1@0| (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) ($IsAlloc |##func#1@0| (Tclass._System.___hPartialFunc1 TInt TInt) $Heap@9))) (and (! (or %lbl%@39 (>= |##len#1@0| 0)) :lblneg @39) (=> (>= |##len#1@0| 0) (and (! (or %lbl%@40 (forall ((|i#2@@1| Int) ) (!  (=> true (=> (and (<= 0 |i#2@@1|) (< |i#2@@1| |##len#1@0|)) (Requires1 TInt TInt $Heap@9 |##func#1@0| ($Box (int_2_U |i#2@@1|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |874|
  :pattern ( (Requires1 TInt TInt $Heap@9 |##func#1@0| ($Box (int_2_U |i#2@@1|))))
 ))) :lblneg @40) (=> (forall ((|i#2@@2| T@U) ) (!  (=> (and (and (= (type |i#2@@2|) intType) true) (and (<= 0 (U_2_int |i#2@@2|)) (< (U_2_int |i#2@@2|) |##len#1@0|))) (Requires1 TInt TInt $Heap@9 |##func#1@0| ($Box |i#2@@2|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |875|
  :pattern ( (Requires1 TInt TInt $Heap@9 |##func#1@0| ($Box |i#2@@2|)))
 )) (=> (and (and (|_module.__default.SeqInit#canCall| TInt 10 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) (|_module.__default.SeqInit#canCall| TInt 10 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (and (= |u#0@0| (_module.__default.SeqInit TInt 10 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (= |N##3@0| 10))) (and anon33_Then_correct anon33_Else_correct))))))))))
@@ -28263,7 +28262,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :skolemid |871|
 )) (= |f##2@0| (Lit (AtLayer (|lambda#12| (Handle2 (|lambda#38| 100) (|lambda#39| TInt TInt 0) (|lambda#31| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (and (! (or %lbl%@43 (forall (($o@@53 T@U) ($f@@39 T@U) ) (! (let ((alpha@@34 (FieldTypeInv0 (type $f@@39))))
  (=> (and (and (= (type $o@@53) refType) (= (type $f@@39) (FieldType alpha@@34))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@53 $f@@39))))
- :qid |VUDafnyd.64:21|
+ :qid |VUDafnyd.63:21|
  :skolemid |872|
  :no-pattern (type $o@@53)
  :no-pattern (type $f@@39)
@@ -28273,7 +28272,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@39)
 ))) :lblneg @43) (=> (forall (($o@@54 T@U) ($f@@40 T@U) ) (! (let ((alpha@@35 (FieldTypeInv0 (type $f@@40))))
  (=> (and (and (= (type $o@@54) refType) (= (type $f@@40) (FieldType alpha@@35))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@54 $f@@40))))
- :qid |VUDafnyd.64:21|
+ :qid |VUDafnyd.63:21|
  :skolemid |872|
  :no-pattern (type@@0 $o@@31)
  :no-pattern (type@@0 $f@@21)
@@ -28284,25 +28283,25 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@40)
  :no-pattern (U_2_bool $f@@40)
 )) (=> (and ($Is |call6formal@a'#0@@1| (TSeq call0formal@_module._default.VectorUpdate$A@@1)) ($IsAlloc |call6formal@a'#0@@1| (TSeq call0formal@_module._default.VectorUpdate$A@@1) $Heap@@1)) (and (! (or %lbl%@44 (= |N##2@0| (|Seq#Length| |call6formal@a'#0@0@@2|))) :lblneg @44) (=> (= |N##2@0| (|Seq#Length| |call6formal@a'#0@0@@2|)) (and (! (or %lbl%@45 (forall ((|j#1@@3| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@3|) (< |j#1@@3| |N##2@0|)) (Requires2 TInt TInt TInt $Heap@6 |f##2@0| ($Box (int_2_U |j#1@@3|)) (|Seq#Index| |call6formal@a'#0@0@@2| |j#1@@3|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@2| |j#1@@3|))
 ))) :lblneg @45) (=> (forall ((|j#1@@4| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@4|) (< |j#1@@4| |N##2@0|)) (Requires2 TInt TInt TInt $Heap@6 |f##2@0| ($Box (int_2_U |j#1@@4|)) (|Seq#Index| |call6formal@a'#0@0@@2| |j#1@@4|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@2| |j#1@@4|))
 )) (=> (and (and (and ($IsGoodHeap $Heap@8) ($IsHeapAnchor $Heap@8)) (and ($Is |call6formal@a'#0@0@@1| (TSeq TInt)) ($IsAlloc |call6formal@a'#0@0@@1| (TSeq TInt) $Heap@8))) (and (and (= (|Seq#Length| |call6formal@a'#0@0@@2|) (|Seq#Length| |call6formal@a'#0@0@@1|)) (forall ((|j#3@@1| Int) ) (!  (=> true (=> (and (<= 0 |j#3@@1|) (< |j#3@@1| |N##2@0|)) (= (|Seq#Index| |call6formal@a'#0@0@@1| |j#3@@1|) (Apply2 TInt TInt TInt $Heap@8 |f##2@0| ($Box (int_2_U |j#3@@1|)) (|Seq#Index| |call6formal@a'#0@0@@2| |j#3@@1|)))))
- :qid |VUDafnyd.26:18|
+ :qid |VUDafnyd.25:18|
  :skolemid |825|
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@2| |j#3@@1|))
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@1| |j#3@@1|))
 ))) (and (forall (($o@@55 T@U) ) (!  (=> (= (type $o@@55) refType) (=> (and (not (= $o@@55 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@6 $o@@55) alloc))) (= (MapType0Select $Heap@8 $o@@55) (MapType0Select $Heap@6 $o@@55))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |826|
  :pattern ( (MapType0Select $Heap@8 $o@@55))
 )) ($HeapSucc $Heap@6 $Heap@8)))) (and (! (or %lbl%@46 (forall (($o@@56 T@U) ($f@@41 T@U) ) (! (let ((alpha@@36 (FieldTypeInv0 (type $f@@41))))
  (=> (and (and (= (type $o@@56) refType) (= (type $f@@41) (FieldType alpha@@36))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@56 $f@@41))))
- :qid |VUDafnyd.65:11|
+ :qid |VUDafnyd.64:11|
  :skolemid |873|
  :no-pattern (type $o@@56)
  :no-pattern (type $f@@41)
@@ -28312,7 +28311,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@41)
 ))) :lblneg @46) (=> (forall (($o@@57 T@U) ($f@@42 T@U) ) (! (let ((alpha@@37 (FieldTypeInv0 (type $f@@42))))
  (=> (and (and (= (type $o@@57) refType) (= (type $f@@42) (FieldType alpha@@37))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@57 $f@@42))))
- :qid |VUDafnyd.65:11|
+ :qid |VUDafnyd.64:11|
  :skolemid |873|
  :no-pattern (type@@0 $o@@32)
  :no-pattern (type@@0 $f@@22)
@@ -28323,13 +28322,13 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@42)
  :no-pattern (U_2_bool $f@@42)
 )) (=> (and (and ($IsGoodHeap $Heap@9) ($IsHeapAnchor $Heap@9)) (and (forall (($o@@58 T@U) ) (!  (=> (= (type $o@@58) refType) (=> (and (not (= $o@@58 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@8 $o@@58) alloc))) (= (MapType0Select $Heap@9 $o@@58) (MapType0Select $Heap@8 $o@@58))))
- :qid |VUDafnyd.82:8|
+ :qid |VUDafnyd.81:8|
  :skolemid |885|
  :pattern ( (MapType0Select $Heap@9 $o@@58))
 )) ($HeapSucc $Heap@8 $Heap@9))) (and anon32_Then_correct anon32_Else_correct))))))))))))))))
 (let ((anon29_Else_correct  (=> (! (and %lbl%+47 true) :lblpos +47) (=> (= |f##1@0| (Lit (AtLayer (|lambda#12| (Handle2 (|lambda#33| 1) (|lambda#29| TInt TInt) (|lambda#31| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) (and (! (or %lbl%@48 (forall (($o@@59 T@U) ($f@@43 T@U) ) (! (let ((alpha@@38 (FieldTypeInv0 (type $f@@43))))
  (=> (and (and (= (type $o@@59) refType) (= (type $f@@43) (FieldType alpha@@38))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@59 $f@@43))))
- :qid |VUDafnyd.61:21|
+ :qid |VUDafnyd.60:21|
  :skolemid |868|
  :no-pattern (type $o@@59)
  :no-pattern (type $f@@43)
@@ -28339,7 +28338,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@43)
 ))) :lblneg @48) (=> (forall (($o@@60 T@U) ($f@@44 T@U) ) (! (let ((alpha@@39 (FieldTypeInv0 (type $f@@44))))
  (=> (and (and (= (type $o@@60) refType) (= (type $f@@44) (FieldType alpha@@39))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@60 $f@@44))))
- :qid |VUDafnyd.61:21|
+ :qid |VUDafnyd.60:21|
  :skolemid |868|
  :no-pattern (type@@0 $o@@33)
  :no-pattern (type@@0 $f@@23)
@@ -28350,25 +28349,25 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@44)
  :no-pattern (U_2_bool $f@@44)
 )) (=> (and ($Is |call6formal@a'#0@@2| (TSeq call0formal@_module._default.VectorUpdate$A@@2)) ($IsAlloc |call6formal@a'#0@@2| (TSeq call0formal@_module._default.VectorUpdate$A@@2) $Heap@@1)) (and (! (or %lbl%@49 (= |N##1@0| (|Seq#Length| |call6formal@a'#0@0@@3|))) :lblneg @49) (=> (= |N##1@0| (|Seq#Length| |call6formal@a'#0@0@@3|)) (and (! (or %lbl%@50 (forall ((|j#1@@5| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@5|) (< |j#1@@5| |N##1@0|)) (Requires2 TInt TInt TInt $Heap@3 |f##1@0| ($Box (int_2_U |j#1@@5|)) (|Seq#Index| |call6formal@a'#0@0@@3| |j#1@@5|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@3| |j#1@@5|))
 ))) :lblneg @50) (=> (forall ((|j#1@@6| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@6|) (< |j#1@@6| |N##1@0|)) (Requires2 TInt TInt TInt $Heap@3 |f##1@0| ($Box (int_2_U |j#1@@6|)) (|Seq#Index| |call6formal@a'#0@0@@3| |j#1@@6|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@3| |j#1@@6|))
 )) (=> (and (and (and ($IsGoodHeap $Heap@5) ($IsHeapAnchor $Heap@5)) (and ($Is |call6formal@a'#0@0@@2| (TSeq TInt)) ($IsAlloc |call6formal@a'#0@0@@2| (TSeq TInt) $Heap@5))) (and (and (= (|Seq#Length| |call6formal@a'#0@0@@3|) (|Seq#Length| |call6formal@a'#0@0@@2|)) (forall ((|j#3@@2| Int) ) (!  (=> true (=> (and (<= 0 |j#3@@2|) (< |j#3@@2| |N##1@0|)) (= (|Seq#Index| |call6formal@a'#0@0@@2| |j#3@@2|) (Apply2 TInt TInt TInt $Heap@5 |f##1@0| ($Box (int_2_U |j#3@@2|)) (|Seq#Index| |call6formal@a'#0@0@@3| |j#3@@2|)))))
- :qid |VUDafnyd.26:18|
+ :qid |VUDafnyd.25:18|
  :skolemid |825|
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@3| |j#3@@2|))
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@2| |j#3@@2|))
 ))) (and (forall (($o@@61 T@U) ) (!  (=> (= (type $o@@61) refType) (=> (and (not (= $o@@61 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@3 $o@@61) alloc))) (= (MapType0Select $Heap@5 $o@@61) (MapType0Select $Heap@3 $o@@61))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |826|
  :pattern ( (MapType0Select $Heap@5 $o@@61))
 )) ($HeapSucc $Heap@3 $Heap@5)))) (and (! (or %lbl%@51 (forall (($o@@62 T@U) ($f@@45 T@U) ) (! (let ((alpha@@40 (FieldTypeInv0 (type $f@@45))))
  (=> (and (and (= (type $o@@62) refType) (= (type $f@@45) (FieldType alpha@@40))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@62 $f@@45))))
- :qid |VUDafnyd.62:11|
+ :qid |VUDafnyd.61:11|
  :skolemid |869|
  :no-pattern (type $o@@62)
  :no-pattern (type $f@@45)
@@ -28378,7 +28377,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@45)
 ))) :lblneg @51) (=> (forall (($o@@63 T@U) ($f@@46 T@U) ) (! (let ((alpha@@41 (FieldTypeInv0 (type $f@@46))))
  (=> (and (and (= (type $o@@63) refType) (= (type $f@@46) (FieldType alpha@@41))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@63 $f@@46))))
- :qid |VUDafnyd.62:11|
+ :qid |VUDafnyd.61:11|
  :skolemid |869|
  :no-pattern (type@@0 $o@@34)
  :no-pattern (type@@0 $f@@24)
@@ -28389,14 +28388,14 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@46)
  :no-pattern (U_2_bool $f@@46)
 )) (=> (and (and (and ($IsGoodHeap $Heap@6) ($IsHeapAnchor $Heap@6)) (forall (($o@@64 T@U) ) (!  (=> (= (type $o@@64) refType) (=> (and (not (= $o@@64 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@5 $o@@64) alloc))) (= (MapType0Select $Heap@6 $o@@64) (MapType0Select $Heap@5 $o@@64))))
- :qid |VUDafnyd.82:8|
+ :qid |VUDafnyd.81:8|
  :skolemid |885|
  :pattern ( (MapType0Select $Heap@6 $o@@64))
 ))) (and ($HeapSucc $Heap@5 $Heap@6) (= |N##2@0| 10))) (and anon30_Then_correct anon30_Else_correct))))))))))))))))
 (let ((anon29_Then_correct  (=> (! (and %lbl%+52 true) :lblpos +52) true)))
 (let ((anon28_Else_correct  (=> (! (and %lbl%+53 true) :lblpos +53) (=> (= |f##0@0| (Lit (AtLayer (|lambda#12| (Handle2 |lambda#28| (|lambda#29| TInt TInt) (|lambda#31| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) (and (! (or %lbl%@54 (forall (($o@@65 T@U) ($f@@47 T@U) ) (! (let ((alpha@@42 (FieldTypeInv0 (type $f@@47))))
  (=> (and (and (= (type $o@@65) refType) (= (type $f@@47) (FieldType alpha@@42))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@65 $f@@47))))
- :qid |VUDafnyd.57:25|
+ :qid |VUDafnyd.56:25|
  :skolemid |866|
  :no-pattern (type $o@@65)
  :no-pattern (type $f@@47)
@@ -28406,7 +28405,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@47)
 ))) :lblneg @54) (=> (forall (($o@@66 T@U) ($f@@48 T@U) ) (! (let ((alpha@@43 (FieldTypeInv0 (type $f@@48))))
  (=> (and (and (= (type $o@@66) refType) (= (type $f@@48) (FieldType alpha@@43))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@66 $f@@48))))
- :qid |VUDafnyd.57:25|
+ :qid |VUDafnyd.56:25|
  :skolemid |866|
  :no-pattern (type@@0 $o@@35)
  :no-pattern (type@@0 $f@@25)
@@ -28417,25 +28416,25 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@48)
  :no-pattern (U_2_bool $f@@48)
 )) (=> (and ($Is |call6formal@a'#0@@3| (TSeq call0formal@_module._default.VectorUpdate$A@@3)) ($IsAlloc |call6formal@a'#0@@3| (TSeq call0formal@_module._default.VectorUpdate$A@@3) $Heap@@1)) (and (! (or %lbl%@55 (= |N##0@0| (|Seq#Length| |v#0@0|))) :lblneg @55) (=> (= |N##0@0| (|Seq#Length| |v#0@0|)) (and (! (or %lbl%@56 (forall ((|j#1@@7| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@7|) (< |j#1@@7| |N##0@0|)) (Requires2 TInt TInt TInt $Heap@@1 |f##0@0| ($Box (int_2_U |j#1@@7|)) (|Seq#Index| |v#0@0| |j#1@@7|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |v#0@0| |j#1@@7|))
 ))) :lblneg @56) (=> (forall ((|j#1@@8| Int) ) (!  (=> true (=> (and (<= 0 |j#1@@8|) (< |j#1@@8| |N##0@0|)) (Requires2 TInt TInt TInt $Heap@@1 |f##0@0| ($Box (int_2_U |j#1@@8|)) (|Seq#Index| |v#0@0| |j#1@@8|))))
- :qid |VUDafnyd.24:19|
+ :qid |VUDafnyd.23:19|
  :skolemid |824|
  :pattern ( (|Seq#Index| |v#0@0| |j#1@@8|))
 )) (=> (and (and (and ($IsGoodHeap $Heap@2) ($IsHeapAnchor $Heap@2)) (and ($Is |call6formal@a'#0@0@@3| (TSeq TInt)) ($IsAlloc |call6formal@a'#0@0@@3| (TSeq TInt) $Heap@2))) (and (and (= (|Seq#Length| |v#0@0|) (|Seq#Length| |call6formal@a'#0@0@@3|)) (forall ((|j#3@@3| Int) ) (!  (=> true (=> (and (<= 0 |j#3@@3|) (< |j#3@@3| |N##0@0|)) (= (|Seq#Index| |call6formal@a'#0@0@@3| |j#3@@3|) (Apply2 TInt TInt TInt $Heap@2 |f##0@0| ($Box (int_2_U |j#3@@3|)) (|Seq#Index| |v#0@0| |j#3@@3|)))))
- :qid |VUDafnyd.26:18|
+ :qid |VUDafnyd.25:18|
  :skolemid |825|
  :pattern ( (|Seq#Index| |v#0@0| |j#3@@3|))
  :pattern ( (|Seq#Index| |call6formal@a'#0@0@@3| |j#3@@3|))
 ))) (and (forall (($o@@67 T@U) ) (!  (=> (= (type $o@@67) refType) (=> (and (not (= $o@@67 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@67) alloc))) (= (MapType0Select $Heap@2 $o@@67) (MapType0Select $Heap@@1 $o@@67))))
- :qid |VUDafnyd.22:8|
+ :qid |VUDafnyd.21:8|
  :skolemid |826|
  :pattern ( (MapType0Select $Heap@2 $o@@67))
 )) ($HeapSucc $Heap@@1 $Heap@2)))) (and (! (or %lbl%@57 (= (|Seq#Length| |call6formal@a'#0@0@@3|) (|Seq#Length| |v#0@0|))) :lblneg @57) (=> (= (|Seq#Length| |call6formal@a'#0@0@@3|) (|Seq#Length| |v#0@0|)) (and (! (or %lbl%@58 (forall (($o@@68 T@U) ($f@@49 T@U) ) (! (let ((alpha@@44 (FieldTypeInv0 (type $f@@49))))
  (=> (and (and (= (type $o@@68) refType) (= (type $f@@49) (FieldType alpha@@44))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@68 $f@@49))))
- :qid |VUDafnyd.59:11|
+ :qid |VUDafnyd.58:11|
  :skolemid |867|
  :no-pattern (type $o@@68)
  :no-pattern (type $f@@49)
@@ -28445,7 +28444,7 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_bool $f@@49)
 ))) :lblneg @58) (=> (forall (($o@@69 T@U) ($f@@50 T@U) ) (! (let ((alpha@@45 (FieldTypeInv0 (type $f@@50))))
  (=> (and (and (= (type $o@@69) refType) (= (type $f@@50) (FieldType alpha@@45))) false) (U_2_bool (MapType4Select $_Frame@0 $o@@69 $f@@50))))
- :qid |VUDafnyd.59:11|
+ :qid |VUDafnyd.58:11|
  :skolemid |867|
  :no-pattern (type@@0 $o@@36)
  :no-pattern (type@@0 $f@@26)
@@ -28456,17 +28455,17 @@ PreconditionGeneratedEntry_correct))))))))))
  :no-pattern (U_2_int $f@@50)
  :no-pattern (U_2_bool $f@@50)
 )) (=> (and (and (and ($IsGoodHeap $Heap@3) ($IsHeapAnchor $Heap@3)) (forall (($o@@70 T@U) ) (!  (=> (= (type $o@@70) refType) (=> (and (not (= $o@@70 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@2 $o@@70) alloc))) (= (MapType0Select $Heap@3 $o@@70) (MapType0Select $Heap@2 $o@@70))))
- :qid |VUDafnyd.82:8|
+ :qid |VUDafnyd.81:8|
  :skolemid |885|
  :pattern ( (MapType0Select $Heap@3 $o@@70))
 ))) (and ($HeapSucc $Heap@2 $Heap@3) (= |N##1@0| 10))) (and anon29_Then_correct anon29_Else_correct))))))))))))))))))
 (let ((anon28_Then_correct  (=> (! (and %lbl%+59 true) :lblpos +59) true)))
 (let ((anon27_Else_correct  (=> (! (and %lbl%+60 true) :lblpos +60) (=> (and (and (= |##len#0@0| 10) ($IsAlloc (int_2_U |##len#0@0|) TInt $Heap@@1)) (and (= |##func#0@0| (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) ($IsAlloc |##func#0@0| (Tclass._System.___hPartialFunc1 TInt TInt) $Heap@@1))) (and (! (or %lbl%@61 (>= |##len#0@0| 0)) :lblneg @61) (=> (>= |##len#0@0| 0) (and (! (or %lbl%@62 (forall ((|i#0@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#0@@0|) (< |i#0@@0| |##len#0@0|)) (Requires1 TInt TInt $Heap@@1 |##func#0@0| ($Box (int_2_U |i#0@@0|)))))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |864|
  :pattern ( (Requires1 TInt TInt $Heap@@1 |##func#0@0| ($Box (int_2_U |i#0@@0|))))
 ))) :lblneg @62) (=> (forall ((|i#0@@1| T@U) ) (!  (=> (and (and (= (type |i#0@@1|) intType) true) (and (<= 0 (U_2_int |i#0@@1|)) (< (U_2_int |i#0@@1|) |##len#0@0|))) (Requires1 TInt TInt $Heap@@1 |##func#0@0| ($Box |i#0@@1|)))
- :qid |VUDafnyd.48:19|
+ :qid |VUDafnyd.47:19|
  :skolemid |865|
  :pattern ( (Requires1 TInt TInt $Heap@@1 |##func#0@0| ($Box |i#0@@1|)))
 )) (=> (and (and (|_module.__default.SeqInit#canCall| TInt 10 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ)))) (|_module.__default.SeqInit#canCall| TInt 10 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (and (= |v#0@0| (_module.__default.SeqInit TInt 10 (Lit (AtLayer (|lambda#12| (Handle1 (|lambda#8| ($Box (int_2_U 0))) (|lambda#9| TInt) (|lambda#11| (SetRef_to_SetBox (|lambda#10| false))))) ($LS $LZ))))) (= |N##0@0| 10))) (and anon28_Then_correct anon28_Else_correct))))))))))

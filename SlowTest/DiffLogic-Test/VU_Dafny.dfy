@@ -15,8 +15,7 @@ function method Div(a: int, b: int): (c: int)
 
 function method Add(a: int, b: int): (c: int)
     ensures a == 11 && b == 10 ==> c == 21
-    { assert 11 + 10 == 21;
-      assert a == 11 && b == 10 ==> a + b == 21; // failed
+    { assert a == 11 && b == 10 ==> a + b == 21; // failed
       a + b }
 
 method VectorUpdate<A>(N: int, a : seq<A>, f : (int,A) ~> A) returns (a': seq<A>)

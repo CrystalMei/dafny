@@ -3262,9 +3262,6 @@ implementation CheckWellformed$$_module.__default.Add(a#0: int, b#0: int) return
         $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
           $o != null && read($Heap, $o, alloc) ==> false);
         // ----- assert statement ----- VU_Dafny.dfy(18,7)
-        assume true;
-        assert LitInt(11 + 10) == LitInt(21);
-        // ----- assert statement ----- VU_Dafny.dfy(19,7)
         if (a#0 == LitInt(11))
         {
         }
@@ -3317,7 +3314,7 @@ implementation CheckWellformed$$_module.__default.VectorUpdate(_module._default.
     // AddMethodImpl: VectorUpdate, CheckWellformed$$_module.__default.VectorUpdate
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "VU_Dafny.dfy(22,7): initial state"} true;
+    assume {:captureState "VU_Dafny.dfy(21,7): initial state"} true;
     assume N#0 == Seq#Length(a#0);
     havoc j#0;
     if (*)
@@ -3376,7 +3373,7 @@ implementation CheckWellformed$$_module.__default.VectorUpdate(_module._default.
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc a'#0;
-    assume {:captureState "VU_Dafny.dfy(25,14): post-state"} true;
+    assume {:captureState "VU_Dafny.dfy(24,14): post-state"} true;
     assume Seq#Length(a#0) == Seq#Length(a'#0);
     havoc j#2;
     if (*)
@@ -3569,19 +3566,19 @@ implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdat
     // AddMethodImpl: VectorUpdate, Impl$$_module.__default.VectorUpdate
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "VU_Dafny.dfy(27,0): initial state"} true;
+    assume {:captureState "VU_Dafny.dfy(26,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- VU_Dafny.dfy(28,9)
+    // ----- assignment statement ----- VU_Dafny.dfy(27,9)
     assume true;
     assume true;
     i#0 := LitInt(0);
-    assume {:captureState "VU_Dafny.dfy(28,12)"} true;
-    // ----- assignment statement ----- VU_Dafny.dfy(29,6)
+    assume {:captureState "VU_Dafny.dfy(27,12)"} true;
+    // ----- assignment statement ----- VU_Dafny.dfy(28,6)
     assume true;
     assume true;
     a'#0 := a#0;
-    assume {:captureState "VU_Dafny.dfy(29,9)"} true;
-    // ----- while statement ----- VU_Dafny.dfy(30,3)
+    assume {:captureState "VU_Dafny.dfy(28,9)"} true;
+    // ----- while statement ----- VU_Dafny.dfy(29,3)
     // Assume Fuel Constant
     $PreLoopHeap$loop#0 := $Heap;
     $decr_init$loop#00 := _module.__default.Dec(N#0, i#0);
@@ -3672,7 +3669,7 @@ implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdat
       free invariant _module.__default.Dec(N#0, i#0) <= $decr_init$loop#00
          && (_module.__default.Dec(N#0, i#0) == $decr_init$loop#00 ==> true);
     {
-        assume {:captureState "VU_Dafny.dfy(30,2): after some loop iterations"} true;
+        assume {:captureState "VU_Dafny.dfy(29,2): after some loop iterations"} true;
         if (!$w$loop#0)
         {
             if (LitInt(0) <= i#0)
@@ -3846,7 +3843,7 @@ implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdat
         }
 
         $decr$loop#00 := _module.__default.Dec(N#0, i#0);
-        // ----- assignment statement ----- VU_Dafny.dfy(39,8)
+        // ----- assignment statement ----- VU_Dafny.dfy(38,8)
         assume true;
         assert 0 <= i#0 && i#0 < Seq#Length(a'#0);
         assert 0 <= i#0 && i#0 < Seq#Length(a#0);
@@ -3867,8 +3864,8 @@ implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdat
             f#0, 
             $Box(i#0), 
             Seq#Index(a#0, i#0)));
-        assume {:captureState "VU_Dafny.dfy(39,28)"} true;
-        // ----- call statement ----- VU_Dafny.dfy(40,19)
+        assume {:captureState "VU_Dafny.dfy(38,28)"} true;
+        // ----- call statement ----- VU_Dafny.dfy(39,19)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -3877,8 +3874,8 @@ implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdat
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Props__dec__one(sum##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "VU_Dafny.dfy(40,21)"} true;
-        // ----- call statement ----- VU_Dafny.dfy(41,26)
+        assume {:captureState "VU_Dafny.dfy(39,21)"} true;
+        // ----- call statement ----- VU_Dafny.dfy(40,26)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -3890,13 +3887,13 @@ implementation Impl$$_module.__default.VectorUpdate(_module._default.VectorUpdat
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Props__dec__lower__bound(sum##0_1, x##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "VU_Dafny.dfy(41,31)"} true;
-        // ----- assignment statement ----- VU_Dafny.dfy(42,7)
+        assume {:captureState "VU_Dafny.dfy(40,31)"} true;
+        // ----- assignment statement ----- VU_Dafny.dfy(41,7)
         assume true;
         assume true;
         i#0 := i#0 + 1;
-        assume {:captureState "VU_Dafny.dfy(42,14)"} true;
-        // ----- loop termination check ----- VU_Dafny.dfy(30,3)
+        assume {:captureState "VU_Dafny.dfy(41,14)"} true;
+        // ----- loop termination check ----- VU_Dafny.dfy(29,3)
         assert 0 <= $decr$loop#00 || _module.__default.Dec(N#0, i#0) == $decr$loop#00;
         assert _module.__default.Dec(N#0, i#0) < $decr$loop#00;
         assume true;
@@ -4010,7 +4007,7 @@ implementation CheckWellformed$$_module.__default.SeqInit(_module._default.SeqIn
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function SeqInit
-    assume {:captureState "VU_Dafny.dfy(46,16): initial state"} true;
+    assume {:captureState "VU_Dafny.dfy(45,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     assume len#0 >= LitInt(0);
@@ -4200,9 +4197,9 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // AddMethodImpl: Main, Impl$$_module.__default.Main
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "VU_Dafny.dfy(53,0): initial state"} true;
+    assume {:captureState "VU_Dafny.dfy(52,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- VU_Dafny.dfy(55,9)
+    // ----- assignment statement ----- VU_Dafny.dfy(54,9)
     assume true;
     havoc _v0#0;
     // Begin Comprehension WF check
@@ -4271,8 +4268,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
               (lambda $l#5#heap#0: Heap, $l#5#_v0#0: Box :: 
                 SetRef_to_SetBox((lambda $l#5#o#0: ref :: false))))), 
           $LS($LZ))));
-    assume {:captureState "VU_Dafny.dfy(55,30)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(57,25)
+    assume {:captureState "VU_Dafny.dfy(54,30)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(56,25)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -4316,11 +4313,11 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     call $rhs##0 := Call$$_module.__default.VectorUpdate(TInt, N##0, a##0, f##0);
     // TrCallStmt: After ProcessCallStmt
     v'#0 := $rhs##0;
-    assume {:captureState "VU_Dafny.dfy(57,43)"} true;
-    // ----- assert statement ----- VU_Dafny.dfy(58,3)
+    assume {:captureState "VU_Dafny.dfy(56,43)"} true;
+    // ----- assert statement ----- VU_Dafny.dfy(57,3)
     assume true;
     assert Seq#Length(v'#0) == Seq#Length(v#0);
-    // ----- call statement ----- VU_Dafny.dfy(59,11)
+    // ----- call statement ----- VU_Dafny.dfy(58,11)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -4329,8 +4326,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.PrintSeq(a##1);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "VU_Dafny.dfy(59,14)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(61,21)
+    assume {:captureState "VU_Dafny.dfy(58,14)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(60,21)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -4374,8 +4371,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     call $rhs##1 := Call$$_module.__default.VectorUpdate(TInt, N##1, a##2, f##1);
     // TrCallStmt: After ProcessCallStmt
     v'#0 := $rhs##1;
-    assume {:captureState "VU_Dafny.dfy(61,44)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(62,11)
+    assume {:captureState "VU_Dafny.dfy(60,44)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(61,11)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -4384,8 +4381,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.PrintSeq(a##3);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "VU_Dafny.dfy(62,14)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(64,21)
+    assume {:captureState "VU_Dafny.dfy(61,14)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(63,21)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -4446,8 +4443,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     call $rhs##2 := Call$$_module.__default.VectorUpdate(TInt, N##2, a##4, f##2);
     // TrCallStmt: After ProcessCallStmt
     v'#0 := $rhs##2;
-    assume {:captureState "VU_Dafny.dfy(64,66)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(65,11)
+    assume {:captureState "VU_Dafny.dfy(63,66)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(64,11)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -4456,8 +4453,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.PrintSeq(a##5);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "VU_Dafny.dfy(65,14)"} true;
-    // ----- assignment statement ----- VU_Dafny.dfy(68,9)
+    assume {:captureState "VU_Dafny.dfy(64,14)"} true;
+    // ----- assignment statement ----- VU_Dafny.dfy(67,9)
     assume true;
     havoc _v4#0;
     // Begin Comprehension WF check
@@ -4526,8 +4523,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
               (lambda $l#17#heap#0: Heap, $l#17#_v4#0: Box :: 
                 SetRef_to_SetBox((lambda $l#17#o#0: ref :: false))))), 
           $LS($LZ))));
-    assume {:captureState "VU_Dafny.dfy(68,30)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(70,20)
+    assume {:captureState "VU_Dafny.dfy(67,30)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(69,20)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -4584,8 +4581,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     call $rhs##3 := Call$$_module.__default.VectorUpdate(TInt, N##3, a##6, f##3);
     // TrCallStmt: After ProcessCallStmt
     u#0 := $rhs##3;
-    assume {:captureState "VU_Dafny.dfy(70,63)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(71,11)
+    assume {:captureState "VU_Dafny.dfy(69,63)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(70,11)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -4594,8 +4591,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.PrintSeq(a##7);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "VU_Dafny.dfy(71,13)"} true;
-    // ----- assignment statement ----- VU_Dafny.dfy(74,9)
+    assume {:captureState "VU_Dafny.dfy(70,13)"} true;
+    // ----- assignment statement ----- VU_Dafny.dfy(73,9)
     assume true;
     havoc _v6#0;
     // Begin Comprehension WF check
@@ -4664,8 +4661,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
               (lambda $l#25#heap#0: Heap, $l#25#_v6#0: Box :: 
                 SetRef_to_SetBox((lambda $l#25#o#0: ref :: false))))), 
           $LS($LZ))));
-    assume {:captureState "VU_Dafny.dfy(74,29)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(77,20)
+    assume {:captureState "VU_Dafny.dfy(73,29)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(76,20)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -4736,8 +4733,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     call $rhs##4 := Call$$_module.__default.VectorUpdate(TInt, N##4, a##8, f##4);
     // TrCallStmt: After ProcessCallStmt
     z#0 := $rhs##4;
-    assume {:captureState "VU_Dafny.dfy(77,73)"} true;
-    // ----- call statement ----- VU_Dafny.dfy(78,11)
+    assume {:captureState "VU_Dafny.dfy(76,73)"} true;
+    // ----- call statement ----- VU_Dafny.dfy(77,11)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -4746,8 +4743,8 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.PrintSeq(a##9);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "VU_Dafny.dfy(78,13)"} true;
-    // ----- assert statement ----- VU_Dafny.dfy(79,3)
+    assume {:captureState "VU_Dafny.dfy(77,13)"} true;
+    // ----- assert statement ----- VU_Dafny.dfy(78,3)
     assert {:subsumption 0} 0 <= LitInt(8) && LitInt(8) < Seq#Length(z#0);
     assume true;
     assert $Unbox(Seq#Index(z#0, LitInt(8))): int == LitInt(21);
