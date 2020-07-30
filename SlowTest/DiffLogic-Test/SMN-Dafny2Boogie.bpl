@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: /compile:0 /trace SMN_Dafny.dfy /proverOpt:LOGIC=DLA /print:SMN-Dafny2Boogie.bpl /proverLog:SMN-Dafny2z3.smt2 /proc:*Split*
+// Command Line Options: /compile:0 /trace SMN_Dafny.dfy /proverOpt:LOGIC=DLA /print:SMN-Dafny2Boogie.bpl /proverLog:SMN-Dafny2z3.smt2 /proc:*Element*
 
 const $$Language$Dafny: bool;
 
@@ -3780,7 +3780,7 @@ procedure CheckWellformed$$_module.__default.Add(a#0: int, b#0: int);
 
 
 procedure CheckWellformed$$_module.__default.Add__Commutative();
-  free requires 4 == $FunctionContextHeight;
+  free requires 21 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3801,7 +3801,7 @@ procedure Call$$_module.__default.Add__Commutative();
 
 
 procedure CheckWellformed$$_module.__default.Add__Associative();
-  free requires 5 == $FunctionContextHeight;
+  free requires 22 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3829,7 +3829,7 @@ procedure Call$$_module.__default.Add__Associative();
 
 
 procedure CheckWellformed$$_module.__default.Add__Identity();
-  free requires 6 == $FunctionContextHeight;
+  free requires 23 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3848,6 +3848,64 @@ procedure Call$$_module.__default.Add__Identity();
     true
        ==> _module.__default.Add(a#1, LitInt(0)) == _module.__default.Add(LitInt(0), a#1)
          && _module.__default.Add(LitInt(0), a#1) == a#1);
+  // frame condition
+  free ensures old($Heap) == $Heap;
+
+
+
+procedure CheckWellformed$$_module.__default.Add__Commutative__p2(a#0: int, b#0: int);
+  free requires 6 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Add__Commutative__p2(a#0: int, b#0: int);
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures _module.__default.Add#canCall(a#0, b#0)
+     && _module.__default.Add#canCall(b#0, a#0);
+  ensures _module.__default.Add(a#0, b#0) == _module.__default.Add(b#0, a#0);
+  // frame condition
+  free ensures old($Heap) == $Heap;
+
+
+
+procedure CheckWellformed$$_module.__default.Add__Associative__p3(a#0: int, b#0: int, c#0: int);
+  free requires 5 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Add__Associative__p3(a#0: int, b#0: int, c#0: int);
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures _module.__default.Add#canCall(a#0, b#0)
+     && _module.__default.Add#canCall(_module.__default.Add(a#0, b#0), c#0)
+     && 
+    _module.__default.Add#canCall(b#0, c#0)
+     && _module.__default.Add#canCall(a#0, _module.__default.Add(b#0, c#0));
+  ensures _module.__default.Add(_module.__default.Add(a#0, b#0), c#0)
+     == _module.__default.Add(a#0, _module.__default.Add(b#0, c#0));
+  // frame condition
+  free ensures old($Heap) == $Heap;
+
+
+
+procedure CheckWellformed$$_module.__default.Add__Identity__p1(a#0: int);
+  free requires 4 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.Add__Identity__p1(a#0: int);
+  modifies $Heap, $Tick;
+  // user-defined postconditions
+  free ensures _module.__default.Add#canCall(a#0, LitInt(0))
+     && _module.__default.Add#canCall(LitInt(0), a#0)
+     && (_module.__default.Add(a#0, LitInt(0)) == _module.__default.Add(LitInt(0), a#0)
+       ==> _module.__default.Add#canCall(LitInt(0), a#0));
+  ensures _module.__default.Add(a#0, LitInt(0)) == _module.__default.Add(LitInt(0), a#0);
+  ensures _module.__default.Add(LitInt(0), a#0) == a#0;
   // frame condition
   free ensures old($Heap) == $Heap;
 
@@ -3949,7 +4007,7 @@ implementation CheckWellformed$$_module.__default.Length(_module._default.Length
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function Length
-    assume {:captureState "SMN_Dafny.dfy(12,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(19,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -4126,12 +4184,31 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
   var let#3#0#0: DatatypeType;
   var ##xs#4: DatatypeType;
   var ##b#2: int;
+  var a##0: int;
+  var b##0: int;
+  var ##xs#5: DatatypeType;
+  var c##0: int;
+  var ##xs#6: DatatypeType;
+  var a##1: int;
+  var ##xs#7: DatatypeType;
+  var b##1: int;
+  var c##1: int;
+  var ##xs#8: DatatypeType;
+  var a##2: int;
+  var b##2: int;
+  var ##xs#9: DatatypeType;
+  var a##3: int;
+  var b##3: int;
+  var ##xs#10: DatatypeType;
+  var c##2: int;
+  var ##xs#11: DatatypeType;
+  var a##4: int;
   var b$reqreads#0: bool;
 
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function Split
-    assume {:captureState "SMN_Dafny.dfy(19,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(26,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -4191,26 +4268,17 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
     {
         $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
           $o != null && read($Heap, $o, alloc) ==> false);
-        // ----- call statement ----- SMN_Dafny.dfy(22,18)
-        // TrCallStmt: Before ProcessCallStmt
-        // ProcessCallStmt: Make the call
-        call Call$$_module.__default.Add__Commutative();
-        // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(22,19)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(23,19)
-        // TrCallStmt: Before ProcessCallStmt
-        // ProcessCallStmt: Make the call
-        call Call$$_module.__default.Add__Associative();
-        // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(23,20)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(24,15)
-        // TrCallStmt: Before ProcessCallStmt
-        // ProcessCallStmt: Make the call
-        call Call$$_module.__default.Add__Identity();
-        // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(24,16)"} true;
         if (xs#0 == #_module.List.Nil())
         {
+            // ----- call statement ----- SMN_Dafny.dfy(31,20)
+            // TrCallStmt: Before ProcessCallStmt
+            assume true;
+            // ProcessCallStmt: CheckSubrange
+            a##4 := LitInt(0);
+            // ProcessCallStmt: Make the call
+            call Call$$_module.__default.Add__Identity__p1(a##4);
+            // TrCallStmt: After ProcessCallStmt
+            assume {:captureState "SMN_Dafny.dfy(31,22)"} true;
             assume _module.__default.Split($LS($LZ), xs#0, b#0)
                == Lit(#_System._tuple#2._#Make2($Box(Lit(#_module.List.Nil())), $Box(Lit(#_module.List.Nil()))));
             assume true;
@@ -4259,6 +4327,29 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
             assume #_System._tuple#2._#Make2($Box(L#4), $Box(R#4)) == let#3#0#0;
             if (x#4 < b#0)
             {
+                // ----- call statement ----- SMN_Dafny.dfy(36,25)
+                // TrCallStmt: Before ProcessCallStmt
+                assume true;
+                // ProcessCallStmt: CheckSubrange
+                a##0 := LitInt(1);
+                ##xs#5 := L#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#5, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                // ProcessCallStmt: CheckSubrange
+                b##0 := _module.__default.Length(TInt, $LS($LZ), L#4);
+                ##xs#6 := R#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#6, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, R#4);
+                assume _module.__default.Length#canCall(TInt, R#4);
+                // ProcessCallStmt: CheckSubrange
+                c##0 := _module.__default.Length(TInt, $LS($LZ), R#4);
+                // ProcessCallStmt: Make the call
+                call Call$$_module.__default.Add__Associative__p3(a##0, b##0, c##0);
+                // TrCallStmt: After ProcessCallStmt
+                assume {:captureState "SMN_Dafny.dfy(36,49)"} true;
                 assume _module.__default.Split($LS($LZ), xs#0, b#0)
                    == #_System._tuple#2._#Make2($Box(#_module.List.Cons($Box(x#4), L#4)), $Box(R#4));
                 assume true;
@@ -4268,6 +4359,68 @@ implementation CheckWellformed$$_module.__default.Split(xs#0: DatatypeType, b#0:
             }
             else
             {
+                // ----- call statement ----- SMN_Dafny.dfy(40,25)
+                // TrCallStmt: Before ProcessCallStmt
+                ##xs#7 := L#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#7, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                // ProcessCallStmt: CheckSubrange
+                a##1 := _module.__default.Length(TInt, $LS($LZ), L#4);
+                assume true;
+                // ProcessCallStmt: CheckSubrange
+                b##1 := LitInt(1);
+                ##xs#8 := R#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#8, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, R#4);
+                assume _module.__default.Length#canCall(TInt, R#4);
+                // ProcessCallStmt: CheckSubrange
+                c##1 := _module.__default.Length(TInt, $LS($LZ), R#4);
+                // ProcessCallStmt: Make the call
+                call Call$$_module.__default.Add__Associative__p3(a##1, b##1, c##1);
+                // TrCallStmt: After ProcessCallStmt
+                assume {:captureState "SMN_Dafny.dfy(40,49)"} true;
+                // ----- call statement ----- SMN_Dafny.dfy(41,25)
+                // TrCallStmt: Before ProcessCallStmt
+                assume true;
+                // ProcessCallStmt: CheckSubrange
+                a##2 := LitInt(1);
+                ##xs#9 := L#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#9, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                // ProcessCallStmt: CheckSubrange
+                b##2 := _module.__default.Length(TInt, $LS($LZ), L#4);
+                // ProcessCallStmt: Make the call
+                call Call$$_module.__default.Add__Commutative__p2(a##2, b##2);
+                // TrCallStmt: After ProcessCallStmt
+                assume {:captureState "SMN_Dafny.dfy(41,38)"} true;
+                // ----- call statement ----- SMN_Dafny.dfy(42,25)
+                // TrCallStmt: Before ProcessCallStmt
+                assume true;
+                // ProcessCallStmt: CheckSubrange
+                a##3 := LitInt(1);
+                ##xs#10 := L#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#10, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                assume _module.__default.Length#canCall(TInt, L#4);
+                // ProcessCallStmt: CheckSubrange
+                b##3 := _module.__default.Length(TInt, $LS($LZ), L#4);
+                ##xs#11 := R#4;
+                // assume allocatedness for argument to function
+                assume $IsAlloc(##xs#11, Tclass._module.List(TInt), $Heap);
+                assume _module.__default.Length#canCall(TInt, R#4);
+                assume _module.__default.Length#canCall(TInt, R#4);
+                // ProcessCallStmt: CheckSubrange
+                c##2 := _module.__default.Length(TInt, $LS($LZ), R#4);
+                // ProcessCallStmt: Make the call
+                call Call$$_module.__default.Add__Associative__p3(a##3, b##3, c##2);
+                // TrCallStmt: After ProcessCallStmt
+                assume {:captureState "SMN_Dafny.dfy(42,49)"} true;
                 assume _module.__default.Split($LS($LZ), xs#0, b#0)
                    == #_System._tuple#2._#Make2($Box(L#4), $Box(#_module.List.Cons($Box(x#4), R#4)));
                 assume true;
@@ -4427,7 +4580,7 @@ implementation {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs
     // AddMethodImpl: Split_Correct, Impl$$_module.__default.Split__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(41,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(53,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
@@ -4469,7 +4622,7 @@ implementation {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs
         // CheckWellformedWithResult: any expression
         assume $Is(let#0_0#0#0, Tclass._module.List(TInt));
         assume tail#0_0 == let#0_0#0#0;
-        // ----- call statement ----- SMN_Dafny.dfy(45,18)
+        // ----- call statement ----- SMN_Dafny.dfy(57,18)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -4484,7 +4637,7 @@ implementation {:_induction xs#0, b#0} Impl$$_module.__default.Split__Correct(xs
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Split__Correct(xs##0_0, b##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(45,26)"} true;
+        assume {:captureState "SMN_Dafny.dfy(57,26)"} true;
     }
     else
     {
@@ -4589,7 +4742,7 @@ implementation CheckWellformed$$_module.__default.Elements(_module._default.Elem
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function Elements
-    assume {:captureState "SMN_Dafny.dfy(48,9): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(60,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -4711,7 +4864,7 @@ implementation {:_induction xs#0} Impl$$_module.__default.Elements__Property(_mo
     // AddMethodImpl: Elements_Property, Impl$$_module.__default.Elements__Property
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(58,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(70,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
@@ -4831,7 +4984,7 @@ implementation CheckWellformed$$_module.__default.NoDuplicates(_module._default.
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function NoDuplicates
-    assume {:captureState "SMN_Dafny.dfy(61,10): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(73,10): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -4969,21 +5122,21 @@ implementation Impl$$_module.__default.Cardinality(_module._default.Cardinality$
     // AddMethodImpl: Cardinality, Impl$$_module.__default.Cardinality
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(72,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(84,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- if statement ----- SMN_Dafny.dfy(73,3)
+    // ----- if statement ----- SMN_Dafny.dfy(85,3)
     assume true;
     if (!Set#Equal(A#0, Set#Empty(): Set Box))
     {
-        // ----- assign-such-that statement ----- SMN_Dafny.dfy(74,11)
+        // ----- assign-such-that statement ----- SMN_Dafny.dfy(86,11)
         assume true;
         havoc x#0_0;
         assume true;
         assert (exists $as#x0_0#0_0: Box :: 
           $IsBox($as#x0_0#0_0, _module._default.Cardinality$_T0) && A#0[$as#x0_0#0_0]);
         assume A#0[x#0_0];
-        assume {:captureState "SMN_Dafny.dfy(74,19)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(75,16)
+        assume {:captureState "SMN_Dafny.dfy(86,19)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(87,16)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -4997,7 +5150,7 @@ implementation Impl$$_module.__default.Cardinality(_module._default.Cardinality$
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Cardinality(_module._default.Cardinality$_T0, A##0_0, B##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(75,33)"} true;
+        assume {:captureState "SMN_Dafny.dfy(87,33)"} true;
     }
     else
     {
@@ -5071,24 +5224,24 @@ implementation Impl$$_module.__default.SetEquality(_module._default.SetEquality$
     // AddMethodImpl: SetEquality, Impl$$_module.__default.SetEquality
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(82,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(94,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- if statement ----- SMN_Dafny.dfy(83,3)
+    // ----- if statement ----- SMN_Dafny.dfy(95,3)
     assume true;
     if (Set#Equal(A#0, Set#Empty(): Set Box))
     {
     }
     else
     {
-        // ----- assign-such-that statement ----- SMN_Dafny.dfy(85,11)
+        // ----- assign-such-that statement ----- SMN_Dafny.dfy(97,11)
         assume true;
         havoc x#0;
         assume true;
         assert (exists $as#x0#0: Box :: 
           $IsBox($as#x0#0, _module._default.SetEquality$_T0) && A#0[$as#x0#0]);
         assume A#0[x#0];
-        assume {:captureState "SMN_Dafny.dfy(85,19)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(86,16)
+        assume {:captureState "SMN_Dafny.dfy(97,19)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(98,16)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -5102,7 +5255,7 @@ implementation Impl$$_module.__default.SetEquality(_module._default.SetEquality$
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.SetEquality(_module._default.SetEquality$_T0, A##0, B##0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(86,33)"} true;
+        assume {:captureState "SMN_Dafny.dfy(98,33)"} true;
     }
 }
 
@@ -5187,7 +5340,7 @@ implementation CheckWellformed$$_module.__default.IntRange(lo#0: int, len#0: int
 
 
     // AddWellformednessCheck for function IntRange
-    assume {:captureState "SMN_Dafny.dfy(90,9): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(102,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -5237,7 +5390,7 @@ implementation CheckWellformed$$_module.__default.IntRange(lo#0: int, len#0: int
         // CheckWellformedWithResult: any expression
         assume $Is(let#0#0#0, TSet(TInt));
         assume S#2 == let#0#0#0;
-        // ----- assert statement ----- SMN_Dafny.dfy(94,3)
+        // ----- assert statement ----- SMN_Dafny.dfy(106,3)
         if (len#0 != 0)
         {
             ##lo#1 := lo#0;
@@ -5338,7 +5491,7 @@ implementation CheckWellformed$$_module.__default.SmallestMissingNumber(xs#0: Da
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function SmallestMissingNumber
-    assume {:captureState "SMN_Dafny.dfy(98,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(110,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -5553,7 +5706,7 @@ implementation CheckWellformed$$_module.__default.SMN(xs#0: DatatypeType, n#0: i
     b$reqreads#4 := true;
 
     // AddWellformednessCheck for function SMN
-    assume {:captureState "SMN_Dafny.dfy(103,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(115,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##xs#0 := xs#0;
@@ -5866,7 +6019,7 @@ implementation CheckWellformed$$_module.__default.SMN_k(xs#0: DatatypeType, n#0:
     b$reqreads#4 := true;
 
     // AddWellformednessCheck for function SMN'
-    assume {:captureState "SMN_Dafny.dfy(123,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(135,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##xs#0 := xs#0;
@@ -6163,7 +6316,7 @@ implementation CheckWellformed$$_module.__default.SMN_k_k(xs#0: DatatypeType, n#
     b$reqreads#4 := true;
 
     // AddWellformednessCheck for function SMN''
-    assume {:captureState "SMN_Dafny.dfy(142,16): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(154,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##xs#0 := xs#0;
@@ -6367,7 +6520,7 @@ implementation {:_induction xs#0} Impl$$_module.__default.SmallestMissingNumber_
     // AddMethodImpl: SmallestMissingNumber_Correct, Impl$$_module.__default.SmallestMissingNumber__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(165,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(177,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
@@ -6385,7 +6538,7 @@ implementation {:_induction xs#0} Impl$$_module.__default.SmallestMissingNumber_
                 LitInt(0) <= x#2 && x#2 < s#2
                  ==> _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#2)])));
     $_reverifyPost := false;
-    // ----- call statement ----- SMN_Dafny.dfy(166,14)
+    // ----- call statement ----- SMN_Dafny.dfy(178,14)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -6404,7 +6557,7 @@ implementation {:_induction xs#0} Impl$$_module.__default.SmallestMissingNumber_
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.SMN__Correct(xs##0, n##0, len##0);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "SMN_Dafny.dfy(166,32)"} true;
+    assume {:captureState "SMN_Dafny.dfy(178,32)"} true;
 }
 
 
@@ -6439,7 +6592,7 @@ implementation {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default
     // AddMethodImpl: SMN_Correct, CheckWellformed$$_module.__default.SMN__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(172,6): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(184,6): initial state"} true;
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##xs#0, Tclass._module.List(TInt), $Heap);
@@ -6473,7 +6626,7 @@ implementation {:_induction xs#0, n#0, len#0} CheckWellformed$$_module.__default
     assume len#0 == _module.__default.Length(TInt, $LS($LZ), xs#0);
     havoc $Heap;
     assume old($Heap) == $Heap;
-    assume {:captureState "SMN_Dafny.dfy(176,10): post-state"} true;
+    assume {:captureState "SMN_Dafny.dfy(188,10): post-state"} true;
     havoc s#0;
     ##xs#3 := xs#0;
     // assume allocatedness for argument to function
@@ -6664,7 +6817,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
     // AddMethodImpl: SMN_Correct, Impl$$_module.__default.SMN__Correct
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(181,0): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(193,0): initial state"} true;
     assume $IsA#_module.List(xs#0);
     $initHeapForallStmt#0 := $Heap;
     havoc $Heap, $Tick;
@@ -6694,7 +6847,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
                 $ih#n0#0 <= x#5 && x#5 < s#2
                  ==> _module.__default.Elements(TInt, $LS($LZ), $ih#xs0#0)[$Box(x#5)])));
     $_reverifyPost := false;
-    // ----- if statement ----- SMN_Dafny.dfy(182,3)
+    // ----- if statement ----- SMN_Dafny.dfy(194,3)
     assume true;
     if (LitInt(2) <= len#0)
     {
@@ -6722,7 +6875,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         assume _System.Tuple2.___hMake2_q(let#0_0#0#0);
         assume _System.Tuple2.___hMake2_q(let#0_0#0#0);
         assume #_System._tuple#2._#Make2($Box(L#0_0), $Box(R#0_0)) == let#0_0#0#0;
-        // ----- call statement ----- SMN_Dafny.dfy(184,18)
+        // ----- call statement ----- SMN_Dafny.dfy(196,18)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -6735,8 +6888,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Split__Correct(xs##0_0, b##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(184,32)"} true;
-        // ----- assignment statement ----- SMN_Dafny.dfy(185,14)
+        assume {:captureState "SMN_Dafny.dfy(196,32)"} true;
+        // ----- assignment statement ----- SMN_Dafny.dfy(197,14)
         assume true;
         ##xs#0_1 := L#0_0;
         // assume allocatedness for argument to function
@@ -6744,8 +6897,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         assume _module.__default.Length#canCall(TInt, L#0_0);
         assume _module.__default.Length#canCall(TInt, L#0_0);
         llen#0_0 := _module.__default.Length(TInt, $LS($LZ), L#0_0);
-        assume {:captureState "SMN_Dafny.dfy(185,25)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(186,22)
+        assume {:captureState "SMN_Dafny.dfy(197,25)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(198,22)
         // TrCallStmt: Before ProcessCallStmt
         assume true;
         // ProcessCallStmt: CheckSubrange
@@ -6754,8 +6907,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Elements__Property(TInt, xs##0_1);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(186,24)"} true;
-        // ----- assignment statement ----- SMN_Dafny.dfy(187,15)
+        assume {:captureState "SMN_Dafny.dfy(198,24)"} true;
+        // ----- assignment statement ----- SMN_Dafny.dfy(199,15)
         assume true;
         assert LitInt(2) != 0;
         ##lo#0_0 := n#0;
@@ -6767,8 +6920,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         assume _module.__default.IntRange#canCall(n#0, Div(len#0, LitInt(2)));
         assume _module.__default.IntRange#canCall(n#0, Div(len#0, LitInt(2)));
         bound#0_0 := _module.__default.IntRange($LS($LZ), n#0, Div(len#0, LitInt(2)));
-        assume {:captureState "SMN_Dafny.dfy(187,35)"} true;
-        // ----- call statement ----- SMN_Dafny.dfy(188,16)
+        assume {:captureState "SMN_Dafny.dfy(199,35)"} true;
+        // ----- call statement ----- SMN_Dafny.dfy(200,16)
         // TrCallStmt: Before ProcessCallStmt
         ##xs#0_2 := L#0_0;
         // assume allocatedness for argument to function
@@ -6784,13 +6937,13 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Cardinality(TInt, A##0_0, B##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "SMN_Dafny.dfy(188,35)"} true;
-        // ----- if statement ----- SMN_Dafny.dfy(189,5)
+        assume {:captureState "SMN_Dafny.dfy(200,35)"} true;
+        // ----- if statement ----- SMN_Dafny.dfy(201,5)
         assert LitInt(2) != 0;
         assume true;
         if (llen#0_0 < Div(len#0, LitInt(2)))
         {
-            // ----- call statement ----- SMN_Dafny.dfy(190,18)
+            // ----- call statement ----- SMN_Dafny.dfy(202,18)
             // TrCallStmt: Before ProcessCallStmt
             assume true;
             // ProcessCallStmt: CheckSubrange
@@ -6807,11 +6960,11 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
             // ProcessCallStmt: Make the call
             call Call$$_module.__default.SMN__Correct(xs##0_0_0, n##0_0_0, len##0_0_0);
             // TrCallStmt: After ProcessCallStmt
-            assume {:captureState "SMN_Dafny.dfy(190,29)"} true;
+            assume {:captureState "SMN_Dafny.dfy(202,29)"} true;
         }
         else
         {
-            // ----- assignment statement ----- SMN_Dafny.dfy(192,13)
+            // ----- assignment statement ----- SMN_Dafny.dfy(204,13)
             assume true;
             ##xs#0_3 := R#0_0;
             // assume allocatedness for argument to function
@@ -6827,8 +6980,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
             assume _module.__default.SMN#canCall(R#0_0, n#0 + llen#0_0, len#0 - llen#0_0);
             assume _module.__default.SMN#canCall(R#0_0, n#0 + llen#0_0, len#0 - llen#0_0);
             s#0_0 := _module.__default.SMN($LS($LZ), R#0_0, n#0 + llen#0_0, len#0 - llen#0_0);
-            assume {:captureState "SMN_Dafny.dfy(192,43)"} true;
-            // ----- call statement ----- SMN_Dafny.dfy(193,18)
+            assume {:captureState "SMN_Dafny.dfy(204,43)"} true;
+            // ----- call statement ----- SMN_Dafny.dfy(205,18)
             // TrCallStmt: Before ProcessCallStmt
             assume true;
             // ProcessCallStmt: CheckSubrange
@@ -6845,8 +6998,8 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
             // ProcessCallStmt: Make the call
             call Call$$_module.__default.SMN__Correct(xs##0_2, n##0_0, len##0_0);
             // TrCallStmt: After ProcessCallStmt
-            assume {:captureState "SMN_Dafny.dfy(193,42)"} true;
-            // ----- forall statement (proof) ----- SMN_Dafny.dfy(194,7)
+            assume {:captureState "SMN_Dafny.dfy(205,42)"} true;
+            // ----- forall statement (proof) ----- SMN_Dafny.dfy(206,7)
             if (*)
             {
                 // Assume Fuel Constant
@@ -6858,11 +7011,11 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
 
                 assume true;
                 assume n#0 <= x#0_0 && x#0_0 < s#0_0;
-                // ----- if statement ----- SMN_Dafny.dfy(197,9)
+                // ----- if statement ----- SMN_Dafny.dfy(209,9)
                 assume true;
                 if (x#0_0 < n#0 + llen#0_0)
                 {
-                    // ----- call statement ----- SMN_Dafny.dfy(198,22)
+                    // ----- call statement ----- SMN_Dafny.dfy(210,22)
                     // TrCallStmt: Before ProcessCallStmt
                     ##xs#0_1_0 := L#0_0;
                     // assume allocatedness for argument to function
@@ -6878,7 +7031,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
                     // ProcessCallStmt: Make the call
                     call Call$$_module.__default.SetEquality(TInt, A##0_1_0, B##0_1_0);
                     // TrCallStmt: After ProcessCallStmt
-                    assume {:captureState "SMN_Dafny.dfy(198,41)"} true;
+                    assume {:captureState "SMN_Dafny.dfy(210,41)"} true;
                 }
                 else
                 {
@@ -6895,7 +7048,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
                      ==> _module.__default.Elements(TInt, $LS($LZ), xs#0)[$Box(x#0_1)]);
             }
 
-            assume {:captureState "SMN_Dafny.dfy(200,6)"} true;
+            assume {:captureState "SMN_Dafny.dfy(212,6)"} true;
         }
     }
     else
@@ -6906,7 +7059,7 @@ implementation {:_induction xs#0, n#0, len#0} Impl$$_module.__default.SMN__Corre
 
 
 procedure CheckWellformed$$_module.__default.Main();
-  free requires 21 == $FunctionContextHeight;
+  free requires 24 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -6923,7 +7076,7 @@ procedure Call$$_module.__default.Main();
 
 
 procedure Impl$$_module.__default.Main() returns ($_reverifyPost: bool);
-  free requires 21 == $FunctionContextHeight;
+  free requires 24 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   // frame condition: object granularity
   free ensures (forall $o: ref :: 
@@ -6952,14 +7105,14 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     // AddMethodImpl: Main, Impl$$_module.__default.Main
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "SMN_Dafny.dfy(205,14): initial state"} true;
+    assume {:captureState "SMN_Dafny.dfy(217,14): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- SMN_Dafny.dfy(206,10)
+    // ----- assignment statement ----- SMN_Dafny.dfy(218,10)
     assume true;
     assume true;
     xs#0 := Lit(#_module.List.Nil());
-    assume {:captureState "SMN_Dafny.dfy(206,15)"} true;
-    // ----- assignment statement ----- SMN_Dafny.dfy(207,9)
+    assume {:captureState "SMN_Dafny.dfy(218,15)"} true;
+    // ----- assignment statement ----- SMN_Dafny.dfy(219,9)
     assume true;
     ##xs#0 := xs#0;
     // assume allocatedness for argument to function
@@ -6967,45 +7120,45 @@ implementation Impl$$_module.__default.Main() returns ($_reverifyPost: bool)
     assume _module.__default.SmallestMissingNumber#canCall(xs#0);
     assume _module.__default.SmallestMissingNumber#canCall(xs#0);
     s#0 := _module.__default.SmallestMissingNumber(xs#0);
-    assume {:captureState "SMN_Dafny.dfy(207,36)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(208,3)
+    assume {:captureState "SMN_Dafny.dfy(219,36)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(220,3)
     assume true;
     assert s#0 == LitInt(0);
-    // ----- print statement ----- SMN_Dafny.dfy(209,3)
+    // ----- print statement ----- SMN_Dafny.dfy(221,3)
     assume true;
     assume true;
-    // ----- assignment statement ----- SMN_Dafny.dfy(210,9)
+    // ----- assignment statement ----- SMN_Dafny.dfy(222,9)
     assume true;
     assume true;
     a#0 := Lit(#_module.List.Cons($Box(LitInt(2)), 
         Lit(#_module.List.Cons($Box(LitInt(0)), Lit(#_module.List.Nil())))));
-    assume {:captureState "SMN_Dafny.dfy(210,32)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(211,3)
+    assume {:captureState "SMN_Dafny.dfy(222,32)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(223,3)
     ##xs#1 := a#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##xs#1, Tclass._module.List(TInt), $Heap);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assert _module.__default.SmallestMissingNumber(a#0) == LitInt(1);
-    // ----- assignment statement ----- SMN_Dafny.dfy(213,5)
+    // ----- assignment statement ----- SMN_Dafny.dfy(225,5)
     assume true;
     assume true;
     a#0 := #_module.List.Cons($Box(LitInt(3)), #_module.List.Cons($Box(LitInt(1)), a#0));
-    assume {:captureState "SMN_Dafny.dfy(213,26)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(214,3)
+    assume {:captureState "SMN_Dafny.dfy(225,26)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(226,3)
     ##xs#2 := a#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##xs#2, Tclass._module.List(TInt), $Heap);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assume _module.__default.SmallestMissingNumber#canCall(a#0);
     assert _module.__default.SmallestMissingNumber(a#0) == LitInt(4);
-    // ----- assignment statement ----- SMN_Dafny.dfy(216,5)
+    // ----- assignment statement ----- SMN_Dafny.dfy(228,5)
     assume true;
     assume true;
     a#0 := #_module.List.Cons($Box(LitInt(7)), 
       #_module.List.Cons($Box(LitInt(4)), #_module.List.Cons($Box(LitInt(6)), a#0)));
-    assume {:captureState "SMN_Dafny.dfy(216,35)"} true;
-    // ----- assert statement ----- SMN_Dafny.dfy(217,3)
+    assume {:captureState "SMN_Dafny.dfy(228,35)"} true;
+    // ----- assert statement ----- SMN_Dafny.dfy(229,3)
     ##xs#3 := a#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##xs#3, Tclass._module.List(TInt), $Heap);

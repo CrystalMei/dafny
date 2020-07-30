@@ -7,6 +7,13 @@ lemma Add_Associative()
 lemma Add_Identity()
     ensures forall a: int :: Add(a, 0) == Add(0, a) == a
 
+lemma Add_Commutative_p2(a: int, b: int)
+    ensures Add(a, b) == Add(b, a)
+lemma Add_Associative_p3 (a: int, b: int, c: int)
+    ensures Add(Add(a, b), c) == Add(a, Add(b, c))
+lemma Add_Identity_p1(a: int)
+    ensures Add(a, 0) == Add(0, a) == a
+
 datatype List<X> = Nil | Cons(head: X, tail: List<X>)
 
 function method Length(xs: List): int // verified
@@ -19,16 +26,21 @@ function method Length(xs: List): int // verified
 function method Split(xs: List<int>, b: int): (List<int>, List<int>)
   ensures var r := Split(xs, b); Length(xs) == Add(Length(r.0), Length(r.1))
 {
-  Add_Commutative();
-  Add_Associative ();
-  Add_Identity();
   match xs
-  case Nil => (Nil, Nil)
+  case Nil =>
+    Add_Identity_p1(0); // assume Add(0, 0) == 0;
+    (Nil, Nil)
   case Cons(x, tail) =>
     var (L, R) := Split(tail, b);
     if x < b then
+      Add_Associative_p3(1, Length(L), Length(R));
+      // assume Add(Add(1, Length(L)), Length(R)) == Add(1, Add(Length(L), Length(R)));
       (Cons(x, L), R)
     else
+      Add_Associative_p3(Length(L), 1, Length(R));
+      Add_Commutative_p2(1, Length(L));
+      Add_Associative_p3(1, Length(L), Length(R));
+      // assume Add(Length(L), Add(1, Length(R))) == Add(1, Add(Length(L), Length(R)));
       (L, Cons(x, R))
 }
 
