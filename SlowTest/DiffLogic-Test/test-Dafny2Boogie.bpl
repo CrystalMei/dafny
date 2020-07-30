@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: test_Dafny.dfy /compile:0 /proverOpt:LOGIC=DLA /print:test-Dafny2Boogie.bpl /trace
+// Command Line Options: /compile:0 /trace test_Dafny.dfy /proverOpt:LOGIC=DLA /print:test-Dafny2Boogie.bpl /proverLog:test-Dafny2z3.smt2
 
 const $$Language$Dafny: bool;
 

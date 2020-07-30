@@ -3,6 +3,7 @@ function {:inline} LitInt(x: int) : int
 {
   x
 }
+function {:identity} Lit<T>(x: T) : T;
 
 procedure Impl$$_module.__default.myAdd(a#0: int, b#0: int) returns ($_reverifyPost: bool);
 //   free requires 0 == $FunctionContextHeight;
