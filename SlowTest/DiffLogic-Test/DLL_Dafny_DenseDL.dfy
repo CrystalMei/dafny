@@ -1,6 +1,6 @@
 function method Dec(a: int, b: int) : int
 lemma Props_dec_one (sum: int)
-    ensures forall j :: Dec(sum, j + 1) < Dec(sum, j)
+    ensures forall j: int :: Dec(sum, j + 1) < Dec(sum, j)
 lemma Props_dec_lower_bound (sum: int, x: int)
     requires x <= sum
     ensures 0 <= Dec(sum, x)
@@ -11,14 +11,14 @@ function method Sub(a: int, b: int): int { a - b }
 function method SeqRemove<X> (s: seq<X>, k: int) : (s': seq<X>)
   requires 0 <= k < |s|
   ensures Sub(|s|, 1) == |s'|
-  ensures forall i {:trigger s'[i]} :: 0 <= i < |s'| ==>
+  ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
     if i < k then s'[i] == s[i]
     else s'[i] == s[Add(i, 1)]
 
 function method SeqInsert<X> (s: seq<X>, k: int, v: X) : (s': seq<X>)
   requires 0 <= k <= |s|
   ensures |s'| == Add(|s|, 1)
-  ensures forall i {:trigger s'[i]} :: 0 <= i < |s'| ==>
+  ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
     if i < k then s'[i] == s[i]
     else if i == k then s'[i] == v
     else s'[i] == s[Sub(i, 1)]
@@ -47,7 +47,7 @@ function method {:extern "LinearExtern", "seq_empty"} seq_empty<A>():(s:seq<A>)
 
 function method {:extern "LinearExtern", "seq_alloc"} seq_alloc<A>(length:int, a:A):(s:seq<A>)
   ensures |s| == length
-  ensures forall i {:trigger s[i]} :: 0 <= i < |s| ==> s[i] == a 
+  ensures forall i: int {:trigger s[i]} :: 0 <= i < |s| ==> s[i] == a 
 
 function method {:extern "LinearExtern", "seq_free"} seq_free<A>(s:seq<A>):() 
 
@@ -56,7 +56,7 @@ function method {:extern "LinearExtern", "seq_unleash"} seq_unleash<A>(s1:seq<A>
 
 method SeqResize<A>(s: seq<A>, newlen: int, a: A) returns (s2: seq<A>)
   ensures |s2| == newlen
-  ensures forall j {:trigger s2[j]} :: 0 <= j < newlen ==> s2[j] == (if j < |s| then s[j] else a) 
+  ensures forall j: int {:trigger s2[j]} :: 0 <= j < newlen ==> s2[j] == (if j < |s| then s[j] else a) 
 
 method AllocAndCopy<A>(source: seq<A>, from: int, to: int)
   returns (dest: seq<A>)
@@ -188,8 +188,8 @@ function method Prev<A>(l:DList<A>, p:int):(p':int)
 method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   requires 0 < k <= |a|
   ensures |b| == |a|
-  ensures forall i {:trigger b[i]} :: 0 <= i < k ==> b[i] == a[i]
-  ensures forall i {:trigger b[i]} :: k <= i < |a| ==> b[i] == Node(None, Sub(i, 1), 0)
+  ensures forall i: int {:trigger b[i]} :: 0 <= i < k ==> b[i] == a[i]
+  ensures forall i: int {:trigger b[i]} :: k <= i < |a| ==> b[i] == Node(None, Sub(i, 1), 0)
 {
   b := a;
   var n := k;
@@ -197,8 +197,8 @@ method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   while (n < seq_length(b))
     invariant k <= n <= |b|
     invariant |b| == |a|
-    invariant forall i :: 0 <= i < k ==> b[i] == a[i]
-    invariant forall i :: k <= i < n ==> b[i] == Node(None, Sub(i, 1), 0)
+    invariant forall i: int :: 0 <= i < k ==> b[i] == a[i]
+    invariant forall i: int :: k <= i < n ==> b[i] == Node(None, Sub(i, 1), 0)
     decreases Dec(seq_length(b), n)
   {
     b := seq_set(b, n, Node(None, Sub(n, 1), 0));
@@ -230,7 +230,7 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   requires Inv(l)
   ensures Inv(l')
   ensures l'.s == l.s
-  ensures forall x {:trigger l'.g[x]} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==> ValidPtr(l', x) && l'.g[x] == l.g[x]
+  ensures forall x: int {:trigger l'.g[x]} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==> ValidPtr(l', x) && l'.g[x] == l.g[x]
   ensures l'.freeStack != 0 && l'.nodes[l'.freeStack].data.None?
 {
   var DList(nodes, freeStack, s, f, g) := l;
@@ -248,7 +248,7 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
 
 ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
   ensures |g'| == |g|
-  ensures forall x {:trigger g'[x]} {:trigger g[x]} ::
+  ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < |g| ==>
       if g[x] == index then g'[x] == unused
       else if index < g[x] then g'[x] == Sub(g[x], 1)
@@ -264,7 +264,7 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires ValidPtr(l, p)
   ensures Inv(l')
   ensures Seq(l') == SeqRemove(Seq(l), Index(l, p))
-  ensures forall x {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: x != p && ValidPtr(l, x) ==>
+  ensures forall x: int {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: x != p && ValidPtr(l, x) ==>
     ValidPtr(l', x) && 
     if Index(l, x) < Index(l, p) then Index(l', x) == Index(l, x)
     else Index(l', x) == Sub(Index(l, x), 1)
@@ -287,7 +287,7 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
 
 ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
   ensures |g'| == |g|
-  ensures forall x {:trigger g'[x]} {:trigger g[x]} ::
+  ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < |g| ==>
       if x == p' then g'[x] == index'
       else if index < g[x] then g'[x] == Add(g[x], 1)
@@ -304,7 +304,7 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ensures Inv(l')
   ensures Seq(l') == SeqInsert(Seq(l), Add(Index(l, p), 1), a)
   ensures ValidPtr(l', p') && Index(l', p') == Add(Index(l, p), 1)
-  ensures forall x {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==>
+  ensures forall x: int {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==>
     ValidPtr(l', x) && 
     if Index(l, x) <= Index(l, p) then Index(l', x) == Index(l, x)
     else Index(l', x) == Add(Index(l, x), 1)
@@ -337,7 +337,7 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
 
 ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g': seq<int>)
   ensures |g'| == |g|
-  ensures forall x {:trigger g'[x]} {:trigger g[x]} ::
+  ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < |g| ==>
       if x == p' then g'[x] == index'
       else if index' <= g[x] then g'[x] == Add(g[x], 1)
@@ -354,7 +354,7 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ensures Inv(l')
   ensures Seq(l') == SeqInsert(Seq(l), IndexHi(l, p), a)
   ensures ValidPtr(l', p') && Index(l', p') == IndexHi(l, p)
-  ensures forall x {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==>
+  ensures forall x: int {:trigger Index(l', x)} {:trigger ValidPtr(l, x)} {:trigger ValidPtr(l', x)} :: ValidPtr(l, x) ==>
     ValidPtr(l', x) && 
     if Index(l, x) < IndexHi(l, p) then Index(l', x) == Index(l, x)
     else Index(l', x) == Add(Index(l, x), 1)

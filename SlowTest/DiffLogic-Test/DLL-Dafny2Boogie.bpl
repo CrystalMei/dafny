@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: /compile:0 /trace DLL_Dafny.dfy /proverOpt:LOGIC=DLA /print:DLL-Dafny2Boogie.bpl /proverLog:DLL-Dafny2z3.smt2
+// Command Line Options: /compile:0 /trace DLL_Dafny_DenseDL.dfy /print:DLL-Dafny2Boogie.bpl /proverLog:DLL-Dafny2z3.smt2 /proc:Impl*Expand
 
 const $$Language$Dafny: bool;
 
@@ -5147,7 +5147,7 @@ implementation CheckWellformed$$_module.__default.SeqRemove(_module._default.Seq
 
 
     // AddWellformednessCheck for function SeqRemove
-    assume {:captureState "DLL_Dafny.dfy(11,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(11,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (LitInt(0) <= k#0)
@@ -5301,7 +5301,7 @@ implementation CheckWellformed$$_module.__default.SeqInsert(_module._default.Seq
 
 
     // AddWellformednessCheck for function SeqInsert
-    assume {:captureState "DLL_Dafny.dfy(18,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(18,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (LitInt(0) <= k#0)
@@ -5414,8 +5414,7 @@ axiom 4 <= $FunctionContextHeight
        ==> Seq#Length(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0))
            == len#0
          && (forall i#1: int :: 
-          { Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#1)) } 
-            { Seq#Index(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), i#1) } 
+          { Seq#Index(_module.__default.SeqInit(_module._default.SeqInit$X, len#0, func#0), i#1) } 
           true
              ==> 
             LitInt(0) <= i#1 && i#1 < len#0
@@ -5449,8 +5448,7 @@ procedure CheckWellformed$$_module.__default.SeqInit(_module._default.SeqInit$X:
   modifies $Heap, $Tick;
   ensures Seq#Length(s#0) == len#0;
   ensures (forall i#3: int :: 
-    { Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#3)) } 
-      { Seq#Index(s#0, i#3) } 
+    { Seq#Index(s#0, i#3) } 
     true
        ==> 
       LitInt(0) <= i#3 && i#3 < len#0
@@ -5471,7 +5469,7 @@ implementation CheckWellformed$$_module.__default.SeqInit(_module._default.SeqIn
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function SeqInit
-    assume {:captureState "DLL_Dafny.dfy(26,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(26,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     assume len#0 >= LitInt(0);
@@ -5527,8 +5525,7 @@ implementation CheckWellformed$$_module.__default.SeqInit(_module._default.SeqIn
         }
 
         assume (forall i#3: int :: 
-          { Apply1(TInt, _module._default.SeqInit$X, $Heap, func#0, $Box(i#3)) } 
-            { Seq#Index(s#0, i#3) } 
+          { Seq#Index(s#0, i#3) } 
           true
              ==> 
             LitInt(0) <= i#3 && i#3 < len#0
@@ -5590,7 +5587,7 @@ implementation CheckWellformed$$_module.__default.seq__get(_module._default.seq_
 
 
     // AddWellformednessCheck for function seq_get
-    assume {:captureState "DLL_Dafny.dfy(34,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(34,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (LitInt(0) <= i#0)
@@ -5664,7 +5661,7 @@ implementation CheckWellformed$$_module.__default.seq__set(_module._default.seq_
 
 
     // AddWellformednessCheck for function seq_set
-    assume {:captureState "DLL_Dafny.dfy(38,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(38,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (LitInt(0) <= i#0)
@@ -5726,7 +5723,7 @@ implementation {:extern "LinearExtern", "seq_length"} CheckWellformed$$_module._
 
 
     // AddWellformednessCheck for function seq_length
-    assume {:captureState "DLL_Dafny.dfy(42,55): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(42,55): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -5779,7 +5776,7 @@ implementation {:extern "LinearExtern", "seq_empty"} CheckWellformed$$_module.__
 
 
     // AddWellformednessCheck for function seq_empty
-    assume {:captureState "DLL_Dafny.dfy(45,54): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(45,54): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -5855,7 +5852,7 @@ implementation {:extern "LinearExtern", "seq_alloc"} CheckWellformed$$_module.__
 
 
     // AddWellformednessCheck for function seq_alloc
-    assume {:captureState "DLL_Dafny.dfy(48,54): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(48,54): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -5961,7 +5958,7 @@ implementation {:extern "LinearExtern", "seq_unleash"} CheckWellformed$$_module.
 
 
     // AddWellformednessCheck for function seq_unleash
-    assume {:captureState "DLL_Dafny.dfy(54,56): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(54,56): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -6004,14 +6001,14 @@ implementation CheckWellformed$$_module.__default.SeqResize(_module._default.Seq
     // AddMethodImpl: SeqResize, CheckWellformed$$_module.__default.SeqResize
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(57,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(57,7): initial state"} true;
     havoc $Heap;
     assume (forall $o: ref :: 
       { $Heap[$o] } 
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc s2#0;
-    assume {:captureState "DLL_Dafny.dfy(58,15): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(58,15): post-state"} true;
     assume Seq#Length(s2#0) == newlen#0;
     havoc j#0;
     if (*)
@@ -6038,7 +6035,7 @@ implementation CheckWellformed$$_module.__default.SeqResize(_module._default.Seq
     }
 
     assume (forall j#1: int :: 
-      { Seq#Index(s#0, j#1) } { Seq#Index(s2#0, j#1) } 
+      { Seq#Index(s2#0, j#1) } 
       true
          ==> 
         LitInt(0) <= j#1 && j#1 < newlen#0
@@ -6065,7 +6062,7 @@ procedure Call$$_module.__default.SeqResize(_module._default.SeqResize$A: Ty,
   ensures Seq#Length(s2#0) == newlen#0;
   free ensures true;
   ensures (forall j#1: int :: 
-    { Seq#Index(s#0, j#1) } { Seq#Index(s2#0, j#1) } 
+    { Seq#Index(s2#0, j#1) } 
     true
        ==> 
       LitInt(0) <= j#1 && j#1 < newlen#0
@@ -6102,7 +6099,7 @@ implementation CheckWellformed$$_module.__default.AllocAndCopy(_module._default.
     // AddMethodImpl: AllocAndCopy, CheckWellformed$$_module.__default.AllocAndCopy
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(61,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(61,7): initial state"} true;
     if (LitInt(0) <= from#0)
     {
     }
@@ -6118,7 +6115,7 @@ implementation CheckWellformed$$_module.__default.AllocAndCopy(_module._default.
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc dest#0;
-    assume {:captureState "DLL_Dafny.dfy(64,27): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(64,27): post-state"} true;
     assert 0 <= from#0 && from#0 <= Seq#Length(source#0);
     assert from#0 <= to#0 && to#0 <= Seq#Length(source#0);
     assume Seq#Equal(Seq#Drop(Seq#Take(source#0, to#0), from#0), dest#0);
@@ -6863,7 +6860,7 @@ implementation CheckWellformed$$_module.__default.Invs(_module._default.Invs$A: 
     b$reqreads#3 := true;
 
     // AddWellformednessCheck for function Invs
-    assume {:captureState "DLL_Dafny.dfy(88,10): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(88,10): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -7866,7 +7863,7 @@ implementation CheckWellformed$$_module.__default.Inv(_module._default.Inv$A: Ty
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function Inv
-    assume {:captureState "DLL_Dafny.dfy(121,10): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(121,10): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -8056,7 +8053,7 @@ implementation CheckWellformed$$_module.__default.ValidPtr(_module._default.Vali
 
 
     // AddWellformednessCheck for function ValidPtr
-    assume {:captureState "DLL_Dafny.dfy(131,9): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(131,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -8172,7 +8169,7 @@ implementation CheckWellformed$$_module.__default.MaybePtr(_module._default.Mayb
     b$reqreads#0 := true;
 
     // AddWellformednessCheck for function MaybePtr
-    assume {:captureState "DLL_Dafny.dfy(137,10): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(137,10): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -8309,7 +8306,7 @@ implementation CheckWellformed$$_module.__default.Index(_module._default.Index$A
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function Index
-    assume {:captureState "DLL_Dafny.dfy(142,9): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(142,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -8521,7 +8518,7 @@ implementation CheckWellformed$$_module.__default.IndexHi(_module._default.Index
     b$reqreads#1 := true;
 
     // AddWellformednessCheck for function IndexHi
-    assume {:captureState "DLL_Dafny.dfy(149,9): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(149,9): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     if (*)
@@ -8732,7 +8729,7 @@ implementation CheckWellformed$$_module.__default.Get(_module._default.Get$A: Ty
     b$reqreads#2 := true;
 
     // AddWellformednessCheck for function Get
-    assume {:captureState "DLL_Dafny.dfy(156,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(156,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##l#0 := l#0;
@@ -8965,7 +8962,7 @@ implementation CheckWellformed$$_module.__default.Next(_module._default.Next$A: 
     b$reqreads#2 := true;
 
     // AddWellformednessCheck for function Next
-    assume {:captureState "DLL_Dafny.dfy(164,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(164,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##l#0 := l#0;
@@ -9314,7 +9311,7 @@ implementation CheckWellformed$$_module.__default.Prev(_module._default.Prev$A: 
     b$reqreads#2 := true;
 
     // AddWellformednessCheck for function Prev
-    assume {:captureState "DLL_Dafny.dfy(176,16): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(176,16): initial state"} true;
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
     ##l#0 := l#0;
@@ -9530,7 +9527,7 @@ implementation CheckWellformed$$_module.__default.BuildFreeStack(_module._defaul
     // AddMethodImpl: BuildFreeStack, CheckWellformed$$_module.__default.BuildFreeStack
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(188,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(188,7): initial state"} true;
     if (0 < k#0)
     {
     }
@@ -9542,7 +9539,7 @@ implementation CheckWellformed$$_module.__default.BuildFreeStack(_module._defaul
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc b#0;
-    assume {:captureState "DLL_Dafny.dfy(190,14): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(190,14): post-state"} true;
     assume Seq#Length(b#0) == Seq#Length(a#0);
     havoc i#0;
     if (*)
@@ -9562,8 +9559,7 @@ implementation CheckWellformed$$_module.__default.BuildFreeStack(_module._defaul
     }
 
     assume (forall i#1: int :: 
-      { $Unbox(Seq#Index(a#0, i#1)): DatatypeType } 
-        { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
+      { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
       true
          ==> 
         LitInt(0) <= i#1 && i#1 < k#0
@@ -9593,7 +9589,7 @@ implementation CheckWellformed$$_module.__default.BuildFreeStack(_module._defaul
     }
 
     assume (forall i#3: int :: 
-      { _module.__default.Sub(i#3, 1) } { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
+      { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
       true
          ==> 
         k#0 <= i#3 && i#3 < Seq#Length(a#0)
@@ -9619,26 +9615,24 @@ procedure Call$$_module.__default.BuildFreeStack(_module._default.BuildFreeStack
   free ensures true;
   ensures Seq#Length(b#0) == Seq#Length(a#0);
   free ensures (forall i#1: int :: 
-    { $Unbox(Seq#Index(a#0, i#1)): DatatypeType } 
-      { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
     LitInt(0) <= i#1 && i#1 < k#0
        ==> $IsA#_module.Node($Unbox(Seq#Index(b#0, i#1)): DatatypeType)
          && $IsA#_module.Node($Unbox(Seq#Index(a#0, i#1)): DatatypeType));
   ensures (forall i#1: int :: 
-    { $Unbox(Seq#Index(a#0, i#1)): DatatypeType } 
-      { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
     true
        ==> 
       LitInt(0) <= i#1 && i#1 < k#0
        ==> _module.Node#Equal($Unbox(Seq#Index(b#0, i#1)): DatatypeType, 
         $Unbox(Seq#Index(a#0, i#1)): DatatypeType));
   free ensures (forall i#3: int :: 
-    { _module.__default.Sub(i#3, 1) } { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
     k#0 <= i#3 && i#3 < Seq#Length(a#0)
        ==> $IsA#_module.Node($Unbox(Seq#Index(b#0, i#3)): DatatypeType)
          && _module.__default.Sub#canCall(i#3, LitInt(1)));
   ensures (forall i#3: int :: 
-    { _module.__default.Sub(i#3, 1) } { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
     true
        ==> 
       k#0 <= i#3 && i#3 < Seq#Length(a#0)
@@ -9671,26 +9665,24 @@ procedure Impl$$_module.__default.BuildFreeStack(_module._default.BuildFreeStack
   free ensures true;
   ensures Seq#Length(b#0) == Seq#Length(a#0);
   free ensures (forall i#1: int :: 
-    { $Unbox(Seq#Index(a#0, i#1)): DatatypeType } 
-      { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
     LitInt(0) <= i#1 && i#1 < k#0
        ==> $IsA#_module.Node($Unbox(Seq#Index(b#0, i#1)): DatatypeType)
          && $IsA#_module.Node($Unbox(Seq#Index(a#0, i#1)): DatatypeType));
   ensures (forall i#1: int :: 
-    { $Unbox(Seq#Index(a#0, i#1)): DatatypeType } 
-      { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#1)): DatatypeType } 
     true
        ==> 
       LitInt(0) <= i#1 && i#1 < k#0
        ==> _module.Node#Equal($Unbox(Seq#Index(b#0, i#1)): DatatypeType, 
         $Unbox(Seq#Index(a#0, i#1)): DatatypeType));
   free ensures (forall i#3: int :: 
-    { _module.__default.Sub(i#3, 1) } { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
     k#0 <= i#3 && i#3 < Seq#Length(a#0)
        ==> $IsA#_module.Node($Unbox(Seq#Index(b#0, i#3)): DatatypeType)
          && _module.__default.Sub#canCall(i#3, LitInt(1)));
   ensures (forall i#3: int :: 
-    { _module.__default.Sub(i#3, 1) } { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
+    { $Unbox(Seq#Index(b#0, i#3)): DatatypeType } 
     true
        ==> 
       k#0 <= i#3 && i#3 < Seq#Length(a#0)
@@ -9736,19 +9728,19 @@ implementation Impl$$_module.__default.BuildFreeStack(_module._default.BuildFree
     // AddMethodImpl: BuildFreeStack, Impl$$_module.__default.BuildFreeStack
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(193,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(193,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(194,5)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(194,5)
     assume true;
     assume true;
     b#0 := a#0;
-    assume {:captureState "DLL_Dafny.dfy(194,8)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(195,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(194,8)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(195,9)
     assume true;
     assume true;
     n#0 := k#0;
-    assume {:captureState "DLL_Dafny.dfy(195,12)"} true;
-    // ----- while statement ----- DLL_Dafny.dfy(197,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(195,12)"} true;
+    // ----- while statement ----- DLL_Dafny_DenseDL.dfy(197,3)
     // Assume Fuel Constant
     $PreLoopHeap$loop#0 := $Heap;
     $decr_init$loop#00 := _module.__default.Dec(_module.__default.seq_length(Tclass._module.Node(_module._default.BuildFreeStack$A), b#0), 
@@ -9807,7 +9799,7 @@ implementation Impl$$_module.__default.BuildFreeStack(_module._default.BuildFree
              == $decr_init$loop#00
            ==> true);
     {
-        assume {:captureState "DLL_Dafny.dfy(197,2): after some loop iterations"} true;
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(197,2): after some loop iterations"} true;
         if (!$w$loop#0)
         {
             if (k#0 <= n#0)
@@ -9907,7 +9899,7 @@ implementation Impl$$_module.__default.BuildFreeStack(_module._default.BuildFree
 
         $decr$loop#00 := _module.__default.Dec(_module.__default.seq_length(Tclass._module.Node(_module._default.BuildFreeStack$A), b#0), 
           n#0);
-        // ----- assignment statement ----- DLL_Dafny.dfy(204,7)
+        // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(204,7)
         assume true;
         ##a#0_0 := n#0;
         // assume allocatedness for argument to function
@@ -9941,8 +9933,8 @@ implementation Impl$$_module.__default.BuildFreeStack(_module._default.BuildFree
           b#0, 
           n#0, 
           $Box(#_module.Node.Node(Lit(#_module.Option.None()), _module.__default.Sub(n#0, LitInt(1)), LitInt(0))));
-        assume {:captureState "DLL_Dafny.dfy(204,48)"} true;
-        // ----- call statement ----- DLL_Dafny.dfy(205,19)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(204,48)"} true;
+        // ----- call statement ----- DLL_Dafny_DenseDL.dfy(205,19)
         // TrCallStmt: Before ProcessCallStmt
         ##s#0_0 := b#0;
         // assume allocatedness for argument to function
@@ -9955,8 +9947,8 @@ implementation Impl$$_module.__default.BuildFreeStack(_module._default.BuildFree
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Props__dec__one(sum##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "DLL_Dafny.dfy(205,33)"} true;
-        // ----- call statement ----- DLL_Dafny.dfy(206,26)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(205,33)"} true;
+        // ----- call statement ----- DLL_Dafny_DenseDL.dfy(206,26)
         // TrCallStmt: Before ProcessCallStmt
         ##s#0_1 := b#0;
         // assume allocatedness for argument to function
@@ -9972,13 +9964,13 @@ implementation Impl$$_module.__default.BuildFreeStack(_module._default.BuildFree
         // ProcessCallStmt: Make the call
         call Call$$_module.__default.Props__dec__lower__bound(sum##0_1, x##0_0);
         // TrCallStmt: After ProcessCallStmt
-        assume {:captureState "DLL_Dafny.dfy(206,43)"} true;
-        // ----- assignment statement ----- DLL_Dafny.dfy(207,7)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(206,43)"} true;
+        // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(207,7)
         assume true;
         assume true;
         n#0 := n#0 + 1;
-        assume {:captureState "DLL_Dafny.dfy(207,14)"} true;
-        // ----- loop termination check ----- DLL_Dafny.dfy(197,3)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(207,14)"} true;
+        // ----- loop termination check ----- DLL_Dafny_DenseDL.dfy(197,3)
         assert 0 <= $decr$loop#00
            || _module.__default.Dec(_module.__default.seq_length(Tclass._module.Node(_module._default.BuildFreeStack$A), b#0), 
               n#0)
@@ -10412,9 +10404,9 @@ implementation Impl$$_module.__default.Alloc(_module._default.Alloc$A: Ty, initi
     // AddMethodImpl: Alloc, Impl$$_module.__default.Alloc
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(216,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(216,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(217,13)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(217,13)
     assume true;
     ##length#0 := initial_len#0;
     // assume allocatedness for argument to function
@@ -10431,8 +10423,8 @@ implementation Impl$$_module.__default.Alloc(_module._default.Alloc$A: Ty, initi
     nodes#0 := _module.__default.seq_alloc(Tclass._module.Node(_module._default.Alloc$A), 
       initial_len#0, 
       $Box(Lit(#_module.Node.Node(Lit(#_module.Option.None()), LitInt(0), LitInt(0)))));
-    assume {:captureState "DLL_Dafny.dfy(217,61)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(218,26)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(217,61)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(218,26)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<Node<A>>
     // TrCallStmt: Before ProcessCallStmt
@@ -10447,8 +10439,8 @@ implementation Impl$$_module.__default.Alloc(_module._default.Alloc$A: Ty, initi
     call $rhs##0 := Call$$_module.__default.BuildFreeStack(_module._default.Alloc$A, a##0, k##0);
     // TrCallStmt: After ProcessCallStmt
     nodes#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(218,35)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(219,5)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(218,35)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(219,5)
     assume true;
     assert 0 <= initial_len#0;
     havoc p#14;
@@ -10512,7 +10504,7 @@ implementation Impl$$_module.__default.Alloc(_module._default.Alloc$A: Ty, initi
                 (lambda $l#3#heap#0: Heap, $l#3#p#0: Box :: 
                   SetRef_to_SetBox((lambda $l#3#o#0: ref :: false))))), 
             $LS($LZ)))));
-    assume {:captureState "DLL_Dafny.dfy(219,104)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(219,104)"} true;
 }
 
 
@@ -10586,7 +10578,7 @@ implementation CheckWellformed$$_module.__default.Expand(_module._default.Expand
     // AddMethodImpl: Expand, CheckWellformed$$_module.__default.Expand
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(229,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(229,7): initial state"} true;
     ##l#0 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#0, Tclass._module.DList(_module._default.Expand$A), $Heap);
@@ -10598,7 +10590,7 @@ implementation CheckWellformed$$_module.__default.Expand(_module._default.Expand
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc l'#0;
-    assume {:captureState "DLL_Dafny.dfy(231,13): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(231,13): post-state"} true;
     ##l#1 := l'#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#1, Tclass._module.DList(_module._default.Expand$A), $Heap);
@@ -10642,10 +10634,9 @@ implementation CheckWellformed$$_module.__default.Expand(_module._default.Expand
     }
 
     assume (forall x#1: int :: 
-      { $Unbox(Seq#Index(_module.DList.g(l#0), x#1)): int } 
-        { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
-        { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
+      { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
         { _module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1) } 
+        { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
       true
          ==> (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
              ==> _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1))
@@ -11014,10 +11005,9 @@ procedure Call$$_module.__default.Expand(_module._default.Expand$A: Ty,
   free ensures _module.DList.DList_q(l'#0) && _module.DList.DList_q(l#0);
   ensures Seq#Equal(_module.DList.s(l'#0), _module.DList.s(l#0));
   free ensures (forall x#1: int :: 
-    { $Unbox(Seq#Index(_module.DList.g(l#0), x#1)): int } 
-      { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
-      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
+    { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
       { _module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
     _module.__default.ValidPtr#canCall(_module._default.Expand$A, l#0, x#1)
        && (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
          ==> _module.__default.ValidPtr#canCall(_module._default.Expand$A, l'#0, x#1))
@@ -11028,10 +11018,9 @@ procedure Call$$_module.__default.Expand(_module._default.Expand$A: Ty,
            && (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
              ==> _module.DList.DList_q(l'#0) && _module.DList.DList_q(l#0))));
   ensures (forall x#1: int :: 
-    { $Unbox(Seq#Index(_module.DList.g(l#0), x#1)): int } 
-      { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
-      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
+    { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
       { _module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
     true
        ==> (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1))
@@ -11407,10 +11396,9 @@ procedure Impl$$_module.__default.Expand(_module._default.Expand$A: Ty,
   free ensures _module.DList.DList_q(l'#0) && _module.DList.DList_q(l#0);
   ensures Seq#Equal(_module.DList.s(l'#0), _module.DList.s(l#0));
   free ensures (forall x#1: int :: 
-    { $Unbox(Seq#Index(_module.DList.g(l#0), x#1)): int } 
-      { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
-      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
+    { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
       { _module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
     _module.__default.ValidPtr#canCall(_module._default.Expand$A, l#0, x#1)
        && (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
          ==> _module.__default.ValidPtr#canCall(_module._default.Expand$A, l'#0, x#1))
@@ -11421,10 +11409,9 @@ procedure Impl$$_module.__default.Expand(_module._default.Expand$A: Ty,
            && (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
              ==> _module.DList.DList_q(l'#0) && _module.DList.DList_q(l#0))));
   ensures (forall x#1: int :: 
-    { $Unbox(Seq#Index(_module.DList.g(l#0), x#1)): int } 
-      { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
-      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
+    { $Unbox(Seq#Index(_module.DList.g(l'#0), x#1)): int } 
       { _module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1) } 
     true
        ==> (_module.__default.ValidPtr(_module._default.Expand$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.Expand$A, l'#0, x#1))
@@ -11489,7 +11476,7 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     // AddMethodImpl: Expand, Impl$$_module.__default.Expand
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(235,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(235,0): initial state"} true;
     $_reverifyPost := false;
     havoc nodes#0;
     assume $Is(nodes#0, TSeq(Tclass._module.Node(_module._default.Expand$A)))
@@ -11512,7 +11499,7 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     assume _module.DList.DList_q(let#0#0#0);
     assume _module.DList.DList_q(let#0#0#0);
     assume #_module.DList.DList(nodes#0, freeStack#0, s#0, f#0, g#0) == let#0#0#0;
-    // ----- assignment statement ----- DLL_Dafny.dfy(238,11)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(238,11)
     assume true;
     ##s#0 := nodes#0;
     // assume allocatedness for argument to function
@@ -11520,8 +11507,8 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     assume _module.__default.seq_length#canCall(Tclass._module.Node(_module._default.Expand$A), nodes#0);
     assume _module.__default.seq_length#canCall(Tclass._module.Node(_module._default.Expand$A), nodes#0);
     len#0 := _module.__default.seq_length(Tclass._module.Node(_module._default.Expand$A), nodes#0);
-    assume {:captureState "DLL_Dafny.dfy(238,30)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(241,12)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(238,30)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(241,12)
     assume true;
     ##a#0 := len#0;
     // assume allocatedness for argument to function
@@ -11532,8 +11519,8 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     assume _module.__default.Add#canCall(len#0, len#0);
     assume _module.__default.Add#canCall(len#0, len#0);
     len'#0 := _module.__default.Add(len#0, len#0);
-    assume {:captureState "DLL_Dafny.dfy(241,27)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(242,21)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(241,27)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(242,21)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<Node<A>>
     // TrCallStmt: Before ProcessCallStmt
@@ -11551,8 +11538,8 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     call $rhs##0 := Call$$_module.__default.SeqResize(Tclass._module.Node(_module._default.Expand$A), s##0, newlen##0, a##0);
     // TrCallStmt: After ProcessCallStmt
     nodes#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(242,59)"} true;
-    // ----- assume statement ----- DLL_Dafny.dfy(243,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(242,59)"} true;
+    // ----- assume statement ----- DLL_Dafny_DenseDL.dfy(243,3)
     ##a#1 := len#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##a#1, TInt, $Heap);
@@ -11570,7 +11557,7 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     assume _module.__default.Add#canCall(len#0, LitInt(1))
        && _module.__default.Add#canCall(len#0, len#0);
     assume _module.__default.Add(len#0, LitInt(1)) <= _module.__default.Add(len#0, len#0);
-    // ----- call statement ----- DLL_Dafny.dfy(244,26)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(244,26)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type seq<Node<A>>
     // TrCallStmt: Before ProcessCallStmt
@@ -11592,8 +11579,8 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
     call $rhs##1 := Call$$_module.__default.BuildFreeStack(_module._default.Expand$A, a##1, k##0);
     // TrCallStmt: After ProcessCallStmt
     nodes#0 := $rhs##1;
-    assume {:captureState "DLL_Dafny.dfy(244,45)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(245,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(244,45)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(245,6)
     assume true;
     ##a#4 := len'#0;
     // assume allocatedness for argument to function
@@ -11680,7 +11667,7 @@ implementation Impl$$_module.__default.Expand(_module._default.Expand$A: Ty, l#0
                 (lambda $l#3#heap#0: Heap, $l#3#i#0: Box :: 
                   SetRef_to_SetBox((lambda $l#3#o#0: ref :: false))))), 
             $LS($LZ)))));
-    assume {:captureState "DLL_Dafny.dfy(246,69)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(246,69)"} true;
 }
 
 
@@ -11703,11 +11690,11 @@ implementation CheckWellformed$$_module.__default.Remove__SeqInit(g#0: Seq Box, 
     // AddMethodImpl: Remove_SeqInit, CheckWellformed$$_module.__default.Remove__SeqInit
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(249,13): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(249,13): initial state"} true;
     havoc $Heap;
     assume old($Heap) == $Heap;
     havoc g'#0;
-    assume {:captureState "DLL_Dafny.dfy(250,15): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(250,15): post-state"} true;
     assume Seq#Length(g'#0) == Seq#Length(g#0);
     havoc x#0;
     if (*)
@@ -11854,9 +11841,9 @@ implementation Impl$$_module.__default.Remove__SeqInit(g#0: Seq Box, index#0: in
     // AddMethodImpl: Remove_SeqInit, Impl$$_module.__default.Remove__SeqInit
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(256,2): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(256,2): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(257,8)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(257,8)
     assume true;
     havoc x#2;
     // Begin Comprehension WF check
@@ -12009,7 +11996,7 @@ implementation Impl$$_module.__default.Remove__SeqInit(g#0: Seq Box, index#0: in
               (lambda $l#5#heap#0: Heap, $l#5#x#0: Box :: 
                 SetRef_to_SetBox((lambda $l#5#o#0: ref :: false))))), 
           $LS($LZ))));
-    assume {:captureState "DLL_Dafny.dfy(258,82)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(258,82)"} true;
 }
 
 
@@ -12065,7 +12052,7 @@ implementation CheckWellformed$$_module.__default.Remove(_module._default.Remove
     // AddMethodImpl: Remove, CheckWellformed$$_module.__default.Remove
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(262,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(262,7): initial state"} true;
     ##l#0 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#0, Tclass._module.DList(_module._default.Remove$A), $Heap);
@@ -12085,7 +12072,7 @@ implementation CheckWellformed$$_module.__default.Remove(_module._default.Remove
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc l'#0;
-    assume {:captureState "DLL_Dafny.dfy(265,13): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(265,13): post-state"} true;
     ##l#2 := l'#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#2, Tclass._module.DList(_module._default.Remove$A), $Heap);
@@ -12220,9 +12207,8 @@ implementation CheckWellformed$$_module.__default.Remove(_module._default.Remove
 
     assume (forall x#1: int :: 
       { _module.__default.Index(_module._default.Remove$A, l'#0, x#1) } 
-        { _module.__default.Index(_module._default.Remove$A, l#0, x#1) } 
-        { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
         { _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1) } 
+        { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
       true
          ==> (x#1 != p#0 && _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1)
              ==> _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1))
@@ -12606,9 +12592,8 @@ procedure Call$$_module.__default.Remove(_module._default.Remove$A: Ty,
       _module.__default.Index(_module._default.Remove$A, l#0, p#0)));
   free ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.Remove$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.Remove$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
     (x#1 != p#0
          ==> _module.__default.ValidPtr#canCall(_module._default.Remove$A, l#0, x#1)
            && (_module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1)
@@ -12634,9 +12619,8 @@ procedure Call$$_module.__default.Remove(_module._default.Remove$A: Ty,
                    && _module.__default.Sub#canCall(_module.__default.Index(_module._default.Remove$A, l#0, x#1), LitInt(1))))));
   ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.Remove$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.Remove$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
     true
        ==> (x#1 != p#0 && _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1))
@@ -13027,9 +13011,8 @@ procedure Impl$$_module.__default.Remove(_module._default.Remove$A: Ty,
       _module.__default.Index(_module._default.Remove$A, l#0, p#0)));
   free ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.Remove$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.Remove$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
     (x#1 != p#0
          ==> _module.__default.ValidPtr#canCall(_module._default.Remove$A, l#0, x#1)
            && (_module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1)
@@ -13055,9 +13038,8 @@ procedure Impl$$_module.__default.Remove(_module._default.Remove$A: Ty,
                    && _module.__default.Sub#canCall(_module.__default.Index(_module._default.Remove$A, l#0, x#1), LitInt(1))))));
   ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.Remove$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.Remove$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1) } 
     true
        ==> (x#1 != p#0 && _module.__default.ValidPtr(_module._default.Remove$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.Remove$A, l'#0, x#1))
@@ -13137,7 +13119,7 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     // AddMethodImpl: Remove, Impl$$_module.__default.Remove
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(271,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(271,0): initial state"} true;
     $_reverifyPost := false;
     havoc nodes#0;
     assume $Is(nodes#0, TSeq(Tclass._module.Node(_module._default.Remove$A)))
@@ -13160,13 +13142,13 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     assume _module.DList.DList_q(let#0#0#0);
     assume _module.DList.DList_q(let#0#0#0);
     assume #_module.DList.DList(nodes#0, freeStack#0, s#0, f#0, g#0) == let#0#0#0;
-    // ----- assignment statement ----- DLL_Dafny.dfy(275,19)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(275,19)
     assume true;
     assert 0 <= p#0 && p#0 < Seq#Length(g#0);
     assume true;
     index#0 := $Unbox(Seq#Index(g#0, p#0)): int;
-    assume {:captureState "DLL_Dafny.dfy(275,25)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(276,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(275,25)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(276,16)
     assume true;
     ##s#1 := s#0;
     // assume allocatedness for argument to function
@@ -13180,8 +13162,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     assume _module.__default.SeqRemove#canCall(_module._default.Remove$A, s#0, index#0);
     assume _module.__default.SeqRemove#canCall(_module._default.Remove$A, s#0, index#0);
     s'#0 := _module.__default.SeqRemove(_module._default.Remove$A, s#0, index#0);
-    assume {:captureState "DLL_Dafny.dfy(276,37)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(277,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(276,37)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(277,16)
     assume true;
     ##s#2 := f#0;
     // assume allocatedness for argument to function
@@ -13195,8 +13177,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     assume _module.__default.SeqRemove#canCall(TInt, f#0, index#0);
     assume _module.__default.SeqRemove#canCall(TInt, f#0, index#0);
     f'#0 := _module.__default.SeqRemove(TInt, f#0, index#0);
-    assume {:captureState "DLL_Dafny.dfy(277,37)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(278,33)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(277,37)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(278,33)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -13211,8 +13193,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     call $rhs##0 := Call$$_module.__default.Remove__SeqInit(g##0, index##0);
     // TrCallStmt: After ProcessCallStmt
     g'#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(278,42)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(279,12)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(278,42)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(279,12)
     assume true;
     ##s#3 := nodes#0;
     // assume allocatedness for argument to function
@@ -13227,8 +13209,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     assume _module.Node.Node_q($Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.Remove$A), nodes#0, p#0)): DatatypeType);
     assume _module.__default.seq__get#canCall(Tclass._module.Node(_module._default.Remove$A), nodes#0, p#0);
     node#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.Remove$A), nodes#0, p#0)): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(279,31)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(280,17)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(279,31)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(280,17)
     assume true;
     assume _module.Node.Node_q(node#0);
     ##s#4 := nodes#0;
@@ -13253,8 +13235,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     node_prev#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.Remove$A), 
         nodes#0, 
         _module.Node.prev(node#0))): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(280,44)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(281,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(280,44)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(281,9)
     assume true;
     assume _module.Node.Node_q(node#0);
     havoc dt_update_tmp#0#0;
@@ -13319,8 +13301,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
             #_module.Node.Node(_module.Node.data(dt_update_tmp#0#1), 
               dt_update#next#0#1, 
               _module.Node.prev(dt_update_tmp#0#1))))));
-    assume {:captureState "DLL_Dafny.dfy(281,67)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(282,17)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(281,67)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(282,17)
     assume true;
     assume _module.Node.Node_q(node#0);
     ##s#5 := nodes#0;
@@ -13345,8 +13327,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
     node_next#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.Remove$A), 
         nodes#0, 
         _module.Node.next(node#0))): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(282,44)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(283,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(282,44)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(283,9)
     assume true;
     assume _module.Node.Node_q(node#0);
     havoc dt_update_tmp#1#0;
@@ -13411,8 +13393,8 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
             #_module.Node.Node(_module.Node.data(dt_update_tmp#1#1), 
               _module.Node.next(dt_update_tmp#1#1), 
               dt_update#prev#0#1)))));
-    assume {:captureState "DLL_Dafny.dfy(283,67)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(284,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(283,67)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(284,9)
     assume true;
     ##s1#2 := nodes#0;
     // assume allocatedness for argument to function
@@ -13438,12 +13420,12 @@ implementation Impl$$_module.__default.Remove(_module._default.Remove$A: Ty, l#0
       nodes#0, 
       p#0, 
       $Box(#_module.Node.Node(Lit(#_module.Option.None()), freeStack#0, LitInt(0))));
-    assume {:captureState "DLL_Dafny.dfy(284,54)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(285,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(284,54)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(285,6)
     assume true;
     assume true;
     l'#0 := #_module.DList.DList(nodes#0, p#0, s'#0, f'#0, g'#0);
-    assume {:captureState "DLL_Dafny.dfy(285,35)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(285,35)"} true;
 }
 
 
@@ -13468,11 +13450,11 @@ implementation CheckWellformed$$_module.__default.InsertAfter__SeqInit(g#0: Seq 
     // AddMethodImpl: InsertAfter_SeqInit, CheckWellformed$$_module.__default.InsertAfter__SeqInit
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(288,13): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(288,13): initial state"} true;
     havoc $Heap;
     assume old($Heap) == $Heap;
     havoc g'#0;
-    assume {:captureState "DLL_Dafny.dfy(289,15): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(289,15): post-state"} true;
     assume Seq#Length(g'#0) == Seq#Length(g#0);
     havoc x#0;
     if (*)
@@ -13623,9 +13605,9 @@ implementation Impl$$_module.__default.InsertAfter__SeqInit(g#0: Seq Box, p'#0: 
     // AddMethodImpl: InsertAfter_SeqInit, Impl$$_module.__default.InsertAfter__SeqInit
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(295,2): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(295,2): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(296,8)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(296,8)
     assume true;
     havoc x#2;
     // Begin Comprehension WF check
@@ -13777,7 +13759,7 @@ implementation Impl$$_module.__default.InsertAfter__SeqInit(g#0: Seq Box, p'#0: 
               (lambda $l#5#heap#0: Heap, $l#5#x#0: Box :: 
                 SetRef_to_SetBox((lambda $l#5#o#0: ref :: false))))), 
           $LS($LZ))));
-    assume {:captureState "DLL_Dafny.dfy(297,78)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(297,78)"} true;
 }
 
 
@@ -13848,7 +13830,7 @@ implementation CheckWellformed$$_module.__default.InsertAfter(_module._default.I
     // AddMethodImpl: InsertAfter, CheckWellformed$$_module.__default.InsertAfter
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(301,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(301,7): initial state"} true;
     ##l#0 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#0, Tclass._module.DList(_module._default.InsertAfter$A), $Heap);
@@ -13868,7 +13850,7 @@ implementation CheckWellformed$$_module.__default.InsertAfter(_module._default.I
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc l'#0, p'#0;
-    assume {:captureState "DLL_Dafny.dfy(304,13): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(304,13): post-state"} true;
     ##l#2 := l'#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#2, Tclass._module.DList(_module._default.InsertAfter$A), $Heap);
@@ -14045,9 +14027,8 @@ implementation CheckWellformed$$_module.__default.InsertAfter(_module._default.I
 
     assume (forall x#1: int :: 
       { _module.__default.Index(_module._default.InsertAfter$A, l'#0, x#1) } 
-        { _module.__default.Index(_module._default.InsertAfter$A, l#0, x#1) } 
-        { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
         { _module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1) } 
+        { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
       true
          ==> (_module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1)
              ==> _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1))
@@ -14452,9 +14433,8 @@ procedure Call$$_module.__default.InsertAfter(_module._default.InsertAfter$A: Ty
      == _module.__default.Add(_module.__default.Index(_module._default.InsertAfter$A, l#0, p#0), LitInt(1));
   free ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertAfter$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertAfter$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
     _module.__default.ValidPtr#canCall(_module._default.InsertAfter$A, l#0, x#1)
        && (_module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1)
          ==> _module.__default.ValidPtr#canCall(_module._default.InsertAfter$A, l'#0, x#1))
@@ -14477,9 +14457,8 @@ procedure Call$$_module.__default.InsertAfter(_module._default.InsertAfter$A: Ty
                    && _module.__default.Add#canCall(_module.__default.Index(_module._default.InsertAfter$A, l#0, x#1), LitInt(1))))));
   ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertAfter$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertAfter$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
     true
        ==> (_module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1))
@@ -14894,9 +14873,8 @@ procedure Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$A: Ty
      == _module.__default.Add(_module.__default.Index(_module._default.InsertAfter$A, l#0, p#0), LitInt(1));
   free ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertAfter$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertAfter$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
     _module.__default.ValidPtr#canCall(_module._default.InsertAfter$A, l#0, x#1)
        && (_module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1)
          ==> _module.__default.ValidPtr#canCall(_module._default.InsertAfter$A, l'#0, x#1))
@@ -14919,9 +14897,8 @@ procedure Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$A: Ty
                    && _module.__default.Add#canCall(_module.__default.Index(_module._default.InsertAfter$A, l#0, x#1), LitInt(1))))));
   ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertAfter$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertAfter$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1) } 
     true
        ==> (_module.__default.ValidPtr(_module._default.InsertAfter$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.InsertAfter$A, l'#0, x#1))
@@ -15017,20 +14994,20 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     // AddMethodImpl: InsertAfter, Impl$$_module.__default.InsertAfter
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(311,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(311,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(312,6)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(312,6)
     assume true;
     assume true;
     l'#0 := l#0;
-    assume {:captureState "DLL_Dafny.dfy(312,9)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(313,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(312,9)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(313,6)
     assume true;
     assume _module.DList.DList_q(l'#0);
     assume _module.DList.DList_q(l'#0);
     p'#0 := _module.DList.freeStack(l'#0);
-    assume {:captureState "DLL_Dafny.dfy(313,20)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(314,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(313,20)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(314,16)
     assume true;
     assume _module.DList.DList_q(l'#0);
     ##s#1 := _module.DList.nodes(l'#0);
@@ -15055,8 +15032,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     freeNode#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertAfter$A), 
         _module.DList.nodes(l'#0), 
         p'#0)): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(314,39)"} true;
-    // ----- if statement ----- DLL_Dafny.dfy(315,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(314,39)"} true;
+    // ----- if statement ----- DLL_Dafny_DenseDL.dfy(315,3)
     if (p'#0 != LitInt(0))
     {
         assume _module.Node.Node_q(freeNode#0);
@@ -15065,7 +15042,7 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     assume p'#0 != LitInt(0) ==> _module.Node.Node_q(freeNode#0);
     if (p'#0 == LitInt(0) || _module.Option.Some_q(_module.Node.data(freeNode#0)))
     {
-        // ----- call statement ----- DLL_Dafny.dfy(316,17)
+        // ----- call statement ----- DLL_Dafny_DenseDL.dfy(316,17)
         assume true;
         // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<A>
         // TrCallStmt: Before ProcessCallStmt
@@ -15077,14 +15054,14 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
         call $rhs##0_0 := Call$$_module.__default.Expand(_module._default.InsertAfter$A, l##0_0);
         // TrCallStmt: After ProcessCallStmt
         l'#0 := $rhs##0_0;
-        assume {:captureState "DLL_Dafny.dfy(316,20)"} true;
-        // ----- assignment statement ----- DLL_Dafny.dfy(317,8)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(316,20)"} true;
+        // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(317,8)
         assume true;
         assume _module.DList.DList_q(l'#0);
         assume _module.DList.DList_q(l'#0);
         p'#0 := _module.DList.freeStack(l'#0);
-        assume {:captureState "DLL_Dafny.dfy(317,22)"} true;
-        // ----- assignment statement ----- DLL_Dafny.dfy(318,14)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(317,22)"} true;
+        // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(318,14)
         assume true;
         assume _module.DList.DList_q(l'#0);
         ##s#0_0 := _module.DList.nodes(l'#0);
@@ -15109,7 +15086,7 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
         freeNode#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertAfter$A), 
             _module.DList.nodes(l'#0), 
             p'#0)): DatatypeType;
-        assume {:captureState "DLL_Dafny.dfy(318,37)"} true;
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(318,37)"} true;
     }
     else
     {
@@ -15136,13 +15113,13 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     assume _module.DList.DList_q(let#0#0#0);
     assume _module.DList.DList_q(let#0#0#0);
     assume #_module.DList.DList(nodes#0, freeStack#0, s#0, f#0, g#0) == let#0#0#0;
-    // ----- assignment statement ----- DLL_Dafny.dfy(321,19)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(321,19)
     assume true;
     assert 0 <= p#0 && p#0 < Seq#Length(g#0);
     assume true;
     index#0 := $Unbox(Seq#Index(g#0, p#0)): int;
-    assume {:captureState "DLL_Dafny.dfy(321,25)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(322,20)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(321,25)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(322,20)
     assume true;
     ##a#3 := index#0;
     // assume allocatedness for argument to function
@@ -15153,8 +15130,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     assume _module.__default.Add#canCall(index#0, LitInt(1));
     assume _module.__default.Add#canCall(index#0, LitInt(1));
     index'#0 := _module.__default.Add(index#0, LitInt(1));
-    assume {:captureState "DLL_Dafny.dfy(322,35)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(323,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(322,35)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(323,16)
     assume true;
     ##s#2 := s#0;
     // assume allocatedness for argument to function
@@ -15171,8 +15148,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     assume _module.__default.SeqInsert#canCall(_module._default.InsertAfter$A, s#0, index'#0, a#0);
     assume _module.__default.SeqInsert#canCall(_module._default.InsertAfter$A, s#0, index'#0, a#0);
     s'#0 := _module.__default.SeqInsert(_module._default.InsertAfter$A, s#0, index'#0, a#0);
-    assume {:captureState "DLL_Dafny.dfy(323,41)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(324,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(323,41)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(324,16)
     assume true;
     ##s#3 := f#0;
     // assume allocatedness for argument to function
@@ -15189,8 +15166,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     assume _module.__default.SeqInsert#canCall(TInt, f#0, index'#0, $Box(p'#0));
     assume _module.__default.SeqInsert#canCall(TInt, f#0, index'#0, $Box(p'#0));
     f'#0 := _module.__default.SeqInsert(TInt, f#0, index'#0, $Box(p'#0));
-    assume {:captureState "DLL_Dafny.dfy(324,42)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(325,38)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(324,42)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(325,38)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -15211,8 +15188,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     call $rhs##0 := Call$$_module.__default.InsertAfter__SeqInit(g##0, p'##0, index##0, index'##0);
     // TrCallStmt: After ProcessCallStmt
     g'#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(325,59)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(326,12)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(325,59)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(326,12)
     assume true;
     ##s#4 := nodes#0;
     // assume allocatedness for argument to function
@@ -15227,14 +15204,14 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     assume _module.Node.Node_q($Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertAfter$A), nodes#0, p#0)): DatatypeType);
     assume _module.__default.seq__get#canCall(Tclass._module.Node(_module._default.InsertAfter$A), nodes#0, p#0);
     node#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertAfter$A), nodes#0, p#0)): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(326,31)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(327,13)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(326,31)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(327,13)
     assume true;
     assume _module.Node.Node_q(node#0);
     assume _module.Node.Node_q(node#0);
     node'#0 := #_module.Node.Node(#_module.Option.Some(a#0), _module.Node.next(node#0), p#0);
-    assume {:captureState "DLL_Dafny.dfy(327,42)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(328,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(327,42)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(328,9)
     assume true;
     havoc dt_update_tmp#0#0;
     assume $Is(dt_update_tmp#0#0, Tclass._module.Node(_module._default.InsertAfter$A));
@@ -15293,8 +15270,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
             #_module.Node.Node(_module.Node.data(dt_update_tmp#0#1), 
               dt_update#next#0#1, 
               _module.Node.prev(dt_update_tmp#0#1))))));
-    assume {:captureState "DLL_Dafny.dfy(328,47)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(329,17)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(328,47)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(329,17)
     assume true;
     assume _module.Node.Node_q(node#0);
     ##s#5 := nodes#0;
@@ -15319,8 +15296,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
     node_next#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertAfter$A), 
         nodes#0, 
         _module.Node.next(node#0))): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(329,44)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(330,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(329,44)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(330,9)
     assume true;
     assume _module.Node.Node_q(node#0);
     havoc dt_update_tmp#1#0;
@@ -15381,8 +15358,8 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
             #_module.Node.Node(_module.Node.data(dt_update_tmp#1#1), 
               _module.Node.next(dt_update_tmp#1#1), 
               dt_update#prev#0#1)))));
-    assume {:captureState "DLL_Dafny.dfy(330,60)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(331,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(330,60)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(331,9)
     assume true;
     ##s1#2 := nodes#0;
     // assume allocatedness for argument to function
@@ -15408,13 +15385,13 @@ implementation Impl$$_module.__default.InsertAfter(_module._default.InsertAfter$
       nodes#0, 
       p'#0, 
       $Box(node'#0));
-    assume {:captureState "DLL_Dafny.dfy(331,36)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(332,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(331,36)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(332,6)
     assume true;
     assume _module.Node.Node_q(freeNode#0);
     assume _module.Node.Node_q(freeNode#0);
     l'#0 := #_module.DList.DList(nodes#0, _module.Node.next(freeNode#0), s'#0, f'#0, g'#0);
-    assume {:captureState "DLL_Dafny.dfy(332,47)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(332,47)"} true;
 }
 
 
@@ -15438,11 +15415,11 @@ implementation CheckWellformed$$_module.__default.InsertBefore__SeqInit(g#0: Seq
     // AddMethodImpl: InsertBefore_SeqInit, CheckWellformed$$_module.__default.InsertBefore__SeqInit
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(338,13): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(338,13): initial state"} true;
     havoc $Heap;
     assume old($Heap) == $Heap;
     havoc g'#0;
-    assume {:captureState "DLL_Dafny.dfy(339,15): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(339,15): post-state"} true;
     assume Seq#Length(g'#0) == Seq#Length(g#0);
     havoc x#0;
     if (*)
@@ -15591,9 +15568,9 @@ implementation Impl$$_module.__default.InsertBefore__SeqInit(g#0: Seq Box, p'#0:
     // AddMethodImpl: InsertBefore_SeqInit, Impl$$_module.__default.InsertBefore__SeqInit
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(345,2): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(345,2): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(346,8)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(346,8)
     assume true;
     havoc x#2;
     // Begin Comprehension WF check
@@ -15745,7 +15722,7 @@ implementation Impl$$_module.__default.InsertBefore__SeqInit(g#0: Seq Box, p'#0:
               (lambda $l#5#heap#0: Heap, $l#5#x#0: Box :: 
                 SetRef_to_SetBox((lambda $l#5#o#0: ref :: false))))), 
           $LS($LZ))));
-    assume {:captureState "DLL_Dafny.dfy(347,78)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(347,78)"} true;
 }
 
 
@@ -15812,7 +15789,7 @@ implementation CheckWellformed$$_module.__default.InsertBefore(_module._default.
     // AddMethodImpl: InsertBefore, CheckWellformed$$_module.__default.InsertBefore
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(351,7): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(351,7): initial state"} true;
     ##l#0 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#0, Tclass._module.DList(_module._default.InsertBefore$A), $Heap);
@@ -15832,7 +15809,7 @@ implementation CheckWellformed$$_module.__default.InsertBefore(_module._default.
       $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
     assume $HeapSucc(old($Heap), $Heap);
     havoc l'#0, p'#0;
-    assume {:captureState "DLL_Dafny.dfy(354,13): post-state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(354,13): post-state"} true;
     ##l#2 := l'#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#2, Tclass._module.DList(_module._default.InsertBefore$A), $Heap);
@@ -15995,9 +15972,8 @@ implementation CheckWellformed$$_module.__default.InsertBefore(_module._default.
 
     assume (forall x#1: int :: 
       { _module.__default.Index(_module._default.InsertBefore$A, l'#0, x#1) } 
-        { _module.__default.Index(_module._default.InsertBefore$A, l#0, x#1) } 
-        { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
         { _module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1) } 
+        { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
       true
          ==> (_module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1)
              ==> _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1))
@@ -16398,9 +16374,8 @@ procedure Call$$_module.__default.InsertBefore(_module._default.InsertBefore$A: 
      == _module.__default.IndexHi(_module._default.InsertBefore$A, l#0, p#0);
   free ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertBefore$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertBefore$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
     _module.__default.ValidPtr#canCall(_module._default.InsertBefore$A, l#0, x#1)
        && (_module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1)
          ==> _module.__default.ValidPtr#canCall(_module._default.InsertBefore$A, l'#0, x#1))
@@ -16423,9 +16398,8 @@ procedure Call$$_module.__default.InsertBefore(_module._default.InsertBefore$A: 
                    && _module.__default.Add#canCall(_module.__default.Index(_module._default.InsertBefore$A, l#0, x#1), LitInt(1))))));
   ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertBefore$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertBefore$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
     true
        ==> (_module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1))
@@ -16836,9 +16810,8 @@ procedure Impl$$_module.__default.InsertBefore(_module._default.InsertBefore$A: 
      == _module.__default.IndexHi(_module._default.InsertBefore$A, l#0, p#0);
   free ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertBefore$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertBefore$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
     _module.__default.ValidPtr#canCall(_module._default.InsertBefore$A, l#0, x#1)
        && (_module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1)
          ==> _module.__default.ValidPtr#canCall(_module._default.InsertBefore$A, l'#0, x#1))
@@ -16861,9 +16834,8 @@ procedure Impl$$_module.__default.InsertBefore(_module._default.InsertBefore$A: 
                    && _module.__default.Add#canCall(_module.__default.Index(_module._default.InsertBefore$A, l#0, x#1), LitInt(1))))));
   ensures (forall x#1: int :: 
     { _module.__default.Index(_module._default.InsertBefore$A, l'#0, x#1) } 
-      { _module.__default.Index(_module._default.InsertBefore$A, l#0, x#1) } 
-      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
       { _module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1) } 
+      { _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1) } 
     true
        ==> (_module.__default.ValidPtr(_module._default.InsertBefore$A, l#0, x#1)
            ==> _module.__default.ValidPtr(_module._default.InsertBefore$A, l'#0, x#1))
@@ -16957,20 +16929,20 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     // AddMethodImpl: InsertBefore, Impl$$_module.__default.InsertBefore
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(361,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(361,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- assignment statement ----- DLL_Dafny.dfy(362,6)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(362,6)
     assume true;
     assume true;
     l'#0 := l#0;
-    assume {:captureState "DLL_Dafny.dfy(362,9)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(363,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(362,9)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(363,6)
     assume true;
     assume _module.DList.DList_q(l'#0);
     assume _module.DList.DList_q(l'#0);
     p'#0 := _module.DList.freeStack(l'#0);
-    assume {:captureState "DLL_Dafny.dfy(363,20)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(364,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(363,20)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(364,16)
     assume true;
     assume _module.DList.DList_q(l'#0);
     ##s#1 := _module.DList.nodes(l'#0);
@@ -16995,8 +16967,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     freeNode#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertBefore$A), 
         _module.DList.nodes(l'#0), 
         p'#0)): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(364,39)"} true;
-    // ----- if statement ----- DLL_Dafny.dfy(365,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(364,39)"} true;
+    // ----- if statement ----- DLL_Dafny_DenseDL.dfy(365,3)
     if (p'#0 != LitInt(0))
     {
         assume _module.Node.Node_q(freeNode#0);
@@ -17005,7 +16977,7 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     assume p'#0 != LitInt(0) ==> _module.Node.Node_q(freeNode#0);
     if (p'#0 == LitInt(0) || _module.Option.Some_q(_module.Node.data(freeNode#0)))
     {
-        // ----- call statement ----- DLL_Dafny.dfy(366,17)
+        // ----- call statement ----- DLL_Dafny_DenseDL.dfy(366,17)
         assume true;
         // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<A>
         // TrCallStmt: Before ProcessCallStmt
@@ -17017,14 +16989,14 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
         call $rhs##0_0 := Call$$_module.__default.Expand(_module._default.InsertBefore$A, l##0_0);
         // TrCallStmt: After ProcessCallStmt
         l'#0 := $rhs##0_0;
-        assume {:captureState "DLL_Dafny.dfy(366,20)"} true;
-        // ----- assignment statement ----- DLL_Dafny.dfy(367,8)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(366,20)"} true;
+        // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(367,8)
         assume true;
         assume _module.DList.DList_q(l'#0);
         assume _module.DList.DList_q(l'#0);
         p'#0 := _module.DList.freeStack(l'#0);
-        assume {:captureState "DLL_Dafny.dfy(367,22)"} true;
-        // ----- assignment statement ----- DLL_Dafny.dfy(368,14)
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(367,22)"} true;
+        // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(368,14)
         assume true;
         assume _module.DList.DList_q(l'#0);
         ##s#0_0 := _module.DList.nodes(l'#0);
@@ -17049,7 +17021,7 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
         freeNode#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertBefore$A), 
             _module.DList.nodes(l'#0), 
             p'#0)): DatatypeType;
-        assume {:captureState "DLL_Dafny.dfy(368,37)"} true;
+        assume {:captureState "DLL_Dafny_DenseDL.dfy(368,37)"} true;
     }
     else
     {
@@ -17076,7 +17048,7 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     assume _module.DList.DList_q(let#0#0#0);
     assume _module.DList.DList_q(let#0#0#0);
     assume #_module.DList.DList(nodes#0, freeStack#0, s#0, f#0, g#0) == let#0#0#0;
-    // ----- assignment statement ----- DLL_Dafny.dfy(371,20)
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(371,20)
     assume true;
     ##l#17 := l#0;
     // assume allocatedness for argument to function
@@ -17087,8 +17059,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     assume _module.__default.IndexHi#canCall(_module._default.InsertBefore$A, l#0, p#0);
     assume _module.__default.IndexHi#canCall(_module._default.InsertBefore$A, l#0, p#0);
     index'#0 := _module.__default.IndexHi(_module._default.InsertBefore$A, l#0, p#0);
-    assume {:captureState "DLL_Dafny.dfy(371,35)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(372,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(371,35)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(372,16)
     assume true;
     ##s#2 := s#0;
     // assume allocatedness for argument to function
@@ -17105,8 +17077,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     assume _module.__default.SeqInsert#canCall(_module._default.InsertBefore$A, s#0, index'#0, a#0);
     assume _module.__default.SeqInsert#canCall(_module._default.InsertBefore$A, s#0, index'#0, a#0);
     s'#0 := _module.__default.SeqInsert(_module._default.InsertBefore$A, s#0, index'#0, a#0);
-    assume {:captureState "DLL_Dafny.dfy(372,41)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(373,16)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(372,41)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(373,16)
     assume true;
     ##s#3 := f#0;
     // assume allocatedness for argument to function
@@ -17123,8 +17095,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     assume _module.__default.SeqInsert#canCall(TInt, f#0, index'#0, $Box(p'#0));
     assume _module.__default.SeqInsert#canCall(TInt, f#0, index'#0, $Box(p'#0));
     f'#0 := _module.__default.SeqInsert(TInt, f#0, index'#0, $Box(p'#0));
-    assume {:captureState "DLL_Dafny.dfy(373,42)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(374,39)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(373,42)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(374,39)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type seq<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -17142,8 +17114,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     call $rhs##0 := Call$$_module.__default.InsertBefore__SeqInit(g##0, p'##0, index'##0);
     // TrCallStmt: After ProcessCallStmt
     g'#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(374,53)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(375,12)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(374,53)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(375,12)
     assume true;
     ##s#4 := nodes#0;
     // assume allocatedness for argument to function
@@ -17158,14 +17130,14 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     assume _module.Node.Node_q($Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertBefore$A), nodes#0, p#0)): DatatypeType);
     assume _module.__default.seq__get#canCall(Tclass._module.Node(_module._default.InsertBefore$A), nodes#0, p#0);
     node#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertBefore$A), nodes#0, p#0)): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(375,31)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(376,13)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(375,31)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(376,13)
     assume true;
     assume _module.Node.Node_q(node#0);
     assume _module.Node.Node_q(node#0);
     node'#0 := #_module.Node.Node(#_module.Option.Some(a#0), p#0, _module.Node.prev(node#0));
-    assume {:captureState "DLL_Dafny.dfy(376,42)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(377,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(376,42)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(377,9)
     assume true;
     havoc dt_update_tmp#0#0;
     assume $Is(dt_update_tmp#0#0, Tclass._module.Node(_module._default.InsertBefore$A));
@@ -17224,8 +17196,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
             #_module.Node.Node(_module.Node.data(dt_update_tmp#0#1), 
               _module.Node.next(dt_update_tmp#0#1), 
               dt_update#prev#0#1)))));
-    assume {:captureState "DLL_Dafny.dfy(377,47)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(378,17)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(377,47)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(378,17)
     assume true;
     assume _module.Node.Node_q(node#0);
     ##s#5 := nodes#0;
@@ -17250,8 +17222,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
     node_prev#0 := $Unbox(_module.__default.seq__get(Tclass._module.Node(_module._default.InsertBefore$A), 
         nodes#0, 
         _module.Node.prev(node#0))): DatatypeType;
-    assume {:captureState "DLL_Dafny.dfy(378,44)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(379,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(378,44)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(379,9)
     assume true;
     assume _module.Node.Node_q(node#0);
     havoc dt_update_tmp#1#0;
@@ -17312,8 +17284,8 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
             #_module.Node.Node(_module.Node.data(dt_update_tmp#1#1), 
               dt_update#next#0#1, 
               _module.Node.prev(dt_update_tmp#1#1))))));
-    assume {:captureState "DLL_Dafny.dfy(379,60)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(380,9)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(379,60)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(380,9)
     assume true;
     ##s1#2 := nodes#0;
     // assume allocatedness for argument to function
@@ -17339,13 +17311,13 @@ implementation Impl$$_module.__default.InsertBefore(_module._default.InsertBefor
       nodes#0, 
       p'#0, 
       $Box(node'#0));
-    assume {:captureState "DLL_Dafny.dfy(380,36)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(381,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(380,36)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(381,6)
     assume true;
     assume _module.Node.Node_q(freeNode#0);
     assume _module.Node.Node_q(freeNode#0);
     l'#0 := #_module.DList.DList(nodes#0, _module.Node.next(freeNode#0), s'#0, f'#0, g'#0);
-    assume {:captureState "DLL_Dafny.dfy(381,47)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(381,47)"} true;
 }
 
 
@@ -17431,7 +17403,7 @@ implementation Impl$$_module.__default.Clone(_module._default.Clone$A: Ty, l#0: 
     // AddMethodImpl: Clone, Impl$$_module.__default.Clone
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(386,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(386,0): initial state"} true;
     $_reverifyPost := false;
     havoc nodes#0;
     assume $Is(nodes#0, TSeq(Tclass._module.Node(_module._default.Clone$A)))
@@ -17454,7 +17426,7 @@ implementation Impl$$_module.__default.Clone(_module._default.Clone$A: Ty, l#0: 
     assume _module.DList.DList_q(let#0#0#0);
     assume _module.DList.DList_q(let#0#0#0);
     assume #_module.DList.DList(nodes#0, freeStack#0, s#0, f#0, g#0) == let#0#0#0;
-    // ----- call statement ----- DLL_Dafny.dfy(389,29)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(389,29)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type seq<Node<A>>
     // TrCallStmt: Before ProcessCallStmt
@@ -17476,12 +17448,12 @@ implementation Impl$$_module.__default.Clone(_module._default.Clone$A: Ty, l#0: 
     call $rhs##0 := Call$$_module.__default.AllocAndCopy(Tclass._module.Node(_module._default.Clone$A), source##0, from##0, to##0);
     // TrCallStmt: After ProcessCallStmt
     nodes'#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(389,57)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(390,6)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(389,57)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(390,6)
     assume true;
     assume true;
     l'#0 := #_module.DList.DList(nodes'#0, freeStack#0, s#0, f#0, g#0);
-    assume {:captureState "DLL_Dafny.dfy(390,41)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(390,41)"} true;
 }
 
 
@@ -17589,9 +17561,9 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // AddMethodImpl: main, Impl$$_module.__default.main
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "DLL_Dafny.dfy(395,0): initial state"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(395,0): initial state"} true;
     $_reverifyPost := false;
-    // ----- call statement ----- DLL_Dafny.dfy(396,22)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(396,22)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.AutoGhostIdentifierExpr with type DList<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -17603,9 +17575,9 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     call $rhs##0 := Call$$_module.__default.Alloc(TInt, initial_len##0);
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##0;
-    assume {:captureState "DLL_Dafny.dfy(396,24)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(396,24)"} true;
     havoc p#0;
-    // ----- call statement ----- DLL_Dafny.dfy(398,22)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(398,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17626,8 +17598,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##1;
     p#0 := $rhs##2;
-    assume {:captureState "DLL_Dafny.dfy(398,32)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(399,22)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(398,32)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(399,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17648,8 +17620,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##3;
     p#0 := $rhs##4;
-    assume {:captureState "DLL_Dafny.dfy(399,32)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(400,22)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(399,32)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(400,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17670,13 +17642,13 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##5;
     p#0 := $rhs##6;
-    assume {:captureState "DLL_Dafny.dfy(400,32)"} true;
-    // ----- assignment statement ----- DLL_Dafny.dfy(401,10)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(400,32)"} true;
+    // ----- assignment statement ----- DLL_Dafny_DenseDL.dfy(401,10)
     assume true;
     assume true;
     p3#0 := p#0;
-    assume {:captureState "DLL_Dafny.dfy(401,13)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(402,22)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(401,13)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(402,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17697,8 +17669,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##7;
     p#0 := $rhs##8;
-    assume {:captureState "DLL_Dafny.dfy(402,32)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(403,22)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(402,32)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(403,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17719,8 +17691,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##9;
     p#0 := $rhs##10;
-    assume {:captureState "DLL_Dafny.dfy(403,32)"} true;
-    // ----- assert statement ----- DLL_Dafny.dfy(404,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(403,32)"} true;
+    // ----- assert statement ----- DLL_Dafny_DenseDL.dfy(404,3)
     ##l#0 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#0, Tclass._module.DList(TInt), $Heap);
@@ -17731,7 +17703,7 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
             $Box(LitInt(300))), 
           $Box(LitInt(400))), 
         $Box(LitInt(500))));
-    // ----- call statement ----- DLL_Dafny.dfy(405,14)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(405,14)
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
     // TrCallStmt: Before ProcessCallStmt
@@ -17746,8 +17718,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     call $rhs##11 := Call$$_module.__default.Remove(TInt, l##5, p##5);
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##11;
-    assume {:captureState "DLL_Dafny.dfy(405,20)"} true;
-    // ----- assert statement ----- DLL_Dafny.dfy(406,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(405,20)"} true;
+    // ----- assert statement ----- DLL_Dafny_DenseDL.dfy(406,3)
     ##l#1 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#1, Tclass._module.DList(TInt), $Heap);
@@ -17757,7 +17729,7 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
       Seq#Build(Seq#Build(Seq#Build(Seq#Build(Seq#Empty(): Seq Box, $Box(LitInt(100))), $Box(LitInt(200))), 
           $Box(LitInt(400))), 
         $Box(LitInt(500))));
-    // ----- call statement ----- DLL_Dafny.dfy(407,22)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(407,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17778,8 +17750,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##12;
     p#0 := $rhs##13;
-    assume {:captureState "DLL_Dafny.dfy(407,32)"} true;
-    // ----- call statement ----- DLL_Dafny.dfy(408,22)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(407,32)"} true;
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(408,22)
     assume true;
     assume true;
     // TrCallStmt: Adding lhs Microsoft.Dafny.IdentifierExpr with type DList<int>
@@ -17800,8 +17772,8 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // TrCallStmt: After ProcessCallStmt
     l#0 := $rhs##14;
     p#0 := $rhs##15;
-    assume {:captureState "DLL_Dafny.dfy(408,32)"} true;
-    // ----- assert statement ----- DLL_Dafny.dfy(409,3)
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(408,32)"} true;
+    // ----- assert statement ----- DLL_Dafny_DenseDL.dfy(409,3)
     ##l#2 := l#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##l#2, Tclass._module.DList(TInt), $Heap);
@@ -17813,7 +17785,7 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
             $Box(LitInt(500))), 
           $Box(LitInt(600))), 
         $Box(LitInt(700))));
-    // ----- call statement ----- DLL_Dafny.dfy(410,7)
+    // ----- call statement ----- DLL_Dafny_DenseDL.dfy(410,7)
     // TrCallStmt: Before ProcessCallStmt
     assume true;
     // ProcessCallStmt: CheckSubrange
@@ -17822,7 +17794,7 @@ implementation Impl$$_module.__default.main() returns ($_reverifyPost: bool)
     // ProcessCallStmt: Make the call
     call Call$$_module.__default.Free(TInt, l##8);
     // TrCallStmt: After ProcessCallStmt
-    assume {:captureState "DLL_Dafny.dfy(410,9)"} true;
+    assume {:captureState "DLL_Dafny_DenseDL.dfy(410,9)"} true;
 }
 
 
