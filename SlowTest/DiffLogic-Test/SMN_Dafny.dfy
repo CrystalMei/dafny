@@ -68,6 +68,12 @@ lemma Elements_Property(xs: List)
   requires NoDuplicates(xs)
   ensures |Elements(xs)| == Length(xs)
 {
+  match xs
+  case Nil => 
+  case Cons(x, tail) =>
+    
+  assume |Elements(xs)| == Length(xs);
+  // assume forall x: int, s: set<int> :: x in s ==> |s| == Add(1, |s - {x}|);
 }
 
 predicate NoDuplicates(xs: List) // verified

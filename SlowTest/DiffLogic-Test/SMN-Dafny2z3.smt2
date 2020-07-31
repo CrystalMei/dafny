@@ -5030,22 +5030,22 @@
  :pattern ( (_module.__default.IntRange arg0@@199 arg1@@93 arg2@@48))
 )))
 (assert (forall (($ly@@23 T@U) (|lo#0| Int) (|len#0| Int) ) (!  (=> (= (type $ly@@23) LayerTypeType) (= (_module.__default.IntRange ($LS $ly@@23) |lo#0| |len#0|) (_module.__default.IntRange $ly@@23 |lo#0| |len#0|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |936|
  :pattern ( (_module.__default.IntRange ($LS $ly@@23) |lo#0| |len#0|))
 )))
 (assert (forall (($ly@@24 T@U) (|lo#0@@0| Int) (|len#0@@0| Int) ) (!  (=> (= (type $ly@@24) LayerTypeType) (= (_module.__default.IntRange $ly@@24 |lo#0@@0| |len#0@@0|) (_module.__default.IntRange $LZ |lo#0@@0| |len#0@@0|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |937|
  :pattern ( (_module.__default.IntRange (AsFuelBottom $ly@@24) |lo#0@@0| |len#0@@0|))
 )))
 (assert  (=> (<= 16 $FunctionContextHeight) (forall (($ly@@25 T@U) (|lo#0@@1| Int) (|len#0@@1| Int) ) (!  (=> (and (= (type $ly@@25) LayerTypeType) (or (|_module.__default.IntRange#canCall| |lo#0@@1| |len#0@@1|) (not (= 16 $FunctionContextHeight)))) (and (= (|Set#Card| (_module.__default.IntRange $ly@@25 |lo#0@@1| |len#0@@1|)) |len#0@@1|) ($Is (_module.__default.IntRange $ly@@25 |lo#0@@1| |len#0@@1|) (TSet TInt))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |938|
  :pattern ( (_module.__default.IntRange $ly@@25 |lo#0@@1| |len#0@@1|))
 ))))
 (assert (forall (($ly@@26 T@U) (|lo#0@@2| Int) (|len#0@@2| Int) ) (!  (=> (= (type $ly@@26) LayerTypeType) (and (=> (|_module.__default.IntRange#requires| $ly@@26 |lo#0@@2| |len#0@@2|) true) (=> true (|_module.__default.IntRange#requires| $ly@@26 |lo#0@@2| |len#0@@2|))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |939|
  :pattern ( (|_module.__default.IntRange#requires| $ly@@26 |lo#0@@2| |len#0@@2|))
 )))
@@ -5055,55 +5055,55 @@
 )))
 (assert  (=> (<= 16 $FunctionContextHeight) (forall (($ly@@27 T@U) (|lo#0@@3| Int) (|len#0@@3| Int) ) (!  (=> (and (= (type $ly@@27) LayerTypeType) (or (|_module.__default.IntRange#canCall| |lo#0@@3| |len#0@@3|) (not (= 16 $FunctionContextHeight)))) (= (_module.__default.IntRange ($LS $ly@@27) |lo#0@@3| |len#0@@3|) (let ((|S#0| (|lambda#22| TInt |lo#0@@3| (+ |lo#0@@3| |len#0@@3|))))
 |S#0|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |940|
  :pattern ( (_module.__default.IntRange ($LS $ly@@27) |lo#0@@3| |len#0@@3|))
 ))))
 (assert  (=> (<= 16 $FunctionContextHeight) (forall (($ly@@28 T@U) (|lo#0@@4| Int) (|len#0@@4| Int) ) (!  (=> (and (= (type $ly@@28) LayerTypeType) (or (|_module.__default.IntRange#canCall| |lo#0@@4| |len#0@@4|) (not (= 16 $FunctionContextHeight)))) (= (_module.__default.IntRange ($LS $ly@@28) |lo#0@@4| |len#0@@4|) (let ((|S#1| (|lambda#22| TInt |lo#0@@4| (+ |lo#0@@4| |len#0@@4|))))
 |S#1|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :weight 3
  :skolemid |941|
  :pattern ( (_module.__default.IntRange ($LS $ly@@28) |lo#0@@4| |len#0@@4|))
 ))))
 (assert  (=> (<= 13 $FunctionContextHeight) (forall ((|xs#0@@23| T@U) ) (!  (=> (and (= (type |xs#0@@23|) DatatypeTypeType) (or (|_module.__default.SmallestMissingNumber#canCall| |xs#0@@23|) (and (not (= 13 $FunctionContextHeight)) ($Is |xs#0@@23| (Tclass._module.List TInt))))) true)
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :skolemid |942|
  :pattern ( (_module.__default.SmallestMissingNumber |xs#0@@23|))
 ))))
 (assert (forall ((|xs#0@@24| T@U) ) (!  (=> (and (= (type |xs#0@@24|) DatatypeTypeType) ($Is |xs#0@@24| (Tclass._module.List TInt))) (and (=> (|_module.__default.SmallestMissingNumber#requires| |xs#0@@24|) true) (=> true (|_module.__default.SmallestMissingNumber#requires| |xs#0@@24|))))
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :skolemid |943|
  :pattern ( (|_module.__default.SmallestMissingNumber#requires| |xs#0@@24|))
 )))
 (assert  (=> (<= 13 $FunctionContextHeight) (forall ((|xs#0@@25| T@U) ) (!  (=> (and (= (type |xs#0@@25|) DatatypeTypeType) (or (|_module.__default.SmallestMissingNumber#canCall| |xs#0@@25|) (and (not (= 13 $FunctionContextHeight)) ($Is |xs#0@@25| (Tclass._module.List TInt))))) (and (and (|_module.__default.Length#canCall| TInt |xs#0@@25|) (|_module.__default.SMN#canCall| |xs#0@@25| 0 (_module.__default.Length TInt ($LS $LZ) |xs#0@@25|))) (= (_module.__default.SmallestMissingNumber |xs#0@@25|) (_module.__default.SMN ($LS $LZ) |xs#0@@25| 0 (_module.__default.Length TInt ($LS $LZ) |xs#0@@25|)))))
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :skolemid |944|
  :pattern ( (_module.__default.SmallestMissingNumber |xs#0@@25|))
 ))))
 (assert  (=> (<= 13 $FunctionContextHeight) (forall ((|xs#0@@26| T@U) ) (!  (=> (and (= (type |xs#0@@26|) DatatypeTypeType) (or (|_module.__default.SmallestMissingNumber#canCall| (Lit |xs#0@@26|)) (and (not (= 13 $FunctionContextHeight)) ($Is |xs#0@@26| (Tclass._module.List TInt))))) (and (and (|_module.__default.Length#canCall| TInt (Lit |xs#0@@26|)) (|_module.__default.SMN#canCall| (Lit |xs#0@@26|) 0 (_module.__default.Length TInt ($LS $LZ) (Lit |xs#0@@26|)))) (= (_module.__default.SmallestMissingNumber (Lit |xs#0@@26|)) (_module.__default.SMN ($LS $LZ) (Lit |xs#0@@26|) 0 (_module.__default.Length TInt ($LS $LZ) (Lit |xs#0@@26|))))))
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :weight 3
  :skolemid |945|
  :pattern ( (_module.__default.SmallestMissingNumber (Lit |xs#0@@26|)))
 ))))
 (assert (forall (($ly@@29 T@U) (|xs#0@@27| T@U) (|n#0| Int) (|len#0@@5| Int) ) (!  (=> (and (= (type $ly@@29) LayerTypeType) (= (type |xs#0@@27|) DatatypeTypeType)) (= (_module.__default.SMN ($LS $ly@@29) |xs#0@@27| |n#0| |len#0@@5|) (_module.__default.SMN $ly@@29 |xs#0@@27| |n#0| |len#0@@5|)))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |948|
  :pattern ( (_module.__default.SMN ($LS $ly@@29) |xs#0@@27| |n#0| |len#0@@5|))
 )))
 (assert (forall (($ly@@30 T@U) (|xs#0@@28| T@U) (|n#0@@0| Int) (|len#0@@6| Int) ) (!  (=> (and (= (type $ly@@30) LayerTypeType) (= (type |xs#0@@28|) DatatypeTypeType)) (= (_module.__default.SMN $ly@@30 |xs#0@@28| |n#0@@0| |len#0@@6|) (_module.__default.SMN $LZ |xs#0@@28| |n#0@@0| |len#0@@6|)))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |949|
  :pattern ( (_module.__default.SMN (AsFuelBottom $ly@@30) |xs#0@@28| |n#0@@0| |len#0@@6|))
 )))
 (assert  (=> (<= 12 $FunctionContextHeight) (forall (($ly@@31 T@U) (|xs#0@@29| T@U) (|n#0@@1| Int) (|len#0@@7| Int) ) (!  (=> (and (and (= (type $ly@@31) LayerTypeType) (= (type |xs#0@@29|) DatatypeTypeType)) (or (|_module.__default.SMN#canCall| |xs#0@@29| |n#0@@1| |len#0@@7|) (and (not (= 12 $FunctionContextHeight)) (and ($Is |xs#0@@29| (Tclass._module.List TInt)) (= |len#0@@7| (_module.__default.Length TInt ($LS $LZ) |xs#0@@29|)))))) true)
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |950|
  :pattern ( (_module.__default.SMN $ly@@31 |xs#0@@29| |n#0@@1| |len#0@@7|))
 ))))
 (assert (forall (($ly@@32 T@U) (|xs#0@@30| T@U) (|n#0@@2| Int) (|len#0@@8| Int) ) (!  (=> (and (and (= (type $ly@@32) LayerTypeType) (= (type |xs#0@@30|) DatatypeTypeType)) ($Is |xs#0@@30| (Tclass._module.List TInt))) (and (=> (|_module.__default.SMN#requires| $ly@@32 |xs#0@@30| |n#0@@2| |len#0@@8|) (= |len#0@@8| (_module.__default.Length TInt ($LS $LZ) |xs#0@@30|))) (=> (= |len#0@@8| (_module.__default.Length TInt ($LS $LZ) |xs#0@@30|)) (|_module.__default.SMN#requires| $ly@@32 |xs#0@@30| |n#0@@2| |len#0@@8|))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |951|
  :pattern ( (|_module.__default.SMN#requires| $ly@@32 |xs#0@@30| |n#0@@2| |len#0@@8|))
 )))
@@ -5114,7 +5114,7 @@
 (let ((|L#0@@1| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@31| (+ |n#0@@3| (div |len#0@@9| 2)))))))
 (let ((|llen#0@@0| (_module.__default.Length TInt ($LS $LZ) |L#0@@1|)))
 (ite (< |llen#0@@0| (div |len#0@@9| 2)) (_module.__default.SMN $ly@@33 |L#0@@1| |n#0@@3| |llen#0@@0|) (_module.__default.SMN $ly@@33 |R#0@@1| (+ |n#0@@3| |llen#0@@0|) (- |len#0@@9| |llen#0@@0|)))))) (ite (_module.List.Cons_q |xs#0@@31|) (ite (= (U_2_int ($Unbox intType (_module.List.head |xs#0@@31|))) |n#0@@3|) (+ |n#0@@3| 1) |n#0@@3|) |n#0@@3|)))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |952|
  :pattern ( (_module.__default.SMN ($LS $ly@@33) |xs#0@@31| |n#0@@3| |len#0@@9|))
 ))))
@@ -5125,7 +5125,7 @@
 (let ((|L#1@@0| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@32| (+ |n#0@@4| (div |len#0@@10| 2)))))))
 (let ((|llen#1@@0| (_module.__default.Length TInt ($LS $LZ) |L#1@@0|)))
 (ite (< |llen#1@@0| (div |len#0@@10| 2)) (_module.__default.SMN ($LS $ly@@34) |L#1@@0| |n#0@@4| |llen#1@@0|) (_module.__default.SMN ($LS $ly@@34) |R#1@@0| (+ |n#0@@4| |llen#1@@0|) (- |len#0@@10| |llen#1@@0|)))))) (ite (_module.List.Cons_q |xs#0@@32|) (ite (= (U_2_int ($Unbox intType (_module.List.head |xs#0@@32|))) |n#0@@4|) (+ |n#0@@4| 1) |n#0@@4|) |n#0@@4|)))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :weight 3
  :skolemid |953|
  :pattern ( (_module.__default.SMN ($LS $ly@@34) |xs#0@@32| |n#0@@4| |len#0@@10|))
@@ -5137,28 +5137,28 @@
 (let ((|L#2@@1| ($Unbox DatatypeTypeType (_System.Tuple2._0 (Lit (_module.__default.Split ($LS $LZ) (Lit |xs#0@@33|) (+ |n#0@@5| (div |len#0@@11| 2))))))))
 (let ((|llen#2@@0| (_module.__default.Length TInt ($LS $LZ) |L#2@@1|)))
 (ite (< |llen#2@@0| (div |len#0@@11| 2)) (_module.__default.SMN ($LS $ly@@35) |L#2@@1| |n#0@@5| |llen#2@@0|) (_module.__default.SMN ($LS $ly@@35) |R#2@@1| (+ |n#0@@5| |llen#2@@0|) (- |len#0@@11| |llen#2@@0|)))))) (ite (_module.List.Cons_q (Lit |xs#0@@33|)) (ite (= (U_2_int ($Unbox intType (_module.List.head (Lit |xs#0@@33|)))) |n#0@@5|) (+ |n#0@@5| 1) |n#0@@5|) |n#0@@5|)))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :weight 3
  :skolemid |954|
  :pattern ( (_module.__default.SMN ($LS $ly@@35) (Lit |xs#0@@33|) |n#0@@5| |len#0@@11|))
 ))))
 (assert (forall (($ly@@36 T@U) (|xs#0@@34| T@U) (|n#0@@6| Int) (|len#0@@12| Int) ) (!  (=> (and (= (type $ly@@36) LayerTypeType) (= (type |xs#0@@34|) DatatypeTypeType)) (= (_module.__default.SMN_k ($LS $ly@@36) |xs#0@@34| |n#0@@6| |len#0@@12|) (_module.__default.SMN_k $ly@@36 |xs#0@@34| |n#0@@6| |len#0@@12|)))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |960|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@36) |xs#0@@34| |n#0@@6| |len#0@@12|))
 )))
 (assert (forall (($ly@@37 T@U) (|xs#0@@35| T@U) (|n#0@@7| Int) (|len#0@@13| Int) ) (!  (=> (and (= (type $ly@@37) LayerTypeType) (= (type |xs#0@@35|) DatatypeTypeType)) (= (_module.__default.SMN_k $ly@@37 |xs#0@@35| |n#0@@7| |len#0@@13|) (_module.__default.SMN_k $LZ |xs#0@@35| |n#0@@7| |len#0@@13|)))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |961|
  :pattern ( (_module.__default.SMN_k (AsFuelBottom $ly@@37) |xs#0@@35| |n#0@@7| |len#0@@13|))
 )))
 (assert  (=> (<= 14 $FunctionContextHeight) (forall (($ly@@38 T@U) (|xs#0@@36| T@U) (|n#0@@8| Int) (|len#0@@14| Int) ) (!  (=> (and (and (= (type $ly@@38) LayerTypeType) (= (type |xs#0@@36|) DatatypeTypeType)) (or (|_module.__default.SMN_k#canCall| |xs#0@@36| |n#0@@8| |len#0@@14|) (and (not (= 14 $FunctionContextHeight)) (and ($Is |xs#0@@36| (Tclass._module.List TInt)) (= |len#0@@14| (_module.__default.Length TInt ($LS $LZ) |xs#0@@36|)))))) true)
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |962|
  :pattern ( (_module.__default.SMN_k $ly@@38 |xs#0@@36| |n#0@@8| |len#0@@14|))
 ))))
 (assert (forall (($ly@@39 T@U) (|xs#0@@37| T@U) (|n#0@@9| Int) (|len#0@@15| Int) ) (!  (=> (and (and (= (type $ly@@39) LayerTypeType) (= (type |xs#0@@37|) DatatypeTypeType)) ($Is |xs#0@@37| (Tclass._module.List TInt))) (and (=> (|_module.__default.SMN_k#requires| $ly@@39 |xs#0@@37| |n#0@@9| |len#0@@15|) (= |len#0@@15| (_module.__default.Length TInt ($LS $LZ) |xs#0@@37|))) (=> (= |len#0@@15| (_module.__default.Length TInt ($LS $LZ) |xs#0@@37|)) (|_module.__default.SMN_k#requires| $ly@@39 |xs#0@@37| |n#0@@9| |len#0@@15|))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |963|
  :pattern ( (|_module.__default.SMN_k#requires| $ly@@39 |xs#0@@37| |n#0@@9| |len#0@@15|))
 )))
@@ -5171,7 +5171,7 @@
 (let ((|L#0@@3| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@38| (+ |n#0@@10| |half#0@@0|))))))
 (let ((|llen#0@@2| (_module.__default.Length TInt ($LS $LZ) |L#0@@3|)))
 (ite (< |llen#0@@2| |half#0@@0|) (_module.__default.SMN_k $ly@@40 |L#0@@3| |n#0@@10| |llen#0@@2|) (_module.__default.SMN_k $ly@@40 |R#0@@3| (+ |n#0@@10| |llen#0@@2|) (- |len#0@@16| |llen#0@@2|)))))))))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |964|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@40) |xs#0@@38| |n#0@@10| |len#0@@16|))
 ))))
@@ -5184,7 +5184,7 @@
 (let ((|L#1@@2| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@39| (+ |n#0@@11| |half#1@@0|))))))
 (let ((|llen#1@@2| (_module.__default.Length TInt ($LS $LZ) |L#1@@2|)))
 (ite (< |llen#1@@2| |half#1@@0|) (_module.__default.SMN_k ($LS $ly@@41) |L#1@@2| |n#0@@11| |llen#1@@2|) (_module.__default.SMN_k ($LS $ly@@41) |R#1@@2| (+ |n#0@@11| |llen#1@@2|) (- |len#0@@17| |llen#1@@2|)))))))))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :weight 3
  :skolemid |965|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@41) |xs#0@@39| |n#0@@11| |len#0@@17|))
@@ -5198,28 +5198,28 @@
 (let ((|L#2@@3| ($Unbox DatatypeTypeType (_System.Tuple2._0 (Lit (_module.__default.Split ($LS $LZ) (Lit |xs#0@@40|) (+ |n#0@@12| |half#2@@0|)))))))
 (let ((|llen#2@@2| (_module.__default.Length TInt ($LS $LZ) |L#2@@3|)))
 (ite (< |llen#2@@2| |half#2@@0|) (_module.__default.SMN_k ($LS $ly@@42) |L#2@@3| |n#0@@12| |llen#2@@2|) (_module.__default.SMN_k ($LS $ly@@42) |R#2@@3| (+ |n#0@@12| |llen#2@@2|) (- |len#0@@18| |llen#2@@2|)))))))))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :weight 3
  :skolemid |966|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@42) (Lit |xs#0@@40|) |n#0@@12| |len#0@@18|))
 ))))
 (assert (forall (($ly@@43 T@U) (|xs#0@@41| T@U) (|n#0@@13| Int) (|len#0@@19| Int) ) (!  (=> (and (= (type $ly@@43) LayerTypeType) (= (type |xs#0@@41|) DatatypeTypeType)) (= (_module.__default.SMN_k_k ($LS $ly@@43) |xs#0@@41| |n#0@@13| |len#0@@19|) (_module.__default.SMN_k_k $ly@@43 |xs#0@@41| |n#0@@13| |len#0@@19|)))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |972|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@43) |xs#0@@41| |n#0@@13| |len#0@@19|))
 )))
 (assert (forall (($ly@@44 T@U) (|xs#0@@42| T@U) (|n#0@@14| Int) (|len#0@@20| Int) ) (!  (=> (and (= (type $ly@@44) LayerTypeType) (= (type |xs#0@@42|) DatatypeTypeType)) (= (_module.__default.SMN_k_k $ly@@44 |xs#0@@42| |n#0@@14| |len#0@@20|) (_module.__default.SMN_k_k $LZ |xs#0@@42| |n#0@@14| |len#0@@20|)))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |973|
  :pattern ( (_module.__default.SMN_k_k (AsFuelBottom $ly@@44) |xs#0@@42| |n#0@@14| |len#0@@20|))
 )))
 (assert  (=> (<= 15 $FunctionContextHeight) (forall (($ly@@45 T@U) (|xs#0@@43| T@U) (|n#0@@15| Int) (|len#0@@21| Int) ) (!  (=> (and (and (= (type $ly@@45) LayerTypeType) (= (type |xs#0@@43|) DatatypeTypeType)) (or (|_module.__default.SMN_k_k#canCall| |xs#0@@43| |n#0@@15| |len#0@@21|) (and (not (= 15 $FunctionContextHeight)) (and ($Is |xs#0@@43| (Tclass._module.List TInt)) (= |len#0@@21| (_module.__default.Length TInt ($LS $LZ) |xs#0@@43|)))))) true)
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |974|
  :pattern ( (_module.__default.SMN_k_k $ly@@45 |xs#0@@43| |n#0@@15| |len#0@@21|))
 ))))
 (assert (forall (($ly@@46 T@U) (|xs#0@@44| T@U) (|n#0@@16| Int) (|len#0@@22| Int) ) (!  (=> (and (and (= (type $ly@@46) LayerTypeType) (= (type |xs#0@@44|) DatatypeTypeType)) ($Is |xs#0@@44| (Tclass._module.List TInt))) (and (=> (|_module.__default.SMN_k_k#requires| $ly@@46 |xs#0@@44| |n#0@@16| |len#0@@22|) (= |len#0@@22| (_module.__default.Length TInt ($LS $LZ) |xs#0@@44|))) (=> (= |len#0@@22| (_module.__default.Length TInt ($LS $LZ) |xs#0@@44|)) (|_module.__default.SMN_k_k#requires| $ly@@46 |xs#0@@44| |n#0@@16| |len#0@@22|))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |975|
  :pattern ( (|_module.__default.SMN_k_k#requires| $ly@@46 |xs#0@@44| |n#0@@16| |len#0@@22|))
 )))
@@ -5232,7 +5232,7 @@
 (let ((|L#0@@5| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@45| (+ |n#0@@17| |half#0@@2|))))))
 (let ((|llen#0@@4| (_module.__default.Length TInt ($LS $LZ) |L#0@@5|)))
 (ite (< |llen#0@@4| |half#0@@2|) (_module.__default.SMN_k_k $ly@@47 |L#0@@5| |n#0@@17| |llen#0@@4|) (_module.__default.SMN_k_k $ly@@47 |R#0@@5| (+ |n#0@@17| |llen#0@@4|) (- |len#0@@23| |llen#0@@4|)))))))))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |976|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@47) |xs#0@@45| |n#0@@17| |len#0@@23|))
 ))))
@@ -5245,7 +5245,7 @@
 (let ((|L#1@@4| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@46| (+ |n#0@@18| |half#1@@2|))))))
 (let ((|llen#1@@4| (_module.__default.Length TInt ($LS $LZ) |L#1@@4|)))
 (ite (< |llen#1@@4| |half#1@@2|) (_module.__default.SMN_k_k ($LS $ly@@48) |L#1@@4| |n#0@@18| |llen#1@@4|) (_module.__default.SMN_k_k ($LS $ly@@48) |R#1@@4| (+ |n#0@@18| |llen#1@@4|) (- |len#0@@24| |llen#1@@4|)))))))))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :weight 3
  :skolemid |977|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@48) |xs#0@@46| |n#0@@18| |len#0@@24|))
@@ -5259,7 +5259,7 @@
 (let ((|L#2@@5| ($Unbox DatatypeTypeType (_System.Tuple2._0 (Lit (_module.__default.Split ($LS $LZ) (Lit |xs#0@@47|) (+ |n#0@@19| |half#2@@2|)))))))
 (let ((|llen#2@@4| (_module.__default.Length TInt ($LS $LZ) |L#2@@5|)))
 (ite (< |llen#2@@4| |half#2@@2|) (_module.__default.SMN_k_k ($LS $ly@@49) |L#2@@5| |n#0@@19| |llen#2@@4|) (_module.__default.SMN_k_k ($LS $ly@@49) |R#2@@5| (+ |n#0@@19| |llen#2@@4|) (- |len#0@@25| |llen#2@@4|)))))))))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :weight 3
  :skolemid |978|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@49) (Lit |xs#0@@47|) |n#0@@19| |len#0@@25|))
@@ -5398,7 +5398,7 @@
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@9| T@U) (|l#1@@9| T@U) (|l#2@@9| T@U) (|l#3@@7| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@9|) refType)) (= (type |l#1@@9|) (MapType0Type refType MapType1Type))) (= (type |l#2@@9|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#18| |l#0@@9| |l#1@@9| |l#2@@9| |l#3@@7|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@9|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@9| $o@@17) |l#2@@9|))) |l#3@@7|))))
- :qid |SMNDafny.73:11|
+ :qid |SMNDafny.77:11|
  :skolemid |1029|
  :pattern ( (MapType5Select (|lambda#18| |l#0@@9| |l#1@@9| |l#2@@9| |l#3@@7|) $o@@17 $f@@7))
 )))
@@ -5408,7 +5408,7 @@
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@10| T@U) (|l#1@@10| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@10|) refType)) (= (type |l#1@@10|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#19| |l#0@@10| |l#1@@10| |l#2@@10| |l#3@@8|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@10|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@10| $o@@18) |l#2@@10|))) |l#3@@8|))))
- :qid |SMNDafny.73:11|
+ :qid |SMNDafny.77:11|
  :skolemid |1030|
  :pattern ( (MapType5Select (|lambda#19| |l#0@@10| |l#1@@10| |l#2@@10| |l#3@@8|) $o@@18 $f@@8))
 )))
@@ -5418,7 +5418,7 @@
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@11| T@U) (|l#1@@11| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@11|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#20| |l#0@@11| |l#1@@11| |l#2@@11| |l#3@@9|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@11|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@19) |l#2@@11|))) |l#3@@9|))))
- :qid |SMNDafny.81:7|
+ :qid |SMNDafny.85:7|
  :skolemid |1031|
  :pattern ( (MapType5Select (|lambda#20| |l#0@@11| |l#1@@11| |l#2@@11| |l#3@@9|) $o@@19 $f@@9))
 )))
@@ -5428,12 +5428,12 @@
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@12| T@U) (|l#1@@12| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@12|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#21| |l#0@@12| |l#1@@12| |l#2@@12| |l#3@@10|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@12|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@20) |l#2@@12|))) |l#3@@10|))))
- :qid |SMNDafny.91:7|
+ :qid |SMNDafny.95:7|
  :skolemid |1032|
  :pattern ( (MapType5Select (|lambda#21| |l#0@@12| |l#1@@12| |l#2@@12| |l#3@@10|) $o@@20 $f@@10))
 )))
 (assert (forall ((|$y#0| T@U) (|l#0@@13| T@U) (|l#1@@13| Int) (|l#2@@13| Int) ) (!  (=> (and (= (type |$y#0|) BoxType) (= (type |l#0@@13|) TyType)) (= (U_2_bool (MapType0Select (|lambda#22| |l#0@@13| |l#1@@13| |l#2@@13|) |$y#0|))  (and ($IsBox |$y#0| |l#0@@13|) (and (<= |l#1@@13| (U_2_int ($Unbox intType |$y#0|))) (< (U_2_int ($Unbox intType |$y#0|)) |l#2@@13|)))))
- :qid |SMNDafny.105:12|
+ :qid |SMNDafny.109:12|
  :skolemid |1033|
  :pattern ( (MapType0Select (|lambda#22| |l#0@@13| |l#1@@13| |l#2@@13|) |$y#0|))
 )))
@@ -5443,7 +5443,7 @@
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@14| T@U) (|l#1@@14| T@U) (|l#2@@14| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@14|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#24| |l#0@@14| |l#1@@14| |l#2@@14| |l#3@@11|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@14|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@21) |l#2@@14|))) |l#3@@11|))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |1034|
  :pattern ( (MapType5Select (|lambda#24| |l#0@@14| |l#1@@14| |l#2@@14| |l#3@@11|) $o@@21 $f@@11))
 )))
@@ -5453,7 +5453,7 @@
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@15| T@U) (|l#1@@15| T@U) (|l#2@@15| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@15|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#25| |l#0@@15| |l#1@@15| |l#2@@15| |l#3@@12|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@15|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@22) |l#2@@15|))) |l#3@@12|))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |1035|
  :pattern ( (MapType5Select (|lambda#25| |l#0@@15| |l#1@@15| |l#2@@15| |l#3@@12|) $o@@22 $f@@12))
 )))
@@ -5463,7 +5463,7 @@
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@16| T@U) (|l#1@@16| T@U) (|l#2@@16| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@16|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#27| |l#0@@16| |l#1@@16| |l#2@@16| |l#3@@13|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@16|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@23) |l#2@@16|))) |l#3@@13|))))
- :qid |SMNDafny.110:17|
+ :qid |SMNDafny.114:17|
  :skolemid |1036|
  :pattern ( (MapType5Select (|lambda#27| |l#0@@16| |l#1@@16| |l#2@@16| |l#3@@13|) $o@@23 $f@@13))
 )))
@@ -5473,7 +5473,7 @@
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@17| T@U) (|l#1@@17| T@U) (|l#2@@17| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@17|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#28| |l#0@@17| |l#1@@17| |l#2@@17| |l#3@@14|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@17|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@24) |l#2@@17|))) |l#3@@14|))))
- :qid |SMNDafny.110:17|
+ :qid |SMNDafny.114:17|
  :skolemid |1037|
  :pattern ( (MapType5Select (|lambda#28| |l#0@@17| |l#1@@17| |l#2@@17| |l#3@@14|) $o@@24 $f@@14))
 )))
@@ -5483,7 +5483,7 @@
 )))
 (assert (forall (($o@@25 T@U) ($f@@15 T@U) (|l#0@@18| T@U) (|l#1@@18| T@U) (|l#2@@18| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@22 (FieldTypeInv0 (type $f@@15))))
  (=> (and (and (and (and (= (type $o@@25) refType) (= (type $f@@15) (FieldType alpha@@22))) (= (type |l#0@@18|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@18|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#29| |l#0@@18| |l#1@@18| |l#2@@18| |l#3@@15|) $o@@25 $f@@15))  (=> (and (not (= $o@@25 |l#0@@18|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@25) |l#2@@18|))) |l#3@@15|))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |1038|
  :pattern ( (MapType5Select (|lambda#29| |l#0@@18| |l#1@@18| |l#2@@18| |l#3@@15|) $o@@25 $f@@15))
 )))
@@ -5493,7 +5493,7 @@
 )))
 (assert (forall (($o@@26 T@U) ($f@@16 T@U) (|l#0@@19| T@U) (|l#1@@19| T@U) (|l#2@@19| T@U) (|l#3@@16| Bool) ) (! (let ((alpha@@23 (FieldTypeInv0 (type $f@@16))))
  (=> (and (and (and (and (= (type $o@@26) refType) (= (type $f@@16) (FieldType alpha@@23))) (= (type |l#0@@19|) refType)) (= (type |l#1@@19|) (MapType0Type refType MapType1Type))) (= (type |l#2@@19|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#30| |l#0@@19| |l#1@@19| |l#2@@19| |l#3@@16|) $o@@26 $f@@16))  (=> (and (not (= $o@@26 |l#0@@19|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@19| $o@@26) |l#2@@19|))) |l#3@@16|))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |1039|
  :pattern ( (MapType5Select (|lambda#30| |l#0@@19| |l#1@@19| |l#2@@19| |l#3@@16|) $o@@26 $f@@16))
 )))
@@ -5503,7 +5503,7 @@
 )))
 (assert (forall (($o@@27 T@U) ($f@@17 T@U) (|l#0@@20| T@U) (|l#1@@20| T@U) (|l#2@@20| T@U) (|l#3@@17| Bool) ) (! (let ((alpha@@24 (FieldTypeInv0 (type $f@@17))))
  (=> (and (and (and (and (= (type $o@@27) refType) (= (type $f@@17) (FieldType alpha@@24))) (= (type |l#0@@20|) refType)) (= (type |l#1@@20|) (MapType0Type refType MapType1Type))) (= (type |l#2@@20|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#31| |l#0@@20| |l#1@@20| |l#2@@20| |l#3@@17|) $o@@27 $f@@17))  (=> (and (not (= $o@@27 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@20| $o@@27) |l#2@@20|))) |l#3@@17|))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |1040|
  :pattern ( (MapType5Select (|lambda#31| |l#0@@20| |l#1@@20| |l#2@@20| |l#3@@17|) $o@@27 $f@@17))
 )))
@@ -5513,7 +5513,7 @@
 )))
 (assert (forall (($o@@28 T@U) ($f@@18 T@U) (|l#0@@21| T@U) (|l#1@@21| T@U) (|l#2@@21| T@U) (|l#3@@18| Bool) ) (! (let ((alpha@@25 (FieldTypeInv0 (type $f@@18))))
  (=> (and (and (and (and (= (type $o@@28) refType) (= (type $f@@18) (FieldType alpha@@25))) (= (type |l#0@@21|) refType)) (= (type |l#1@@21|) (MapType0Type refType MapType1Type))) (= (type |l#2@@21|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#32| |l#0@@21| |l#1@@21| |l#2@@21| |l#3@@18|) $o@@28 $f@@18))  (=> (and (not (= $o@@28 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@21| $o@@28) |l#2@@21|))) |l#3@@18|))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |1041|
  :pattern ( (MapType5Select (|lambda#32| |l#0@@21| |l#1@@21| |l#2@@21| |l#3@@18|) $o@@28 $f@@18))
 )))
@@ -5523,7 +5523,7 @@
 )))
 (assert (forall (($o@@29 T@U) ($f@@19 T@U) (|l#0@@22| T@U) (|l#1@@22| T@U) (|l#2@@22| T@U) (|l#3@@19| Bool) ) (! (let ((alpha@@26 (FieldTypeInv0 (type $f@@19))))
  (=> (and (and (and (and (= (type $o@@29) refType) (= (type $f@@19) (FieldType alpha@@26))) (= (type |l#0@@22|) refType)) (= (type |l#1@@22|) (MapType0Type refType MapType1Type))) (= (type |l#2@@22|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#33| |l#0@@22| |l#1@@22| |l#2@@22| |l#3@@19|) $o@@29 $f@@19))  (=> (and (not (= $o@@29 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@22| $o@@29) |l#2@@22|))) |l#3@@19|))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |1042|
  :pattern ( (MapType5Select (|lambda#33| |l#0@@22| |l#1@@22| |l#2@@22| |l#3@@19|) $o@@29 $f@@19))
 )))
@@ -5533,7 +5533,7 @@
 )))
 (assert (forall (($o@@30 T@U) ($f@@20 T@U) (|l#0@@23| T@U) (|l#1@@23| T@U) (|l#2@@23| T@U) (|l#3@@20| Bool) ) (! (let ((alpha@@27 (FieldTypeInv0 (type $f@@20))))
  (=> (and (and (and (and (= (type $o@@30) refType) (= (type $f@@20) (FieldType alpha@@27))) (= (type |l#0@@23|) refType)) (= (type |l#1@@23|) (MapType0Type refType MapType1Type))) (= (type |l#2@@23|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#34| |l#0@@23| |l#1@@23| |l#2@@23| |l#3@@20|) $o@@30 $f@@20))  (=> (and (not (= $o@@30 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@23| $o@@30) |l#2@@23|))) |l#3@@20|))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |1043|
  :pattern ( (MapType5Select (|lambda#34| |l#0@@23| |l#1@@23| |l#2@@23| |l#3@@20|) $o@@30 $f@@20))
 )))
@@ -5543,7 +5543,7 @@
 )))
 (assert (forall (($o@@31 T@U) ($f@@21 T@U) (|l#0@@24| T@U) (|l#1@@24| T@U) (|l#2@@24| T@U) (|l#3@@21| Bool) ) (! (let ((alpha@@28 (FieldTypeInv0 (type $f@@21))))
  (=> (and (and (and (and (= (type $o@@31) refType) (= (type $f@@21) (FieldType alpha@@28))) (= (type |l#0@@24|) refType)) (= (type |l#1@@24|) (MapType0Type refType MapType1Type))) (= (type |l#2@@24|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#35| |l#0@@24| |l#1@@24| |l#2@@24| |l#3@@21|) $o@@31 $f@@21))  (=> (and (not (= $o@@31 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@24| $o@@31) |l#2@@24|))) |l#3@@21|))))
- :qid |SMNDafny.172:7|
+ :qid |SMNDafny.176:7|
  :skolemid |1044|
  :pattern ( (MapType5Select (|lambda#35| |l#0@@24| |l#1@@24| |l#2@@24| |l#3@@21|) $o@@31 $f@@21))
 )))
@@ -5553,7 +5553,7 @@
 )))
 (assert (forall (($o@@32 T@U) ($f@@22 T@U) (|l#0@@25| T@U) (|l#1@@25| T@U) (|l#2@@25| T@U) (|l#3@@22| Bool) ) (! (let ((alpha@@29 (FieldTypeInv0 (type $f@@22))))
  (=> (and (and (and (and (= (type $o@@32) refType) (= (type $f@@22) (FieldType alpha@@29))) (= (type |l#0@@25|) refType)) (= (type |l#1@@25|) (MapType0Type refType MapType1Type))) (= (type |l#2@@25|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#36| |l#0@@25| |l#1@@25| |l#2@@25| |l#3@@22|) $o@@32 $f@@22))  (=> (and (not (= $o@@32 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@25| $o@@32) |l#2@@25|))) |l#3@@22|))))
- :qid |SMNDafny.184:7|
+ :qid |SMNDafny.188:7|
  :skolemid |1045|
  :pattern ( (MapType5Select (|lambda#36| |l#0@@25| |l#1@@25| |l#2@@25| |l#3@@22|) $o@@32 $f@@22))
 )))
@@ -5563,7 +5563,7 @@
 )))
 (assert (forall (($o@@33 T@U) ($f@@23 T@U) (|l#0@@26| T@U) (|l#1@@26| T@U) (|l#2@@26| T@U) (|l#3@@23| Bool) ) (! (let ((alpha@@30 (FieldTypeInv0 (type $f@@23))))
  (=> (and (and (and (and (= (type $o@@33) refType) (= (type $f@@23) (FieldType alpha@@30))) (= (type |l#0@@26|) refType)) (= (type |l#1@@26|) (MapType0Type refType MapType1Type))) (= (type |l#2@@26|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#37| |l#0@@26| |l#1@@26| |l#2@@26| |l#3@@23|) $o@@33 $f@@23))  (=> (and (not (= $o@@33 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@26| $o@@33) |l#2@@26|))) |l#3@@23|))))
- :qid |SMNDafny.184:7|
+ :qid |SMNDafny.188:7|
  :skolemid |1046|
  :pattern ( (MapType5Select (|lambda#37| |l#0@@26| |l#1@@26| |l#2@@26| |l#3@@23|) $o@@33 $f@@23))
 )))
@@ -5573,7 +5573,7 @@
 )))
 (assert (forall (($o@@34 T@U) ($f@@24 T@U) (|l#0@@27| T@U) (|l#1@@27| T@U) (|l#2@@27| T@U) (|l#3@@24| Bool) ) (! (let ((alpha@@31 (FieldTypeInv0 (type $f@@24))))
  (=> (and (and (and (and (= (type $o@@34) refType) (= (type $f@@24) (FieldType alpha@@31))) (= (type |l#0@@27|) refType)) (= (type |l#1@@27|) (MapType0Type refType MapType1Type))) (= (type |l#2@@27|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#38| |l#0@@27| |l#1@@27| |l#2@@27| |l#3@@24|) $o@@34 $f@@24))  (=> (and (not (= $o@@34 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@27| $o@@34) |l#2@@27|))) |l#3@@24|))))
- :qid |SMNDafny.217:8|
+ :qid |SMNDafny.221:8|
  :skolemid |1047|
  :pattern ( (MapType5Select (|lambda#38| |l#0@@27| |l#1@@27| |l#2@@27| |l#3@@24|) $o@@34 $f@@24))
 )))
@@ -10673,22 +10673,22 @@ PreconditionGeneratedEntry_correct)))))))))
  :pattern ( (_module.__default.IntRange arg0@@199 arg1@@93 arg2@@48))
 )))
 (assert (forall (($ly@@23 T@U) (|lo#0| Int) (|len#0| Int) ) (!  (=> (= (type $ly@@23) LayerTypeType) (= (_module.__default.IntRange ($LS $ly@@23) |lo#0| |len#0|) (_module.__default.IntRange $ly@@23 |lo#0| |len#0|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |936|
  :pattern ( (_module.__default.IntRange ($LS $ly@@23) |lo#0| |len#0|))
 )))
 (assert (forall (($ly@@24 T@U) (|lo#0@@0| Int) (|len#0@@0| Int) ) (!  (=> (= (type $ly@@24) LayerTypeType) (= (_module.__default.IntRange $ly@@24 |lo#0@@0| |len#0@@0|) (_module.__default.IntRange $LZ |lo#0@@0| |len#0@@0|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |937|
  :pattern ( (_module.__default.IntRange (AsFuelBottom $ly@@24) |lo#0@@0| |len#0@@0|))
 )))
 (assert  (=> (<= 16 $FunctionContextHeight) (forall (($ly@@25 T@U) (|lo#0@@1| Int) (|len#0@@1| Int) ) (!  (=> (and (= (type $ly@@25) LayerTypeType) (or (|_module.__default.IntRange#canCall| |lo#0@@1| |len#0@@1|) (not (= 16 $FunctionContextHeight)))) (and (= (|Set#Card| (_module.__default.IntRange $ly@@25 |lo#0@@1| |len#0@@1|)) |len#0@@1|) ($Is (_module.__default.IntRange $ly@@25 |lo#0@@1| |len#0@@1|) (TSet TInt))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |938|
  :pattern ( (_module.__default.IntRange $ly@@25 |lo#0@@1| |len#0@@1|))
 ))))
 (assert (forall (($ly@@26 T@U) (|lo#0@@2| Int) (|len#0@@2| Int) ) (!  (=> (= (type $ly@@26) LayerTypeType) (and (=> (|_module.__default.IntRange#requires| $ly@@26 |lo#0@@2| |len#0@@2|) true) (=> true (|_module.__default.IntRange#requires| $ly@@26 |lo#0@@2| |len#0@@2|))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |939|
  :pattern ( (|_module.__default.IntRange#requires| $ly@@26 |lo#0@@2| |len#0@@2|))
 )))
@@ -10698,55 +10698,55 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert  (=> (<= 16 $FunctionContextHeight) (forall (($ly@@27 T@U) (|lo#0@@3| Int) (|len#0@@3| Int) ) (!  (=> (and (= (type $ly@@27) LayerTypeType) (or (|_module.__default.IntRange#canCall| |lo#0@@3| |len#0@@3|) (not (= 16 $FunctionContextHeight)))) (= (_module.__default.IntRange ($LS $ly@@27) |lo#0@@3| |len#0@@3|) (let ((|S#0| (|lambda#22| TInt |lo#0@@3| (+ |lo#0@@3| |len#0@@3|))))
 |S#0|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |940|
  :pattern ( (_module.__default.IntRange ($LS $ly@@27) |lo#0@@3| |len#0@@3|))
 ))))
 (assert  (=> (<= 16 $FunctionContextHeight) (forall (($ly@@28 T@U) (|lo#0@@4| Int) (|len#0@@4| Int) ) (!  (=> (and (= (type $ly@@28) LayerTypeType) (or (|_module.__default.IntRange#canCall| |lo#0@@4| |len#0@@4|) (not (= 16 $FunctionContextHeight)))) (= (_module.__default.IntRange ($LS $ly@@28) |lo#0@@4| |len#0@@4|) (let ((|S#1| (|lambda#22| TInt |lo#0@@4| (+ |lo#0@@4| |len#0@@4|))))
 |S#1|)))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :weight 3
  :skolemid |941|
  :pattern ( (_module.__default.IntRange ($LS $ly@@28) |lo#0@@4| |len#0@@4|))
 ))))
 (assert  (=> (<= 13 $FunctionContextHeight) (forall ((|xs#0@@23| T@U) ) (!  (=> (and (= (type |xs#0@@23|) DatatypeTypeType) (or (|_module.__default.SmallestMissingNumber#canCall| |xs#0@@23|) (and (not (= 13 $FunctionContextHeight)) ($Is |xs#0@@23| (Tclass._module.List TInt))))) true)
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :skolemid |942|
  :pattern ( (_module.__default.SmallestMissingNumber |xs#0@@23|))
 ))))
 (assert (forall ((|xs#0@@24| T@U) ) (!  (=> (and (= (type |xs#0@@24|) DatatypeTypeType) ($Is |xs#0@@24| (Tclass._module.List TInt))) (and (=> (|_module.__default.SmallestMissingNumber#requires| |xs#0@@24|) true) (=> true (|_module.__default.SmallestMissingNumber#requires| |xs#0@@24|))))
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :skolemid |943|
  :pattern ( (|_module.__default.SmallestMissingNumber#requires| |xs#0@@24|))
 )))
 (assert  (=> (<= 13 $FunctionContextHeight) (forall ((|xs#0@@25| T@U) ) (!  (=> (and (= (type |xs#0@@25|) DatatypeTypeType) (or (|_module.__default.SmallestMissingNumber#canCall| |xs#0@@25|) (and (not (= 13 $FunctionContextHeight)) ($Is |xs#0@@25| (Tclass._module.List TInt))))) (and (and (|_module.__default.Length#canCall| TInt |xs#0@@25|) (|_module.__default.SMN#canCall| |xs#0@@25| 0 (_module.__default.Length TInt ($LS $LZ) |xs#0@@25|))) (= (_module.__default.SmallestMissingNumber |xs#0@@25|) (_module.__default.SMN ($LS $LZ) |xs#0@@25| 0 (_module.__default.Length TInt ($LS $LZ) |xs#0@@25|)))))
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :skolemid |944|
  :pattern ( (_module.__default.SmallestMissingNumber |xs#0@@25|))
 ))))
 (assert  (=> (<= 13 $FunctionContextHeight) (forall ((|xs#0@@26| T@U) ) (!  (=> (and (= (type |xs#0@@26|) DatatypeTypeType) (or (|_module.__default.SmallestMissingNumber#canCall| (Lit |xs#0@@26|)) (and (not (= 13 $FunctionContextHeight)) ($Is |xs#0@@26| (Tclass._module.List TInt))))) (and (and (|_module.__default.Length#canCall| TInt (Lit |xs#0@@26|)) (|_module.__default.SMN#canCall| (Lit |xs#0@@26|) 0 (_module.__default.Length TInt ($LS $LZ) (Lit |xs#0@@26|)))) (= (_module.__default.SmallestMissingNumber (Lit |xs#0@@26|)) (_module.__default.SMN ($LS $LZ) (Lit |xs#0@@26|) 0 (_module.__default.Length TInt ($LS $LZ) (Lit |xs#0@@26|))))))
- :qid |SMNDafny.110:39|
+ :qid |SMNDafny.114:39|
  :weight 3
  :skolemid |945|
  :pattern ( (_module.__default.SmallestMissingNumber (Lit |xs#0@@26|)))
 ))))
 (assert (forall (($ly@@29 T@U) (|xs#0@@27| T@U) (|n#0| Int) (|len#0@@5| Int) ) (!  (=> (and (= (type $ly@@29) LayerTypeType) (= (type |xs#0@@27|) DatatypeTypeType)) (= (_module.__default.SMN ($LS $ly@@29) |xs#0@@27| |n#0| |len#0@@5|) (_module.__default.SMN $ly@@29 |xs#0@@27| |n#0| |len#0@@5|)))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |948|
  :pattern ( (_module.__default.SMN ($LS $ly@@29) |xs#0@@27| |n#0| |len#0@@5|))
 )))
 (assert (forall (($ly@@30 T@U) (|xs#0@@28| T@U) (|n#0@@0| Int) (|len#0@@6| Int) ) (!  (=> (and (= (type $ly@@30) LayerTypeType) (= (type |xs#0@@28|) DatatypeTypeType)) (= (_module.__default.SMN $ly@@30 |xs#0@@28| |n#0@@0| |len#0@@6|) (_module.__default.SMN $LZ |xs#0@@28| |n#0@@0| |len#0@@6|)))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |949|
  :pattern ( (_module.__default.SMN (AsFuelBottom $ly@@30) |xs#0@@28| |n#0@@0| |len#0@@6|))
 )))
 (assert  (=> (<= 12 $FunctionContextHeight) (forall (($ly@@31 T@U) (|xs#0@@29| T@U) (|n#0@@1| Int) (|len#0@@7| Int) ) (!  (=> (and (and (= (type $ly@@31) LayerTypeType) (= (type |xs#0@@29|) DatatypeTypeType)) (or (|_module.__default.SMN#canCall| |xs#0@@29| |n#0@@1| |len#0@@7|) (and (not (= 12 $FunctionContextHeight)) (and ($Is |xs#0@@29| (Tclass._module.List TInt)) (= |len#0@@7| (_module.__default.Length TInt ($LS $LZ) |xs#0@@29|)))))) true)
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |950|
  :pattern ( (_module.__default.SMN $ly@@31 |xs#0@@29| |n#0@@1| |len#0@@7|))
 ))))
 (assert (forall (($ly@@32 T@U) (|xs#0@@30| T@U) (|n#0@@2| Int) (|len#0@@8| Int) ) (!  (=> (and (and (= (type $ly@@32) LayerTypeType) (= (type |xs#0@@30|) DatatypeTypeType)) ($Is |xs#0@@30| (Tclass._module.List TInt))) (and (=> (|_module.__default.SMN#requires| $ly@@32 |xs#0@@30| |n#0@@2| |len#0@@8|) (= |len#0@@8| (_module.__default.Length TInt ($LS $LZ) |xs#0@@30|))) (=> (= |len#0@@8| (_module.__default.Length TInt ($LS $LZ) |xs#0@@30|)) (|_module.__default.SMN#requires| $ly@@32 |xs#0@@30| |n#0@@2| |len#0@@8|))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |951|
  :pattern ( (|_module.__default.SMN#requires| $ly@@32 |xs#0@@30| |n#0@@2| |len#0@@8|))
 )))
@@ -10757,7 +10757,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#0@@1| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@31| (+ |n#0@@3| (div |len#0@@9| 2)))))))
 (let ((|llen#0@@0| (_module.__default.Length TInt ($LS $LZ) |L#0@@1|)))
 (ite (< |llen#0@@0| (div |len#0@@9| 2)) (_module.__default.SMN $ly@@33 |L#0@@1| |n#0@@3| |llen#0@@0|) (_module.__default.SMN $ly@@33 |R#0@@1| (+ |n#0@@3| |llen#0@@0|) (- |len#0@@9| |llen#0@@0|)))))) (ite (_module.List.Cons_q |xs#0@@31|) (ite (= (U_2_int ($Unbox intType (_module.List.head |xs#0@@31|))) |n#0@@3|) (+ |n#0@@3| 1) |n#0@@3|) |n#0@@3|)))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |952|
  :pattern ( (_module.__default.SMN ($LS $ly@@33) |xs#0@@31| |n#0@@3| |len#0@@9|))
 ))))
@@ -10768,7 +10768,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#1@@0| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@32| (+ |n#0@@4| (div |len#0@@10| 2)))))))
 (let ((|llen#1@@0| (_module.__default.Length TInt ($LS $LZ) |L#1@@0|)))
 (ite (< |llen#1@@0| (div |len#0@@10| 2)) (_module.__default.SMN ($LS $ly@@34) |L#1@@0| |n#0@@4| |llen#1@@0|) (_module.__default.SMN ($LS $ly@@34) |R#1@@0| (+ |n#0@@4| |llen#1@@0|) (- |len#0@@10| |llen#1@@0|)))))) (ite (_module.List.Cons_q |xs#0@@32|) (ite (= (U_2_int ($Unbox intType (_module.List.head |xs#0@@32|))) |n#0@@4|) (+ |n#0@@4| 1) |n#0@@4|) |n#0@@4|)))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :weight 3
  :skolemid |953|
  :pattern ( (_module.__default.SMN ($LS $ly@@34) |xs#0@@32| |n#0@@4| |len#0@@10|))
@@ -10780,28 +10780,28 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#2@@1| ($Unbox DatatypeTypeType (_System.Tuple2._0 (Lit (_module.__default.Split ($LS $LZ) (Lit |xs#0@@33|) (+ |n#0@@5| (div |len#0@@11| 2))))))))
 (let ((|llen#2@@0| (_module.__default.Length TInt ($LS $LZ) |L#2@@1|)))
 (ite (< |llen#2@@0| (div |len#0@@11| 2)) (_module.__default.SMN ($LS $ly@@35) |L#2@@1| |n#0@@5| |llen#2@@0|) (_module.__default.SMN ($LS $ly@@35) |R#2@@1| (+ |n#0@@5| |llen#2@@0|) (- |len#0@@11| |llen#2@@0|)))))) (ite (_module.List.Cons_q (Lit |xs#0@@33|)) (ite (= (U_2_int ($Unbox intType (_module.List.head (Lit |xs#0@@33|)))) |n#0@@5|) (+ |n#0@@5| 1) |n#0@@5|) |n#0@@5|)))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :weight 3
  :skolemid |954|
  :pattern ( (_module.__default.SMN ($LS $ly@@35) (Lit |xs#0@@33|) |n#0@@5| |len#0@@11|))
 ))))
 (assert (forall (($ly@@36 T@U) (|xs#0@@34| T@U) (|n#0@@6| Int) (|len#0@@12| Int) ) (!  (=> (and (= (type $ly@@36) LayerTypeType) (= (type |xs#0@@34|) DatatypeTypeType)) (= (_module.__default.SMN_k ($LS $ly@@36) |xs#0@@34| |n#0@@6| |len#0@@12|) (_module.__default.SMN_k $ly@@36 |xs#0@@34| |n#0@@6| |len#0@@12|)))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |960|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@36) |xs#0@@34| |n#0@@6| |len#0@@12|))
 )))
 (assert (forall (($ly@@37 T@U) (|xs#0@@35| T@U) (|n#0@@7| Int) (|len#0@@13| Int) ) (!  (=> (and (= (type $ly@@37) LayerTypeType) (= (type |xs#0@@35|) DatatypeTypeType)) (= (_module.__default.SMN_k $ly@@37 |xs#0@@35| |n#0@@7| |len#0@@13|) (_module.__default.SMN_k $LZ |xs#0@@35| |n#0@@7| |len#0@@13|)))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |961|
  :pattern ( (_module.__default.SMN_k (AsFuelBottom $ly@@37) |xs#0@@35| |n#0@@7| |len#0@@13|))
 )))
 (assert  (=> (<= 14 $FunctionContextHeight) (forall (($ly@@38 T@U) (|xs#0@@36| T@U) (|n#0@@8| Int) (|len#0@@14| Int) ) (!  (=> (and (and (= (type $ly@@38) LayerTypeType) (= (type |xs#0@@36|) DatatypeTypeType)) (or (|_module.__default.SMN_k#canCall| |xs#0@@36| |n#0@@8| |len#0@@14|) (and (not (= 14 $FunctionContextHeight)) (and ($Is |xs#0@@36| (Tclass._module.List TInt)) (= |len#0@@14| (_module.__default.Length TInt ($LS $LZ) |xs#0@@36|)))))) true)
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |962|
  :pattern ( (_module.__default.SMN_k $ly@@38 |xs#0@@36| |n#0@@8| |len#0@@14|))
 ))))
 (assert (forall (($ly@@39 T@U) (|xs#0@@37| T@U) (|n#0@@9| Int) (|len#0@@15| Int) ) (!  (=> (and (and (= (type $ly@@39) LayerTypeType) (= (type |xs#0@@37|) DatatypeTypeType)) ($Is |xs#0@@37| (Tclass._module.List TInt))) (and (=> (|_module.__default.SMN_k#requires| $ly@@39 |xs#0@@37| |n#0@@9| |len#0@@15|) (= |len#0@@15| (_module.__default.Length TInt ($LS $LZ) |xs#0@@37|))) (=> (= |len#0@@15| (_module.__default.Length TInt ($LS $LZ) |xs#0@@37|)) (|_module.__default.SMN_k#requires| $ly@@39 |xs#0@@37| |n#0@@9| |len#0@@15|))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |963|
  :pattern ( (|_module.__default.SMN_k#requires| $ly@@39 |xs#0@@37| |n#0@@9| |len#0@@15|))
 )))
@@ -10814,7 +10814,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#0@@3| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@38| (+ |n#0@@10| |half#0@@0|))))))
 (let ((|llen#0@@2| (_module.__default.Length TInt ($LS $LZ) |L#0@@3|)))
 (ite (< |llen#0@@2| |half#0@@0|) (_module.__default.SMN_k $ly@@40 |L#0@@3| |n#0@@10| |llen#0@@2|) (_module.__default.SMN_k $ly@@40 |R#0@@3| (+ |n#0@@10| |llen#0@@2|) (- |len#0@@16| |llen#0@@2|)))))))))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |964|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@40) |xs#0@@38| |n#0@@10| |len#0@@16|))
 ))))
@@ -10827,7 +10827,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#1@@2| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@39| (+ |n#0@@11| |half#1@@0|))))))
 (let ((|llen#1@@2| (_module.__default.Length TInt ($LS $LZ) |L#1@@2|)))
 (ite (< |llen#1@@2| |half#1@@0|) (_module.__default.SMN_k ($LS $ly@@41) |L#1@@2| |n#0@@11| |llen#1@@2|) (_module.__default.SMN_k ($LS $ly@@41) |R#1@@2| (+ |n#0@@11| |llen#1@@2|) (- |len#0@@17| |llen#1@@2|)))))))))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :weight 3
  :skolemid |965|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@41) |xs#0@@39| |n#0@@11| |len#0@@17|))
@@ -10841,28 +10841,28 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#2@@3| ($Unbox DatatypeTypeType (_System.Tuple2._0 (Lit (_module.__default.Split ($LS $LZ) (Lit |xs#0@@40|) (+ |n#0@@12| |half#2@@0|)))))))
 (let ((|llen#2@@2| (_module.__default.Length TInt ($LS $LZ) |L#2@@3|)))
 (ite (< |llen#2@@2| |half#2@@0|) (_module.__default.SMN_k ($LS $ly@@42) |L#2@@3| |n#0@@12| |llen#2@@2|) (_module.__default.SMN_k ($LS $ly@@42) |R#2@@3| (+ |n#0@@12| |llen#2@@2|) (- |len#0@@18| |llen#2@@2|)))))))))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :weight 3
  :skolemid |966|
  :pattern ( (_module.__default.SMN_k ($LS $ly@@42) (Lit |xs#0@@40|) |n#0@@12| |len#0@@18|))
 ))))
 (assert (forall (($ly@@43 T@U) (|xs#0@@41| T@U) (|n#0@@13| Int) (|len#0@@19| Int) ) (!  (=> (and (= (type $ly@@43) LayerTypeType) (= (type |xs#0@@41|) DatatypeTypeType)) (= (_module.__default.SMN_k_k ($LS $ly@@43) |xs#0@@41| |n#0@@13| |len#0@@19|) (_module.__default.SMN_k_k $ly@@43 |xs#0@@41| |n#0@@13| |len#0@@19|)))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |972|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@43) |xs#0@@41| |n#0@@13| |len#0@@19|))
 )))
 (assert (forall (($ly@@44 T@U) (|xs#0@@42| T@U) (|n#0@@14| Int) (|len#0@@20| Int) ) (!  (=> (and (= (type $ly@@44) LayerTypeType) (= (type |xs#0@@42|) DatatypeTypeType)) (= (_module.__default.SMN_k_k $ly@@44 |xs#0@@42| |n#0@@14| |len#0@@20|) (_module.__default.SMN_k_k $LZ |xs#0@@42| |n#0@@14| |len#0@@20|)))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |973|
  :pattern ( (_module.__default.SMN_k_k (AsFuelBottom $ly@@44) |xs#0@@42| |n#0@@14| |len#0@@20|))
 )))
 (assert  (=> (<= 15 $FunctionContextHeight) (forall (($ly@@45 T@U) (|xs#0@@43| T@U) (|n#0@@15| Int) (|len#0@@21| Int) ) (!  (=> (and (and (= (type $ly@@45) LayerTypeType) (= (type |xs#0@@43|) DatatypeTypeType)) (or (|_module.__default.SMN_k_k#canCall| |xs#0@@43| |n#0@@15| |len#0@@21|) (and (not (= 15 $FunctionContextHeight)) (and ($Is |xs#0@@43| (Tclass._module.List TInt)) (= |len#0@@21| (_module.__default.Length TInt ($LS $LZ) |xs#0@@43|)))))) true)
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |974|
  :pattern ( (_module.__default.SMN_k_k $ly@@45 |xs#0@@43| |n#0@@15| |len#0@@21|))
 ))))
 (assert (forall (($ly@@46 T@U) (|xs#0@@44| T@U) (|n#0@@16| Int) (|len#0@@22| Int) ) (!  (=> (and (and (= (type $ly@@46) LayerTypeType) (= (type |xs#0@@44|) DatatypeTypeType)) ($Is |xs#0@@44| (Tclass._module.List TInt))) (and (=> (|_module.__default.SMN_k_k#requires| $ly@@46 |xs#0@@44| |n#0@@16| |len#0@@22|) (= |len#0@@22| (_module.__default.Length TInt ($LS $LZ) |xs#0@@44|))) (=> (= |len#0@@22| (_module.__default.Length TInt ($LS $LZ) |xs#0@@44|)) (|_module.__default.SMN_k_k#requires| $ly@@46 |xs#0@@44| |n#0@@16| |len#0@@22|))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |975|
  :pattern ( (|_module.__default.SMN_k_k#requires| $ly@@46 |xs#0@@44| |n#0@@16| |len#0@@22|))
 )))
@@ -10875,7 +10875,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#0@@5| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@45| (+ |n#0@@17| |half#0@@2|))))))
 (let ((|llen#0@@4| (_module.__default.Length TInt ($LS $LZ) |L#0@@5|)))
 (ite (< |llen#0@@4| |half#0@@2|) (_module.__default.SMN_k_k $ly@@47 |L#0@@5| |n#0@@17| |llen#0@@4|) (_module.__default.SMN_k_k $ly@@47 |R#0@@5| (+ |n#0@@17| |llen#0@@4|) (- |len#0@@23| |llen#0@@4|)))))))))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |976|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@47) |xs#0@@45| |n#0@@17| |len#0@@23|))
 ))))
@@ -10888,7 +10888,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#1@@4| ($Unbox DatatypeTypeType (_System.Tuple2._0 (_module.__default.Split ($LS $LZ) |xs#0@@46| (+ |n#0@@18| |half#1@@2|))))))
 (let ((|llen#1@@4| (_module.__default.Length TInt ($LS $LZ) |L#1@@4|)))
 (ite (< |llen#1@@4| |half#1@@2|) (_module.__default.SMN_k_k ($LS $ly@@48) |L#1@@4| |n#0@@18| |llen#1@@4|) (_module.__default.SMN_k_k ($LS $ly@@48) |R#1@@4| (+ |n#0@@18| |llen#1@@4|) (- |len#0@@24| |llen#1@@4|)))))))))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :weight 3
  :skolemid |977|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@48) |xs#0@@46| |n#0@@18| |len#0@@24|))
@@ -10902,7 +10902,7 @@ PreconditionGeneratedEntry_correct)))))))))
 (let ((|L#2@@5| ($Unbox DatatypeTypeType (_System.Tuple2._0 (Lit (_module.__default.Split ($LS $LZ) (Lit |xs#0@@47|) (+ |n#0@@19| |half#2@@2|)))))))
 (let ((|llen#2@@4| (_module.__default.Length TInt ($LS $LZ) |L#2@@5|)))
 (ite (< |llen#2@@4| |half#2@@2|) (_module.__default.SMN_k_k ($LS $ly@@49) |L#2@@5| |n#0@@19| |llen#2@@4|) (_module.__default.SMN_k_k ($LS $ly@@49) |R#2@@5| (+ |n#0@@19| |llen#2@@4|) (- |len#0@@25| |llen#2@@4|)))))))))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :weight 3
  :skolemid |978|
  :pattern ( (_module.__default.SMN_k_k ($LS $ly@@49) (Lit |xs#0@@47|) |n#0@@19| |len#0@@25|))
@@ -11041,7 +11041,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@9| T@U) (|l#1@@9| T@U) (|l#2@@9| T@U) (|l#3@@7| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@9|) refType)) (= (type |l#1@@9|) (MapType0Type refType MapType1Type))) (= (type |l#2@@9|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#18| |l#0@@9| |l#1@@9| |l#2@@9| |l#3@@7|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@9|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@9| $o@@17) |l#2@@9|))) |l#3@@7|))))
- :qid |SMNDafny.73:11|
+ :qid |SMNDafny.77:11|
  :skolemid |1029|
  :pattern ( (MapType5Select (|lambda#18| |l#0@@9| |l#1@@9| |l#2@@9| |l#3@@7|) $o@@17 $f@@7))
 )))
@@ -11051,7 +11051,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@10| T@U) (|l#1@@10| T@U) (|l#2@@10| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@10|) refType)) (= (type |l#1@@10|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#19| |l#0@@10| |l#1@@10| |l#2@@10| |l#3@@8|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@10|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@10| $o@@18) |l#2@@10|))) |l#3@@8|))))
- :qid |SMNDafny.73:11|
+ :qid |SMNDafny.77:11|
  :skolemid |1030|
  :pattern ( (MapType5Select (|lambda#19| |l#0@@10| |l#1@@10| |l#2@@10| |l#3@@8|) $o@@18 $f@@8))
 )))
@@ -11061,7 +11061,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@11| T@U) (|l#1@@11| T@U) (|l#2@@11| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@11|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#20| |l#0@@11| |l#1@@11| |l#2@@11| |l#3@@9|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@11|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@19) |l#2@@11|))) |l#3@@9|))))
- :qid |SMNDafny.81:7|
+ :qid |SMNDafny.85:7|
  :skolemid |1031|
  :pattern ( (MapType5Select (|lambda#20| |l#0@@11| |l#1@@11| |l#2@@11| |l#3@@9|) $o@@19 $f@@9))
 )))
@@ -11071,12 +11071,12 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@12| T@U) (|l#1@@12| T@U) (|l#2@@12| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@12|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#21| |l#0@@12| |l#1@@12| |l#2@@12| |l#3@@10|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@12|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@20) |l#2@@12|))) |l#3@@10|))))
- :qid |SMNDafny.91:7|
+ :qid |SMNDafny.95:7|
  :skolemid |1032|
  :pattern ( (MapType5Select (|lambda#21| |l#0@@12| |l#1@@12| |l#2@@12| |l#3@@10|) $o@@20 $f@@10))
 )))
 (assert (forall ((|$y#0| T@U) (|l#0@@13| T@U) (|l#1@@13| Int) (|l#2@@13| Int) ) (!  (=> (and (= (type |$y#0|) BoxType) (= (type |l#0@@13|) TyType)) (= (U_2_bool (MapType0Select (|lambda#22| |l#0@@13| |l#1@@13| |l#2@@13|) |$y#0|))  (and ($IsBox |$y#0| |l#0@@13|) (and (<= |l#1@@13| (U_2_int ($Unbox intType |$y#0|))) (< (U_2_int ($Unbox intType |$y#0|)) |l#2@@13|)))))
- :qid |SMNDafny.105:12|
+ :qid |SMNDafny.109:12|
  :skolemid |1033|
  :pattern ( (MapType0Select (|lambda#22| |l#0@@13| |l#1@@13| |l#2@@13|) |$y#0|))
 )))
@@ -11086,7 +11086,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@14| T@U) (|l#1@@14| T@U) (|l#2@@14| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@14|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#24| |l#0@@14| |l#1@@14| |l#2@@14| |l#3@@11|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@14|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@21) |l#2@@14|))) |l#3@@11|))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |1034|
  :pattern ( (MapType5Select (|lambda#24| |l#0@@14| |l#1@@14| |l#2@@14| |l#3@@11|) $o@@21 $f@@11))
 )))
@@ -11096,7 +11096,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@15| T@U) (|l#1@@15| T@U) (|l#2@@15| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@15|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#25| |l#0@@15| |l#1@@15| |l#2@@15| |l#3@@12|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@15|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@22) |l#2@@15|))) |l#3@@12|))))
- :qid |SMNDafny.102:10|
+ :qid |SMNDafny.106:10|
  :skolemid |1035|
  :pattern ( (MapType5Select (|lambda#25| |l#0@@15| |l#1@@15| |l#2@@15| |l#3@@12|) $o@@22 $f@@12))
 )))
@@ -11106,7 +11106,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@16| T@U) (|l#1@@16| T@U) (|l#2@@16| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@16|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#27| |l#0@@16| |l#1@@16| |l#2@@16| |l#3@@13|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@16|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@23) |l#2@@16|))) |l#3@@13|))))
- :qid |SMNDafny.110:17|
+ :qid |SMNDafny.114:17|
  :skolemid |1036|
  :pattern ( (MapType5Select (|lambda#27| |l#0@@16| |l#1@@16| |l#2@@16| |l#3@@13|) $o@@23 $f@@13))
 )))
@@ -11116,7 +11116,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@17| T@U) (|l#1@@17| T@U) (|l#2@@17| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@17|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#28| |l#0@@17| |l#1@@17| |l#2@@17| |l#3@@14|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@17|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@24) |l#2@@17|))) |l#3@@14|))))
- :qid |SMNDafny.110:17|
+ :qid |SMNDafny.114:17|
  :skolemid |1037|
  :pattern ( (MapType5Select (|lambda#28| |l#0@@17| |l#1@@17| |l#2@@17| |l#3@@14|) $o@@24 $f@@14))
 )))
@@ -11126,7 +11126,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@25 T@U) ($f@@15 T@U) (|l#0@@18| T@U) (|l#1@@18| T@U) (|l#2@@18| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@22 (FieldTypeInv0 (type $f@@15))))
  (=> (and (and (and (and (= (type $o@@25) refType) (= (type $f@@15) (FieldType alpha@@22))) (= (type |l#0@@18|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@18|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#29| |l#0@@18| |l#1@@18| |l#2@@18| |l#3@@15|) $o@@25 $f@@15))  (=> (and (not (= $o@@25 |l#0@@18|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@25) |l#2@@18|))) |l#3@@15|))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |1038|
  :pattern ( (MapType5Select (|lambda#29| |l#0@@18| |l#1@@18| |l#2@@18| |l#3@@15|) $o@@25 $f@@15))
 )))
@@ -11136,7 +11136,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@26 T@U) ($f@@16 T@U) (|l#0@@19| T@U) (|l#1@@19| T@U) (|l#2@@19| T@U) (|l#3@@16| Bool) ) (! (let ((alpha@@23 (FieldTypeInv0 (type $f@@16))))
  (=> (and (and (and (and (= (type $o@@26) refType) (= (type $f@@16) (FieldType alpha@@23))) (= (type |l#0@@19|) refType)) (= (type |l#1@@19|) (MapType0Type refType MapType1Type))) (= (type |l#2@@19|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#30| |l#0@@19| |l#1@@19| |l#2@@19| |l#3@@16|) $o@@26 $f@@16))  (=> (and (not (= $o@@26 |l#0@@19|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@19| $o@@26) |l#2@@19|))) |l#3@@16|))))
- :qid |SMNDafny.115:17|
+ :qid |SMNDafny.119:17|
  :skolemid |1039|
  :pattern ( (MapType5Select (|lambda#30| |l#0@@19| |l#1@@19| |l#2@@19| |l#3@@16|) $o@@26 $f@@16))
 )))
@@ -11146,7 +11146,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@27 T@U) ($f@@17 T@U) (|l#0@@20| T@U) (|l#1@@20| T@U) (|l#2@@20| T@U) (|l#3@@17| Bool) ) (! (let ((alpha@@24 (FieldTypeInv0 (type $f@@17))))
  (=> (and (and (and (and (= (type $o@@27) refType) (= (type $f@@17) (FieldType alpha@@24))) (= (type |l#0@@20|) refType)) (= (type |l#1@@20|) (MapType0Type refType MapType1Type))) (= (type |l#2@@20|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#31| |l#0@@20| |l#1@@20| |l#2@@20| |l#3@@17|) $o@@27 $f@@17))  (=> (and (not (= $o@@27 |l#0@@20|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@20| $o@@27) |l#2@@20|))) |l#3@@17|))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |1040|
  :pattern ( (MapType5Select (|lambda#31| |l#0@@20| |l#1@@20| |l#2@@20| |l#3@@17|) $o@@27 $f@@17))
 )))
@@ -11156,7 +11156,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@28 T@U) ($f@@18 T@U) (|l#0@@21| T@U) (|l#1@@21| T@U) (|l#2@@21| T@U) (|l#3@@18| Bool) ) (! (let ((alpha@@25 (FieldTypeInv0 (type $f@@18))))
  (=> (and (and (and (and (= (type $o@@28) refType) (= (type $f@@18) (FieldType alpha@@25))) (= (type |l#0@@21|) refType)) (= (type |l#1@@21|) (MapType0Type refType MapType1Type))) (= (type |l#2@@21|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#32| |l#0@@21| |l#1@@21| |l#2@@21| |l#3@@18|) $o@@28 $f@@18))  (=> (and (not (= $o@@28 |l#0@@21|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@21| $o@@28) |l#2@@21|))) |l#3@@18|))))
- :qid |SMNDafny.135:17|
+ :qid |SMNDafny.139:17|
  :skolemid |1041|
  :pattern ( (MapType5Select (|lambda#32| |l#0@@21| |l#1@@21| |l#2@@21| |l#3@@18|) $o@@28 $f@@18))
 )))
@@ -11166,7 +11166,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@29 T@U) ($f@@19 T@U) (|l#0@@22| T@U) (|l#1@@22| T@U) (|l#2@@22| T@U) (|l#3@@19| Bool) ) (! (let ((alpha@@26 (FieldTypeInv0 (type $f@@19))))
  (=> (and (and (and (and (= (type $o@@29) refType) (= (type $f@@19) (FieldType alpha@@26))) (= (type |l#0@@22|) refType)) (= (type |l#1@@22|) (MapType0Type refType MapType1Type))) (= (type |l#2@@22|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#33| |l#0@@22| |l#1@@22| |l#2@@22| |l#3@@19|) $o@@29 $f@@19))  (=> (and (not (= $o@@29 |l#0@@22|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@22| $o@@29) |l#2@@22|))) |l#3@@19|))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |1042|
  :pattern ( (MapType5Select (|lambda#33| |l#0@@22| |l#1@@22| |l#2@@22| |l#3@@19|) $o@@29 $f@@19))
 )))
@@ -11176,7 +11176,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@30 T@U) ($f@@20 T@U) (|l#0@@23| T@U) (|l#1@@23| T@U) (|l#2@@23| T@U) (|l#3@@20| Bool) ) (! (let ((alpha@@27 (FieldTypeInv0 (type $f@@20))))
  (=> (and (and (and (and (= (type $o@@30) refType) (= (type $f@@20) (FieldType alpha@@27))) (= (type |l#0@@23|) refType)) (= (type |l#1@@23|) (MapType0Type refType MapType1Type))) (= (type |l#2@@23|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#34| |l#0@@23| |l#1@@23| |l#2@@23| |l#3@@20|) $o@@30 $f@@20))  (=> (and (not (= $o@@30 |l#0@@23|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@23| $o@@30) |l#2@@23|))) |l#3@@20|))))
- :qid |SMNDafny.154:17|
+ :qid |SMNDafny.158:17|
  :skolemid |1043|
  :pattern ( (MapType5Select (|lambda#34| |l#0@@23| |l#1@@23| |l#2@@23| |l#3@@20|) $o@@30 $f@@20))
 )))
@@ -11186,7 +11186,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@31 T@U) ($f@@21 T@U) (|l#0@@24| T@U) (|l#1@@24| T@U) (|l#2@@24| T@U) (|l#3@@21| Bool) ) (! (let ((alpha@@28 (FieldTypeInv0 (type $f@@21))))
  (=> (and (and (and (and (= (type $o@@31) refType) (= (type $f@@21) (FieldType alpha@@28))) (= (type |l#0@@24|) refType)) (= (type |l#1@@24|) (MapType0Type refType MapType1Type))) (= (type |l#2@@24|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#35| |l#0@@24| |l#1@@24| |l#2@@24| |l#3@@21|) $o@@31 $f@@21))  (=> (and (not (= $o@@31 |l#0@@24|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@24| $o@@31) |l#2@@24|))) |l#3@@21|))))
- :qid |SMNDafny.172:7|
+ :qid |SMNDafny.176:7|
  :skolemid |1044|
  :pattern ( (MapType5Select (|lambda#35| |l#0@@24| |l#1@@24| |l#2@@24| |l#3@@21|) $o@@31 $f@@21))
 )))
@@ -11196,7 +11196,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@32 T@U) ($f@@22 T@U) (|l#0@@25| T@U) (|l#1@@25| T@U) (|l#2@@25| T@U) (|l#3@@22| Bool) ) (! (let ((alpha@@29 (FieldTypeInv0 (type $f@@22))))
  (=> (and (and (and (and (= (type $o@@32) refType) (= (type $f@@22) (FieldType alpha@@29))) (= (type |l#0@@25|) refType)) (= (type |l#1@@25|) (MapType0Type refType MapType1Type))) (= (type |l#2@@25|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#36| |l#0@@25| |l#1@@25| |l#2@@25| |l#3@@22|) $o@@32 $f@@22))  (=> (and (not (= $o@@32 |l#0@@25|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@25| $o@@32) |l#2@@25|))) |l#3@@22|))))
- :qid |SMNDafny.184:7|
+ :qid |SMNDafny.188:7|
  :skolemid |1045|
  :pattern ( (MapType5Select (|lambda#36| |l#0@@25| |l#1@@25| |l#2@@25| |l#3@@22|) $o@@32 $f@@22))
 )))
@@ -11206,7 +11206,7 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@33 T@U) ($f@@23 T@U) (|l#0@@26| T@U) (|l#1@@26| T@U) (|l#2@@26| T@U) (|l#3@@23| Bool) ) (! (let ((alpha@@30 (FieldTypeInv0 (type $f@@23))))
  (=> (and (and (and (and (= (type $o@@33) refType) (= (type $f@@23) (FieldType alpha@@30))) (= (type |l#0@@26|) refType)) (= (type |l#1@@26|) (MapType0Type refType MapType1Type))) (= (type |l#2@@26|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#37| |l#0@@26| |l#1@@26| |l#2@@26| |l#3@@23|) $o@@33 $f@@23))  (=> (and (not (= $o@@33 |l#0@@26|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@26| $o@@33) |l#2@@26|))) |l#3@@23|))))
- :qid |SMNDafny.184:7|
+ :qid |SMNDafny.188:7|
  :skolemid |1046|
  :pattern ( (MapType5Select (|lambda#37| |l#0@@26| |l#1@@26| |l#2@@26| |l#3@@23|) $o@@33 $f@@23))
 )))
@@ -11216,39 +11216,51 @@ PreconditionGeneratedEntry_correct)))))))))
 )))
 (assert (forall (($o@@34 T@U) ($f@@24 T@U) (|l#0@@27| T@U) (|l#1@@27| T@U) (|l#2@@27| T@U) (|l#3@@24| Bool) ) (! (let ((alpha@@31 (FieldTypeInv0 (type $f@@24))))
  (=> (and (and (and (and (= (type $o@@34) refType) (= (type $f@@24) (FieldType alpha@@31))) (= (type |l#0@@27|) refType)) (= (type |l#1@@27|) (MapType0Type refType MapType1Type))) (= (type |l#2@@27|) (FieldType boolType))) (= (U_2_bool (MapType5Select (|lambda#38| |l#0@@27| |l#1@@27| |l#2@@27| |l#3@@24|) $o@@34 $f@@24))  (=> (and (not (= $o@@34 |l#0@@27|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@27| $o@@34) |l#2@@27|))) |l#3@@24|))))
- :qid |SMNDafny.217:8|
+ :qid |SMNDafny.221:8|
  :skolemid |1047|
  :pattern ( (MapType5Select (|lambda#38| |l#0@@27| |l#1@@27| |l#2@@27| |l#3@@24|) $o@@34 $f@@24))
 )))
 ; Valid
 
+(declare-fun _module._default.Elements_Property$_T0 () T@U)
+(declare-fun |xs#0@@48| () T@U)
+(declare-fun |_mcc#0#0_0@0| () T@U)
+(declare-fun |_mcc#1#0_0@0| () T@U)
+(declare-fun |tail#0_0@0| () T@U)
+(declare-fun $Heap@0 () T@U)
+(declare-fun |let#0_0#0#0| () T@U)
+(declare-fun |x#0_0@0| () T@U)
+(declare-fun |let#0_1#0#0| () T@U)
 (declare-fun $_Frame@0 () T@U)
 (declare-fun $Heap () T@U)
-(declare-fun |xs#0@@48| () T@U)
-(declare-fun $Heap@0 () T@U)
-(declare-fun _module._default.Elements_Property$_T0 () T@U)
 (declare-fun %lbl%+0 () Bool)
-(declare-fun $IsHeapAnchor (T@U) Bool)
 (declare-fun %lbl%@1 () Bool)
 (declare-fun %lbl%+2 () Bool)
-(assert  (and (and (and (and (= (type $_Frame@0) (MapType5Type refType boolType)) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type |xs#0@@48|) DatatypeTypeType)) (= (type $Heap@0) (MapType0Type refType MapType1Type))) (= (type _module._default.Elements_Property$_T0) TyType)))
+(declare-fun %lbl%+3 () Bool)
+(declare-fun %lbl%+4 () Bool)
+(declare-fun %lbl%+5 () Bool)
+(declare-fun %lbl%+6 () Bool)
+(declare-fun $IsHeapAnchor (T@U) Bool)
+(declare-fun %lbl%+7 () Bool)
+(assert  (and (and (and (and (and (and (and (and (and (and (= (type _module._default.Elements_Property$_T0) TyType) (= (type |xs#0@@48|) DatatypeTypeType)) (= (type |_mcc#0#0_0@0|) BoxType)) (= (type |_mcc#1#0_0@0|) DatatypeTypeType)) (= (type |tail#0_0@0|) DatatypeTypeType)) (= (type $Heap@0) (MapType0Type refType MapType1Type))) (= (type |let#0_0#0#0|) DatatypeTypeType)) (= (type |x#0_0@0|) BoxType)) (= (type |let#0_1#0#0|) BoxType)) (= (type $_Frame@0) (MapType5Type refType boolType))) (= (type $Heap) (MapType0Type refType MapType1Type))))
 (push 1)
 (set-info :boogie-vc-id Impl$$_module.__default.Elements__Property)
 (assert (not
-(let ((anon0_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (=> (and (= $_Frame@0 (|lambda#17| null $Heap alloc false)) (|$IsA#_module.List| |xs#0@@48|)) (=> (and (and ($IsGoodHeap $Heap@0) ($IsHeapAnchor $Heap@0)) (and (= $Heap $Heap@0) (forall ((|$ih#xs0#0| T@U) ) (!  (=> (= (type |$ih#xs0#0|) DatatypeTypeType) (=> (and (and ($Is |$ih#xs0#0| (Tclass._module.List _module._default.Elements_Property$_T0)) (_module.__default.NoDuplicates _module._default.Elements_Property$_T0 ($LS $LZ) |$ih#xs0#0|)) (< (DtRank |$ih#xs0#0|) (DtRank |xs#0@@48|))) (= (|Set#Card| (_module.__default.Elements _module._default.Elements_Property$_T0 ($LS $LZ) |$ih#xs0#0|)) (_module.__default.Length _module._default.Elements_Property$_T0 ($LS $LZ) |$ih#xs0#0|))))
+(let ((GeneratedUnifiedExit_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (! (or %lbl%@1 (= (|Set#Card| (_module.__default.Elements _module._default.Elements_Property$_T0 ($LS ($LS $LZ)) |xs#0@@48|)) (_module.__default.Length _module._default.Elements_Property$_T0 ($LS ($LS $LZ)) |xs#0@@48|))) :lblneg @1))))
+(let ((anon5_Then_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (= |xs#0@@48| (|#_module.List.Cons| |_mcc#0#0_0@0| |_mcc#1#0_0@0|)) (=> (and ($IsBox |_mcc#0#0_0@0| _module._default.Elements_Property$_T0) ($Is |_mcc#1#0_0@0| (Tclass._module.List _module._default.Elements_Property$_T0))) (=> (and (and (and ($Is |tail#0_0@0| (Tclass._module.List _module._default.Elements_Property$_T0)) ($IsAlloc |tail#0_0@0| (Tclass._module.List _module._default.Elements_Property$_T0) $Heap@0)) (= |let#0_0#0#0| |_mcc#1#0_0@0|)) (and ($Is |let#0_0#0#0| (Tclass._module.List _module._default.Elements_Property$_T0)) (= |tail#0_0@0| |let#0_0#0#0|))) (=> (and (and (and (and ($IsBox |x#0_0@0| _module._default.Elements_Property$_T0) ($IsAllocBox |x#0_0@0| _module._default.Elements_Property$_T0 $Heap@0)) (= |let#0_1#0#0| |_mcc#0#0_0@0|)) (and ($IsBox |let#0_1#0#0| _module._default.Elements_Property$_T0) (= |x#0_0@0| |let#0_1#0#0|))) (and (and (and ($IsAlloc |xs#0@@48| (Tclass._module.List _module._default.Elements_Property$_T0) $Heap@0) (|_module.__default.Elements#canCall| _module._default.Elements_Property$_T0 |xs#0@@48|)) (and ($IsAlloc |xs#0@@48| (Tclass._module.List _module._default.Elements_Property$_T0) $Heap@0) (|_module.__default.Length#canCall| _module._default.Elements_Property$_T0 |xs#0@@48|))) (and (and (|_module.__default.Elements#canCall| _module._default.Elements_Property$_T0 |xs#0@@48|) (|_module.__default.Length#canCall| _module._default.Elements_Property$_T0 |xs#0@@48|)) (= (|Set#Card| (_module.__default.Elements _module._default.Elements_Property$_T0 ($LS $LZ) |xs#0@@48|)) (_module.__default.Length _module._default.Elements_Property$_T0 ($LS $LZ) |xs#0@@48|))))) GeneratedUnifiedExit_correct)))))))
+(let ((anon4_Then_correct  (=> (! (and %lbl%+3 true) :lblpos +3) (=> (= |xs#0@@48| |#_module.List.Nil|) GeneratedUnifiedExit_correct))))
+(let ((anon5_Else_correct  (=> (! (and %lbl%+4 true) :lblpos +4) true)))
+(let ((anon4_Else_correct  (=> (! (and %lbl%+5 true) :lblpos +5) (=> (not (= |xs#0@@48| |#_module.List.Nil|)) (and anon5_Then_correct anon5_Else_correct)))))
+(let ((anon0_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (and (= $_Frame@0 (|lambda#17| null $Heap alloc false)) (|$IsA#_module.List| |xs#0@@48|)) (=> (and (and ($IsGoodHeap $Heap@0) ($IsHeapAnchor $Heap@0)) (and (= $Heap $Heap@0) (forall ((|$ih#xs0#0| T@U) ) (!  (=> (= (type |$ih#xs0#0|) DatatypeTypeType) (=> (and (and ($Is |$ih#xs0#0| (Tclass._module.List _module._default.Elements_Property$_T0)) (_module.__default.NoDuplicates _module._default.Elements_Property$_T0 ($LS $LZ) |$ih#xs0#0|)) (< (DtRank |$ih#xs0#0|) (DtRank |xs#0@@48|))) (= (|Set#Card| (_module.__default.Elements _module._default.Elements_Property$_T0 ($LS $LZ) |$ih#xs0#0|)) (_module.__default.Length _module._default.Elements_Property$_T0 ($LS $LZ) |$ih#xs0#0|))))
  :qid |SMNDafny.67:25|
  :skolemid |923|
  :no-pattern (type |$ih#xs0#0|)
  :no-pattern (U_2_int |$ih#xs0#0|)
  :no-pattern (U_2_bool |$ih#xs0#0|)
-)))) (! (or %lbl%@1 (= (|Set#Card| (_module.__default.Elements _module._default.Elements_Property$_T0 ($LS ($LS $LZ)) |xs#0@@48|)) (_module.__default.Length _module._default.Elements_Property$_T0 ($LS ($LS $LZ)) |xs#0@@48|))) :lblneg @1))))))
-(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (and ($IsGoodHeap $Heap) ($IsHeapAnchor $Heap)) (=> (and (and (and ($Is |xs#0@@48| (Tclass._module.List _module._default.Elements_Property$_T0)) ($IsAlloc |xs#0@@48| (Tclass._module.List _module._default.Elements_Property$_T0) $Heap)) (|$IsA#_module.List| |xs#0@@48|)) (and (= 11 $FunctionContextHeight) (_module.__default.NoDuplicates _module._default.Elements_Property$_T0 ($LS ($LS $LZ)) |xs#0@@48|))) anon0_correct)))))
-PreconditionGeneratedEntry_correct))
+)))) (and anon4_Then_correct anon4_Else_correct))))))
+(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (and ($IsGoodHeap $Heap) ($IsHeapAnchor $Heap)) (=> (and (and (and ($Is |xs#0@@48| (Tclass._module.List _module._default.Elements_Property$_T0)) ($IsAlloc |xs#0@@48| (Tclass._module.List _module._default.Elements_Property$_T0) $Heap)) (|$IsA#_module.List| |xs#0@@48|)) (and (= 11 $FunctionContextHeight) (_module.__default.NoDuplicates _module._default.Elements_Property$_T0 ($LS ($LS $LZ)) |xs#0@@48|))) anon0_correct)))))
+PreconditionGeneratedEntry_correct)))))))
 ))
 (check-sat)
-(get-info :reason-unknown)
-(labels)
-(assert %lbl%@1)
-(check-sat)
 (pop 1)
-; Invalid
+; Valid

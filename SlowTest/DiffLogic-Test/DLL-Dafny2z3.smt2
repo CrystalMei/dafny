@@ -15,6 +15,7 @@
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
 (set-option :model.compact false)
+(set-option :smt.arith.solver 0)
 ; done setting options
 
 
