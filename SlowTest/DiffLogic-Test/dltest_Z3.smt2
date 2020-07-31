@@ -1,11 +1,12 @@
 ; (set-option :produce-proofs true)
-; (set-option :smt.arith.solver 3) ; set diff logic solver
-(set-logic DLA) 
+(set-option :smt.arith.solver 3) ; set diff logic solver
+;(set-option :smt.arith.solver 2) ; set diff logic solver
+; (set-logic DLA) 
 
 (declare-const a Int)
 (declare-const b Int)
 
-;(push)
+(push)
 (assert (=> (and (= a 10) (= b 11)) (= (+ a b) 21)))
 
 (check-sat)

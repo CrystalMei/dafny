@@ -1,5 +1,5 @@
 // Dafny 2.3.0.10506
-// Command Line Options: /compile:0 /trace test_Dafny.dfy /proverOpt:LOGIC=DLA /print:test-Dafny2Boogie.bpl /proverLog:test-Dafny2z3.smt2
+// Command Line Options: /compile:0 /trace test_Dafny.dfy /proverOpt:O:smt.arith.solver=0 /print:test-Dafny2Boogie.bpl
 
 const $$Language$Dafny: bool;
 
@@ -2699,6 +2699,51 @@ implementation Impl$$_module.__default.myAdd(a#0: int, b#0: int) returns ($_reve
     assume true;
     assert {:subsumption 0} a#0 == LitInt(10) && b#0 == LitInt(11) ==> a#0 + b#0 == LitInt(21);
     assume a#0 == LitInt(10) && b#0 == LitInt(11) ==> a#0 + b#0 == LitInt(21);
+}
+
+
+
+procedure CheckWellformed$$_module.__default.simple();
+  free requires 1 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+
+
+
+procedure Call$$_module.__default.simple();
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+procedure Impl$$_module.__default.simple() returns ($_reverifyPost: bool);
+  free requires 1 == $FunctionContextHeight;
+  modifies $Heap, $Tick;
+  // frame condition: object granularity
+  free ensures (forall $o: ref :: 
+    { $Heap[$o] } 
+    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
+  // boilerplate
+  free ensures $HeapSucc(old($Heap), $Heap);
+
+
+
+implementation Impl$$_module.__default.simple() returns ($_reverifyPost: bool)
+{
+  var $_Frame: <beta>[ref,Field beta]bool;
+
+    // AddMethodImpl: simple, Impl$$_module.__default.simple
+    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
+      $o != null && read($Heap, $o, alloc) ==> false);
+    assume {:captureState "test_Dafny.dfy(5,4): initial state"} true;
+    $_reverifyPost := false;
+    // ----- assert statement ----- test_Dafny.dfy(5,6)
+    assume true;
+    assert 0 < 2;
 }
 
 
