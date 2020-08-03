@@ -21,17 +21,82 @@ mk_combined_solver...
 	(mk SMT solver)
 mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
 mk_bool_var: mk_var_bug - mk_bool: 0
+(smt.simplifying :time 0.00 :before-memory 0.45 :after-memory 0.45)
+func-decl AST: (declare-fun %lbl%+0 () Bool)
+func-decl AST: (declare-fun %lbl%@1 () Bool)
+func-decl AST: (declare-fun a () Int)
+func-decl AST: (declare-fun b () Int)
+func-decl AST: (declare-fun %lbl%+2 () Bool)
 	(DLA logic setup)
 	(unknown logic setup)
+(smt.collecting-features)
 	(setup arith to Diff Logic)
 	(setup arith: Dense Diff Logic)
 	(setup arith: Dense Diff Logic - theory_dense_mi)
 (smt.simplifier-start)
+after internalize_assertions()...
+Logical context:
+scope-lvl: 0
+base-lvl:  0
+search-lvl:  0
+inconsistent(): 0
+m_asserted_formulas.inconsistent(): 0
+#1 := true
+#2 := false
+expression -> bool_var:
+(#1 -> true) 
+expression -> enode:
+(#1 -> e!0) (#2 -> e!1) 
+	Theory Display
+5
+Theory dense difference logic:
+atoms:
+8
+7
+6
+9
+recfun
+disabled guards:
+
+13
+10
+12
+11
+decl2enodes:
+hot bool vars:
+
+(smt.preprocessing :time 0.00 :before-memory 0.45 :after-memory 0.45)
 (smt.simplifier-start)
+(smt.simplifying :time 0.00 :before-memory 0.45 :after-memory 0.45)
+(started "check-sat")
+check_sat AST:
+
+(forall ((x T@t)) (! true :skolemid |0| :qid |gdb2Boog.4:15|))
+
+(let ((a!1 (or %lbl%@1 (=> (and (= a 10) (= b 11)) (= (+ a b) 21)))))
+  (not (! a!1 :lblneg @1)))
+
 	(call solver...)
+(combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
+
+solver check_sat_core
+(declare-fun b () Int)
+(declare-fun a () Int)
+(declare-fun %lbl%@1 () Bool)
+(assert (let ((a!1 (or %lbl%@1 (= (+ a b) 21) (not (and (= a 10) (= b 11))))))
+  (not (! a!1 :lblneg @1))))
+
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
+
+before reduce
+asserted formulas:
+[HEAD] ==>
+(let ((a!1 (or %lbl%@1 (= (+ a b) 21) (not (and (= a 10) (= b 11))))))
+  (not (! a!1 :lblneg @1)))
+inconsistent: 0
+
 (smt.propagate-values)
 (smt.nnf-cnf)
 (smt.reduce-asserted)
@@ -40,6 +105,20 @@ mk_bool_var: mk_var_bug - mk_bool: 0
 (smt.maximizing-bv-sharing)
 (smt.reduce-asserted)
 (smt.flatten-clauses)
+(smt.simplifier-done)
+
+after reduce
+asserted formulas:
+[HEAD] ==>
+(not %lbl%@1)
+(or (not (<= (+ a b) 21)) (not (>= (+ a b) 21)))
+(<= a 10)
+(>= a 10)
+(<= b 11)
+(>= b 11)
+(! true :lblpos @1)
+inconsistent: 0
+
 
 internalize_assertion:
 (not %lbl%@1)
@@ -365,6 +444,87 @@ lbl-lit[@1]
 
 mk_bool_var: creating boolean variable: 8 for: (! true :lblpos @1), its ID: 43
 mk_bool_var: mk_var_bug - mk_bool: 8
+after internalize_assertions()...
+Logical context:
+scope-lvl: 1
+base-lvl:  1
+search-lvl:  1
+inconsistent(): 0
+m_asserted_formulas.inconsistent(): 0
+#1 := true
+#22 := %lbl%@1
+#32 := 21
+#27 := b
+#24 := a
+#31 := (+ a b)
+#40 := (<= #31 21)
+#38 := (>= #31 21)
+#25 := 10
+#49 := (<= a 10)
+#48 := (>= a 10)
+#28 := 11
+#56 := (<= b 11)
+#55 := (>= b 11)
+#43 := lbl-lit[@1]
+#2 := false
+#47 := 0
+#45 := (not %lbl%@1)
+#39 := (not #38)
+#44 := (not #40)
+#41 := (or #44 #39)
+asserted formulas:
+#45 #41 #49 #48 #56 #55 #43 
+auxiliary clauses:
+(not (<= (+ a b) 21)) 
+(not (>= (+ a b) 21)) 
+
+current assignment:
+(not #22): (not %lbl%@1)
+#49: (<= a 10)
+#48: (>= a 10)
+#56: (<= b 11)
+#55: (>= b 11)
+#43: lbl-lit[@1]
+remaining case-splits:
+#40 #38 
+expression -> bool_var:
+(#1 -> true) (#22 -> p1) (#40 -> p2) (#38 -> p3) (#49 -> p4) (#48 -> p5) (#56 -> p6) (#55 -> p7) (#43 -> p8) 
+expression -> enode:
+(#1 -> e!0) (#2 -> e!1) (#24 -> e!2) (#27 -> e!3) (#31 -> e!4) (#32 -> e!5) (#47 -> e!6) (#40 -> e!7) (#38 -> e!8) 
+relevant exprs:
+#22 #41 #49 #25 #24 #48 #56 #28 #27 #55 #43 
+	Theory Display
+5
+Theory dense difference logic:
+v0 -> #32
+v1 -> #47
+v2 -> #24
+v3 -> #27
+#32    -- -21        : id2     --> #47
+#47    -- 21         : id1     --> #32
+atoms:
+#24    - #47    <= 10                assignment: l_true
+#47    - #24    <= -10               assignment: l_true
+#27    - #47    <= 11                assignment: l_true
+#47    - #27    <= -11               assignment: l_true
+8
+7
+6
+9
+recfun
+disabled guards:
+
+13
+10
+12
+11
+decl2enodes:
+id 16 -> #40
+id 17 -> #38
+id 25 -> #31
+hot bool vars:
+
+(smt.preprocessing :time 0.03 :before-memory 0.55 :after-memory 0.55)
 (smt.searching)
 	DDL: add_edge
 DDL: trying adding edge:
@@ -386,5 +546,15 @@ DDL: trying adding edge:
 (smt.simplifier-start)
 propagate_bool_var_enode - var: 3 #38
 (smt.simplifier-start)
+(smt.final-check "difference-logic")
+(smt.final-check "array")
+(smt.final-check "bit-vector")
+(smt.final-check "datatype")
+(smt.final-check "recfun")
+(smt.final-check "datalog")
+(smt.final-check "seq")
+(smt.final-check "fpa")
+(smt.final-check "unknown")
+(smt.stats :time 0.00 :before-memory 0.55 :after-memory 0.55)
 unknown
 (:reason-unknown "(incomplete (theory difference-logic))")
