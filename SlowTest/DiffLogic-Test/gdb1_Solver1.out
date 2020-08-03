@@ -1,9 +1,124 @@
-        (mk SMT solver)
+(QF-LIA probe check)
+(QF-AUFLIA probe check)
+(QF-LRA probe check)
+(QF-LIRA probe check)
+(ILP probe check)
+(QF-NIA probe check)
+(QF-NRA probe check)
+(NIA probe check)
+(NRA probe check)
+(NIRA probe check)
+(LIA probe check)
+(LRA probe check)
+(LIRA probe check)
+(AF-UFNRA probe check)
+	(Quantifier Probe)
+	(mk SMT tactic)
+	(mk preamble tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk NRA tactic)
+	(mk SMT tactic)
+(QF-NRA probe check)
+(NRA probe check)
+	(mk LIRA tactic)
+	(mk LRA tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QSAT tactic)
+(LIRA probe check)
+	(Quantifier Probe)
+	(mk quant preprocessor)
+(LIRA probe check)
+	(mk QF_NIA tactic)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA NLSAT solver)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA SAT solver)
+	(mk QF_NIA BV solver)
+	(mk QF_NIA preamble tactic)
+(QF-NIA probe check)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+(QF-NRA probe check)
+	(mk QF_LRA tactic)
+	(mk SMT tactic)
+(QF-LRA probe check)
+	(mk QF_AUFLIA tactic)
+	(mk SMT tactic)
+(QF-AUFLIA probe check)
+	(mk QF-LIA tactic)
+	(mk preamble tactic)
+	(mk SMT tactic)
+	(mk bounded tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_no_relevancy_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk pb tactic)
+	(mk bv2sat tactic)
+(ILP probe check)
+	(mk ilp_model_finder tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+(ILP probe check)
+(QF-LIA probe check)
+	(mk QF_AUFBV tactic)
+	(mk QF_AUFBV preamble tactic)
+	(mk SMT tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk FD tactic)
+	(mk FD tactic)
+mk_combined_solver...
+	(mk SMT solver)
 mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
 mk_bool_var: mk_var_bug - mk_bool: 0
-        (unknown logic setup)
-        (setup arith: Diff Logic)
-        (setup arith: Diff Logic - theory_rdl)
+	(unknown logic setup)
+	(setup arith: Diff Logic)
+	(setup arith: Diff Logic - theory_rdl)
 DL: enode mk_var: 0
 DL: enode mk_var: 1
 (smt.simplifier-start)
@@ -175,9 +290,9 @@ mk_bool_var: creating boolean variable: 2 for: (forall ((?x0 T@[Int]Bool) (?x1 I
      :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)))), its ID: 44
 mk_bool_var: mk_var_bug - mk_bool: 2
 (smt.simplifier-start)
-        (call solver...)
-        (solver_na2as check_sat_core)
-        (smt_solver check_sat_core)
+	(call solver...)
+	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
 (smt.simplifier-start)
 (smt.propagate-values)
 (smt.nnf-cnf)
@@ -353,8 +468,9 @@ true
 
 mk_bool_var: creating boolean variable: 6 for: (= a@0 (|Store_[$int]$bool| a 0 true)), its ID: 59
 mk_bool_var: mk_var_bug - mk_bool: 6
-
 (smt.searching)
+propagate_bool_var_enode - var: 3 #62
+propagate_bool_var_enode - var: 6 #59
 DL: propagate atom: atom = (not p4) (<= i 0) 
 DL: propagate atom: atom = (not p5) (>= i 0) 
 
@@ -536,7 +652,6 @@ internalize_formula:
 (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #45) #56)
 
 
-
 internalize_rec:
 (not (or (not (>= i 0)) (not (<= i 0))))
 #67 := (<= i 0)
@@ -604,6 +719,7 @@ internalize_rec:
 internalize_formula:
 (>= i 0)
 (>= i 0)
+
 
 internalize_rec:
 (not (<= i 0))
@@ -686,7 +802,6 @@ i
 mk_bool_var: creating boolean variable: 8 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i), its ID: 77
 mk_bool_var: mk_var_bug - mk_bool: 8
 
-
 internalize_rec:
 (|Select_[$int]$bool| a i)
 (Select_[$int]$bool a i)
@@ -716,7 +831,6 @@ mk_bool_var: mk_var_bug - mk_bool: 9
 mk_bool_var: creating boolean variable: 10 for: (= (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
    (|Select_[$int]$bool| a i)), its ID: 79
 mk_bool_var: mk_var_bug - mk_bool: 10
-
 
 internalize_assertion:
 (let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
@@ -829,3 +943,9 @@ internalize_rec:
 
 mk_bool_var: creating boolean variable: 11 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0), its ID: 85
 mk_bool_var: mk_var_bug - mk_bool: 11
+propagate_bool_var_enode - var: 11 #85
+propagate_bool_var_enode - var: 8 #77
+(smt.simplifying-clause-set :num-deleted-clauses 2)
+(smt.simplifier-start)
+unknown
+(:reason-unknown "(incomplete (theory difference-logic))")

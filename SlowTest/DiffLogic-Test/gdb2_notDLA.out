@@ -1,0 +1,465 @@
+(QF-LIA probe check)
+(QF-AUFLIA probe check)
+(QF-LRA probe check)
+(QF-LIRA probe check)
+(ILP probe check)
+(QF-NIA probe check)
+(QF-NRA probe check)
+(NIA probe check)
+(NRA probe check)
+(NIRA probe check)
+(LIA probe check)
+(LRA probe check)
+(LIRA probe check)
+(AF-UFNRA probe check)
+	(Quantifier Probe)
+	(mk SMT tactic)
+	(mk preamble tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk NRA tactic)
+	(mk SMT tactic)
+(QF-NRA probe check)
+(NRA probe check)
+	(mk LIRA tactic)
+	(mk LRA tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QSAT tactic)
+(LIRA probe check)
+	(Quantifier Probe)
+	(mk quant preprocessor)
+(LIRA probe check)
+	(mk QF_NIA tactic)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA NLSAT solver)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA SAT solver)
+	(mk QF_NIA BV solver)
+	(mk QF_NIA preamble tactic)
+(QF-NIA probe check)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+(QF-NRA probe check)
+	(mk QF_LRA tactic)
+	(mk SMT tactic)
+(QF-LRA probe check)
+	(mk QF_AUFLIA tactic)
+	(mk SMT tactic)
+(QF-AUFLIA probe check)
+	(mk QF-LIA tactic)
+	(mk preamble tactic)
+	(mk SMT tactic)
+	(mk bounded tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_no_relevancy_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk pb tactic)
+	(mk bv2sat tactic)
+(ILP probe check)
+	(mk ilp_model_finder tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+(ILP probe check)
+(QF-LIA probe check)
+	(mk QF_AUFBV tactic)
+	(mk QF_AUFBV preamble tactic)
+	(mk SMT tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk FD tactic)
+	(mk FD tactic)
+mk_combined_solver...
+	(mk SMT solver)
+mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
+mk_bool_var: mk_var_bug - mk_bool: 0
+	(unknown logic setup)
+	(setup arith: New Arith)
+	(setup LRA arith: Not Old Arith - theory_lra)
+(smt.simplifier-start)
+(smt.simplifier-start)
+	(call solver...)
+	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.refine-injectivity)
+(smt.pattern-inference)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(not %lbl%@1)
+(not %lbl%@1)
+
+assert_default: expr = (not %lbl%@1), its ID: 50
+
+internalize_rec:
+(not %lbl%@1)
+(not %lbl%@1)
+
+
+internalize_formula:
+(not %lbl%@1)
+(not %lbl%@1)
+
+
+internalize_rec:
+%lbl%@1
+%lbl%@1
+
+
+internalize_formula:
+%lbl%@1
+%lbl%@1
+
+
+internalize_theory_atom:
+%lbl%@1
+%lbl%@1
+
+mk_bool_var: creating boolean variable: 1 for: %lbl%@1, its ID: 28
+mk_bool_var: mk_var_bug - mk_bool: 1
+
+internalize_assertion:
+(not (= (+ a b) 21))
+#36 := (+ a b)
+#38 := (= #36 21)
+(not #38)
+
+assert_default: expr = (not (= (+ a b) 21)), its ID: 51
+
+internalize_rec:
+(not (= (+ a b) 21))
+#36 := (+ a b)
+#38 := (= #36 21)
+(not #38)
+
+
+internalize_formula:
+(not (= (+ a b) 21))
+#36 := (+ a b)
+#38 := (= #36 21)
+(not #38)
+
+
+internalize_rec:
+(= (+ a b) 21)
+#36 := (+ a b)
+(= #36 21)
+
+
+internalize_formula:
+(= (+ a b) 21)
+#36 := (+ a b)
+(= #36 21)
+
+
+internalize_eq:
+(= (+ a b) 21)
+#36 := (+ a b)
+(= #36 21)
+
+
+internalize_rec:
+(+ a b)
+(+ a b)
+
+
+internalize_rec:
+b
+b
+
+
+internalize_rec:
+a
+a
+
+
+internalize_rec:
+21
+21
+
+mk_bool_var: creating boolean variable: 2 for: (= (+ a b) 21), its ID: 38
+mk_bool_var: mk_var_bug - mk_bool: 2
+
+internalize_rec:
+(= (+ a b) 21)
+#36 := (+ a b)
+(= #36 21)
+
+
+internalize_formula:
+(= (+ a b) 21)
+#36 := (+ a b)
+(= #36 21)
+
+
+internalize_rec:
+(<= (+ a b) 21)
+#36 := (+ a b)
+(<= #36 21)
+
+
+internalize_formula:
+(<= (+ a b) 21)
+#36 := (+ a b)
+(<= #36 21)
+
+
+internalize_theory_atom:
+(<= (+ a b) 21)
+#36 := (+ a b)
+(<= #36 21)
+
+mk_bool_var: creating boolean variable: 3 for: (<= (+ a b) 21), its ID: 43
+mk_bool_var: mk_var_bug - mk_bool: 3
+
+internalize_rec:
+(>= (+ a b) 21)
+#36 := (+ a b)
+(>= #36 21)
+
+
+internalize_formula:
+(>= (+ a b) 21)
+#36 := (+ a b)
+(>= #36 21)
+
+
+internalize_theory_atom:
+(>= (+ a b) 21)
+#36 := (+ a b)
+(>= #36 21)
+
+mk_bool_var: creating boolean variable: 4 for: (>= (+ a b) 21), its ID: 45
+mk_bool_var: mk_var_bug - mk_bool: 4
+
+internalize_assertion:
+(= a 10)
+(= a 10)
+
+assert_default: expr = (= a 10), its ID: 31
+
+internalize_rec:
+(= a 10)
+(= a 10)
+
+
+internalize_formula:
+(= a 10)
+(= a 10)
+
+
+internalize_eq:
+(= a 10)
+(= a 10)
+
+
+internalize_rec:
+a
+a
+
+
+internalize_rec:
+10
+10
+
+mk_bool_var: creating boolean variable: 5 for: (= a 10), its ID: 31
+mk_bool_var: mk_var_bug - mk_bool: 5
+
+internalize_rec:
+(= a 10)
+(= a 10)
+
+
+internalize_formula:
+(= a 10)
+(= a 10)
+
+
+internalize_rec:
+(<= a 10)
+(<= a 10)
+
+
+internalize_formula:
+(<= a 10)
+(<= a 10)
+
+
+internalize_theory_atom:
+(<= a 10)
+(<= a 10)
+
+mk_bool_var: creating boolean variable: 6 for: (<= a 10), its ID: 47
+mk_bool_var: mk_var_bug - mk_bool: 6
+
+internalize_rec:
+(>= a 10)
+(>= a 10)
+
+
+internalize_formula:
+(>= a 10)
+(>= a 10)
+
+
+internalize_theory_atom:
+(>= a 10)
+(>= a 10)
+
+mk_bool_var: creating boolean variable: 7 for: (>= a 10), its ID: 49
+mk_bool_var: mk_var_bug - mk_bool: 7
+
+internalize_assertion:
+(= b 11)
+(= b 11)
+
+assert_default: expr = (= b 11), its ID: 34
+
+internalize_rec:
+(= b 11)
+(= b 11)
+
+
+internalize_formula:
+(= b 11)
+(= b 11)
+
+
+internalize_eq:
+(= b 11)
+(= b 11)
+
+
+internalize_rec:
+b
+b
+
+
+internalize_rec:
+11
+11
+
+mk_bool_var: creating boolean variable: 8 for: (= b 11), its ID: 34
+mk_bool_var: mk_var_bug - mk_bool: 8
+
+internalize_rec:
+(= b 11)
+(= b 11)
+
+
+internalize_formula:
+(= b 11)
+(= b 11)
+
+
+internalize_rec:
+(<= b 11)
+(<= b 11)
+
+
+internalize_formula:
+(<= b 11)
+(<= b 11)
+
+
+internalize_theory_atom:
+(<= b 11)
+(<= b 11)
+
+mk_bool_var: creating boolean variable: 9 for: (<= b 11), its ID: 44
+mk_bool_var: mk_var_bug - mk_bool: 9
+
+internalize_rec:
+(>= b 11)
+(>= b 11)
+
+
+internalize_formula:
+(>= b 11)
+(>= b 11)
+
+
+internalize_theory_atom:
+(>= b 11)
+(>= b 11)
+
+mk_bool_var: creating boolean variable: 10 for: (>= b 11), its ID: 46
+mk_bool_var: mk_var_bug - mk_bool: 10
+
+internalize_assertion:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+assert_default: expr = (! true :lblpos @1), its ID: 48
+
+internalize_rec:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+
+internalize_formula:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+
+internalize_theory_atom:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+mk_bool_var: creating boolean variable: 11 for: (! true :lblpos @1), its ID: 48
+mk_bool_var: mk_var_bug - mk_bool: 11
+(smt.searching)
+propagate_bool_var_enode - var: 2 #38
+propagate_bool_var_enode - var: 5 #31
+propagate_bool_var_enode - var: 8 #34
+unsat
+(:reason-unknown "unknown")
