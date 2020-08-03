@@ -1,4 +1,4 @@
-; (set-logic DLA)
+(set-logic DLA)
 
 (declare-sort T@t 0)
 (assert (forall ((x T@t) ) (! true

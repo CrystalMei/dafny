@@ -1,0 +1,417 @@
+(QF-LIA probe check)
+(QF-AUFLIA probe check)
+(QF-LRA probe check)
+(QF-LIRA probe check)
+(ILP probe check)
+(QF-NIA probe check)
+(QF-NRA probe check)
+(NIA probe check)
+(NRA probe check)
+(NIRA probe check)
+(LIA probe check)
+(LRA probe check)
+(LIRA probe check)
+(AF-UFNRA probe check)
+	(Quantifier Probe)
+	(mk DLA tactic)
+	(mk-lia2pb-tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+mk_combined_solver...
+	(mk SMT solver)
+mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
+mk_bool_var: mk_var_bug - mk_bool: 0
+	(DLA logic setup)
+	(unknown logic setup)
+	(setup arith to Diff Logic)
+	(setup arith: Dense Diff Logic)
+	(setup arith: Dense Diff Logic - theory_dense_mi)
+(smt.simplifier-start)
+(smt.simplifier-start)
+	(call solver...)
+	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(not %lbl%@1)
+(not %lbl%@1)
+
+assert_default: expr = (not %lbl%@1), its ID: 44
+
+internalize_rec:
+(not %lbl%@1)
+(not %lbl%@1)
+
+
+internalize_formula:
+(not %lbl%@1)
+(not %lbl%@1)
+
+
+internalize_rec:
+%lbl%@1
+%lbl%@1
+
+
+internalize_formula:
+%lbl%@1
+%lbl%@1
+
+
+internalize_theory_atom:
+%lbl%@1
+%lbl%@1
+
+mk_bool_var: creating boolean variable: 1 for: %lbl%@1, its ID: 22
+mk_bool_var: mk_var_bug - mk_bool: 1
+
+internalize_assertion:
+(or (not (<= (+ a b) 21)) (not (>= (+ a b) 21)))
+#30 := (+ a b)
+#37 := (>= #30 21)
+#38 := (not #37)
+#39 := (<= #30 21)
+#43 := (not #39)
+(or #43 #38)
+
+
+internalize_rec:
+(not (<= (+ a b) 21))
+#30 := (+ a b)
+#39 := (<= #30 21)
+(not #39)
+
+
+internalize_formula:
+(not (<= (+ a b) 21))
+#30 := (+ a b)
+#39 := (<= #30 21)
+(not #39)
+
+
+internalize_rec:
+(<= (+ a b) 21)
+#30 := (+ a b)
+(<= #30 21)
+
+
+internalize_formula:
+(<= (+ a b) 21)
+#30 := (+ a b)
+(<= #30 21)
+
+
+internalize_theory_atom:
+(<= (+ a b) 21)
+#30 := (+ a b)
+(<= #30 21)
+
+DDL: internalize_atom: (<= (+ a b) 21)
+DDL: internalize_atom: LHS = (+ a b)
+DDL: internalize_atom: RHS = 21
+(smt.diff_logic: non-diff logic expression (<= (+ a b) 21))
+
+internalize_rec:
+(+ a b)
+(+ a b)
+
+DDL: internalize_term:
+(+ a b)
+DDL: internalize_term_core:
+(+ a b)
+
+internalize_rec:
+a
+a
+
+
+internalize_rec:
+b
+b
+
+
+internalize_rec:
+21
+21
+
+DDL: internalize_term:
+21
+DDL: internalize_term_core:
+21
+DDL: enode mk_var: 0
+DDL: internalize_term_core:
+0
+DDL: enode mk_var: 1
+	DDL: add_edge
+DDL: trying adding edge:
+#46 -- 21 --> #31
+	DDL: update_cells
+	DDL: add_edge
+DDL: trying adding edge:
+#31 -- -21 --> #46
+	DDL: update_cells
+mk_bool_var: creating boolean variable: 2 for: (<= (+ a b) 21), its ID: 39
+mk_bool_var: mk_var_bug - mk_bool: 2
+
+internalize_rec:
+(not (>= (+ a b) 21))
+#30 := (+ a b)
+#37 := (>= #30 21)
+(not #37)
+
+
+internalize_formula:
+(not (>= (+ a b) 21))
+#30 := (+ a b)
+#37 := (>= #30 21)
+(not #37)
+
+
+internalize_rec:
+(>= (+ a b) 21)
+#30 := (+ a b)
+(>= #30 21)
+
+
+internalize_formula:
+(>= (+ a b) 21)
+#30 := (+ a b)
+(>= #30 21)
+
+
+internalize_theory_atom:
+(>= (+ a b) 21)
+#30 := (+ a b)
+(>= #30 21)
+
+DDL: internalize_atom: (>= (+ a b) 21)
+DDL: internalize_atom: LHS = (+ a b)
+DDL: internalize_atom: RHS = 21
+
+internalize_rec:
+(+ a b)
+(+ a b)
+
+DDL: internalize_term:
+(+ a b)
+DDL: internalize_term_core:
+(+ a b)
+
+internalize_rec:
+21
+21
+
+mk_bool_var: creating boolean variable: 3 for: (>= (+ a b) 21), its ID: 37
+mk_bool_var: mk_var_bug - mk_bool: 3
+
+internalize_assertion:
+(<= a 10)
+(<= a 10)
+
+assert_default: expr = (<= a 10), its ID: 48
+
+internalize_rec:
+(<= a 10)
+(<= a 10)
+
+
+internalize_formula:
+(<= a 10)
+(<= a 10)
+
+
+internalize_theory_atom:
+(<= a 10)
+(<= a 10)
+
+DDL: internalize_atom: (<= a 10)
+DDL: internalize_atom: LHS = a
+DDL: internalize_atom: RHS = 10
+DDL: internalize_atom: s = 0, 0
+DDL: internalize_atom: t = a, a
+DDL: internalize_term_core:
+0
+DDL: internalize_term_core:
+a
+DDL: enode mk_var: 2
+mk_bool_var: creating boolean variable: 4 for: (<= a 10), its ID: 48
+mk_bool_var: mk_var_bug - mk_bool: 4
+
+internalize_assertion:
+(>= a 10)
+(>= a 10)
+
+assert_default: expr = (>= a 10), its ID: 47
+
+internalize_rec:
+(>= a 10)
+(>= a 10)
+
+
+internalize_formula:
+(>= a 10)
+(>= a 10)
+
+
+internalize_theory_atom:
+(>= a 10)
+(>= a 10)
+
+DDL: internalize_atom: (>= a 10)
+DDL: internalize_atom: LHS = a
+DDL: internalize_atom: RHS = 10
+DDL: internalize_atom: s = 0, 0
+DDL: internalize_atom: t = a, a
+DDL: internalize_term_core:
+0
+DDL: internalize_term_core:
+a
+mk_bool_var: creating boolean variable: 5 for: (>= a 10), its ID: 47
+mk_bool_var: mk_var_bug - mk_bool: 5
+
+internalize_assertion:
+(<= b 11)
+(<= b 11)
+
+assert_default: expr = (<= b 11), its ID: 55
+
+internalize_rec:
+(<= b 11)
+(<= b 11)
+
+
+internalize_formula:
+(<= b 11)
+(<= b 11)
+
+
+internalize_theory_atom:
+(<= b 11)
+(<= b 11)
+
+DDL: internalize_atom: (<= b 11)
+DDL: internalize_atom: LHS = b
+DDL: internalize_atom: RHS = 11
+DDL: internalize_atom: s = 0, 0
+DDL: internalize_atom: t = b, b
+DDL: internalize_term_core:
+0
+DDL: internalize_term_core:
+b
+DDL: enode mk_var: 3
+mk_bool_var: creating boolean variable: 6 for: (<= b 11), its ID: 55
+mk_bool_var: mk_var_bug - mk_bool: 6
+
+internalize_assertion:
+(>= b 11)
+(>= b 11)
+
+assert_default: expr = (>= b 11), its ID: 54
+
+internalize_rec:
+(>= b 11)
+(>= b 11)
+
+
+internalize_formula:
+(>= b 11)
+(>= b 11)
+
+
+internalize_theory_atom:
+(>= b 11)
+(>= b 11)
+
+DDL: internalize_atom: (>= b 11)
+DDL: internalize_atom: LHS = b
+DDL: internalize_atom: RHS = 11
+DDL: internalize_atom: s = 0, 0
+DDL: internalize_atom: t = b, b
+DDL: internalize_term_core:
+0
+DDL: internalize_term_core:
+b
+mk_bool_var: creating boolean variable: 7 for: (>= b 11), its ID: 54
+mk_bool_var: mk_var_bug - mk_bool: 7
+
+internalize_assertion:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+assert_default: expr = (! true :lblpos @1), its ID: 42
+
+internalize_rec:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+
+internalize_formula:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+
+internalize_theory_atom:
+(! true :lblpos @1)
+lbl-lit[@1]
+
+mk_bool_var: creating boolean variable: 8 for: (! true :lblpos @1), its ID: 42
+mk_bool_var: mk_var_bug - mk_bool: 8
+(smt.searching)
+	DDL: add_edge
+DDL: trying adding edge:
+#46 -- 10 --> #23
+	DDL: update_cells
+	DDL: add_edge
+DDL: trying adding edge:
+#23 -- -10 --> #46
+	DDL: update_cells
+	DDL: add_edge
+DDL: trying adding edge:
+#46 -- 11 --> #26
+	DDL: update_cells
+	DDL: add_edge
+DDL: trying adding edge:
+#26 -- -11 --> #46
+	DDL: update_cells
+(smt.simplifying-clause-set :num-deleted-clauses 0)
+(smt.simplifier-start)
+propagate_bool_var_enode - var: 3 #37
+(smt.simplifier-start)
+	(solver_na2as check_sat_core)
+(simplifier :num-exprs 17 :num-asts 197 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(fix-dl-var :num-exprs 17 :num-asts 197 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(propagate-values :num-exprs 17 :num-asts 197 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(elim-uncnstr :num-exprs 17 :num-asts 197 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(ctx-simplify :num-steps 31)
+(ctx-simplify :num-exprs 3 :num-asts 199 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(simplifier :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(solve_eqs :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(simplifier :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(propagate-values :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(normalize-bounds :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(solve_eqs :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(diff-neq :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(lia2pb :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(propagate-ineqs :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(pb2bv :num-exprs 3 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+(smt.tactic start)
+mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
+mk_bool_var: mk_var_bug - mk_bool: 0
+	(DLA logic setup)
+	(unknown logic setup)
+	(setup arith to Diff Logic)
+	(setup arith: Dense Diff Logic)
+	(setup arith: Dense Diff Logic - theory_dense_mi)
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt :num-exprs 1 :num-asts 194 :time 0.00 :before-memory 0.55 :after-memory 0.55)
+unsat
+(:reason-unknown "")
