@@ -1,0 +1,960 @@
+        (mk SMT solver)
+mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
+mk_bool_var: mk_var_bug - mk_bool: 0
+        (unknown logic setup)
+        (setup arith: Dense Diff Logic)
+        (setup arith: Dense Diff Logic - theory_dense_mi)
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.refine-injectivity)
+(smt.pattern-inference)
+(smt.inferred-patterns :qid k!7
+  ((|Store_[$int]$bool| (:var 2) (:var 1) (:var 0)))
+)
+(smt.inferred-patterns :qid k!8
+  ((|Select_[$int]$bool|
+     (|Store_[$int]$bool| (:var 3) (:var 2) (:var 0))
+     (:var 1)))
+)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+
+assert_default: expr = (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2)))), its ID: 41
+
+internalize_rec:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+
+
+internalize_formula:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+
+mk_bool_var: creating boolean variable: 1 for: (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2)))), its ID: 41
+mk_bool_var: mk_var_bug - mk_bool: 1
+
+internalize_assertion:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+  (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+           (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+       (or (not (or a!1 a!2))
+           (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)
+              (|Select_[$int]$bool| ?x0 ?y1))))
+     :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1))))
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+
+assert_default: expr = (forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+  (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+           (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+       (or (not (or a!1 a!2))
+           (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)
+              (|Select_[$int]$bool| ?x0 ?y1))))
+     :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)))), its ID: 42
+
+internalize_rec:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+  (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+           (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+       (or (not (or a!1 a!2))
+           (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)
+              (|Select_[$int]$bool| ?x0 ?y1))))
+     :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1))))
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+
+
+internalize_formula:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+  (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+           (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+       (or (not (or a!1 a!2))
+           (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)
+              (|Select_[$int]$bool| ?x0 ?y1))))
+     :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1))))
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+
+mk_bool_var: creating boolean variable: 2 for: (forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+  (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+           (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+       (or (not (or a!1 a!2))
+           (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)
+              (|Select_[$int]$bool| ?x0 ?y1))))
+     :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)))), its ID: 42
+mk_bool_var: mk_var_bug - mk_bool: 2
+(smt.simplifier-start)
+        (call solver...)
+        (solver_na2as check_sat_core)
+        (smt_solver check_sat_core)
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.refine-injectivity)
+(smt.pattern-inference)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(not (|Select_[$int]$bool| a@0 i))
+#61 := (Select_[$int]$bool a@0 i)
+(not #61)
+
+assert_default: expr = (not (|Select_[$int]$bool| a@0 i)), its ID: 72
+
+internalize_rec:
+(not (|Select_[$int]$bool| a@0 i))
+#61 := (Select_[$int]$bool a@0 i)
+(not #61)
+
+
+internalize_formula:
+(not (|Select_[$int]$bool| a@0 i))
+#61 := (Select_[$int]$bool a@0 i)
+(not #61)
+
+
+internalize_rec:
+(|Select_[$int]$bool| a@0 i)
+(Select_[$int]$bool a@0 i)
+
+
+internalize_formula:
+(|Select_[$int]$bool| a@0 i)
+(Select_[$int]$bool a@0 i)
+
+
+internalize_theory_atom:
+(|Select_[$int]$bool| a@0 i)
+(Select_[$int]$bool a@0 i)
+
+
+internalize_rec:
+a@0
+a@0
+
+
+internalize_rec:
+i
+i
+
+mk_bool_var: creating boolean variable: 3 for: (|Select_[$int]$bool| a@0 i), its ID: 61
+mk_bool_var: mk_var_bug - mk_bool: 3
+
+internalize_assertion:
+(<= i 0)
+(<= i 0)
+
+assert_default: expr = (<= i 0), its ID: 66
+
+internalize_rec:
+(<= i 0)
+(<= i 0)
+
+
+internalize_formula:
+(<= i 0)
+(<= i 0)
+
+
+internalize_theory_atom:
+(<= i 0)
+(<= i 0)
+
+DDL: internalize_atom: (<= i 0)
+DDL: internalize_atom: LHS = i
+DDL: internalize_atom: RHS = 0
+DDL: internalize_atom: s = 0, 0
+DDL: internalize_atom: t = i, i
+DDL: internalize_term_core: 0
+DDL: enode mk_var: 0
+DDL: internalize_term_core: i
+DDL: enode mk_var: 1
+mk_bool_var: creating boolean variable: 4 for: (<= i 0), its ID: 66
+mk_bool_var: mk_var_bug - mk_bool: 4
+
+internalize_assertion:
+(>= i 0)
+(>= i 0)
+
+assert_default: expr = (>= i 0), its ID: 65
+
+internalize_rec:
+(>= i 0)
+(>= i 0)
+
+
+internalize_formula:
+(>= i 0)
+(>= i 0)
+
+
+internalize_theory_atom:
+(>= i 0)
+(>= i 0)
+
+DDL: internalize_atom: (>= i 0)
+DDL: internalize_atom: LHS = i
+DDL: internalize_atom: RHS = 0
+DDL: internalize_atom: s = 0, 0
+DDL: internalize_atom: t = i, i
+DDL: internalize_term_core: 0
+DDL: internalize_term_core: i
+mk_bool_var: creating boolean variable: 5 for: (>= i 0), its ID: 65
+mk_bool_var: mk_var_bug - mk_bool: 5
+
+internalize_assertion:
+(= a@0 (|Store_[$int]$bool| a 0 true))
+#57 := (Store_[$int]$bool a 0 true)
+(= a@0 #57)
+
+assert_default: expr = (= a@0 (|Store_[$int]$bool| a 0 true)), its ID: 58
+
+internalize_rec:
+(= a@0 (|Store_[$int]$bool| a 0 true))
+#57 := (Store_[$int]$bool a 0 true)
+(= a@0 #57)
+
+
+internalize_formula:
+(= a@0 (|Store_[$int]$bool| a 0 true))
+#57 := (Store_[$int]$bool a 0 true)
+(= a@0 #57)
+
+
+internalize_eq:
+(= a@0 (|Store_[$int]$bool| a 0 true))
+#57 := (Store_[$int]$bool a 0 true)
+(= a@0 #57)
+
+
+internalize_rec:
+a@0
+a@0
+
+
+internalize_rec:
+(|Store_[$int]$bool| a 0 true)
+(Store_[$int]$bool a 0 true)
+
+
+internalize_rec:
+a
+a
+
+
+internalize_rec:
+0
+0
+
+
+internalize_rec:
+true
+true
+
+
+internalize_formula:
+true
+true
+
+mk_bool_var: creating boolean variable: 6 for: (= a@0 (|Store_[$int]$bool| a 0 true)), its ID: 58
+mk_bool_var: mk_var_bug - mk_bool: 6
+(smt.searching)
+        DenseDL: add_edge
+        DDL: update_cells
+        DenseDL: add_edge
+        DDL: update_cells
+
+internalize_assertion:
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+             (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+                      (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+                  (or (not (or a!1 a!2))
+                      (= (|Select_[$int]$bool|
+                           (|Store_[$int]$bool| ?x0 ?x1 ?x2)
+                           ?y1)
+                         (|Select_[$int]$bool| ?x0 ?y1))))
+                :pattern ((|Select_[$int]$bool|
+                            (|Store_[$int]$bool| ?x0 ?x1 ?x2)
+                            ?y1)))))
+      (a!2 (not (or (not (>= i 0)) (not (<= i 0))))))
+  (or (not a!1)
+      a!2
+      (= (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+         (|Select_[$int]$bool| a i))))
+#77 := (Select_[$int]$bool a i)
+#57 := (Store_[$int]$bool a 0 true)
+#76 := (Select_[$int]$bool #57 i)
+#78 := (= #76 #77)
+#66 := (<= i 0)
+#81 := (not #66)
+#65 := (>= i 0)
+#80 := (not #65)
+#82 := (or #80 #81)
+#83 := (not #82)
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+#42 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+#85 := (not #42)
+(or #85 #83 #78)
+
+
+internalize_rec:
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+             (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+                      (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+                  (or (not (or a!1 a!2))
+                      (= (|Select_[$int]$bool|
+                           (|Store_[$int]$bool| ?x0 ?x1 ?x2)
+                           ?y1)
+                         (|Select_[$int]$bool| ?x0 ?y1))))
+                :pattern ((|Select_[$int]$bool|
+                            (|Store_[$int]$bool| ?x0 ?x1 ?x2)
+                            ?y1))))))
+  (not a!1))
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+#42 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+(not #42)
+
+
+internalize_formula:
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+             (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+                      (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+                  (or (not (or a!1 a!2))
+                      (= (|Select_[$int]$bool|
+                           (|Store_[$int]$bool| ?x0 ?x1 ?x2)
+                           ?y1)
+                         (|Select_[$int]$bool| ?x0 ?y1))))
+                :pattern ((|Select_[$int]$bool|
+                            (|Store_[$int]$bool| ?x0 ?x1 ?x2)
+                            ?y1))))))
+  (not a!1))
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+#42 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+(not #42)
+
+
+internalize_rec:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool))
+  (! (let ((a!1 (not (>= (+ ?y1 (* (- 1) ?x1)) 0)))
+           (a!2 (not (<= (+ ?y1 (* (- 1) ?x1)) 0))))
+       (or (not (or a!1 a!2))
+           (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1)
+              (|Select_[$int]$bool| ?x0 ?y1))))
+     :pattern ((|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?y1))))
+#24 := (:var 1 Int)
+#25 := (:var 0 Bool)
+#31 := (:var 2 Int)
+#30 := (:var 3 T@[Int]Bool)
+#34 := (Store_[$int]$bool #30 #31 #25)
+#35 := (Select_[$int]$bool #34 #24)
+#43 := (pattern #35)
+#36 := (Select_[$int]$bool #30 #24)
+#37 := (= #35 #36)
+#49 := (* -1 #31)
+#50 := (+ #24 #49)
+#48 := (<= #50 0)
+#52 := (not #48)
+#46 := (>= #50 0)
+#51 := (not #46)
+#53 := (or #51 #52)
+#54 := (not #53)
+#55 := (or #54 #37)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?y1 Int) (?x2 Bool)) (:pat #43) #55)
+
+
+internalize_rec:
+(not (or (not (>= i 0)) (not (<= i 0))))
+#66 := (<= i 0)
+#81 := (not #66)
+#65 := (>= i 0)
+#80 := (not #65)
+#82 := (or #80 #81)
+(not #82)
+
+
+internalize_formula:
+(not (or (not (>= i 0)) (not (<= i 0))))
+#66 := (<= i 0)
+#81 := (not #66)
+#65 := (>= i 0)
+#80 := (not #65)
+#82 := (or #80 #81)
+(not #82)
+
+
+internalize_rec:
+(or (not (>= i 0)) (not (<= i 0)))
+#66 := (<= i 0)
+#81 := (not #66)
+#65 := (>= i 0)
+#80 := (not #65)
+(or #80 #81)
+
+
+internalize_formula:
+(or (not (>= i 0)) (not (<= i 0)))
+#66 := (<= i 0)
+#81 := (not #66)
+#65 := (>= i 0)
+#80 := (not #65)
+(or #80 #81)
+
+
+internalize_theory_atom:
+(or (not (>= i 0)) (not (<= i 0)))
+#66 := (<= i 0)
+#81 := (not #66)
+#65 := (>= i 0)
+#80 := (not #65)
+(or #80 #81)
+
+
+internalize_rec:
+(not (>= i 0))
+#65 := (>= i 0)
+(not #65)
+
+
+internalize_formula:
+(not (>= i 0))
+#65 := (>= i 0)
+(not #65)
+
+
+internalize_rec:
+(>= i 0)
+(>= i 0)
+
+
+internalize_formula:
+(>= i 0)
+(>= i 0)
+
+
+internalize_rec:
+(not (<= i 0))
+#66 := (<= i 0)
+(not #66)
+
+
+internalize_formula:
+(not (<= i 0))
+#66 := (<= i 0)
+(not #66)
+
+
+internalize_rec:
+(<= i 0)
+(<= i 0)
+
+
+internalize_formula:
+(<= i 0)
+(<= i 0)
+
+mk_bool_var: creating boolean variable: 7 for: (or (not (>= i 0)) (not (<= i 0))), its ID: 82
+mk_bool_var: mk_var_bug - mk_bool: 7
+
+internalize_rec:
+(= (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+   (|Select_[$int]$bool| a i))
+#77 := (Select_[$int]$bool a i)
+#57 := (Store_[$int]$bool a 0 true)
+#76 := (Select_[$int]$bool #57 i)
+(= #76 #77)
+
+
+internalize_formula:
+(= (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+   (|Select_[$int]$bool| a i))
+#77 := (Select_[$int]$bool a i)
+#57 := (Store_[$int]$bool a 0 true)
+#76 := (Select_[$int]$bool #57 i)
+(= #76 #77)
+
+
+internalize_theory_atom:
+(= (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+   (|Select_[$int]$bool| a i))
+#77 := (Select_[$int]$bool a i)
+#57 := (Store_[$int]$bool a 0 true)
+#76 := (Select_[$int]$bool #57 i)
+(= #76 #77)
+
+
+internalize_rec:
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+#57 := (Store_[$int]$bool a 0 true)
+(Select_[$int]$bool #57 i)
+
+
+internalize_formula:
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+#57 := (Store_[$int]$bool a 0 true)
+(Select_[$int]$bool #57 i)
+
+
+internalize_theory_atom:
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+#57 := (Store_[$int]$bool a 0 true)
+(Select_[$int]$bool #57 i)
+
+
+internalize_rec:
+(|Store_[$int]$bool| a 0 true)
+(Store_[$int]$bool a 0 true)
+
+
+internalize_rec:
+i
+i
+
+mk_bool_var: creating boolean variable: 8 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i), its ID: 76
+mk_bool_var: mk_var_bug - mk_bool: 8
+
+internalize_rec:
+(|Select_[$int]$bool| a i)
+(Select_[$int]$bool a i)
+
+
+internalize_formula:
+(|Select_[$int]$bool| a i)
+(Select_[$int]$bool a i)
+
+
+internalize_theory_atom:
+(|Select_[$int]$bool| a i)
+(Select_[$int]$bool a i)
+
+
+internalize_rec:
+a
+a
+
+
+internalize_rec:
+i
+i
+
+mk_bool_var: creating boolean variable: 9 for: (|Select_[$int]$bool| a i), its ID: 77
+mk_bool_var: mk_var_bug - mk_bool: 9
+mk_bool_var: creating boolean variable: 10 for: (= (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) i)
+   (|Select_[$int]$bool| a i)), its ID: 78
+mk_bool_var: mk_var_bug - mk_bool: 10
+
+
+internalize_assertion:
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+             (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1)
+                   ?x2)
+                :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))))
+  (or (not a!1) (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)))
+#57 := (Store_[$int]$bool a 0 true)
+#84 := (Select_[$int]$bool #57 0)
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+#41 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+#88 := (not #41)
+(or #88 #84)
+
+
+internalize_rec:
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+             (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1)
+                   ?x2)
+                :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))))
+  (not a!1))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+#41 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+(not #41)
+
+
+internalize_formula:
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+             (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1)
+                   ?x2)
+                :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))))
+  (not a!1))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+#41 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+(not #41)
+
+
+internalize_rec:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+
+
+internalize_formula:
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
+#25 := (:var 0 Bool)
+#24 := (:var 1 Int)
+#23 := (:var 2 T@[Int]Bool)
+#26 := (Store_[$int]$bool #23 #24 #25)
+#40 := (pattern #26)
+#27 := (Select_[$int]$bool #26 #24)
+#28 := (= #27 #25)
+(forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #40) #28)
+
+
+internalize_rec:
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)
+#57 := (Store_[$int]$bool a 0 true)
+(Select_[$int]$bool #57 0)
+
+
+internalize_formula:
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)
+#57 := (Store_[$int]$bool a 0 true)
+(Select_[$int]$bool #57 0)
+
+
+internalize_theory_atom:
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)
+#57 := (Store_[$int]$bool a 0 true)
+(Select_[$int]$bool #57 0)
+
+
+internalize_rec:
+(|Store_[$int]$bool| a 0 true)
+(Store_[$int]$bool a 0 true)
+
+
+internalize_rec:
+0
+0
+
+mk_bool_var: creating boolean variable: 11 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0), its ID: 84
+mk_bool_var: mk_var_bug - mk_bool: 11
+
+(smt.simplifying-clause-set :num-deleted-clauses 2)
+(smt.simplifier-start)
+assume_eq:
+(= i 0)
+
+internalize_rec:
+i
+i
+
+
+internalize_rec:
+0
+0
+
+mk_bool_var: creating boolean variable: 12 for: (= i 0), its ID: 60
+mk_bool_var: mk_var_bug - mk_bool: 12
+DDL: internalize_eq_eh:
+(= i 0)
+
+internalize_rec:
+(= i 0)
+(= i 0)
+
+
+internalize_formula:
+(= i 0)
+(= i 0)
+
+
+internalize_rec:
+(<= i 0)
+(<= i 0)
+
+
+internalize_formula:
+(<= i 0)
+(<= i 0)
+
+
+internalize_rec:
+(>= i 0)
+(>= i 0)
+
+
+internalize_formula:
+(>= i 0)
+(>= i 0)
+
+
+internalize_rec:
+(= i 0)
+(= i 0)
+
+
+internalize_formula:
+(= i 0)
+(= i 0)
+
+
+internalize_eq:
+(= i 0)
+(= i 0)
+
+
+internalize_rec:
+i
+i
+
+
+internalize_rec:
+0
+0
+
+mk_bool_var: creating boolean variable: 12 for: (= i 0), its ID: 60
+mk_bool_var: mk_var_bug - mk_bool: 12
+DDL: internalize_eq_eh:
+(= i 0)
+
+internalize_rec:
+(= i 0)
+(= i 0)
+
+
+internalize_formula:
+(= i 0)
+(= i 0)
+
+
+internalize_rec:
+(<= i 0)
+(<= i 0)
+
+
+internalize_formula:
+(<= i 0)
+(<= i 0)
+
+
+internalize_rec:
+(>= i 0)
+(>= i 0)
+
+
+internalize_formula:
+(>= i 0)
+(>= i 0)
+
+
+internalize_rec:
+(= i 0)
+(= i 0)
+
+
+internalize_formula:
+(= i 0)
+(= i 0)
+
+
+internalize_eq:
+(= i 0)
+(= i 0)
+
+
+internalize_rec:
+i
+i
+
+
+internalize_rec:
+0
+0
+
+mk_bool_var: creating boolean variable: 12 for: (= i 0), its ID: 60
+mk_bool_var: mk_var_bug - mk_bool: 12
+DDL: internalize_eq_eh: (= i 0)
+
+internalize_rec:
+(= i 0)
+(= i 0)
+
+
+internalize_formula:
+(= i 0)
+(= i 0)
+
+
+internalize_rec:
+(<= i 0)
+(<= i 0)
+
+
+internalize_formula:
+(<= i 0)
+(<= i 0)
+
+
+internalize_rec:
+(>= i 0)
+(>= i 0)
+
