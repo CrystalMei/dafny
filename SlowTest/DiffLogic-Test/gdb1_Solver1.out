@@ -182,6 +182,10 @@ mk_bool_var: creating boolean variable: 1 for: (forall ((?x0 T@[Int]Bool) (?x1 I
   (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
      :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2)))), its ID: 33
 mk_bool_var: mk_var_bug - mk_bool: 1
+propagate_relevancy_to_args # 33
+(forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
 (smt.simplifier-start)
 	(call solver...)
 	(solver_na2as check_sat_core)
@@ -241,6 +245,12 @@ i
 
 mk_bool_var: creating boolean variable: 2 for: (|Select_[$int]$bool| a@0 i), its ID: 40
 mk_bool_var: mk_var_bug - mk_bool: 2
+propagate_relevancy_to_args # 40
+(|Select_[$int]$bool| a@0 i)
+propagate_relevancy_to_args # 38
+i
+propagate_relevancy_to_args # 34
+a@0
 
 internalize_assertion:
 (<= i 0)
@@ -273,6 +283,10 @@ mk_bool_var: mk_var_bug - mk_bool: 3
 DL: internalize_atom done: (<= i 0)
 pos: p3 (<= (- $2 $0) 0) 0
 neg: (not p3) (<= (- $0 $2) -1) 0
+propagate_relevancy_to_args # 45
+(<= i 0)
+propagate_relevancy_to_args # 30
+0
 
 internalize_assertion:
 (>= i 0)
@@ -304,6 +318,8 @@ mk_bool_var: mk_var_bug - mk_bool: 4
 DL: internalize_atom done: (>= i 0)
 pos: p4 (<= (- $0 $2) 0) 0
 neg: (not p4) (<= (- $2 $0) -1) 0
+propagate_relevancy_to_args # 44
+(>= i 0)
 
 internalize_assertion:
 (= a@0 (|Store_[$int]$bool| a 0 true))
@@ -361,9 +377,22 @@ true
 
 mk_bool_var: creating boolean variable: 5 for: (= a@0 (|Store_[$int]$bool| a 0 true)), its ID: 37
 mk_bool_var: mk_var_bug - mk_bool: 5
+propagate_relevancy_to_args # 37
+(= a@0 (|Store_[$int]$bool| a 0 true))
+propagate_relevancy_to_args # 36
+(|Store_[$int]$bool| a 0 true)
+propagate_relevancy_to_args # 1
+true
+propagate_relevancy_to_args # 35
+a
 (smt.searching)
 propagate_bool_var_enode - var: 2 #40
 propagate_bool_var_enode - var: 5 #37
+add_eq: assigning: #34 = #36
+add_eq (detail): assigning
+[#34 a@0]
+[#36 (Store_[$int]$bool a 0 true)]
+kind: 2
 DL: propagate atom: atom = (not p3) (<= i 0) 
 DL: propagate atom: atom = (not p4) (>= i 0) 
 
@@ -478,6 +507,14 @@ internalize_rec:
 
 mk_bool_var: creating boolean variable: 6 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0), its ID: 46
 mk_bool_var: mk_var_bug - mk_bool: 6
+propagate_relevancy_to_args # 50
+(let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+             (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1)
+                   ?x2)
+                :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))))
+  (or (not a!1) (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)))
+propagate_relevancy_to_args # 46
+(|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)
 propagate_bool_var_enode - var: 6 #46
 unknown
 (:reason-unknown "(incomplete (theory difference-logic))")

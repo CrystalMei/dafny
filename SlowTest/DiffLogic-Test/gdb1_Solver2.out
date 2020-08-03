@@ -117,8 +117,8 @@ mk_combined_solver...
 mk_bool_var: creating boolean variable: 0 for: true, its ID: 1
 mk_bool_var: mk_var_bug - mk_bool: 0
 	(unknown logic setup)
-	(setup arith: Dense Diff Logic)
-	(setup arith: Dense Diff Logic - theory_dense_mi)
+	(setup arith: Old Arith)
+	(setup arith: Old Arith - theory_i_arith)
 (smt.simplifier-start)
 (smt.propagate-values)
 (smt.nnf-cnf)
@@ -184,6 +184,9 @@ propagate_relevancy_to_args # 31
 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
   (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
      :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
+Arith: propagate:
+Arith: mk_feasible:
+Arith: propagate_bounds:
 (smt.simplifier-start)
 	(call solver...)
 	(solver_na2as check_sat_core)
@@ -199,37 +202,37 @@ propagate_relevancy_to_args # 31
 (smt.flatten-clauses)
 
 internalize_assertion:
-(not (|Select_[$int]$bool| a@0 i))
-#39 := (Select_[$int]$bool a@0 i)
-(not #39)
+(not (|Select_[$int]$bool| a@0 0))
+#43 := (Select_[$int]$bool a@0 0)
+(not #43)
 
-assert_default: expr = (not (|Select_[$int]$bool| a@0 i)), its ID: 50
+assert_default: expr = (not (|Select_[$int]$bool| a@0 0)), its ID: 45
 
 internalize_rec:
-(not (|Select_[$int]$bool| a@0 i))
-#39 := (Select_[$int]$bool a@0 i)
-(not #39)
+(not (|Select_[$int]$bool| a@0 0))
+#43 := (Select_[$int]$bool a@0 0)
+(not #43)
 
 
 internalize_formula:
-(not (|Select_[$int]$bool| a@0 i))
-#39 := (Select_[$int]$bool a@0 i)
-(not #39)
+(not (|Select_[$int]$bool| a@0 0))
+#43 := (Select_[$int]$bool a@0 0)
+(not #43)
 
 
 internalize_rec:
-(|Select_[$int]$bool| a@0 i)
-(Select_[$int]$bool a@0 i)
+(|Select_[$int]$bool| a@0 0)
+(Select_[$int]$bool a@0 0)
 
 
 internalize_formula:
-(|Select_[$int]$bool| a@0 i)
-(Select_[$int]$bool a@0 i)
+(|Select_[$int]$bool| a@0 0)
+(Select_[$int]$bool a@0 0)
 
 
 internalize_theory_atom:
-(|Select_[$int]$bool| a@0 i)
-(Select_[$int]$bool a@0 i)
+(|Select_[$int]$bool| a@0 0)
+(Select_[$int]$bool a@0 0)
 
 
 internalize_rec:
@@ -238,89 +241,66 @@ a@0
 
 
 internalize_rec:
-i
-i
+0
+0
 
-mk_bool_var: creating boolean variable: 2 for: (|Select_[$int]$bool| a@0 i), its ID: 39
+Arith: internalize_term:
+0
+Arith: internalize_term_core: 0
+Arith: internalize_numeral: 0
+Arith: internalize_numeral: 0
+Arith: mk_enode: 0
+Arith: enable_cgc_for: 0
+Arith: reflect: 0
+Arith: enode mk_var: 0
+mk_bool_var: creating boolean variable: 2 for: (|Select_[$int]$bool| a@0 0), its ID: 43
 mk_bool_var: mk_var_bug - mk_bool: 2
-propagate_relevancy_to_args # 39
-(|Select_[$int]$bool| a@0 i)
-propagate_relevancy_to_args # 37
-i
+propagate_relevancy_to_args # 43
+(|Select_[$int]$bool| a@0 0)
+Arith: relevant_eh: 0
+propagate_relevancy_to_args # 34
+0
 propagate_relevancy_to_args # 32
 a@0
 
 internalize_assertion:
-(<= i 0)
-(<= i 0)
+(= i 0)
+(= i 0)
 
-assert_default: expr = (<= i 0), its ID: 44
+assert_default: expr = (= i 0), its ID: 38
 
 internalize_rec:
-(<= i 0)
-(<= i 0)
+(= i 0)
+(= i 0)
 
 
 internalize_formula:
-(<= i 0)
-(<= i 0)
+(= i 0)
+(= i 0)
 
 
-internalize_theory_atom:
-(<= i 0)
-(<= i 0)
+internalize_eq:
+(= i 0)
+(= i 0)
 
-DDL: internalize_atom: (<= i 0)
-DDL: internalize_atom: LHS = i
-DDL: internalize_atom: RHS = 0
-DDL: internalize_atom: s = 0, 0
-DDL: internalize_atom: t = i, i
-DDL: internalize_term_core:
-0
-DDL: enode mk_var: 0
-DDL: internalize_term_core:
+
+internalize_rec:
 i
-DDL: enode mk_var: 1
-mk_bool_var: creating boolean variable: 3 for: (<= i 0), its ID: 44
+i
+
+
+internalize_rec:
+0
+0
+
+mk_bool_var: creating boolean variable: 3 for: (= i 0), its ID: 38
 mk_bool_var: mk_var_bug - mk_bool: 3
-propagate_relevancy_to_args # 44
-(<= i 0)
-propagate_relevancy_to_args # 34
-0
-
-internalize_assertion:
-(>= i 0)
-(>= i 0)
-
-assert_default: expr = (>= i 0), its ID: 43
-
-internalize_rec:
-(>= i 0)
-(>= i 0)
-
-
-internalize_formula:
-(>= i 0)
-(>= i 0)
-
-
-internalize_theory_atom:
-(>= i 0)
-(>= i 0)
-
-DDL: internalize_atom: (>= i 0)
-DDL: internalize_atom: LHS = i
-DDL: internalize_atom: RHS = 0
-DDL: internalize_atom: s = 0, 0
-DDL: internalize_atom: t = i, i
-DDL: internalize_term_core:
-0
-DDL: internalize_term_core:
+Arith: internalize_eq_eh:
+(= i 0)
+propagate_relevancy_to_args # 38
+(= i 0)
+propagate_relevancy_to_args # 37
 i
-mk_bool_var: creating boolean variable: 4 for: (>= i 0), its ID: 43
-mk_bool_var: mk_var_bug - mk_bool: 4
-propagate_relevancy_to_args # 43
-(>= i 0)
 
 internalize_assertion:
 (= a@0 (|Store_[$int]$bool| a 0 true))
@@ -376,8 +356,8 @@ internalize_formula:
 true
 true
 
-mk_bool_var: creating boolean variable: 5 for: (= a@0 (|Store_[$int]$bool| a 0 true)), its ID: 36
-mk_bool_var: mk_var_bug - mk_bool: 5
+mk_bool_var: creating boolean variable: 4 for: (= a@0 (|Store_[$int]$bool| a 0 true)), its ID: 36
+mk_bool_var: mk_var_bug - mk_bool: 4
 propagate_relevancy_to_args # 36
 (= a@0 (|Store_[$int]$bool| a 0 true))
 propagate_relevancy_to_args # 35
@@ -386,29 +366,56 @@ propagate_relevancy_to_args # 1
 true
 propagate_relevancy_to_args # 33
 a
-DDL: init_search_eh:
-Theory dense difference logic:
-v0 -> #34
-v1 -> #37
+Arith: init_search_eh:
+Theory arithmetic:
+vars:
+infeasibles = 0 int_inf = 0
+v0    #34   lo:         0, up:         0, value:          0, occs:    0, atoms:    0, int , non-base  , shared: 1, unassigned: 0, rel: 1, def: 0
+rows (compact view):
+rows (expanded view):
 atoms:
-#37    - #34    <= 0                 assignment: l_true
-#34    - #37    <= 0                 assignment: l_true
+asserted atoms:
 (smt.searching)
-propagate_bool_var_enode - var: 2 #39
-	DDL: add_edge
-DDL: trying adding edge:
-#34 -- 0 --> #37
-	DDL: update_cells
-	DDL: add_edge
-DDL: trying adding edge:
-#37 -- 0 --> #34
-	DDL: update_cells
-propagate_bool_var_enode - var: 5 #36
+propagate_bool_var_enode - var: 2 #43
+propagate_bool_var_enode - var: 3 #38
+add_eq: assigning: #37 = #34
+add_eq (detail): assigning
+[#37 i]
+[#34 0]
+kind: 2
+propagate_bool_var_enode - var: 4 #36
 add_eq: assigning: #32 = #35
 add_eq (detail): assigning
 [#32 a@0]
 [#35 (Store_[$int]$bool a 0 true)]
 kind: 2
+Arith: propagate:
+Theory arithmetic:
+vars:
+infeasibles = 0 int_inf = 0
+v0    #34   lo:         0, up:         0, value:          0, occs:    0, atoms:    0, int , non-base  , shared: 1, unassigned: 0, rel: 1, def: 0
+rows (compact view):
+rows (expanded view):
+atoms:
+asserted atoms:
+Arith: mk_feasible:
+Theory arithmetic:
+vars:
+infeasibles = 0 int_inf = 0
+v0    #34   lo:         0, up:         0, value:          0, occs:    0, atoms:    0, int , non-base  , shared: 1, unassigned: 0, rel: 1, def: 0
+rows (compact view):
+rows (expanded view):
+atoms:
+asserted atoms:
+Arith: propagate_bounds:
+Theory arithmetic:
+vars:
+infeasibles = 0 int_inf = 0
+v0    #34   lo:         0, up:         0, value:          0, occs:    0, atoms:    0, int , non-base  , shared: 1, unassigned: 0, rel: 1, def: 0
+rows (compact view):
+rows (expanded view):
+atoms:
+asserted atoms:
 
 internalize_assertion:
 (let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
@@ -417,7 +424,7 @@ internalize_assertion:
                 :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))))
   (or (not a!1) (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)))
 #35 := (Store_[$int]$bool a 0 true)
-#45 := (Select_[$int]$bool #35 0)
+#47 := (Select_[$int]$bool #35 0)
 #25 := (:var 0 Bool)
 #24 := (:var 1 Int)
 #23 := (:var 2 T@[Int]Bool)
@@ -426,8 +433,8 @@ internalize_assertion:
 #27 := (Select_[$int]$bool #26 #24)
 #28 := (= #27 #25)
 #31 := (forall (vars (?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool)) (:pat #30) #28)
-#48 := (not #31)
-(or #48 #45)
+#44 := (not #31)
+(or #44 #47)
 
 
 internalize_rec:
@@ -519,84 +526,22 @@ internalize_rec:
 0
 0
 
-mk_bool_var: creating boolean variable: 6 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0), its ID: 45
-mk_bool_var: mk_var_bug - mk_bool: 6
-propagate_relevancy_to_args # 49
+mk_bool_var: creating boolean variable: 5 for: (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0), its ID: 47
+mk_bool_var: mk_var_bug - mk_bool: 5
+propagate_relevancy_to_args # 48
 (let ((a!1 (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
              (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1)
                    ?x2)
                 :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))))
   (or (not a!1) (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)))
-propagate_relevancy_to_args # 45
+propagate_relevancy_to_args # 47
 (|Select_[$int]$bool| (|Store_[$int]$bool| a 0 true) 0)
-propagate_bool_var_enode - var: 6 #45
-Arith: final_check_eh:
-Theory dense difference logic:
-v0 -> #34
-v1 -> #37
-#34    -- 0          : id1     --> #37
-#37    -- 0          : id2     --> #34
-atoms:
-#37    - #34    <= 0                 assignment: l_true
-#34    - #37    <= 0                 assignment: l_true
-assume_eq:
-(= i 0)
-
-internalize_rec:
-i
-i
-
-
-internalize_rec:
-0
-0
-
-mk_bool_var: creating boolean variable: 7 for: (= i 0), its ID: 38
-mk_bool_var: mk_var_bug - mk_bool: 7
-DDL: internalize_eq_eh:
-(= i 0)
-
-internalize_rec:
-(= i 0)
-(= i 0)
-
-
-internalize_formula:
-(= i 0)
-(= i 0)
-
-
-internalize_rec:
-(<= i 0)
-(<= i 0)
-
-
-internalize_formula:
-(<= i 0)
-(<= i 0)
-
-
-internalize_rec:
-(>= i 0)
-(>= i 0)
-
-
-internalize_formula:
-(>= i 0)
-(>= i 0)
-
-propagate_relevancy_to_args # 38
-(= i 0)
-propagate_bool_var_enode - var: 7 #38
-add_eq: assigning: #37 = #34
+propagate_bool_var_enode - var: 5 #47
+add_eq: assigning: #47 = #43
 add_eq (detail): assigning
-[#37 i]
-[#34 0]
-kind: 2
-add_eq: assigning: #39 = #45
-add_eq (detail): assigning
-[#39 (Select_[$int]$bool a@0 i)]
-[#45 (Select_[$int]$bool (Store_[$int]$bool a 0 true) 0)]
+[#47 (Select_[$int]$bool (Store_[$int]$bool a 0 true) 0)]
+[#43 (Select_[$int]$bool a@0 0)]
 kind: 1
 unsat
 (:reason-unknown "unknown")
+Arith: mk_feasible:
