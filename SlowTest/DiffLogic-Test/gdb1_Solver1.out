@@ -187,17 +187,61 @@ propagate_relevancy_to_args # 33
   (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
      :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2))))
 (smt.simplifier-start)
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
 	(call solver...)
+combined_solver 2 - check_sat_core:
+(declare-sort |T@[Int]Bool| 0)
+(declare-fun |Store_[$int]$bool| (T@[Int]Bool Int Bool) T@[Int]Bool)
+(declare-fun |Select_[$int]$bool| (T@[Int]Bool Int) Bool)
+(declare-fun i () Int)
+(declare-fun a@0 () T@[Int]Bool)
+(declare-fun a () T@[Int]Bool)
+(assert (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (! (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)
+     :pattern ((|Store_[$int]$bool| ?x0 ?x1 ?x2)))))
+(assert (not (|Select_[$int]$bool| a@0 i)))
+(assert (= i 0))
+(assert (= a@0 (|Store_[$int]$bool| a 0 true)))
+combined_solver 1 - check_sat_core:
+(declare-sort |T@[Int]Bool| 0)
+(declare-fun |Select_[$int]$bool| (T@[Int]Bool Int) Bool)
+(declare-fun |Store_[$int]$bool| (T@[Int]Bool Int Bool) T@[Int]Bool)
+(declare-fun i () Int)
+(declare-fun a@0 () T@[Int]Bool)
+(declare-fun a () T@[Int]Bool)
+(assert (forall ((?x0 T@[Int]Bool) (?x1 Int) (?x2 Bool))
+  (= (|Select_[$int]$bool| (|Store_[$int]$bool| ?x0 ?x1 ?x2) ?x1) ?x2)))
+(assert (not (=> (= a@0 (|Store_[$int]$bool| a 0 true))
+         (=> (= i 0) (|Select_[$int]$bool| a@0 i)))))
 	(solver_na2as check_sat_core)
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 (smt.propagate-values)
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
 (smt.nnf-cnf)
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
 (smt.reduce-asserted)
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
 (smt.refine-injectivity)
 (smt.pattern-inference)
 (smt.maximizing-bv-sharing)
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
 (smt.reduce-asserted)
+mk_eq_core: i, 0
+mk_eq_core: eq to numeral, mk_le_ge_eq_core
 (smt.flatten-clauses)
 
 internalize_assertion:

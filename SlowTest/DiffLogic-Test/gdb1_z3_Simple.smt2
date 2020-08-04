@@ -1,4 +1,4 @@
-(set-option :smt.arith.solver 3)
+(set-option :smt.arith.solver 1)
 
 (declare-sort |T@[Int]Bool| 0)
 (declare-fun a@0 () |T@[Int]Bool|)
