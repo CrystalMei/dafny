@@ -5,150 +5,142 @@ Coalescing blocks...
 Inlining...
 
 Running abstract interpretation...
-  [0.049848 s]
+  [0.061128 s]
 [TRACE] Using prover: /home/jmhu/MSRintern/dafny/Binaries/z3/bin/z3
 
 Verifying CheckWellformed$$_module.__default.SeqIndex ...
-  [0.430 s, 6 proof obligations]  verified
+  [0.496 s, 6 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.SeqRemove ...
-  [0.103 s, 4 proof obligations]  verified
+  [0.122 s, 4 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.SeqInsert ...
-  [0.115 s, 5 proof obligations]  verified
+  [0.133 s, 5 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.SeqInit ...
-  [0.143 s, 3 proof obligations]  verified
+  [0.133 s, 3 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.SeqUpdate ...
-  [0.110 s, 6 proof obligations]  verified
+  [0.126 s, 6 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.seq__get ...
-  [0.104 s, 1 proof obligation]  verified
+  [0.125 s, 1 proof obligation]  verified
 
 Verifying CheckWellformed$$_module.__default.seq__set ...
-  [0.105 s, 1 proof obligation]  verified
+  [0.121 s, 1 proof obligation]  verified
 
 Verifying CheckWellformed$$_module.__default.seq_length ...
-  [0.126 s, 0 proof obligations]  verified
+  [0.123 s, 0 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.seq_empty ...
-  [0.122 s, 0 proof obligations]  verified
+  [0.126 s, 0 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.seq_alloc ...
-  [0.105 s, 1 proof obligation]  verified
+  [0.128 s, 1 proof obligation]  verified
 
 Verifying CheckWellformed$$_module.__default.seq_unleash ...
-  [0.101 s, 0 proof obligations]  verified
+  [0.131 s, 0 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.SeqResize ...
-  [0.114 s, 2 proof obligations]  verified
+  [0.119 s, 2 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.AllocAndCopy ...
-  [0.109 s, 2 proof obligations]  verified
+  [0.122 s, 2 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Invs ...
-  [0.201 s, 36 proof obligations]  verified
+  [0.228 s, 36 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Inv ...
-  [0.124 s, 1 proof obligation]  verified
+  [0.127 s, 1 proof obligation]  verified
 
 Verifying CheckWellformed$$_module.__default.ValidPtr ...
-  [0.125 s, 2 proof obligations]  verified
+  [0.129 s, 2 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.MaybePtr ...
-  [0.119 s, 1 proof obligation]  verified
+  [0.122 s, 1 proof obligation]  verified
 
 Verifying CheckWellformed$$_module.__default.Index ...
-  [0.164 s, 6 proof obligations]  verified
+  [0.136 s, 6 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.IndexHi ...
-  [0.147 s, 5 proof obligations]  verified
+  [0.128 s, 5 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Get ...
-  [0.176 s, 8 proof obligations]  verified
+  [0.135 s, 8 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Next ...
-  [0.234 s, 10 proof obligations]  verified
+  [0.160 s, 10 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Prev ...
-  [0.174 s, 10 proof obligations]  verified
+  [0.155 s, 10 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.BuildFreeStack ...
-  [0.116 s, 3 proof obligations]  verified
+  [0.125 s, 3 proof obligations]  verified
 
 Verifying Impl$$_module.__default.BuildFreeStack ...
-  [0.144 s, 23 proof obligations]  verified
+  [0.142 s, 23 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Alloc__SeqInit ...
-  [0.127 s, 2 proof obligations]  verified
+  [0.118 s, 2 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Alloc__SeqInit ...
-  [0.133 s, 4 proof obligations]  verified
+  [0.121 s, 4 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Alloc ...
-  [0.193 s, 21 proof obligations]  verified
+  [0.157 s, 21 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Expand__SeqInit ...
-  [0.099 s, 3 proof obligations]  verified
+  [0.117 s, 3 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Expand__SeqInit ...
-  [0.108 s, 5 proof obligations]  verified
+  [0.118 s, 5 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Expand ...
-  [0.105 s, 3 proof obligations]  verified
-Prover error: (smt.diff_logic: non-diff logic expression (+ (_module.__default.Add |len#0@0| |len#0@0|) (* (- 2) |len#0@0|)))
+  [0.125 s, 3 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Expand ...
-  [1.246 s, 25 proof obligations]  verified
+  [0.252 s, 25 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Remove__SeqInit ...
-  [0.154 s, 7 proof obligations]  verified
+  [0.108 s, 7 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Remove__SeqInit ...
-  [0.150 s, 9 proof obligations]  verified
+  [0.103 s, 9 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.Remove ...
-  [0.168 s, 2 proof obligations]  verified
+  [0.102 s, 2 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Remove ...
-  [8.410 s, 35 proof obligations]  verified
+  [2.213 s, 35 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.InsertAfter__SeqInit ...
-  [0.206 s, 6 proof obligations]  verified
+  [0.113 s, 6 proof obligations]  verified
 
 Verifying Impl$$_module.__default.InsertAfter__SeqInit ...
-  [0.159 s, 8 proof obligations]  verified
+  [0.104 s, 8 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.InsertAfter ...
-  [0.148 s, 2 proof obligations]  verified
+  [0.105 s, 2 proof obligations]  verified
 
 Verifying Impl$$_module.__default.InsertAfter ...
-  [23.160 s, 57 proof obligations]  verified
+  [9.692 s, 57 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.InsertBefore__SeqInit ...
-  [0.129 s, 6 proof obligations]  verified
+  [0.157 s, 6 proof obligations]  verified
 
 Verifying Impl$$_module.__default.InsertBefore__SeqInit ...
-  [0.110 s, 8 proof obligations]  verified
+  [0.103 s, 8 proof obligations]  verified
 
 Verifying CheckWellformed$$_module.__default.InsertBefore ...
-  [0.115 s, 2 proof obligations]  verified
+  [0.106 s, 2 proof obligations]  verified
 
 Verifying Impl$$_module.__default.InsertBefore ...
-  [25.607 s, 56 proof obligations]  verified
-Prover error: (smt.diff_logic: non-diff logic expression (* 2 |from##0@0|))
-Prover error: (smt.diff_logic: non-diff logic expression (+ |from##0@0|
-Prover error:    (|Seq#Length| (|Seq#Drop| |call6formal@dest#0@0| |from##0@0|))
-Prover error:    (* (- 1) (|Seq#Length| |call6formal@dest#0@0|))))
-Prover error: (smt.diff_logic: non-diff logic expression (+ |from##0@0|
-Prover error:    (|Seq#Length| (|Seq#Drop| |call6formal@dest#0@0| |from##0@0|))
-Prover error:    (* (- 1) (|Seq#Length| |call6formal@dest#0@0|))))
+  [6.041 s, 56 proof obligations]  verified
 
 Verifying Impl$$_module.__default.Clone ...
-  [0.160 s, 5 proof obligations]  verified
+  [0.141 s, 5 proof obligations]  verified
 
 Verifying Impl$$_module.__default.main ...
-  [16.311 s, 144 proof obligations]  verified
+  [2.673 s, 144 proof obligations]  verified
 
 Dafny program verifier finished with 45 verified, 0 errors
