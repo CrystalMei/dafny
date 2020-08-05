@@ -1,16 +1,14 @@
-; (set-option :produce-proofs true)
-(set-option :smt.arith.solver 3) ; set diff logic solver
-;(set-option :smt.arith.solver 2) ; set diff logic solver
+(set-option :smt.arith.solver 1) ; set diff logic solver
 ; (set-logic DLA) 
 
 (declare-const a Int)
 (declare-const b Int)
 
 (push)
-(assert (=> (and (= a 10) (= b 11)) (= (+ a b) 21)))
+(assert ((and (<= a 0) (>= a 0))) )
 
 (check-sat)
-;(get-model)
+(get-model)
 ; (check-sat-using qflia)
 ; (get-model)
 ; (pop) ; remove the two assertions

@@ -8,6 +8,11 @@ lemma Props_dec_lower_bound (sum: int, x: int)
 function method Add(a: int, b: int): int { a + b }
 function method Sub(a: int, b: int): int { a - b }
 
+function method SeqIndex<X> (s: seq<X>, i: int) : X
+  requires 0 <= i < |s|
+  ensures SeqIndex(s, i) in s
+  { s[i] }
+
 function method SeqRemove<X> (s: seq<X>, k: int) : (s': seq<X>)
   requires 0 <= k < |s|
   ensures Sub(|s|, 1) == |s'|
@@ -28,6 +33,17 @@ function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
   requires forall i : int :: 0 <= i < len ==> func.requires(i)
   ensures |s| == len
   ensures forall i : int {:trigger s[i]} :: 0 <= i < len ==> s[i] == func(i)
+
+function method SeqUpdate<X> (s: seq<X>, k: int, v: X): (s': seq<X>)
+  requires 0 <= k < |s|
+  ensures |s| == |s'|
+  ensures
+    forall i : int {:trigger s'[i]} ::
+    0 <= i < |s'| ==>
+    if i == k then s'[i] == v
+    else s'[i] == s[i]
+  { s[k := v] }
+    // ensures s'[k] == v
 
 datatype Option<V> = None | Some(value:V) 
 
@@ -185,7 +201,7 @@ function method Prev<A>(l:DList<A>, p:int):(p':int)
   seq_get(l.nodes, p).prev
 }
  
-method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
+method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   requires 0 < k <= |a|
   ensures |b| == |a|
   ensures forall i: int {:trigger b[i]} :: 0 <= i < k ==> b[i] == a[i]
@@ -201,7 +217,7 @@ method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
     invariant forall i: int :: k <= i < n ==> b[i] == Node(None, Sub(i, 1), 0)
     decreases Dec(seq_length(b), n)
   {
-    b := seq_set(b, n, Node(None, Sub(n, 1), 0));
+    b := SeqUpdate(b, n, Node(None, Sub(n, 1), 0));
     Props_dec_one (seq_length(b));
     Props_dec_lower_bound(seq_length(b), n);
     n := n + 1;
@@ -303,10 +319,10 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   ghost var g' := Remove_SeqInit(g, index);
   var node := seq_get(nodes, p);
   var node_prev := seq_get(nodes, node.prev);
-  nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
+  nodes := SeqUpdate(nodes, node.prev, node_prev.(next := node.next));
   var node_next := seq_get(nodes, node.next);
-  nodes := seq_set(nodes, node.next, node_next.(prev := node.prev));
-  nodes := seq_set(nodes, p, Node(None, freeStack, 0));
+  nodes := SeqUpdate(nodes, node.next, node_next.(prev := node.prev));
+  nodes := SeqUpdate(nodes, p, Node(None, freeStack, 0));
   l' := DList(nodes, p, s', f', g');
 }
 
@@ -350,10 +366,10 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var g' := InsertAfter_SeqInit(g, p', index, index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), node.next, p);
-  nodes := seq_set(nodes, p, node.(next := p'));
+  nodes := SeqUpdate(nodes, p, node.(next := p'));
   var node_next := seq_get(nodes, node.next);
-  nodes := seq_set(nodes, node.next, node_next.(prev := p'));
-  nodes := seq_set(nodes, p', node');
+  nodes := SeqUpdate(nodes, node.next, node_next.(prev := p'));
+  nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
   // assume forall i: int {:trigger Add(i, 1)} :: Sub(Add(i, 1), 1) == i;
   // assume forall i: int {:trigger Sub(i, 1)} :: Add(Sub(i, 1), 1) == i;
@@ -399,10 +415,10 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var g' := InsertBefore_SeqInit(g, p', index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), p, node.prev);
-  nodes := seq_set(nodes, p, node.(prev := p'));
+  nodes := SeqUpdate(nodes, p, node.(prev := p'));
   var node_prev := seq_get(nodes, node.prev);
-  nodes := seq_set(nodes, node.prev, node_prev.(next := p'));
-  nodes := seq_set(nodes, p', node');
+  nodes := SeqUpdate(nodes, node.prev, node_prev.(next := p'));
+  nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
 }
 

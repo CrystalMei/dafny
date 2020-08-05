@@ -15,7 +15,6 @@
 (set-option :TYPE_CHECK true)
 (set-option :smt.BV.REFLECT true)
 (set-option :model.compact false)
-(set-option :smt.arith.solver 0)
 ; done setting options
 
 
@@ -554,37 +553,41 @@
 (declare-fun |lambda#29| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#30| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#31| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#32| (Int Int Int) T@U)
-(declare-fun |lambda#33| (T@U) T@U)
-(declare-fun |lambda#34| (Bool) T@U)
-(declare-fun |lambda#35| (T@U) T@U)
+(declare-fun |lambda#32| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#33| (Int Int Int) T@U)
+(declare-fun |lambda#34| (T@U) T@U)
+(declare-fun |lambda#35| (Bool) T@U)
 (declare-fun |lambda#36| (T@U) T@U)
-(declare-fun |lambda#42| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#43| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#44| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#45| (Int T@U Int) T@U)
-(declare-fun |lambda#46| (T@U Int Int) T@U)
+(declare-fun |lambda#37| (T@U) T@U)
+(declare-fun |lambda#53| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#54| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#55| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#56| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#57| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#58| (T@U Int Int T@U Int T@U Int T@U) T@U)
+(declare-fun |lambda#57| (Int T@U Int) T@U)
+(declare-fun |lambda#58| (T@U Int Int) T@U)
+(declare-fun |lambda#77| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#78| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#79| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#80| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#81| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#82| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#83| (Int Int Int T@U T@U Int T@U) T@U)
+(declare-fun |lambda#82| (T@U Int Int T@U Int T@U Int T@U) T@U)
+(declare-fun |lambda#102| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#103| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#104| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#105| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#106| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#107| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#108| (Int Int T@U Int T@U Int T@U) T@U)
+(declare-fun |lambda#107| (Int Int Int T@U T@U Int T@U) T@U)
+(declare-fun |lambda#127| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#128| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#129| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#130| (T@U T@U T@U Bool) T@U)
 (declare-fun |lambda#131| (T@U T@U T@U Bool) T@U)
-(declare-fun |lambda#132| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#132| (Int Int T@U Int T@U Int T@U) T@U)
+(declare-fun |lambda#152| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#153| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#154| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#155| (T@U T@U T@U Bool) T@U)
+(declare-fun |lambda#156| (T@U T@U T@U Bool) T@U)
 (assert  (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (= (Ctor intType) 0) (= (Ctor realType) 1)) (= (Ctor boolType) 2)) (= (Ctor rmodeType) 3)) (= (Ctor stringType) 4)) (= (Ctor regexType) 5)) (forall ((arg0 Int) ) (! (= (U_2_int (int_2_U arg0)) arg0)
  :qid |typeInv:U_2_int|
  :pattern ( (int_2_U arg0))
@@ -5909,7 +5912,7 @@
  :qid |funType:_module.__default.SeqRemove|
  :pattern ( (_module.__default.SeqRemove arg0@@240 arg1@@108 arg2@@64))
 )))
-(assert  (=> (<= 33 $FunctionContextHeight) (forall ((_module._default.SeqRemove$X T@U) (|s#0| T@U) (|k#0| Int) ) (!  (=> (and (and (= (type _module._default.SeqRemove$X) TyType) (= (type |s#0|) (SeqType BoxType))) (or (|_module.__default.SeqRemove#canCall| _module._default.SeqRemove$X |s#0| |k#0|) (and (not (= 33 $FunctionContextHeight)) (and ($Is |s#0| (TSeq _module._default.SeqRemove$X)) (and (<= 0 |k#0|) (< |k#0| (|Seq#Length| |s#0|))))))) (and (and (= (_module.__default.Sub (|Seq#Length| |s#0|) 1) (|Seq#Length| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|))) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| (|Seq#Length| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|)))) (ite (< |i#0| |k#0|) (= (|Seq#Index| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|) |i#0|) (|Seq#Index| |s#0| |i#0|)) (= (|Seq#Index| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|) |i#0|) (|Seq#Index| |s#0| (_module.__default.Add |i#0| 1))))))
+(assert  (=> (<= 35 $FunctionContextHeight) (forall ((_module._default.SeqRemove$X T@U) (|s#0| T@U) (|k#0| Int) ) (!  (=> (and (and (= (type _module._default.SeqRemove$X) TyType) (= (type |s#0|) (SeqType BoxType))) (or (|_module.__default.SeqRemove#canCall| _module._default.SeqRemove$X |s#0| |k#0|) (and (not (= 35 $FunctionContextHeight)) (and ($Is |s#0| (TSeq _module._default.SeqRemove$X)) (and (<= 0 |k#0|) (< |k#0| (|Seq#Length| |s#0|))))))) (and (and (= (_module.__default.Sub (|Seq#Length| |s#0|) 1) (|Seq#Length| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|))) (forall ((|i#0| Int) ) (!  (=> true (=> (and (<= 0 |i#0|) (< |i#0| (|Seq#Length| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|)))) (ite (< |i#0| |k#0|) (= (|Seq#Index| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|) |i#0|) (|Seq#Index| |s#0| |i#0|)) (= (|Seq#Index| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|) |i#0|) (|Seq#Index| |s#0| (_module.__default.Add |i#0| 1))))))
  :qid |DLLDafny.14:18|
  :skolemid |1015|
  :pattern ( (|Seq#Index| (_module.__default.SeqRemove _module._default.SeqRemove$X |s#0| |k#0|) |i#0|))
@@ -5927,7 +5930,7 @@
  :qid |funType:_module.__default.SeqInsert|
  :pattern ( (_module.__default.SeqInsert arg0@@241 arg1@@109 arg2@@65 arg3@@41))
 )))
-(assert  (=> (<= 36 $FunctionContextHeight) (forall ((_module._default.SeqInsert$X T@U) (|s#0@@1| T@U) (|k#0@@1| Int) (|v#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInsert$X) TyType) (= (type |s#0@@1|) (SeqType BoxType))) (= (type |v#0|) BoxType)) (or (|_module.__default.SeqInsert#canCall| _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) (and (not (= 36 $FunctionContextHeight)) (and (and ($Is |s#0@@1| (TSeq _module._default.SeqInsert$X)) ($IsBox |v#0| _module._default.SeqInsert$X)) (and (<= 0 |k#0@@1|) (<= |k#0@@1| (|Seq#Length| |s#0@@1|))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|)) (_module.__default.Add (|Seq#Length| |s#0@@1|) 1)) (forall ((|i#0@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#0@@0|) (< |i#0@@0| (|Seq#Length| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|)))) (ite (< |i#0@@0| |k#0@@1|) (= (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|) (|Seq#Index| |s#0@@1| |i#0@@0|)) (ite (= |i#0@@0| |k#0@@1|) (= (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|) |v#0|) (= (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|) (|Seq#Index| |s#0@@1| (_module.__default.Sub |i#0@@0| 1)))))))
+(assert  (=> (<= 38 $FunctionContextHeight) (forall ((_module._default.SeqInsert$X T@U) (|s#0@@1| T@U) (|k#0@@1| Int) (|v#0| T@U) ) (!  (=> (and (and (and (= (type _module._default.SeqInsert$X) TyType) (= (type |s#0@@1|) (SeqType BoxType))) (= (type |v#0|) BoxType)) (or (|_module.__default.SeqInsert#canCall| _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) (and (not (= 38 $FunctionContextHeight)) (and (and ($Is |s#0@@1| (TSeq _module._default.SeqInsert$X)) ($IsBox |v#0| _module._default.SeqInsert$X)) (and (<= 0 |k#0@@1|) (<= |k#0@@1| (|Seq#Length| |s#0@@1|))))))) (and (and (= (|Seq#Length| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|)) (_module.__default.Add (|Seq#Length| |s#0@@1|) 1)) (forall ((|i#0@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#0@@0|) (< |i#0@@0| (|Seq#Length| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|)))) (ite (< |i#0@@0| |k#0@@1|) (= (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|) (|Seq#Index| |s#0@@1| |i#0@@0|)) (ite (= |i#0@@0| |k#0@@1|) (= (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|) |v#0|) (= (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|) (|Seq#Index| |s#0@@1| (_module.__default.Sub |i#0@@0| 1)))))))
  :qid |DLLDafny.21:18|
  :skolemid |1020|
  :pattern ( (|Seq#Index| (_module.__default.SeqInsert _module._default.SeqInsert$X |s#0@@1| |k#0@@1| |v#0|) |i#0@@0|))
@@ -6013,7 +6016,7 @@
  :qid |funType:_module.__default.seq_empty|
  :pattern ( (_module.__default.seq_empty arg0@@245))
 )))
-(assert  (=> (<= 44 $FunctionContextHeight) (forall ((_module._default.seq_empty$A T@U) ) (!  (=> (and (= (type _module._default.seq_empty$A) TyType) (or (|_module.__default.seq_empty#canCall| _module._default.seq_empty$A) (not (= 44 $FunctionContextHeight)))) (and (= (|Seq#Length| (_module.__default.seq_empty _module._default.seq_empty$A)) 0) ($Is (_module.__default.seq_empty _module._default.seq_empty$A) (TSeq _module._default.seq_empty$A))))
+(assert  (=> (<= 46 $FunctionContextHeight) (forall ((_module._default.seq_empty$A T@U) ) (!  (=> (and (= (type _module._default.seq_empty$A) TyType) (or (|_module.__default.seq_empty#canCall| _module._default.seq_empty$A) (not (= 46 $FunctionContextHeight)))) (and (= (|Seq#Length| (_module.__default.seq_empty _module._default.seq_empty$A)) 0) ($Is (_module.__default.seq_empty _module._default.seq_empty$A) (TSeq _module._default.seq_empty$A))))
  :qid |unknown.0:0|
  :skolemid |1040|
  :pattern ( (_module.__default.seq_empty _module._default.seq_empty$A))
@@ -6059,7 +6062,7 @@
  :qid |funType:_module.__default.seq_unleash|
  :pattern ( (_module.__default.seq_unleash arg0@@248 arg1@@115))
 )))
-(assert  (=> (<= 45 $FunctionContextHeight) (forall ((_module._default.seq_unleash$A T@U) (|s1#0@@1| T@U) ) (!  (=> (and (and (= (type _module._default.seq_unleash$A) TyType) (= (type |s1#0@@1|) (SeqType BoxType))) (or (|_module.__default.seq_unleash#canCall| _module._default.seq_unleash$A |s1#0@@1|) (and (not (= 45 $FunctionContextHeight)) ($Is |s1#0@@1| (TSeq _module._default.seq_unleash$A))))) (and (|Seq#Equal| |s1#0@@1| (_module.__default.seq_unleash _module._default.seq_unleash$A |s1#0@@1|)) ($Is (_module.__default.seq_unleash _module._default.seq_unleash$A |s1#0@@1|) (TSeq _module._default.seq_unleash$A))))
+(assert  (=> (<= 47 $FunctionContextHeight) (forall ((_module._default.seq_unleash$A T@U) (|s1#0@@1| T@U) ) (!  (=> (and (and (= (type _module._default.seq_unleash$A) TyType) (= (type |s1#0@@1|) (SeqType BoxType))) (or (|_module.__default.seq_unleash#canCall| _module._default.seq_unleash$A |s1#0@@1|) (and (not (= 47 $FunctionContextHeight)) ($Is |s1#0@@1| (TSeq _module._default.seq_unleash$A))))) (and (|Seq#Equal| |s1#0@@1| (_module.__default.seq_unleash _module._default.seq_unleash$A |s1#0@@1|)) ($Is (_module.__default.seq_unleash _module._default.seq_unleash$A |s1#0@@1|) (TSeq _module._default.seq_unleash$A))))
  :qid |unknown.0:0|
  :skolemid |1049|
  :pattern ( (_module.__default.seq_unleash _module._default.seq_unleash$A |s1#0@@1|))
@@ -6622,7 +6625,7 @@
 (assert (forall (($o@@9 T@U) ($f T@U) (|l#0@@35| T@U) (|l#1| T@U) (|l#2| T@U) (|l#3| Bool) ) (! (let ((alpha@@6 (FieldTypeInv0 (type $f))))
  (=> (and (and (and (and (= (type $o@@9) refType) (= (type $f) (FieldType alpha@@6))) (= (type |l#0@@35|) refType)) (= (type |l#1|) (MapType0Type refType MapType1Type))) (= (type |l#2|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#0| |l#0@@35| |l#1| |l#2| |l#3|) $o@@9 $f))  (=> (and (not (= $o@@9 |l#0@@35|)) (U_2_bool (MapType1Select (MapType0Select |l#1| $o@@9) |l#2|))) |l#3|))))
  :qid |DLLDafny.11:17|
- :skolemid |1665|
+ :skolemid |1675|
  :pattern ( (MapType6Select (|lambda#0| |l#0@@35| |l#1| |l#2| |l#3|) $o@@9 $f))
 )))
 (assert (forall ((arg0@@257 T@U) (arg1@@124 T@U) (arg2@@74 T@U) (arg3@@45 Bool) ) (! (= (type (|lambda#1| arg0@@257 arg1@@124 arg2@@74 arg3@@45)) (MapType6Type refType boolType))
@@ -6632,7 +6635,7 @@
 (assert (forall (($o@@10 T@U) ($f@@0 T@U) (|l#0@@36| T@U) (|l#1@@0| T@U) (|l#2@@0| T@U) (|l#3@@0| Bool) ) (! (let ((alpha@@7 (FieldTypeInv0 (type $f@@0))))
  (=> (and (and (and (and (= (type $o@@10) refType) (= (type $f@@0) (FieldType alpha@@7))) (= (type |l#0@@36|) refType)) (= (type |l#1@@0|) (MapType0Type refType MapType1Type))) (= (type |l#2@@0|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#1| |l#0@@36| |l#1@@0| |l#2@@0| |l#3@@0|) $o@@10 $f@@0))  (=> (and (not (= $o@@10 |l#0@@36|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@0| $o@@10) |l#2@@0|))) |l#3@@0|))))
  :qid |DLLDafny.18:17|
- :skolemid |1666|
+ :skolemid |1676|
  :pattern ( (MapType6Select (|lambda#1| |l#0@@36| |l#1@@0| |l#2@@0| |l#3@@0|) $o@@10 $f@@0))
 )))
 (assert (forall ((arg0@@258 T@U) (arg1@@125 T@U) (arg2@@75 T@U) (arg3@@46 Bool) ) (! (= (type (|lambda#2| arg0@@258 arg1@@125 arg2@@75 arg3@@46)) (MapType6Type refType boolType))
@@ -6642,7 +6645,7 @@
 (assert (forall (($o@@11 T@U) ($f@@1 T@U) (|l#0@@37| T@U) (|l#1@@1| T@U) (|l#2@@1| T@U) (|l#3@@1| Bool) ) (! (let ((alpha@@8 (FieldTypeInv0 (type $f@@1))))
  (=> (and (and (and (and (= (type $o@@11) refType) (= (type $f@@1) (FieldType alpha@@8))) (= (type |l#0@@37|) refType)) (= (type |l#1@@1|) (MapType0Type refType MapType1Type))) (= (type |l#2@@1|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#2| |l#0@@37| |l#1@@1| |l#2@@1| |l#3@@1|) $o@@11 $f@@1))  (=> (and (not (= $o@@11 |l#0@@37|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@1| $o@@11) |l#2@@1|))) |l#3@@1|))))
  :qid |DLLDafny.26:17|
- :skolemid |1667|
+ :skolemid |1677|
  :pattern ( (MapType6Select (|lambda#2| |l#0@@37| |l#1@@1| |l#2@@1| |l#3@@1|) $o@@11 $f@@1))
 )))
 (assert (forall ((arg0@@259 T@U) (arg1@@126 T@U) (arg2@@76 T@U) (arg3@@47 Bool) ) (! (= (type (|lambda#3| arg0@@259 arg1@@126 arg2@@76 arg3@@47)) (MapType6Type refType boolType))
@@ -6652,7 +6655,7 @@
 (assert (forall (($o@@12 T@U) ($f@@2 T@U) (|l#0@@38| T@U) (|l#1@@2| T@U) (|l#2@@2| T@U) (|l#3@@2| Bool) ) (! (let ((alpha@@9 (FieldTypeInv0 (type $f@@2))))
  (=> (and (and (and (and (= (type $o@@12) refType) (= (type $f@@2) (FieldType alpha@@9))) (= (type |l#0@@38|) refType)) (= (type |l#1@@2|) (MapType0Type refType MapType1Type))) (= (type |l#2@@2|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#3| |l#0@@38| |l#1@@2| |l#2@@2| |l#3@@2|) $o@@12 $f@@2))  (=> (and (not (= $o@@12 |l#0@@38|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@2| $o@@12) |l#2@@2|))) |l#3@@2|))))
  :qid |DLLDafny.34:17|
- :skolemid |1668|
+ :skolemid |1678|
  :pattern ( (MapType6Select (|lambda#3| |l#0@@38| |l#1@@2| |l#2@@2| |l#3@@2|) $o@@12 $f@@2))
 )))
 (assert (forall ((arg0@@260 T@U) (arg1@@127 T@U) (arg2@@77 T@U) (arg3@@48 Bool) ) (! (= (type (|lambda#4| arg0@@260 arg1@@127 arg2@@77 arg3@@48)) (MapType6Type refType boolType))
@@ -6662,7 +6665,7 @@
 (assert (forall (($o@@13 T@U) ($f@@3 T@U) (|l#0@@39| T@U) (|l#1@@3| T@U) (|l#2@@3| T@U) (|l#3@@3| Bool) ) (! (let ((alpha@@10 (FieldTypeInv0 (type $f@@3))))
  (=> (and (and (and (and (= (type $o@@13) refType) (= (type $f@@3) (FieldType alpha@@10))) (= (type |l#0@@39|) refType)) (= (type |l#1@@3|) (MapType0Type refType MapType1Type))) (= (type |l#2@@3|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#4| |l#0@@39| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))  (=> (and (not (= $o@@13 |l#0@@39|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@3| $o@@13) |l#2@@3|))) |l#3@@3|))))
  :qid |DLLDafny.38:17|
- :skolemid |1669|
+ :skolemid |1679|
  :pattern ( (MapType6Select (|lambda#4| |l#0@@39| |l#1@@3| |l#2@@3| |l#3@@3|) $o@@13 $f@@3))
 )))
 (assert (forall ((arg0@@261 T@U) (arg1@@128 T@U) (arg2@@78 T@U) (arg3@@49 Bool) ) (! (= (type (|lambda#5| arg0@@261 arg1@@128 arg2@@78 arg3@@49)) (MapType6Type refType boolType))
@@ -6672,7 +6675,7 @@
 (assert (forall (($o@@14 T@U) ($f@@4 T@U) (|l#0@@40| T@U) (|l#1@@4| T@U) (|l#2@@4| T@U) (|l#3@@4| Bool) ) (! (let ((alpha@@11 (FieldTypeInv0 (type $f@@4))))
  (=> (and (and (and (and (= (type $o@@14) refType) (= (type $f@@4) (FieldType alpha@@11))) (= (type |l#0@@40|) refType)) (= (type |l#1@@4|) (MapType0Type refType MapType1Type))) (= (type |l#2@@4|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#5| |l#0@@40| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))  (=> (and (not (= $o@@14 |l#0@@40|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@4| $o@@14) |l#2@@4|))) |l#3@@4|))))
  :qid |DLLDafny.42:56|
- :skolemid |1670|
+ :skolemid |1680|
  :pattern ( (MapType6Select (|lambda#5| |l#0@@40| |l#1@@4| |l#2@@4| |l#3@@4|) $o@@14 $f@@4))
 )))
 (assert (forall ((arg0@@262 T@U) (arg1@@129 T@U) (arg2@@79 T@U) (arg3@@50 Bool) ) (! (= (type (|lambda#6| arg0@@262 arg1@@129 arg2@@79 arg3@@50)) (MapType6Type refType boolType))
@@ -6682,7 +6685,7 @@
 (assert (forall (($o@@15 T@U) ($f@@5 T@U) (|l#0@@41| T@U) (|l#1@@5| T@U) (|l#2@@5| T@U) (|l#3@@5| Bool) ) (! (let ((alpha@@12 (FieldTypeInv0 (type $f@@5))))
  (=> (and (and (and (and (= (type $o@@15) refType) (= (type $f@@5) (FieldType alpha@@12))) (= (type |l#0@@41|) refType)) (= (type |l#1@@5|) (MapType0Type refType MapType1Type))) (= (type |l#2@@5|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#6| |l#0@@41| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))  (=> (and (not (= $o@@15 |l#0@@41|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@5| $o@@15) |l#2@@5|))) |l#3@@5|))))
  :qid |DLLDafny.45:55|
- :skolemid |1671|
+ :skolemid |1681|
  :pattern ( (MapType6Select (|lambda#6| |l#0@@41| |l#1@@5| |l#2@@5| |l#3@@5|) $o@@15 $f@@5))
 )))
 (assert (forall ((arg0@@263 T@U) (arg1@@130 T@U) (arg2@@80 T@U) (arg3@@51 Bool) ) (! (= (type (|lambda#7| arg0@@263 arg1@@130 arg2@@80 arg3@@51)) (MapType6Type refType boolType))
@@ -6692,7 +6695,7 @@
 (assert (forall (($o@@16 T@U) ($f@@6 T@U) (|l#0@@42| T@U) (|l#1@@6| T@U) (|l#2@@6| T@U) (|l#3@@6| Bool) ) (! (let ((alpha@@13 (FieldTypeInv0 (type $f@@6))))
  (=> (and (and (and (and (= (type $o@@16) refType) (= (type $f@@6) (FieldType alpha@@13))) (= (type |l#0@@42|) refType)) (= (type |l#1@@6|) (MapType0Type refType MapType1Type))) (= (type |l#2@@6|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#7| |l#0@@42| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))  (=> (and (not (= $o@@16 |l#0@@42|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@6| $o@@16) |l#2@@6|))) |l#3@@6|))))
  :qid |DLLDafny.48:55|
- :skolemid |1672|
+ :skolemid |1682|
  :pattern ( (MapType6Select (|lambda#7| |l#0@@42| |l#1@@6| |l#2@@6| |l#3@@6|) $o@@16 $f@@6))
 )))
 (assert (forall ((arg0@@264 T@U) (arg1@@131 T@U) (arg2@@81 T@U) (arg3@@52 Bool) ) (! (= (type (|lambda#8| arg0@@264 arg1@@131 arg2@@81 arg3@@52)) (MapType6Type refType boolType))
@@ -6702,7 +6705,7 @@
 (assert (forall (($o@@17 T@U) ($f@@7 T@U) (|l#0@@43| T@U) (|l#1@@7| T@U) (|l#2@@7| T@U) (|l#3@@7| Bool) ) (! (let ((alpha@@14 (FieldTypeInv0 (type $f@@7))))
  (=> (and (and (and (and (= (type $o@@17) refType) (= (type $f@@7) (FieldType alpha@@14))) (= (type |l#0@@43|) refType)) (= (type |l#1@@7|) (MapType0Type refType MapType1Type))) (= (type |l#2@@7|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#8| |l#0@@43| |l#1@@7| |l#2@@7| |l#3@@7|) $o@@17 $f@@7))  (=> (and (not (= $o@@17 |l#0@@43|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@7| $o@@17) |l#2@@7|))) |l#3@@7|))))
  :qid |DLLDafny.54:57|
- :skolemid |1673|
+ :skolemid |1683|
  :pattern ( (MapType6Select (|lambda#8| |l#0@@43| |l#1@@7| |l#2@@7| |l#3@@7|) $o@@17 $f@@7))
 )))
 (assert (forall ((arg0@@265 T@U) (arg1@@132 T@U) (arg2@@82 T@U) (arg3@@53 Bool) ) (! (= (type (|lambda#9| arg0@@265 arg1@@132 arg2@@82 arg3@@53)) (MapType6Type refType boolType))
@@ -6712,7 +6715,7 @@
 (assert (forall (($o@@18 T@U) ($f@@8 T@U) (|l#0@@44| T@U) (|l#1@@8| T@U) (|l#2@@8| T@U) (|l#3@@8| Bool) ) (! (let ((alpha@@15 (FieldTypeInv0 (type $f@@8))))
  (=> (and (and (and (and (= (type $o@@18) refType) (= (type $f@@8) (FieldType alpha@@15))) (= (type |l#0@@44|) refType)) (= (type |l#1@@8|) (MapType0Type refType MapType1Type))) (= (type |l#2@@8|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#9| |l#0@@44| |l#1@@8| |l#2@@8| |l#3@@8|) $o@@18 $f@@8))  (=> (and (not (= $o@@18 |l#0@@44|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@8| $o@@18) |l#2@@8|))) |l#3@@8|))))
  :qid |DLLDafny.57:8|
- :skolemid |1674|
+ :skolemid |1684|
  :pattern ( (MapType6Select (|lambda#9| |l#0@@44| |l#1@@8| |l#2@@8| |l#3@@8|) $o@@18 $f@@8))
 )))
 (assert (forall ((arg0@@266 T@U) (arg1@@133 T@U) (arg2@@83 T@U) (arg3@@54 Bool) ) (! (= (type (|lambda#10| arg0@@266 arg1@@133 arg2@@83 arg3@@54)) (MapType6Type refType boolType))
@@ -6722,7 +6725,7 @@
 (assert (forall (($o@@19 T@U) ($f@@9 T@U) (|l#0@@45| T@U) (|l#1@@9| T@U) (|l#2@@9| T@U) (|l#3@@9| Bool) ) (! (let ((alpha@@16 (FieldTypeInv0 (type $f@@9))))
  (=> (and (and (and (and (= (type $o@@19) refType) (= (type $f@@9) (FieldType alpha@@16))) (= (type |l#0@@45|) refType)) (= (type |l#1@@9|) (MapType0Type refType MapType1Type))) (= (type |l#2@@9|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#10| |l#0@@45| |l#1@@9| |l#2@@9| |l#3@@9|) $o@@19 $f@@9))  (=> (and (not (= $o@@19 |l#0@@45|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@9| $o@@19) |l#2@@9|))) |l#3@@9|))))
  :qid |DLLDafny.61:8|
- :skolemid |1675|
+ :skolemid |1685|
  :pattern ( (MapType6Select (|lambda#10| |l#0@@45| |l#1@@9| |l#2@@9| |l#3@@9|) $o@@19 $f@@9))
 )))
 (assert (forall ((arg0@@267 T@U) (arg1@@134 T@U) (arg2@@84 T@U) (arg3@@55 Bool) ) (! (= (type (|lambda#11| arg0@@267 arg1@@134 arg2@@84 arg3@@55)) (MapType6Type refType boolType))
@@ -6732,7 +6735,7 @@
 (assert (forall (($o@@20 T@U) ($f@@10 T@U) (|l#0@@46| T@U) (|l#1@@10| T@U) (|l#2@@10| T@U) (|l#3@@10| Bool) ) (! (let ((alpha@@17 (FieldTypeInv0 (type $f@@10))))
  (=> (and (and (and (and (= (type $o@@20) refType) (= (type $f@@10) (FieldType alpha@@17))) (= (type |l#0@@46|) refType)) (= (type |l#1@@10|) (MapType0Type refType MapType1Type))) (= (type |l#2@@10|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#11| |l#0@@46| |l#1@@10| |l#2@@10| |l#3@@10|) $o@@20 $f@@10))  (=> (and (not (= $o@@20 |l#0@@46|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@10| $o@@20) |l#2@@10|))) |l#3@@10|))))
  :qid |DLLDafny.88:11|
- :skolemid |1676|
+ :skolemid |1686|
  :pattern ( (MapType6Select (|lambda#11| |l#0@@46| |l#1@@10| |l#2@@10| |l#3@@10|) $o@@20 $f@@10))
 )))
 (assert (forall ((arg0@@268 T@U) (arg1@@135 T@U) (arg2@@85 T@U) (arg3@@56 Bool) ) (! (= (type (|lambda#12| arg0@@268 arg1@@135 arg2@@85 arg3@@56)) (MapType6Type refType boolType))
@@ -6742,7 +6745,7 @@
 (assert (forall (($o@@21 T@U) ($f@@11 T@U) (|l#0@@47| T@U) (|l#1@@11| T@U) (|l#2@@11| T@U) (|l#3@@11| Bool) ) (! (let ((alpha@@18 (FieldTypeInv0 (type $f@@11))))
  (=> (and (and (and (and (= (type $o@@21) refType) (= (type $f@@11) (FieldType alpha@@18))) (= (type |l#0@@47|) refType)) (= (type |l#1@@11|) (MapType0Type refType MapType1Type))) (= (type |l#2@@11|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#12| |l#0@@47| |l#1@@11| |l#2@@11| |l#3@@11|) $o@@21 $f@@11))  (=> (and (not (= $o@@21 |l#0@@47|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@11| $o@@21) |l#2@@11|))) |l#3@@11|))))
  :qid |DLLDafny.88:11|
- :skolemid |1677|
+ :skolemid |1687|
  :pattern ( (MapType6Select (|lambda#12| |l#0@@47| |l#1@@11| |l#2@@11| |l#3@@11|) $o@@21 $f@@11))
 )))
 (assert (forall ((arg0@@269 T@U) (arg1@@136 T@U) (arg2@@86 T@U) (arg3@@57 Bool) ) (! (= (type (|lambda#13| arg0@@269 arg1@@136 arg2@@86 arg3@@57)) (MapType6Type refType boolType))
@@ -6752,7 +6755,7 @@
 (assert (forall (($o@@22 T@U) ($f@@12 T@U) (|l#0@@48| T@U) (|l#1@@12| T@U) (|l#2@@12| T@U) (|l#3@@12| Bool) ) (! (let ((alpha@@19 (FieldTypeInv0 (type $f@@12))))
  (=> (and (and (and (and (= (type $o@@22) refType) (= (type $f@@12) (FieldType alpha@@19))) (= (type |l#0@@48|) refType)) (= (type |l#1@@12|) (MapType0Type refType MapType1Type))) (= (type |l#2@@12|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#13| |l#0@@48| |l#1@@12| |l#2@@12| |l#3@@12|) $o@@22 $f@@12))  (=> (and (not (= $o@@22 |l#0@@48|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@12| $o@@22) |l#2@@12|))) |l#3@@12|))))
  :qid |DLLDafny.121:11|
- :skolemid |1678|
+ :skolemid |1688|
  :pattern ( (MapType6Select (|lambda#13| |l#0@@48| |l#1@@12| |l#2@@12| |l#3@@12|) $o@@22 $f@@12))
 )))
 (assert (forall ((arg0@@270 T@U) (arg1@@137 T@U) (arg2@@87 T@U) (arg3@@58 Bool) ) (! (= (type (|lambda#14| arg0@@270 arg1@@137 arg2@@87 arg3@@58)) (MapType6Type refType boolType))
@@ -6762,7 +6765,7 @@
 (assert (forall (($o@@23 T@U) ($f@@13 T@U) (|l#0@@49| T@U) (|l#1@@13| T@U) (|l#2@@13| T@U) (|l#3@@13| Bool) ) (! (let ((alpha@@20 (FieldTypeInv0 (type $f@@13))))
  (=> (and (and (and (and (= (type $o@@23) refType) (= (type $f@@13) (FieldType alpha@@20))) (= (type |l#0@@49|) refType)) (= (type |l#1@@13|) (MapType0Type refType MapType1Type))) (= (type |l#2@@13|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#14| |l#0@@49| |l#1@@13| |l#2@@13| |l#3@@13|) $o@@23 $f@@13))  (=> (and (not (= $o@@23 |l#0@@49|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@13| $o@@23) |l#2@@13|))) |l#3@@13|))))
  :qid |DLLDafny.121:11|
- :skolemid |1679|
+ :skolemid |1689|
  :pattern ( (MapType6Select (|lambda#14| |l#0@@49| |l#1@@13| |l#2@@13| |l#3@@13|) $o@@23 $f@@13))
 )))
 (assert (forall ((arg0@@271 T@U) (arg1@@138 T@U) (arg2@@88 T@U) (arg3@@59 Bool) ) (! (= (type (|lambda#15| arg0@@271 arg1@@138 arg2@@88 arg3@@59)) (MapType6Type refType boolType))
@@ -6772,7 +6775,7 @@
 (assert (forall (($o@@24 T@U) ($f@@14 T@U) (|l#0@@50| T@U) (|l#1@@14| T@U) (|l#2@@14| T@U) (|l#3@@14| Bool) ) (! (let ((alpha@@21 (FieldTypeInv0 (type $f@@14))))
  (=> (and (and (and (and (= (type $o@@24) refType) (= (type $f@@14) (FieldType alpha@@21))) (= (type |l#0@@50|) refType)) (= (type |l#1@@14|) (MapType0Type refType MapType1Type))) (= (type |l#2@@14|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#15| |l#0@@50| |l#1@@14| |l#2@@14| |l#3@@14|) $o@@24 $f@@14))  (=> (and (not (= $o@@24 |l#0@@50|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@14| $o@@24) |l#2@@14|))) |l#3@@14|))))
  :qid |DLLDafny.131:10|
- :skolemid |1680|
+ :skolemid |1690|
  :pattern ( (MapType6Select (|lambda#15| |l#0@@50| |l#1@@14| |l#2@@14| |l#3@@14|) $o@@24 $f@@14))
 )))
 (assert (forall ((arg0@@272 T@U) (arg1@@139 T@U) (arg2@@89 T@U) (arg3@@60 Bool) ) (! (= (type (|lambda#16| arg0@@272 arg1@@139 arg2@@89 arg3@@60)) (MapType6Type refType boolType))
@@ -6782,7 +6785,7 @@
 (assert (forall (($o@@25 T@U) ($f@@15 T@U) (|l#0@@51| T@U) (|l#1@@15| T@U) (|l#2@@15| T@U) (|l#3@@15| Bool) ) (! (let ((alpha@@22 (FieldTypeInv0 (type $f@@15))))
  (=> (and (and (and (and (= (type $o@@25) refType) (= (type $f@@15) (FieldType alpha@@22))) (= (type |l#0@@51|) refType)) (= (type |l#1@@15|) (MapType0Type refType MapType1Type))) (= (type |l#2@@15|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#16| |l#0@@51| |l#1@@15| |l#2@@15| |l#3@@15|) $o@@25 $f@@15))  (=> (and (not (= $o@@25 |l#0@@51|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@15| $o@@25) |l#2@@15|))) |l#3@@15|))))
  :qid |DLLDafny.131:10|
- :skolemid |1681|
+ :skolemid |1691|
  :pattern ( (MapType6Select (|lambda#16| |l#0@@51| |l#1@@15| |l#2@@15| |l#3@@15|) $o@@25 $f@@15))
 )))
 (assert (forall ((arg0@@273 T@U) (arg1@@140 T@U) (arg2@@90 T@U) (arg3@@61 Bool) ) (! (= (type (|lambda#17| arg0@@273 arg1@@140 arg2@@90 arg3@@61)) (MapType6Type refType boolType))
@@ -6792,7 +6795,7 @@
 (assert (forall (($o@@26 T@U) ($f@@16 T@U) (|l#0@@52| T@U) (|l#1@@16| T@U) (|l#2@@16| T@U) (|l#3@@16| Bool) ) (! (let ((alpha@@23 (FieldTypeInv0 (type $f@@16))))
  (=> (and (and (and (and (= (type $o@@26) refType) (= (type $f@@16) (FieldType alpha@@23))) (= (type |l#0@@52|) refType)) (= (type |l#1@@16|) (MapType0Type refType MapType1Type))) (= (type |l#2@@16|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#17| |l#0@@52| |l#1@@16| |l#2@@16| |l#3@@16|) $o@@26 $f@@16))  (=> (and (not (= $o@@26 |l#0@@52|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@16| $o@@26) |l#2@@16|))) |l#3@@16|))))
  :qid |DLLDafny.137:11|
- :skolemid |1682|
+ :skolemid |1692|
  :pattern ( (MapType6Select (|lambda#17| |l#0@@52| |l#1@@16| |l#2@@16| |l#3@@16|) $o@@26 $f@@16))
 )))
 (assert (forall ((arg0@@274 T@U) (arg1@@141 T@U) (arg2@@91 T@U) (arg3@@62 Bool) ) (! (= (type (|lambda#18| arg0@@274 arg1@@141 arg2@@91 arg3@@62)) (MapType6Type refType boolType))
@@ -6802,7 +6805,7 @@
 (assert (forall (($o@@27 T@U) ($f@@17 T@U) (|l#0@@53| T@U) (|l#1@@17| T@U) (|l#2@@17| T@U) (|l#3@@17| Bool) ) (! (let ((alpha@@24 (FieldTypeInv0 (type $f@@17))))
  (=> (and (and (and (and (= (type $o@@27) refType) (= (type $f@@17) (FieldType alpha@@24))) (= (type |l#0@@53|) refType)) (= (type |l#1@@17|) (MapType0Type refType MapType1Type))) (= (type |l#2@@17|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#18| |l#0@@53| |l#1@@17| |l#2@@17| |l#3@@17|) $o@@27 $f@@17))  (=> (and (not (= $o@@27 |l#0@@53|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@17| $o@@27) |l#2@@17|))) |l#3@@17|))))
  :qid |DLLDafny.137:11|
- :skolemid |1683|
+ :skolemid |1693|
  :pattern ( (MapType6Select (|lambda#18| |l#0@@53| |l#1@@17| |l#2@@17| |l#3@@17|) $o@@27 $f@@17))
 )))
 (assert (forall ((arg0@@275 T@U) (arg1@@142 T@U) (arg2@@92 T@U) (arg3@@63 Bool) ) (! (= (type (|lambda#19| arg0@@275 arg1@@142 arg2@@92 arg3@@63)) (MapType6Type refType boolType))
@@ -6812,7 +6815,7 @@
 (assert (forall (($o@@28 T@U) ($f@@18 T@U) (|l#0@@54| T@U) (|l#1@@18| T@U) (|l#2@@18| T@U) (|l#3@@18| Bool) ) (! (let ((alpha@@25 (FieldTypeInv0 (type $f@@18))))
  (=> (and (and (and (and (= (type $o@@28) refType) (= (type $f@@18) (FieldType alpha@@25))) (= (type |l#0@@54|) refType)) (= (type |l#1@@18|) (MapType0Type refType MapType1Type))) (= (type |l#2@@18|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#19| |l#0@@54| |l#1@@18| |l#2@@18| |l#3@@18|) $o@@28 $f@@18))  (=> (and (not (= $o@@28 |l#0@@54|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@18| $o@@28) |l#2@@18|))) |l#3@@18|))))
  :qid |DLLDafny.142:10|
- :skolemid |1684|
+ :skolemid |1694|
  :pattern ( (MapType6Select (|lambda#19| |l#0@@54| |l#1@@18| |l#2@@18| |l#3@@18|) $o@@28 $f@@18))
 )))
 (assert (forall ((arg0@@276 T@U) (arg1@@143 T@U) (arg2@@93 T@U) (arg3@@64 Bool) ) (! (= (type (|lambda#20| arg0@@276 arg1@@143 arg2@@93 arg3@@64)) (MapType6Type refType boolType))
@@ -6822,7 +6825,7 @@
 (assert (forall (($o@@29 T@U) ($f@@19 T@U) (|l#0@@55| T@U) (|l#1@@19| T@U) (|l#2@@19| T@U) (|l#3@@19| Bool) ) (! (let ((alpha@@26 (FieldTypeInv0 (type $f@@19))))
  (=> (and (and (and (and (= (type $o@@29) refType) (= (type $f@@19) (FieldType alpha@@26))) (= (type |l#0@@55|) refType)) (= (type |l#1@@19|) (MapType0Type refType MapType1Type))) (= (type |l#2@@19|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#20| |l#0@@55| |l#1@@19| |l#2@@19| |l#3@@19|) $o@@29 $f@@19))  (=> (and (not (= $o@@29 |l#0@@55|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@19| $o@@29) |l#2@@19|))) |l#3@@19|))))
  :qid |DLLDafny.142:10|
- :skolemid |1685|
+ :skolemid |1695|
  :pattern ( (MapType6Select (|lambda#20| |l#0@@55| |l#1@@19| |l#2@@19| |l#3@@19|) $o@@29 $f@@19))
 )))
 (assert (forall ((arg0@@277 T@U) (arg1@@144 T@U) (arg2@@94 T@U) (arg3@@65 Bool) ) (! (= (type (|lambda#21| arg0@@277 arg1@@144 arg2@@94 arg3@@65)) (MapType6Type refType boolType))
@@ -6832,7 +6835,7 @@
 (assert (forall (($o@@30 T@U) ($f@@20 T@U) (|l#0@@56| T@U) (|l#1@@20| T@U) (|l#2@@20| T@U) (|l#3@@20| Bool) ) (! (let ((alpha@@27 (FieldTypeInv0 (type $f@@20))))
  (=> (and (and (and (and (= (type $o@@30) refType) (= (type $f@@20) (FieldType alpha@@27))) (= (type |l#0@@56|) refType)) (= (type |l#1@@20|) (MapType0Type refType MapType1Type))) (= (type |l#2@@20|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#21| |l#0@@56| |l#1@@20| |l#2@@20| |l#3@@20|) $o@@30 $f@@20))  (=> (and (not (= $o@@30 |l#0@@56|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@20| $o@@30) |l#2@@20|))) |l#3@@20|))))
  :qid |DLLDafny.149:10|
- :skolemid |1686|
+ :skolemid |1696|
  :pattern ( (MapType6Select (|lambda#21| |l#0@@56| |l#1@@20| |l#2@@20| |l#3@@20|) $o@@30 $f@@20))
 )))
 (assert (forall ((arg0@@278 T@U) (arg1@@145 T@U) (arg2@@95 T@U) (arg3@@66 Bool) ) (! (= (type (|lambda#22| arg0@@278 arg1@@145 arg2@@95 arg3@@66)) (MapType6Type refType boolType))
@@ -6842,7 +6845,7 @@
 (assert (forall (($o@@31 T@U) ($f@@21 T@U) (|l#0@@57| T@U) (|l#1@@21| T@U) (|l#2@@21| T@U) (|l#3@@21| Bool) ) (! (let ((alpha@@28 (FieldTypeInv0 (type $f@@21))))
  (=> (and (and (and (and (= (type $o@@31) refType) (= (type $f@@21) (FieldType alpha@@28))) (= (type |l#0@@57|) refType)) (= (type |l#1@@21|) (MapType0Type refType MapType1Type))) (= (type |l#2@@21|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#22| |l#0@@57| |l#1@@21| |l#2@@21| |l#3@@21|) $o@@31 $f@@21))  (=> (and (not (= $o@@31 |l#0@@57|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@21| $o@@31) |l#2@@21|))) |l#3@@21|))))
  :qid |DLLDafny.149:10|
- :skolemid |1687|
+ :skolemid |1697|
  :pattern ( (MapType6Select (|lambda#22| |l#0@@57| |l#1@@21| |l#2@@21| |l#3@@21|) $o@@31 $f@@21))
 )))
 (assert (forall ((arg0@@279 T@U) (arg1@@146 T@U) (arg2@@96 T@U) (arg3@@67 Bool) ) (! (= (type (|lambda#23| arg0@@279 arg1@@146 arg2@@96 arg3@@67)) (MapType6Type refType boolType))
@@ -6852,7 +6855,7 @@
 (assert (forall (($o@@32 T@U) ($f@@22 T@U) (|l#0@@58| T@U) (|l#1@@22| T@U) (|l#2@@22| T@U) (|l#3@@22| Bool) ) (! (let ((alpha@@29 (FieldTypeInv0 (type $f@@22))))
  (=> (and (and (and (and (= (type $o@@32) refType) (= (type $f@@22) (FieldType alpha@@29))) (= (type |l#0@@58|) refType)) (= (type |l#1@@22|) (MapType0Type refType MapType1Type))) (= (type |l#2@@22|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#23| |l#0@@58| |l#1@@22| |l#2@@22| |l#3@@22|) $o@@32 $f@@22))  (=> (and (not (= $o@@32 |l#0@@58|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@22| $o@@32) |l#2@@22|))) |l#3@@22|))))
  :qid |DLLDafny.156:17|
- :skolemid |1688|
+ :skolemid |1698|
  :pattern ( (MapType6Select (|lambda#23| |l#0@@58| |l#1@@22| |l#2@@22| |l#3@@22|) $o@@32 $f@@22))
 )))
 (assert (forall ((arg0@@280 T@U) (arg1@@147 T@U) (arg2@@97 T@U) (arg3@@68 Bool) ) (! (= (type (|lambda#24| arg0@@280 arg1@@147 arg2@@97 arg3@@68)) (MapType6Type refType boolType))
@@ -6862,7 +6865,7 @@
 (assert (forall (($o@@33 T@U) ($f@@23 T@U) (|l#0@@59| T@U) (|l#1@@23| T@U) (|l#2@@23| T@U) (|l#3@@23| Bool) ) (! (let ((alpha@@30 (FieldTypeInv0 (type $f@@23))))
  (=> (and (and (and (and (= (type $o@@33) refType) (= (type $f@@23) (FieldType alpha@@30))) (= (type |l#0@@59|) refType)) (= (type |l#1@@23|) (MapType0Type refType MapType1Type))) (= (type |l#2@@23|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#24| |l#0@@59| |l#1@@23| |l#2@@23| |l#3@@23|) $o@@33 $f@@23))  (=> (and (not (= $o@@33 |l#0@@59|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@23| $o@@33) |l#2@@23|))) |l#3@@23|))))
  :qid |DLLDafny.156:17|
- :skolemid |1689|
+ :skolemid |1699|
  :pattern ( (MapType6Select (|lambda#24| |l#0@@59| |l#1@@23| |l#2@@23| |l#3@@23|) $o@@33 $f@@23))
 )))
 (assert (forall ((arg0@@281 T@U) (arg1@@148 T@U) (arg2@@98 T@U) (arg3@@69 Bool) ) (! (= (type (|lambda#25| arg0@@281 arg1@@148 arg2@@98 arg3@@69)) (MapType6Type refType boolType))
@@ -6872,7 +6875,7 @@
 (assert (forall (($o@@34 T@U) ($f@@24 T@U) (|l#0@@60| T@U) (|l#1@@24| T@U) (|l#2@@24| T@U) (|l#3@@24| Bool) ) (! (let ((alpha@@31 (FieldTypeInv0 (type $f@@24))))
  (=> (and (and (and (and (= (type $o@@34) refType) (= (type $f@@24) (FieldType alpha@@31))) (= (type |l#0@@60|) refType)) (= (type |l#1@@24|) (MapType0Type refType MapType1Type))) (= (type |l#2@@24|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#25| |l#0@@60| |l#1@@24| |l#2@@24| |l#3@@24|) $o@@34 $f@@24))  (=> (and (not (= $o@@34 |l#0@@60|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@24| $o@@34) |l#2@@24|))) |l#3@@24|))))
  :qid |DLLDafny.164:17|
- :skolemid |1690|
+ :skolemid |1700|
  :pattern ( (MapType6Select (|lambda#25| |l#0@@60| |l#1@@24| |l#2@@24| |l#3@@24|) $o@@34 $f@@24))
 )))
 (assert (forall ((arg0@@282 T@U) (arg1@@149 T@U) (arg2@@99 T@U) (arg3@@70 Bool) ) (! (= (type (|lambda#26| arg0@@282 arg1@@149 arg2@@99 arg3@@70)) (MapType6Type refType boolType))
@@ -6882,7 +6885,7 @@
 (assert (forall (($o@@35 T@U) ($f@@25 T@U) (|l#0@@61| T@U) (|l#1@@25| T@U) (|l#2@@25| T@U) (|l#3@@25| Bool) ) (! (let ((alpha@@32 (FieldTypeInv0 (type $f@@25))))
  (=> (and (and (and (and (= (type $o@@35) refType) (= (type $f@@25) (FieldType alpha@@32))) (= (type |l#0@@61|) refType)) (= (type |l#1@@25|) (MapType0Type refType MapType1Type))) (= (type |l#2@@25|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#26| |l#0@@61| |l#1@@25| |l#2@@25| |l#3@@25|) $o@@35 $f@@25))  (=> (and (not (= $o@@35 |l#0@@61|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@25| $o@@35) |l#2@@25|))) |l#3@@25|))))
  :qid |DLLDafny.164:17|
- :skolemid |1691|
+ :skolemid |1701|
  :pattern ( (MapType6Select (|lambda#26| |l#0@@61| |l#1@@25| |l#2@@25| |l#3@@25|) $o@@35 $f@@25))
 )))
 (assert (forall ((arg0@@283 T@U) (arg1@@150 T@U) (arg2@@100 T@U) (arg3@@71 Bool) ) (! (= (type (|lambda#27| arg0@@283 arg1@@150 arg2@@100 arg3@@71)) (MapType6Type refType boolType))
@@ -6892,7 +6895,7 @@
 (assert (forall (($o@@36 T@U) ($f@@26 T@U) (|l#0@@62| T@U) (|l#1@@26| T@U) (|l#2@@26| T@U) (|l#3@@26| Bool) ) (! (let ((alpha@@33 (FieldTypeInv0 (type $f@@26))))
  (=> (and (and (and (and (= (type $o@@36) refType) (= (type $f@@26) (FieldType alpha@@33))) (= (type |l#0@@62|) refType)) (= (type |l#1@@26|) (MapType0Type refType MapType1Type))) (= (type |l#2@@26|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#27| |l#0@@62| |l#1@@26| |l#2@@26| |l#3@@26|) $o@@36 $f@@26))  (=> (and (not (= $o@@36 |l#0@@62|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@26| $o@@36) |l#2@@26|))) |l#3@@26|))))
  :qid |DLLDafny.176:17|
- :skolemid |1692|
+ :skolemid |1702|
  :pattern ( (MapType6Select (|lambda#27| |l#0@@62| |l#1@@26| |l#2@@26| |l#3@@26|) $o@@36 $f@@26))
 )))
 (assert (forall ((arg0@@284 T@U) (arg1@@151 T@U) (arg2@@101 T@U) (arg3@@72 Bool) ) (! (= (type (|lambda#28| arg0@@284 arg1@@151 arg2@@101 arg3@@72)) (MapType6Type refType boolType))
@@ -6902,7 +6905,7 @@
 (assert (forall (($o@@37 T@U) ($f@@27 T@U) (|l#0@@63| T@U) (|l#1@@27| T@U) (|l#2@@27| T@U) (|l#3@@27| Bool) ) (! (let ((alpha@@34 (FieldTypeInv0 (type $f@@27))))
  (=> (and (and (and (and (= (type $o@@37) refType) (= (type $f@@27) (FieldType alpha@@34))) (= (type |l#0@@63|) refType)) (= (type |l#1@@27|) (MapType0Type refType MapType1Type))) (= (type |l#2@@27|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#28| |l#0@@63| |l#1@@27| |l#2@@27| |l#3@@27|) $o@@37 $f@@27))  (=> (and (not (= $o@@37 |l#0@@63|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@27| $o@@37) |l#2@@27|))) |l#3@@27|))))
  :qid |DLLDafny.176:17|
- :skolemid |1693|
+ :skolemid |1703|
  :pattern ( (MapType6Select (|lambda#28| |l#0@@63| |l#1@@27| |l#2@@27| |l#3@@27|) $o@@37 $f@@27))
 )))
 (assert (forall ((arg0@@285 T@U) (arg1@@152 T@U) (arg2@@102 T@U) (arg3@@73 Bool) ) (! (= (type (|lambda#29| arg0@@285 arg1@@152 arg2@@102 arg3@@73)) (MapType6Type refType boolType))
@@ -6912,7 +6915,7 @@
 (assert (forall (($o@@38 T@U) ($f@@28 T@U) (|l#0@@64| T@U) (|l#1@@28| T@U) (|l#2@@28| T@U) (|l#3@@28| Bool) ) (! (let ((alpha@@35 (FieldTypeInv0 (type $f@@28))))
  (=> (and (and (and (and (= (type $o@@38) refType) (= (type $f@@28) (FieldType alpha@@35))) (= (type |l#0@@64|) refType)) (= (type |l#1@@28|) (MapType0Type refType MapType1Type))) (= (type |l#2@@28|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#29| |l#0@@64| |l#1@@28| |l#2@@28| |l#3@@28|) $o@@38 $f@@28))  (=> (and (not (= $o@@38 |l#0@@64|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@28| $o@@38) |l#2@@28|))) |l#3@@28|))))
  :qid |DLLDafny.188:8|
- :skolemid |1694|
+ :skolemid |1704|
  :pattern ( (MapType6Select (|lambda#29| |l#0@@64| |l#1@@28| |l#2@@28| |l#3@@28|) $o@@38 $f@@28))
 )))
 (assert (forall ((arg0@@286 T@U) (arg1@@153 T@U) (arg2@@103 T@U) (arg3@@74 Bool) ) (! (= (type (|lambda#30| arg0@@286 arg1@@153 arg2@@103 arg3@@74)) (MapType6Type refType boolType))
@@ -6922,7 +6925,7 @@
 (assert (forall (($o@@39 T@U) ($f@@29 T@U) (|l#0@@65| T@U) (|l#1@@29| T@U) (|l#2@@29| T@U) (|l#3@@29| Bool) ) (! (let ((alpha@@36 (FieldTypeInv0 (type $f@@29))))
  (=> (and (and (and (and (= (type $o@@39) refType) (= (type $f@@29) (FieldType alpha@@36))) (= (type |l#0@@65|) refType)) (= (type |l#1@@29|) (MapType0Type refType MapType1Type))) (= (type |l#2@@29|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#30| |l#0@@65| |l#1@@29| |l#2@@29| |l#3@@29|) $o@@39 $f@@29))  (=> (and (not (= $o@@39 |l#0@@65|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@29| $o@@39) |l#2@@29|))) |l#3@@29|))))
  :qid |DLLDafny.188:8|
- :skolemid |1695|
+ :skolemid |1705|
  :pattern ( (MapType6Select (|lambda#30| |l#0@@65| |l#1@@29| |l#2@@29| |l#3@@29|) $o@@39 $f@@29))
 )))
 (assert (forall ((arg0@@287 T@U) (arg1@@154 T@U) (arg2@@104 T@U) (arg3@@75 Bool) ) (! (= (type (|lambda#31| arg0@@287 arg1@@154 arg2@@104 arg3@@75)) (MapType6Type refType boolType))
@@ -6931,357 +6934,417 @@
 )))
 (assert (forall (($o@@40 T@U) ($f@@30 T@U) (|l#0@@66| T@U) (|l#1@@30| T@U) (|l#2@@30| T@U) (|l#3@@30| Bool) ) (! (let ((alpha@@37 (FieldTypeInv0 (type $f@@30))))
  (=> (and (and (and (and (= (type $o@@40) refType) (= (type $f@@30) (FieldType alpha@@37))) (= (type |l#0@@66|) refType)) (= (type |l#1@@30|) (MapType0Type refType MapType1Type))) (= (type |l#2@@30|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#31| |l#0@@66| |l#1@@30| |l#2@@30| |l#3@@30|) $o@@40 $f@@30))  (=> (and (not (= $o@@40 |l#0@@66|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@30| $o@@40) |l#2@@30|))) |l#3@@30|))))
- :qid |DLLDafny.212:8|
- :skolemid |1696|
+ :qid |DLLDafny.211:14|
+ :skolemid |1706|
  :pattern ( (MapType6Select (|lambda#31| |l#0@@66| |l#1@@30| |l#2@@30| |l#3@@30|) $o@@40 $f@@30))
 )))
-(assert (forall ((arg0@@288 Int) (arg1@@155 Int) (arg2@@105 Int) ) (! (= (type (|lambda#32| arg0@@288 arg1@@155 arg2@@105)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
+(assert (forall ((arg0@@288 T@U) (arg1@@155 T@U) (arg2@@105 T@U) (arg3@@76 Bool) ) (! (= (type (|lambda#32| arg0@@288 arg1@@155 arg2@@105 arg3@@76)) (MapType6Type refType boolType))
  :qid |funType:lambda#32|
- :pattern ( (|lambda#32| arg0@@288 arg1@@155 arg2@@105))
+ :pattern ( (|lambda#32| arg0@@288 arg1@@155 arg2@@105 arg3@@76))
 )))
-(assert (forall ((|$l#0#heap#0| T@U) (|$l#0#p#0| T@U) (|l#0@@67| Int) (|l#1@@31| Int) (|l#2@@31| Int) ) (!  (=> (and (= (type |$l#0#heap#0|) (MapType0Type refType MapType1Type)) (= (type |$l#0#p#0|) BoxType)) (= (MapType2Select (|lambda#32| |l#0@@67| |l#1@@31| |l#2@@31|) |$l#0#heap#0| |$l#0#p#0|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType |$l#0#p#0|)) |l#0@@67|) |l#1@@31| |l#2@@31|)))))
- :qid |DafnyPre.515:12|
- :skolemid |1697|
- :pattern ( (MapType2Select (|lambda#32| |l#0@@67| |l#1@@31| |l#2@@31|) |$l#0#heap#0| |$l#0#p#0|))
+(assert (forall (($o@@41 T@U) ($f@@31 T@U) (|l#0@@67| T@U) (|l#1@@31| T@U) (|l#2@@31| T@U) (|l#3@@31| Bool) ) (! (let ((alpha@@38 (FieldTypeInv0 (type $f@@31))))
+ (=> (and (and (and (and (= (type $o@@41) refType) (= (type $f@@31) (FieldType alpha@@38))) (= (type |l#0@@67|) refType)) (= (type |l#1@@31|) (MapType0Type refType MapType1Type))) (= (type |l#2@@31|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#32| |l#0@@67| |l#1@@31| |l#2@@31| |l#3@@31|) $o@@41 $f@@31))  (=> (and (not (= $o@@41 |l#0@@67|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@31| $o@@41) |l#2@@31|))) |l#3@@31|))))
+ :qid |DLLDafny.211:14|
+ :skolemid |1707|
+ :pattern ( (MapType6Select (|lambda#32| |l#0@@67| |l#1@@31| |l#2@@31| |l#3@@31|) $o@@41 $f@@31))
 )))
-(assert (forall ((arg0@@289 T@U) ) (! (= (type (|lambda#33| arg0@@289)) (MapType2Type (MapType0Type refType MapType1Type) BoxType boolType))
+(assert (forall ((arg0@@289 Int) (arg1@@156 Int) (arg2@@106 Int) ) (! (= (type (|lambda#33| arg0@@289 arg1@@156 arg2@@106)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
  :qid |funType:lambda#33|
- :pattern ( (|lambda#33| arg0@@289))
+ :pattern ( (|lambda#33| arg0@@289 arg1@@156 arg2@@106))
 )))
-(assert (forall ((|$l#0#heap#0@@0| T@U) (|$l#0#p#0@@0| T@U) (|l#0@@68| T@U) ) (!  (=> (and (and (= (type |$l#0#heap#0@@0|) (MapType0Type refType MapType1Type)) (= (type |$l#0#p#0@@0|) BoxType)) (= (type |l#0@@68|) TyType)) (= (U_2_bool (MapType2Select (|lambda#33| |l#0@@68|) |$l#0#heap#0@@0| |$l#0#p#0@@0|)) ($IsBox |$l#0#p#0@@0| |l#0@@68|)))
+(assert (forall ((|$l#1#heap#0| T@U) (|$l#1#p#0| T@U) (|l#0@@68| Int) (|l#1@@32| Int) (|l#2@@32| Int) ) (!  (=> (and (= (type |$l#1#heap#0|) (MapType0Type refType MapType1Type)) (= (type |$l#1#p#0|) BoxType)) (= (MapType2Select (|lambda#33| |l#0@@68| |l#1@@32| |l#2@@32|) |$l#1#heap#0| |$l#1#p#0|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType |$l#1#p#0|)) |l#0@@68|) |l#1@@32| |l#2@@32|)))))
  :qid |DafnyPre.515:12|
- :skolemid |1698|
- :pattern ( (MapType2Select (|lambda#33| |l#0@@68|) |$l#0#heap#0@@0| |$l#0#p#0@@0|))
+ :skolemid |1708|
+ :pattern ( (MapType2Select (|lambda#33| |l#0@@68| |l#1@@32| |l#2@@32|) |$l#1#heap#0| |$l#1#p#0|))
 )))
-(assert (forall ((arg0@@290 Bool) ) (! (= (type (|lambda#34| arg0@@290)) (MapType0Type refType boolType))
+(assert (forall ((arg0@@290 T@U) ) (! (= (type (|lambda#34| arg0@@290)) (MapType2Type (MapType0Type refType MapType1Type) BoxType boolType))
  :qid |funType:lambda#34|
  :pattern ( (|lambda#34| arg0@@290))
 )))
-(assert (forall ((|$l#0#o#0| T@U) (|l#0@@69| Bool) ) (!  (=> (= (type |$l#0#o#0|) refType) (= (U_2_bool (MapType0Select (|lambda#34| |l#0@@69|) |$l#0#o#0|)) |l#0@@69|))
- :qid |unknown.0:0|
- :skolemid |1699|
- :pattern ( (MapType0Select (|lambda#34| |l#0@@69|) |$l#0#o#0|))
+(assert (forall ((|$l#1#heap#0@@0| T@U) (|$l#1#p#0@@0| T@U) (|l#0@@69| T@U) ) (!  (=> (and (and (= (type |$l#1#heap#0@@0|) (MapType0Type refType MapType1Type)) (= (type |$l#1#p#0@@0|) BoxType)) (= (type |l#0@@69|) TyType)) (= (U_2_bool (MapType2Select (|lambda#34| |l#0@@69|) |$l#1#heap#0@@0| |$l#1#p#0@@0|)) ($IsBox |$l#1#p#0@@0| |l#0@@69|)))
+ :qid |DafnyPre.515:12|
+ :skolemid |1709|
+ :pattern ( (MapType2Select (|lambda#34| |l#0@@69|) |$l#1#heap#0@@0| |$l#1#p#0@@0|))
 )))
-(assert (forall ((arg0@@291 T@U) ) (! (= (type (|lambda#35| arg0@@291)) (MapType2Type (MapType0Type refType MapType1Type) BoxType (MapType0Type BoxType boolType)))
+(assert (forall ((arg0@@291 Bool) ) (! (= (type (|lambda#35| arg0@@291)) (MapType0Type refType boolType))
  :qid |funType:lambda#35|
  :pattern ( (|lambda#35| arg0@@291))
 )))
-(assert (forall ((|$l#0#heap#0@@1| T@U) (|$l#0#p#0@@1| T@U) (|l#0@@70| T@U) ) (!  (=> (and (and (= (type |$l#0#heap#0@@1|) (MapType0Type refType MapType1Type)) (= (type |$l#0#p#0@@1|) BoxType)) (= (type |l#0@@70|) (MapType0Type BoxType boolType))) (= (MapType2Select (|lambda#35| |l#0@@70|) |$l#0#heap#0@@1| |$l#0#p#0@@1|) |l#0@@70|))
- :qid |DafnyPre.515:12|
- :skolemid |1700|
- :pattern ( (MapType2Select (|lambda#35| |l#0@@70|) |$l#0#heap#0@@1| |$l#0#p#0@@1|))
+(assert (forall ((|$l#1#o#0| T@U) (|l#0@@70| Bool) ) (!  (=> (= (type |$l#1#o#0|) refType) (= (U_2_bool (MapType0Select (|lambda#35| |l#0@@70|) |$l#1#o#0|)) |l#0@@70|))
+ :qid |unknown.0:0|
+ :skolemid |1710|
+ :pattern ( (MapType0Select (|lambda#35| |l#0@@70|) |$l#1#o#0|))
 )))
-(assert (forall ((arg0@@292 T@U) ) (! (= (type (|lambda#36| arg0@@292)) (MapType0Type LayerTypeType HandleTypeType))
+(assert (forall ((arg0@@292 T@U) ) (! (= (type (|lambda#36| arg0@@292)) (MapType2Type (MapType0Type refType MapType1Type) BoxType (MapType0Type BoxType boolType)))
  :qid |funType:lambda#36|
  :pattern ( (|lambda#36| arg0@@292))
 )))
-(assert (forall ((|$l#0#ly#0| T@U) (|l#0@@71| T@U) ) (!  (=> (and (= (type |$l#0#ly#0|) LayerTypeType) (= (type |l#0@@71|) HandleTypeType)) (= (MapType0Select (|lambda#36| |l#0@@71|) |$l#0#ly#0|) |l#0@@71|))
+(assert (forall ((|$l#1#heap#0@@1| T@U) (|$l#1#p#0@@1| T@U) (|l#0@@71| T@U) ) (!  (=> (and (and (= (type |$l#1#heap#0@@1|) (MapType0Type refType MapType1Type)) (= (type |$l#1#p#0@@1|) BoxType)) (= (type |l#0@@71|) (MapType0Type BoxType boolType))) (= (MapType2Select (|lambda#36| |l#0@@71|) |$l#1#heap#0@@1| |$l#1#p#0@@1|) |l#0@@71|))
+ :qid |DafnyPre.515:12|
+ :skolemid |1711|
+ :pattern ( (MapType2Select (|lambda#36| |l#0@@71|) |$l#1#heap#0@@1| |$l#1#p#0@@1|))
+)))
+(assert (forall ((arg0@@293 T@U) ) (! (= (type (|lambda#37| arg0@@293)) (MapType0Type LayerTypeType HandleTypeType))
+ :qid |funType:lambda#37|
+ :pattern ( (|lambda#37| arg0@@293))
+)))
+(assert (forall ((|$l#1#ly#0| T@U) (|l#0@@72| T@U) ) (!  (=> (and (= (type |$l#1#ly#0|) LayerTypeType) (= (type |l#0@@72|) HandleTypeType)) (= (MapType0Select (|lambda#37| |l#0@@72|) |$l#1#ly#0|) |l#0@@72|))
  :qid |unknown.0:0|
- :skolemid |1701|
- :pattern ( (MapType0Select (|lambda#36| |l#0@@71|) |$l#0#ly#0|))
+ :skolemid |1712|
+ :pattern ( (MapType0Select (|lambda#37| |l#0@@72|) |$l#1#ly#0|))
 )))
-(assert (forall ((arg0@@293 T@U) (arg1@@156 T@U) (arg2@@106 T@U) (arg3@@76 Bool) ) (! (= (type (|lambda#42| arg0@@293 arg1@@156 arg2@@106 arg3@@76)) (MapType6Type refType boolType))
- :qid |funType:lambda#42|
- :pattern ( (|lambda#42| arg0@@293 arg1@@156 arg2@@106 arg3@@76))
-)))
-(assert (forall (($o@@41 T@U) ($f@@31 T@U) (|l#0@@72| T@U) (|l#1@@32| T@U) (|l#2@@32| T@U) (|l#3@@31| Bool) ) (! (let ((alpha@@38 (FieldTypeInv0 (type $f@@31))))
- (=> (and (and (and (and (= (type $o@@41) refType) (= (type $f@@31) (FieldType alpha@@38))) (= (type |l#0@@72|) refType)) (= (type |l#1@@32|) (MapType0Type refType MapType1Type))) (= (type |l#2@@32|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#42| |l#0@@72| |l#1@@32| |l#2@@32| |l#3@@31|) $o@@41 $f@@31))  (=> (and (not (= $o@@41 |l#0@@72|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@32| $o@@41) |l#2@@32|))) |l#3@@31|))))
- :qid |DLLDafny.219:63|
- :skolemid |1702|
- :pattern ( (MapType6Select (|lambda#42| |l#0@@72| |l#1@@32| |l#2@@32| |l#3@@31|) $o@@41 $f@@31))
-)))
-(assert (forall ((arg0@@294 T@U) (arg1@@157 T@U) (arg2@@107 T@U) (arg3@@77 Bool) ) (! (= (type (|lambda#43| arg0@@294 arg1@@157 arg2@@107 arg3@@77)) (MapType6Type refType boolType))
- :qid |funType:lambda#43|
- :pattern ( (|lambda#43| arg0@@294 arg1@@157 arg2@@107 arg3@@77))
+(assert (forall ((arg0@@294 T@U) (arg1@@157 T@U) (arg2@@107 T@U) (arg3@@77 Bool) ) (! (= (type (|lambda#53| arg0@@294 arg1@@157 arg2@@107 arg3@@77)) (MapType6Type refType boolType))
+ :qid |funType:lambda#53|
+ :pattern ( (|lambda#53| arg0@@294 arg1@@157 arg2@@107 arg3@@77))
 )))
 (assert (forall (($o@@42 T@U) ($f@@32 T@U) (|l#0@@73| T@U) (|l#1@@33| T@U) (|l#2@@33| T@U) (|l#3@@32| Bool) ) (! (let ((alpha@@39 (FieldTypeInv0 (type $f@@32))))
- (=> (and (and (and (and (= (type $o@@42) refType) (= (type $f@@32) (FieldType alpha@@39))) (= (type |l#0@@73|) refType)) (= (type |l#1@@33|) (MapType0Type refType MapType1Type))) (= (type |l#2@@33|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#43| |l#0@@73| |l#1@@33| |l#2@@33| |l#3@@32|) $o@@42 $f@@32))  (=> (and (not (= $o@@42 |l#0@@73|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@33| $o@@42) |l#2@@33|))) |l#3@@32|))))
- :qid |DLLDafny.229:8|
- :skolemid |1703|
- :pattern ( (MapType6Select (|lambda#43| |l#0@@73| |l#1@@33| |l#2@@33| |l#3@@32|) $o@@42 $f@@32))
+ (=> (and (and (and (and (= (type $o@@42) refType) (= (type $f@@32) (FieldType alpha@@39))) (= (type |l#0@@73|) refType)) (= (type |l#1@@33|) (MapType0Type refType MapType1Type))) (= (type |l#2@@33|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#53| |l#0@@73| |l#1@@33| |l#2@@33| |l#3@@32|) $o@@42 $f@@32))  (=> (and (not (= $o@@42 |l#0@@73|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@33| $o@@42) |l#2@@33|))) |l#3@@32|))))
+ :qid |DLLDafny.219:23|
+ :skolemid |1713|
+ :pattern ( (MapType6Select (|lambda#53| |l#0@@73| |l#1@@33| |l#2@@33| |l#3@@32|) $o@@42 $f@@32))
 )))
-(assert (forall ((arg0@@295 T@U) (arg1@@158 T@U) (arg2@@108 T@U) (arg3@@78 Bool) ) (! (= (type (|lambda#44| arg0@@295 arg1@@158 arg2@@108 arg3@@78)) (MapType6Type refType boolType))
- :qid |funType:lambda#44|
- :pattern ( (|lambda#44| arg0@@295 arg1@@158 arg2@@108 arg3@@78))
+(assert (forall ((arg0@@295 T@U) (arg1@@158 T@U) (arg2@@108 T@U) (arg3@@78 Bool) ) (! (= (type (|lambda#54| arg0@@295 arg1@@158 arg2@@108 arg3@@78)) (MapType6Type refType boolType))
+ :qid |funType:lambda#54|
+ :pattern ( (|lambda#54| arg0@@295 arg1@@158 arg2@@108 arg3@@78))
 )))
 (assert (forall (($o@@43 T@U) ($f@@33 T@U) (|l#0@@74| T@U) (|l#1@@34| T@U) (|l#2@@34| T@U) (|l#3@@33| Bool) ) (! (let ((alpha@@40 (FieldTypeInv0 (type $f@@33))))
- (=> (and (and (and (and (= (type $o@@43) refType) (= (type $f@@33) (FieldType alpha@@40))) (= (type |l#0@@74|) refType)) (= (type |l#1@@34|) (MapType0Type refType MapType1Type))) (= (type |l#2@@34|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#44| |l#0@@74| |l#1@@34| |l#2@@34| |l#3@@33|) $o@@43 $f@@33))  (=> (and (not (= $o@@43 |l#0@@74|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@34| $o@@43) |l#2@@34|))) |l#3@@33|))))
- :qid |DLLDafny.229:8|
- :skolemid |1704|
- :pattern ( (MapType6Select (|lambda#44| |l#0@@74| |l#1@@34| |l#2@@34| |l#3@@33|) $o@@43 $f@@33))
+ (=> (and (and (and (and (= (type $o@@43) refType) (= (type $f@@33) (FieldType alpha@@40))) (= (type |l#0@@74|) refType)) (= (type |l#1@@34|) (MapType0Type refType MapType1Type))) (= (type |l#2@@34|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#54| |l#0@@74| |l#1@@34| |l#2@@34| |l#3@@33|) $o@@43 $f@@33))  (=> (and (not (= $o@@43 |l#0@@74|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@34| $o@@43) |l#2@@34|))) |l#3@@33|))))
+ :qid |DLLDafny.223:8|
+ :skolemid |1714|
+ :pattern ( (MapType6Select (|lambda#54| |l#0@@74| |l#1@@34| |l#2@@34| |l#3@@33|) $o@@43 $f@@33))
 )))
-(assert (forall ((arg0@@296 Int) (arg1@@159 T@U) (arg2@@109 Int) ) (! (= (type (|lambda#45| arg0@@296 arg1@@159 arg2@@109)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
- :qid |funType:lambda#45|
- :pattern ( (|lambda#45| arg0@@296 arg1@@159 arg2@@109))
-)))
-(assert (forall ((|$l#0#heap#0@@2| T@U) (|$l#0#i#0| T@U) (|l#0@@75| Int) (|l#1@@35| T@U) (|l#2@@35| Int) ) (!  (=> (and (and (= (type |$l#0#heap#0@@2|) (MapType0Type refType MapType1Type)) (= (type |$l#0#i#0|) BoxType)) (= (type |l#1@@35|) (SeqType BoxType))) (= (MapType2Select (|lambda#45| |l#0@@75| |l#1@@35| |l#2@@35|) |$l#0#heap#0@@2| |$l#0#i#0|) ($Box (int_2_U (ite (< (U_2_int ($Unbox intType |$l#0#i#0|)) |l#0@@75|) (U_2_int ($Unbox intType (|Seq#Index| |l#1@@35| (U_2_int ($Unbox intType |$l#0#i#0|))))) |l#2@@35|)))))
- :qid |DafnyPre.515:12|
- :skolemid |1705|
- :pattern ( (MapType2Select (|lambda#45| |l#0@@75| |l#1@@35| |l#2@@35|) |$l#0#heap#0@@2| |$l#0#i#0|))
-)))
-(assert (forall ((arg0@@297 T@U) (arg1@@160 Int) (arg2@@110 Int) ) (! (= (type (|lambda#46| arg0@@297 arg1@@160 arg2@@110)) (MapType2Type (MapType0Type refType MapType1Type) BoxType boolType))
- :qid |funType:lambda#46|
- :pattern ( (|lambda#46| arg0@@297 arg1@@160 arg2@@110))
-)))
-(assert (forall ((|$l#0#heap#0@@3| T@U) (|$l#0#i#0@@0| T@U) (|l#0@@76| T@U) (|l#1@@36| Int) (|l#2@@36| Int) ) (!  (=> (and (and (= (type |$l#0#heap#0@@3|) (MapType0Type refType MapType1Type)) (= (type |$l#0#i#0@@0|) BoxType)) (= (type |l#0@@76|) TyType)) (= (U_2_bool (MapType2Select (|lambda#46| |l#0@@76| |l#1@@36| |l#2@@36|) |$l#0#heap#0@@3| |$l#0#i#0@@0|))  (and ($IsBox |$l#0#i#0@@0| |l#0@@76|) (and (<= |l#1@@36| (U_2_int ($Unbox intType |$l#0#i#0@@0|))) (< (U_2_int ($Unbox intType |$l#0#i#0@@0|)) |l#2@@36|)))))
- :qid |DafnyPre.515:12|
- :skolemid |1706|
- :pattern ( (MapType2Select (|lambda#46| |l#0@@76| |l#1@@36| |l#2@@36|) |$l#0#heap#0@@3| |$l#0#i#0@@0|))
-)))
-(assert (forall ((arg0@@298 T@U) (arg1@@161 T@U) (arg2@@111 T@U) (arg3@@79 Bool) ) (! (= (type (|lambda#55| arg0@@298 arg1@@161 arg2@@111 arg3@@79)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@296 T@U) (arg1@@159 T@U) (arg2@@109 T@U) (arg3@@79 Bool) ) (! (= (type (|lambda#55| arg0@@296 arg1@@159 arg2@@109 arg3@@79)) (MapType6Type refType boolType))
  :qid |funType:lambda#55|
- :pattern ( (|lambda#55| arg0@@298 arg1@@161 arg2@@111 arg3@@79))
+ :pattern ( (|lambda#55| arg0@@296 arg1@@159 arg2@@109 arg3@@79))
 )))
-(assert (forall (($o@@44 T@U) ($f@@34 T@U) (|l#0@@77| T@U) (|l#1@@37| T@U) (|l#2@@37| T@U) (|l#3@@34| Bool) ) (! (let ((alpha@@41 (FieldTypeInv0 (type $f@@34))))
- (=> (and (and (and (and (= (type $o@@44) refType) (= (type $f@@34) (FieldType alpha@@41))) (= (type |l#0@@77|) refType)) (= (type |l#1@@37|) (MapType0Type refType MapType1Type))) (= (type |l#2@@37|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#55| |l#0@@77| |l#1@@37| |l#2@@37| |l#3@@34|) $o@@44 $f@@34))  (=> (and (not (= $o@@44 |l#0@@77|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@37| $o@@44) |l#2@@37|))) |l#3@@34|))))
- :qid |DLLDafny.246:5|
- :skolemid |1707|
- :pattern ( (MapType6Select (|lambda#55| |l#0@@77| |l#1@@37| |l#2@@37| |l#3@@34|) $o@@44 $f@@34))
+(assert (forall (($o@@44 T@U) ($f@@34 T@U) (|l#0@@75| T@U) (|l#1@@35| T@U) (|l#2@@35| T@U) (|l#3@@34| Bool) ) (! (let ((alpha@@41 (FieldTypeInv0 (type $f@@34))))
+ (=> (and (and (and (and (= (type $o@@44) refType) (= (type $f@@34) (FieldType alpha@@41))) (= (type |l#0@@75|) refType)) (= (type |l#1@@35|) (MapType0Type refType MapType1Type))) (= (type |l#2@@35|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#55| |l#0@@75| |l#1@@35| |l#2@@35| |l#3@@34|) $o@@44 $f@@34))  (=> (and (not (= $o@@44 |l#0@@75|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@35| $o@@44) |l#2@@35|))) |l#3@@34|))))
+ :qid |DLLDafny.241:14|
+ :skolemid |1715|
+ :pattern ( (MapType6Select (|lambda#55| |l#0@@75| |l#1@@35| |l#2@@35| |l#3@@34|) $o@@44 $f@@34))
 )))
-(assert (forall ((arg0@@299 T@U) (arg1@@162 T@U) (arg2@@112 T@U) (arg3@@80 Bool) ) (! (= (type (|lambda#56| arg0@@299 arg1@@162 arg2@@112 arg3@@80)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@297 T@U) (arg1@@160 T@U) (arg2@@110 T@U) (arg3@@80 Bool) ) (! (= (type (|lambda#56| arg0@@297 arg1@@160 arg2@@110 arg3@@80)) (MapType6Type refType boolType))
  :qid |funType:lambda#56|
- :pattern ( (|lambda#56| arg0@@299 arg1@@162 arg2@@112 arg3@@80))
+ :pattern ( (|lambda#56| arg0@@297 arg1@@160 arg2@@110 arg3@@80))
 )))
-(assert (forall (($o@@45 T@U) ($f@@35 T@U) (|l#0@@78| T@U) (|l#1@@38| T@U) (|l#2@@38| T@U) (|l#3@@35| Bool) ) (! (let ((alpha@@42 (FieldTypeInv0 (type $f@@35))))
- (=> (and (and (and (and (= (type $o@@45) refType) (= (type $f@@35) (FieldType alpha@@42))) (= (type |l#0@@78|) refType)) (= (type |l#1@@38|) (MapType0Type refType MapType1Type))) (= (type |l#2@@38|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#56| |l#0@@78| |l#1@@38| |l#2@@38| |l#3@@35|) $o@@45 $f@@35))  (=> (and (not (= $o@@45 |l#0@@78|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@38| $o@@45) |l#2@@38|))) |l#3@@35|))))
- :qid |DLLDafny.249:14|
- :skolemid |1708|
- :pattern ( (MapType6Select (|lambda#56| |l#0@@78| |l#1@@38| |l#2@@38| |l#3@@35|) $o@@45 $f@@35))
+(assert (forall (($o@@45 T@U) ($f@@35 T@U) (|l#0@@76| T@U) (|l#1@@36| T@U) (|l#2@@36| T@U) (|l#3@@35| Bool) ) (! (let ((alpha@@42 (FieldTypeInv0 (type $f@@35))))
+ (=> (and (and (and (and (= (type $o@@45) refType) (= (type $f@@35) (FieldType alpha@@42))) (= (type |l#0@@76|) refType)) (= (type |l#1@@36|) (MapType0Type refType MapType1Type))) (= (type |l#2@@36|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#56| |l#0@@76| |l#1@@36| |l#2@@36| |l#3@@35|) $o@@45 $f@@35))  (=> (and (not (= $o@@45 |l#0@@76|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@36| $o@@45) |l#2@@36|))) |l#3@@35|))))
+ :qid |DLLDafny.241:14|
+ :skolemid |1716|
+ :pattern ( (MapType6Select (|lambda#56| |l#0@@76| |l#1@@36| |l#2@@36| |l#3@@35|) $o@@45 $f@@35))
 )))
-(assert (forall ((arg0@@300 T@U) (arg1@@163 T@U) (arg2@@113 T@U) (arg3@@81 Bool) ) (! (= (type (|lambda#57| arg0@@300 arg1@@163 arg2@@113 arg3@@81)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@298 Int) (arg1@@161 T@U) (arg2@@111 Int) ) (! (= (type (|lambda#57| arg0@@298 arg1@@161 arg2@@111)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
  :qid |funType:lambda#57|
- :pattern ( (|lambda#57| arg0@@300 arg1@@163 arg2@@113 arg3@@81))
+ :pattern ( (|lambda#57| arg0@@298 arg1@@161 arg2@@111))
+)))
+(assert (forall ((|$l#1#heap#0@@2| T@U) (|$l#1#x#0| T@U) (|l#0@@77| Int) (|l#1@@37| T@U) (|l#2@@37| Int) ) (!  (=> (and (and (= (type |$l#1#heap#0@@2|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0|) BoxType)) (= (type |l#1@@37|) (SeqType BoxType))) (= (MapType2Select (|lambda#57| |l#0@@77| |l#1@@37| |l#2@@37|) |$l#1#heap#0@@2| |$l#1#x#0|) ($Box (int_2_U (ite (< (U_2_int ($Unbox intType |$l#1#x#0|)) |l#0@@77|) (U_2_int ($Unbox intType (|Seq#Index| |l#1@@37| (U_2_int ($Unbox intType |$l#1#x#0|))))) |l#2@@37|)))))
+ :qid |DafnyPre.515:12|
+ :skolemid |1717|
+ :pattern ( (MapType2Select (|lambda#57| |l#0@@77| |l#1@@37| |l#2@@37|) |$l#1#heap#0@@2| |$l#1#x#0|))
+)))
+(assert (forall ((arg0@@299 T@U) (arg1@@162 Int) (arg2@@112 Int) ) (! (= (type (|lambda#58| arg0@@299 arg1@@162 arg2@@112)) (MapType2Type (MapType0Type refType MapType1Type) BoxType boolType))
+ :qid |funType:lambda#58|
+ :pattern ( (|lambda#58| arg0@@299 arg1@@162 arg2@@112))
+)))
+(assert (forall ((|$l#1#heap#0@@3| T@U) (|$l#1#x#0@@0| T@U) (|l#0@@78| T@U) (|l#1@@38| Int) (|l#2@@38| Int) ) (!  (=> (and (and (= (type |$l#1#heap#0@@3|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0@@0|) BoxType)) (= (type |l#0@@78|) TyType)) (= (U_2_bool (MapType2Select (|lambda#58| |l#0@@78| |l#1@@38| |l#2@@38|) |$l#1#heap#0@@3| |$l#1#x#0@@0|))  (and ($IsBox |$l#1#x#0@@0| |l#0@@78|) (and (<= |l#1@@38| (U_2_int ($Unbox intType |$l#1#x#0@@0|))) (< (U_2_int ($Unbox intType |$l#1#x#0@@0|)) |l#2@@38|)))))
+ :qid |DafnyPre.515:12|
+ :skolemid |1718|
+ :pattern ( (MapType2Select (|lambda#58| |l#0@@78| |l#1@@38| |l#2@@38|) |$l#1#heap#0@@3| |$l#1#x#0@@0|))
+)))
+(assert (forall ((arg0@@300 T@U) (arg1@@163 T@U) (arg2@@113 T@U) (arg3@@81 Bool) ) (! (= (type (|lambda#77| arg0@@300 arg1@@163 arg2@@113 arg3@@81)) (MapType6Type refType boolType))
+ :qid |funType:lambda#77|
+ :pattern ( (|lambda#77| arg0@@300 arg1@@163 arg2@@113 arg3@@81))
 )))
 (assert (forall (($o@@46 T@U) ($f@@36 T@U) (|l#0@@79| T@U) (|l#1@@39| T@U) (|l#2@@39| T@U) (|l#3@@36| Bool) ) (! (let ((alpha@@43 (FieldTypeInv0 (type $f@@36))))
- (=> (and (and (and (and (= (type $o@@46) refType) (= (type $f@@36) (FieldType alpha@@43))) (= (type |l#0@@79|) refType)) (= (type |l#1@@39|) (MapType0Type refType MapType1Type))) (= (type |l#2@@39|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#57| |l#0@@79| |l#1@@39| |l#2@@39| |l#3@@36|) $o@@46 $f@@36))  (=> (and (not (= $o@@46 |l#0@@79|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@39| $o@@46) |l#2@@39|))) |l#3@@36|))))
- :qid |DLLDafny.249:14|
- :skolemid |1709|
- :pattern ( (MapType6Select (|lambda#57| |l#0@@79| |l#1@@39| |l#2@@39| |l#3@@36|) $o@@46 $f@@36))
+ (=> (and (and (and (and (= (type $o@@46) refType) (= (type $f@@36) (FieldType alpha@@43))) (= (type |l#0@@79|) refType)) (= (type |l#1@@39|) (MapType0Type refType MapType1Type))) (= (type |l#2@@39|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#77| |l#0@@79| |l#1@@39| |l#2@@39| |l#3@@36|) $o@@46 $f@@36))  (=> (and (not (= $o@@46 |l#0@@79|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@39| $o@@46) |l#2@@39|))) |l#3@@36|))))
+ :qid |DLLDafny.249:28|
+ :skolemid |1719|
+ :pattern ( (MapType6Select (|lambda#77| |l#0@@79| |l#1@@39| |l#2@@39| |l#3@@36|) $o@@46 $f@@36))
 )))
-(assert (forall ((arg0@@301 T@U) (arg1@@164 Int) (arg2@@114 Int) (arg3@@82 T@U) (arg4@@30 Int) (arg5@@19 T@U) (arg6@@15 Int) (arg7@@4 T@U) ) (! (= (type (|lambda#58| arg0@@301 arg1@@164 arg2@@114 arg3@@82 arg4@@30 arg5@@19 arg6@@15 arg7@@4)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
- :qid |funType:lambda#58|
- :pattern ( (|lambda#58| arg0@@301 arg1@@164 arg2@@114 arg3@@82 arg4@@30 arg5@@19 arg6@@15 arg7@@4))
-)))
-(assert (forall ((|$l#1#heap#0| T@U) (|$l#1#x#0| T@U) (|l#0@@80| T@U) (|l#1@@40| Int) (|l#2@@40| Int) (|l#3@@37| T@U) (|l#4| Int) (|l#5| T@U) (|l#6| Int) (|l#7| T@U) ) (!  (=> (and (and (and (and (and (= (type |$l#1#heap#0|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0|) BoxType)) (= (type |l#0@@80|) (SeqType BoxType))) (= (type |l#3@@37|) (SeqType BoxType))) (= (type |l#5|) (SeqType BoxType))) (= (type |l#7|) (SeqType BoxType))) (= (MapType2Select (|lambda#58| |l#0@@80| |l#1@@40| |l#2@@40| |l#3@@37| |l#4| |l#5| |l#6| |l#7|) |$l#1#heap#0| |$l#1#x#0|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType (|Seq#Index| |l#0@@80| (U_2_int ($Unbox intType |$l#1#x#0|))))) |l#1@@40|) |l#2@@40| (ite (> (U_2_int ($Unbox intType (|Seq#Index| |l#3@@37| (U_2_int ($Unbox intType |$l#1#x#0|))))) |l#4|) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| |l#5| (U_2_int ($Unbox intType |$l#1#x#0|))))) |l#6|) (U_2_int ($Unbox intType (|Seq#Index| |l#7| (U_2_int ($Unbox intType |$l#1#x#0|)))))))))))
- :qid |DafnyPre.515:12|
- :skolemid |1710|
- :pattern ( (MapType2Select (|lambda#58| |l#0@@80| |l#1@@40| |l#2@@40| |l#3@@37| |l#4| |l#5| |l#6| |l#7|) |$l#1#heap#0| |$l#1#x#0|))
-)))
-(assert (forall ((arg0@@302 T@U) (arg1@@165 T@U) (arg2@@115 T@U) (arg3@@83 Bool) ) (! (= (type (|lambda#78| arg0@@302 arg1@@165 arg2@@115 arg3@@83)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@301 T@U) (arg1@@164 T@U) (arg2@@114 T@U) (arg3@@82 Bool) ) (! (= (type (|lambda#78| arg0@@301 arg1@@164 arg2@@114 arg3@@82)) (MapType6Type refType boolType))
  :qid |funType:lambda#78|
- :pattern ( (|lambda#78| arg0@@302 arg1@@165 arg2@@115 arg3@@83))
+ :pattern ( (|lambda#78| arg0@@301 arg1@@164 arg2@@114 arg3@@82))
 )))
-(assert (forall (($o@@47 T@U) ($f@@37 T@U) (|l#0@@81| T@U) (|l#1@@41| T@U) (|l#2@@41| T@U) (|l#3@@38| Bool) ) (! (let ((alpha@@44 (FieldTypeInv0 (type $f@@37))))
- (=> (and (and (and (and (= (type $o@@47) refType) (= (type $f@@37) (FieldType alpha@@44))) (= (type |l#0@@81|) refType)) (= (type |l#1@@41|) (MapType0Type refType MapType1Type))) (= (type |l#2@@41|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#78| |l#0@@81| |l#1@@41| |l#2@@41| |l#3@@38|) $o@@47 $f@@37))  (=> (and (not (= $o@@47 |l#0@@81|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@41| $o@@47) |l#2@@41|))) |l#3@@38|))))
- :qid |DLLDafny.257:24|
- :skolemid |1711|
- :pattern ( (MapType6Select (|lambda#78| |l#0@@81| |l#1@@41| |l#2@@41| |l#3@@38|) $o@@47 $f@@37))
+(assert (forall (($o@@47 T@U) ($f@@37 T@U) (|l#0@@80| T@U) (|l#1@@40| T@U) (|l#2@@40| T@U) (|l#3@@37| Bool) ) (! (let ((alpha@@44 (FieldTypeInv0 (type $f@@37))))
+ (=> (and (and (and (and (= (type $o@@47) refType) (= (type $f@@37) (FieldType alpha@@44))) (= (type |l#0@@80|) refType)) (= (type |l#1@@40|) (MapType0Type refType MapType1Type))) (= (type |l#2@@40|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#78| |l#0@@80| |l#1@@40| |l#2@@40| |l#3@@37|) $o@@47 $f@@37))  (=> (and (not (= $o@@47 |l#0@@80|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@40| $o@@47) |l#2@@40|))) |l#3@@37|))))
+ :qid |DLLDafny.254:8|
+ :skolemid |1720|
+ :pattern ( (MapType6Select (|lambda#78| |l#0@@80| |l#1@@40| |l#2@@40| |l#3@@37|) $o@@47 $f@@37))
 )))
-(assert (forall ((arg0@@303 T@U) (arg1@@166 T@U) (arg2@@116 T@U) (arg3@@84 Bool) ) (! (= (type (|lambda#79| arg0@@303 arg1@@166 arg2@@116 arg3@@84)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@302 T@U) (arg1@@165 T@U) (arg2@@115 T@U) (arg3@@83 Bool) ) (! (= (type (|lambda#79| arg0@@302 arg1@@165 arg2@@115 arg3@@83)) (MapType6Type refType boolType))
  :qid |funType:lambda#79|
- :pattern ( (|lambda#79| arg0@@303 arg1@@166 arg2@@116 arg3@@84))
+ :pattern ( (|lambda#79| arg0@@302 arg1@@165 arg2@@115 arg3@@83))
 )))
-(assert (forall (($o@@48 T@U) ($f@@38 T@U) (|l#0@@82| T@U) (|l#1@@42| T@U) (|l#2@@42| T@U) (|l#3@@39| Bool) ) (! (let ((alpha@@45 (FieldTypeInv0 (type $f@@38))))
- (=> (and (and (and (and (= (type $o@@48) refType) (= (type $f@@38) (FieldType alpha@@45))) (= (type |l#0@@82|) refType)) (= (type |l#1@@42|) (MapType0Type refType MapType1Type))) (= (type |l#2@@42|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#79| |l#0@@82| |l#1@@42| |l#2@@42| |l#3@@39|) $o@@48 $f@@38))  (=> (and (not (= $o@@48 |l#0@@82|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@42| $o@@48) |l#2@@42|))) |l#3@@39|))))
- :qid |DLLDafny.262:8|
- :skolemid |1712|
- :pattern ( (MapType6Select (|lambda#79| |l#0@@82| |l#1@@42| |l#2@@42| |l#3@@39|) $o@@48 $f@@38))
+(assert (forall (($o@@48 T@U) ($f@@38 T@U) (|l#0@@81| T@U) (|l#1@@41| T@U) (|l#2@@41| T@U) (|l#3@@38| Bool) ) (! (let ((alpha@@45 (FieldTypeInv0 (type $f@@38))))
+ (=> (and (and (and (and (= (type $o@@48) refType) (= (type $f@@38) (FieldType alpha@@45))) (= (type |l#0@@81|) refType)) (= (type |l#1@@41|) (MapType0Type refType MapType1Type))) (= (type |l#2@@41|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#79| |l#0@@81| |l#1@@41| |l#2@@41| |l#3@@38|) $o@@48 $f@@38))  (=> (and (not (= $o@@48 |l#0@@81|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@41| $o@@48) |l#2@@41|))) |l#3@@38|))))
+ :qid |DLLDafny.254:8|
+ :skolemid |1721|
+ :pattern ( (MapType6Select (|lambda#79| |l#0@@81| |l#1@@41| |l#2@@41| |l#3@@38|) $o@@48 $f@@38))
 )))
-(assert (forall ((arg0@@304 T@U) (arg1@@167 T@U) (arg2@@117 T@U) (arg3@@85 Bool) ) (! (= (type (|lambda#80| arg0@@304 arg1@@167 arg2@@117 arg3@@85)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@303 T@U) (arg1@@166 T@U) (arg2@@116 T@U) (arg3@@84 Bool) ) (! (= (type (|lambda#80| arg0@@303 arg1@@166 arg2@@116 arg3@@84)) (MapType6Type refType boolType))
  :qid |funType:lambda#80|
- :pattern ( (|lambda#80| arg0@@304 arg1@@167 arg2@@117 arg3@@85))
+ :pattern ( (|lambda#80| arg0@@303 arg1@@166 arg2@@116 arg3@@84))
 )))
-(assert (forall (($o@@49 T@U) ($f@@39 T@U) (|l#0@@83| T@U) (|l#1@@43| T@U) (|l#2@@43| T@U) (|l#3@@40| Bool) ) (! (let ((alpha@@46 (FieldTypeInv0 (type $f@@39))))
- (=> (and (and (and (and (= (type $o@@49) refType) (= (type $f@@39) (FieldType alpha@@46))) (= (type |l#0@@83|) refType)) (= (type |l#1@@43|) (MapType0Type refType MapType1Type))) (= (type |l#2@@43|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#80| |l#0@@83| |l#1@@43| |l#2@@43| |l#3@@40|) $o@@49 $f@@39))  (=> (and (not (= $o@@49 |l#0@@83|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@43| $o@@49) |l#2@@43|))) |l#3@@40|))))
- :qid |DLLDafny.262:8|
- :skolemid |1713|
- :pattern ( (MapType6Select (|lambda#80| |l#0@@83| |l#1@@43| |l#2@@43| |l#3@@40|) $o@@49 $f@@39))
+(assert (forall (($o@@49 T@U) ($f@@39 T@U) (|l#0@@82| T@U) (|l#1@@42| T@U) (|l#2@@42| T@U) (|l#3@@39| Bool) ) (! (let ((alpha@@46 (FieldTypeInv0 (type $f@@39))))
+ (=> (and (and (and (and (= (type $o@@49) refType) (= (type $f@@39) (FieldType alpha@@46))) (= (type |l#0@@82|) refType)) (= (type |l#1@@42|) (MapType0Type refType MapType1Type))) (= (type |l#2@@42|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#80| |l#0@@82| |l#1@@42| |l#2@@42| |l#3@@39|) $o@@49 $f@@39))  (=> (and (not (= $o@@49 |l#0@@82|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@42| $o@@49) |l#2@@42|))) |l#3@@39|))))
+ :qid |DLLDafny.274:14|
+ :skolemid |1722|
+ :pattern ( (MapType6Select (|lambda#80| |l#0@@82| |l#1@@42| |l#2@@42| |l#3@@39|) $o@@49 $f@@39))
 )))
-(assert (forall ((arg0@@305 T@U) (arg1@@168 T@U) (arg2@@118 T@U) (arg3@@86 Bool) ) (! (= (type (|lambda#81| arg0@@305 arg1@@168 arg2@@118 arg3@@86)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@304 T@U) (arg1@@167 T@U) (arg2@@117 T@U) (arg3@@85 Bool) ) (! (= (type (|lambda#81| arg0@@304 arg1@@167 arg2@@117 arg3@@85)) (MapType6Type refType boolType))
  :qid |funType:lambda#81|
- :pattern ( (|lambda#81| arg0@@305 arg1@@168 arg2@@118 arg3@@86))
+ :pattern ( (|lambda#81| arg0@@304 arg1@@167 arg2@@117 arg3@@85))
 )))
-(assert (forall (($o@@50 T@U) ($f@@40 T@U) (|l#0@@84| T@U) (|l#1@@44| T@U) (|l#2@@44| T@U) (|l#3@@41| Bool) ) (! (let ((alpha@@47 (FieldTypeInv0 (type $f@@40))))
- (=> (and (and (and (and (= (type $o@@50) refType) (= (type $f@@40) (FieldType alpha@@47))) (= (type |l#0@@84|) refType)) (= (type |l#1@@44|) (MapType0Type refType MapType1Type))) (= (type |l#2@@44|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#81| |l#0@@84| |l#1@@44| |l#2@@44| |l#3@@41|) $o@@50 $f@@40))  (=> (and (not (= $o@@50 |l#0@@84|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@44| $o@@50) |l#2@@44|))) |l#3@@41|))))
- :qid |DLLDafny.288:14|
- :skolemid |1714|
- :pattern ( (MapType6Select (|lambda#81| |l#0@@84| |l#1@@44| |l#2@@44| |l#3@@41|) $o@@50 $f@@40))
+(assert (forall (($o@@50 T@U) ($f@@40 T@U) (|l#0@@83| T@U) (|l#1@@43| T@U) (|l#2@@43| T@U) (|l#3@@40| Bool) ) (! (let ((alpha@@47 (FieldTypeInv0 (type $f@@40))))
+ (=> (and (and (and (and (= (type $o@@50) refType) (= (type $f@@40) (FieldType alpha@@47))) (= (type |l#0@@83|) refType)) (= (type |l#1@@43|) (MapType0Type refType MapType1Type))) (= (type |l#2@@43|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#81| |l#0@@83| |l#1@@43| |l#2@@43| |l#3@@40|) $o@@50 $f@@40))  (=> (and (not (= $o@@50 |l#0@@83|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@43| $o@@50) |l#2@@43|))) |l#3@@40|))))
+ :qid |DLLDafny.274:14|
+ :skolemid |1723|
+ :pattern ( (MapType6Select (|lambda#81| |l#0@@83| |l#1@@43| |l#2@@43| |l#3@@40|) $o@@50 $f@@40))
 )))
-(assert (forall ((arg0@@306 T@U) (arg1@@169 T@U) (arg2@@119 T@U) (arg3@@87 Bool) ) (! (= (type (|lambda#82| arg0@@306 arg1@@169 arg2@@119 arg3@@87)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@305 T@U) (arg1@@168 Int) (arg2@@118 Int) (arg3@@86 T@U) (arg4@@30 Int) (arg5@@19 T@U) (arg6@@15 Int) (arg7@@4 T@U) ) (! (= (type (|lambda#82| arg0@@305 arg1@@168 arg2@@118 arg3@@86 arg4@@30 arg5@@19 arg6@@15 arg7@@4)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
  :qid |funType:lambda#82|
- :pattern ( (|lambda#82| arg0@@306 arg1@@169 arg2@@119 arg3@@87))
+ :pattern ( (|lambda#82| arg0@@305 arg1@@168 arg2@@118 arg3@@86 arg4@@30 arg5@@19 arg6@@15 arg7@@4))
+)))
+(assert (forall ((|$l#1#heap#0@@4| T@U) (|$l#1#x#0@@1| T@U) (|l#0@@84| T@U) (|l#1@@44| Int) (|l#2@@44| Int) (|l#3@@41| T@U) (|l#4| Int) (|l#5| T@U) (|l#6| Int) (|l#7| T@U) ) (!  (=> (and (and (and (and (and (= (type |$l#1#heap#0@@4|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0@@1|) BoxType)) (= (type |l#0@@84|) (SeqType BoxType))) (= (type |l#3@@41|) (SeqType BoxType))) (= (type |l#5|) (SeqType BoxType))) (= (type |l#7|) (SeqType BoxType))) (= (MapType2Select (|lambda#82| |l#0@@84| |l#1@@44| |l#2@@44| |l#3@@41| |l#4| |l#5| |l#6| |l#7|) |$l#1#heap#0@@4| |$l#1#x#0@@1|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType (|Seq#Index| |l#0@@84| (U_2_int ($Unbox intType |$l#1#x#0@@1|))))) |l#1@@44|) |l#2@@44| (ite (> (U_2_int ($Unbox intType (|Seq#Index| |l#3@@41| (U_2_int ($Unbox intType |$l#1#x#0@@1|))))) |l#4|) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| |l#5| (U_2_int ($Unbox intType |$l#1#x#0@@1|))))) |l#6|) (U_2_int ($Unbox intType (|Seq#Index| |l#7| (U_2_int ($Unbox intType |$l#1#x#0@@1|)))))))))))
+ :qid |DafnyPre.515:12|
+ :skolemid |1724|
+ :pattern ( (MapType2Select (|lambda#82| |l#0@@84| |l#1@@44| |l#2@@44| |l#3@@41| |l#4| |l#5| |l#6| |l#7|) |$l#1#heap#0@@4| |$l#1#x#0@@1|))
+)))
+(assert (forall ((arg0@@306 T@U) (arg1@@169 T@U) (arg2@@119 T@U) (arg3@@87 Bool) ) (! (= (type (|lambda#102| arg0@@306 arg1@@169 arg2@@119 arg3@@87)) (MapType6Type refType boolType))
+ :qid |funType:lambda#102|
+ :pattern ( (|lambda#102| arg0@@306 arg1@@169 arg2@@119 arg3@@87))
 )))
 (assert (forall (($o@@51 T@U) ($f@@41 T@U) (|l#0@@85| T@U) (|l#1@@45| T@U) (|l#2@@45| T@U) (|l#3@@42| Bool) ) (! (let ((alpha@@48 (FieldTypeInv0 (type $f@@41))))
- (=> (and (and (and (and (= (type $o@@51) refType) (= (type $f@@41) (FieldType alpha@@48))) (= (type |l#0@@85|) refType)) (= (type |l#1@@45|) (MapType0Type refType MapType1Type))) (= (type |l#2@@45|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#82| |l#0@@85| |l#1@@45| |l#2@@45| |l#3@@42|) $o@@51 $f@@41))  (=> (and (not (= $o@@51 |l#0@@85|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@45| $o@@51) |l#2@@45|))) |l#3@@42|))))
- :qid |DLLDafny.288:14|
- :skolemid |1715|
- :pattern ( (MapType6Select (|lambda#82| |l#0@@85| |l#1@@45| |l#2@@45| |l#3@@42|) $o@@51 $f@@41))
+ (=> (and (and (and (and (= (type $o@@51) refType) (= (type $f@@41) (FieldType alpha@@48))) (= (type |l#0@@85|) refType)) (= (type |l#1@@45|) (MapType0Type refType MapType1Type))) (= (type |l#2@@45|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#102| |l#0@@85| |l#1@@45| |l#2@@45| |l#3@@42|) $o@@51 $f@@41))  (=> (and (not (= $o@@51 |l#0@@85|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@45| $o@@51) |l#2@@45|))) |l#3@@42|))))
+ :qid |DLLDafny.282:24|
+ :skolemid |1725|
+ :pattern ( (MapType6Select (|lambda#102| |l#0@@85| |l#1@@45| |l#2@@45| |l#3@@42|) $o@@51 $f@@41))
 )))
-(assert (forall ((arg0@@307 Int) (arg1@@170 Int) (arg2@@120 Int) (arg3@@88 T@U) (arg4@@31 T@U) (arg5@@20 Int) (arg6@@16 T@U) ) (! (= (type (|lambda#83| arg0@@307 arg1@@170 arg2@@120 arg3@@88 arg4@@31 arg5@@20 arg6@@16)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
- :qid |funType:lambda#83|
- :pattern ( (|lambda#83| arg0@@307 arg1@@170 arg2@@120 arg3@@88 arg4@@31 arg5@@20 arg6@@16))
-)))
-(assert (forall ((|$l#1#heap#0@@0| T@U) (|$l#1#x#0@@0| T@U) (|l#0@@86| Int) (|l#1@@46| Int) (|l#2@@46| Int) (|l#3@@43| T@U) (|l#4@@0| T@U) (|l#5@@0| Int) (|l#6@@0| T@U) ) (!  (=> (and (and (and (and (= (type |$l#1#heap#0@@0|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0@@0|) BoxType)) (= (type |l#3@@43|) (SeqType BoxType))) (= (type |l#4@@0|) (SeqType BoxType))) (= (type |l#6@@0|) (SeqType BoxType))) (= (MapType2Select (|lambda#83| |l#0@@86| |l#1@@46| |l#2@@46| |l#3@@43| |l#4@@0| |l#5@@0| |l#6@@0|) |$l#1#heap#0@@0| |$l#1#x#0@@0|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType |$l#1#x#0@@0|)) |l#0@@86|) |l#1@@46| (ite (< |l#2@@46| (U_2_int ($Unbox intType (|Seq#Index| |l#3@@43| (U_2_int ($Unbox intType |$l#1#x#0@@0|)))))) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| |l#4@@0| (U_2_int ($Unbox intType |$l#1#x#0@@0|))))) |l#5@@0|) (U_2_int ($Unbox intType (|Seq#Index| |l#6@@0| (U_2_int ($Unbox intType |$l#1#x#0@@0|)))))))))))
- :qid |DafnyPre.515:12|
- :skolemid |1716|
- :pattern ( (MapType2Select (|lambda#83| |l#0@@86| |l#1@@46| |l#2@@46| |l#3@@43| |l#4@@0| |l#5@@0| |l#6@@0|) |$l#1#heap#0@@0| |$l#1#x#0@@0|))
-)))
-(assert (forall ((arg0@@308 T@U) (arg1@@171 T@U) (arg2@@121 T@U) (arg3@@89 Bool) ) (! (= (type (|lambda#103| arg0@@308 arg1@@171 arg2@@121 arg3@@89)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@307 T@U) (arg1@@170 T@U) (arg2@@120 T@U) (arg3@@88 Bool) ) (! (= (type (|lambda#103| arg0@@307 arg1@@170 arg2@@120 arg3@@88)) (MapType6Type refType boolType))
  :qid |funType:lambda#103|
- :pattern ( (|lambda#103| arg0@@308 arg1@@171 arg2@@121 arg3@@89))
+ :pattern ( (|lambda#103| arg0@@307 arg1@@170 arg2@@120 arg3@@88))
 )))
-(assert (forall (($o@@52 T@U) ($f@@42 T@U) (|l#0@@87| T@U) (|l#1@@47| T@U) (|l#2@@47| T@U) (|l#3@@44| Bool) ) (! (let ((alpha@@49 (FieldTypeInv0 (type $f@@42))))
- (=> (and (and (and (and (= (type $o@@52) refType) (= (type $f@@42) (FieldType alpha@@49))) (= (type |l#0@@87|) refType)) (= (type |l#1@@47|) (MapType0Type refType MapType1Type))) (= (type |l#2@@47|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#103| |l#0@@87| |l#1@@47| |l#2@@47| |l#3@@44|) $o@@52 $f@@42))  (=> (and (not (= $o@@52 |l#0@@87|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@47| $o@@52) |l#2@@47|))) |l#3@@44|))))
- :qid |DLLDafny.296:24|
- :skolemid |1717|
- :pattern ( (MapType6Select (|lambda#103| |l#0@@87| |l#1@@47| |l#2@@47| |l#3@@44|) $o@@52 $f@@42))
+(assert (forall (($o@@52 T@U) ($f@@42 T@U) (|l#0@@86| T@U) (|l#1@@46| T@U) (|l#2@@46| T@U) (|l#3@@43| Bool) ) (! (let ((alpha@@49 (FieldTypeInv0 (type $f@@42))))
+ (=> (and (and (and (and (= (type $o@@52) refType) (= (type $f@@42) (FieldType alpha@@49))) (= (type |l#0@@86|) refType)) (= (type |l#1@@46|) (MapType0Type refType MapType1Type))) (= (type |l#2@@46|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#103| |l#0@@86| |l#1@@46| |l#2@@46| |l#3@@43|) $o@@52 $f@@42))  (=> (and (not (= $o@@52 |l#0@@86|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@46| $o@@52) |l#2@@46|))) |l#3@@43|))))
+ :qid |DLLDafny.287:8|
+ :skolemid |1726|
+ :pattern ( (MapType6Select (|lambda#103| |l#0@@86| |l#1@@46| |l#2@@46| |l#3@@43|) $o@@52 $f@@42))
 )))
-(assert (forall ((arg0@@309 T@U) (arg1@@172 T@U) (arg2@@122 T@U) (arg3@@90 Bool) ) (! (= (type (|lambda#104| arg0@@309 arg1@@172 arg2@@122 arg3@@90)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@308 T@U) (arg1@@171 T@U) (arg2@@121 T@U) (arg3@@89 Bool) ) (! (= (type (|lambda#104| arg0@@308 arg1@@171 arg2@@121 arg3@@89)) (MapType6Type refType boolType))
  :qid |funType:lambda#104|
- :pattern ( (|lambda#104| arg0@@309 arg1@@172 arg2@@122 arg3@@90))
+ :pattern ( (|lambda#104| arg0@@308 arg1@@171 arg2@@121 arg3@@89))
 )))
-(assert (forall (($o@@53 T@U) ($f@@43 T@U) (|l#0@@88| T@U) (|l#1@@48| T@U) (|l#2@@48| T@U) (|l#3@@45| Bool) ) (! (let ((alpha@@50 (FieldTypeInv0 (type $f@@43))))
- (=> (and (and (and (and (= (type $o@@53) refType) (= (type $f@@43) (FieldType alpha@@50))) (= (type |l#0@@88|) refType)) (= (type |l#1@@48|) (MapType0Type refType MapType1Type))) (= (type |l#2@@48|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#104| |l#0@@88| |l#1@@48| |l#2@@48| |l#3@@45|) $o@@53 $f@@43))  (=> (and (not (= $o@@53 |l#0@@88|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@48| $o@@53) |l#2@@48|))) |l#3@@45|))))
- :qid |DLLDafny.301:8|
- :skolemid |1718|
- :pattern ( (MapType6Select (|lambda#104| |l#0@@88| |l#1@@48| |l#2@@48| |l#3@@45|) $o@@53 $f@@43))
+(assert (forall (($o@@53 T@U) ($f@@43 T@U) (|l#0@@87| T@U) (|l#1@@47| T@U) (|l#2@@47| T@U) (|l#3@@44| Bool) ) (! (let ((alpha@@50 (FieldTypeInv0 (type $f@@43))))
+ (=> (and (and (and (and (= (type $o@@53) refType) (= (type $f@@43) (FieldType alpha@@50))) (= (type |l#0@@87|) refType)) (= (type |l#1@@47|) (MapType0Type refType MapType1Type))) (= (type |l#2@@47|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#104| |l#0@@87| |l#1@@47| |l#2@@47| |l#3@@44|) $o@@53 $f@@43))  (=> (and (not (= $o@@53 |l#0@@87|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@47| $o@@53) |l#2@@47|))) |l#3@@44|))))
+ :qid |DLLDafny.287:8|
+ :skolemid |1727|
+ :pattern ( (MapType6Select (|lambda#104| |l#0@@87| |l#1@@47| |l#2@@47| |l#3@@44|) $o@@53 $f@@43))
 )))
-(assert (forall ((arg0@@310 T@U) (arg1@@173 T@U) (arg2@@123 T@U) (arg3@@91 Bool) ) (! (= (type (|lambda#105| arg0@@310 arg1@@173 arg2@@123 arg3@@91)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@309 T@U) (arg1@@172 T@U) (arg2@@122 T@U) (arg3@@90 Bool) ) (! (= (type (|lambda#105| arg0@@309 arg1@@172 arg2@@122 arg3@@90)) (MapType6Type refType boolType))
  :qid |funType:lambda#105|
- :pattern ( (|lambda#105| arg0@@310 arg1@@173 arg2@@123 arg3@@91))
+ :pattern ( (|lambda#105| arg0@@309 arg1@@172 arg2@@122 arg3@@90))
 )))
-(assert (forall (($o@@54 T@U) ($f@@44 T@U) (|l#0@@89| T@U) (|l#1@@49| T@U) (|l#2@@49| T@U) (|l#3@@46| Bool) ) (! (let ((alpha@@51 (FieldTypeInv0 (type $f@@44))))
- (=> (and (and (and (and (= (type $o@@54) refType) (= (type $f@@44) (FieldType alpha@@51))) (= (type |l#0@@89|) refType)) (= (type |l#1@@49|) (MapType0Type refType MapType1Type))) (= (type |l#2@@49|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#105| |l#0@@89| |l#1@@49| |l#2@@49| |l#3@@46|) $o@@54 $f@@44))  (=> (and (not (= $o@@54 |l#0@@89|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@49| $o@@54) |l#2@@49|))) |l#3@@46|))))
- :qid |DLLDafny.301:8|
- :skolemid |1719|
- :pattern ( (MapType6Select (|lambda#105| |l#0@@89| |l#1@@49| |l#2@@49| |l#3@@46|) $o@@54 $f@@44))
+(assert (forall (($o@@54 T@U) ($f@@44 T@U) (|l#0@@88| T@U) (|l#1@@48| T@U) (|l#2@@48| T@U) (|l#3@@45| Bool) ) (! (let ((alpha@@51 (FieldTypeInv0 (type $f@@44))))
+ (=> (and (and (and (and (= (type $o@@54) refType) (= (type $f@@44) (FieldType alpha@@51))) (= (type |l#0@@88|) refType)) (= (type |l#1@@48|) (MapType0Type refType MapType1Type))) (= (type |l#2@@48|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#105| |l#0@@88| |l#1@@48| |l#2@@48| |l#3@@45|) $o@@54 $f@@44))  (=> (and (not (= $o@@54 |l#0@@88|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@48| $o@@54) |l#2@@48|))) |l#3@@45|))))
+ :qid |DLLDafny.313:14|
+ :skolemid |1728|
+ :pattern ( (MapType6Select (|lambda#105| |l#0@@88| |l#1@@48| |l#2@@48| |l#3@@45|) $o@@54 $f@@44))
 )))
-(assert (forall ((arg0@@311 T@U) (arg1@@174 T@U) (arg2@@124 T@U) (arg3@@92 Bool) ) (! (= (type (|lambda#106| arg0@@311 arg1@@174 arg2@@124 arg3@@92)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@310 T@U) (arg1@@173 T@U) (arg2@@123 T@U) (arg3@@91 Bool) ) (! (= (type (|lambda#106| arg0@@310 arg1@@173 arg2@@123 arg3@@91)) (MapType6Type refType boolType))
  :qid |funType:lambda#106|
- :pattern ( (|lambda#106| arg0@@311 arg1@@174 arg2@@124 arg3@@92))
+ :pattern ( (|lambda#106| arg0@@310 arg1@@173 arg2@@123 arg3@@91))
 )))
-(assert (forall (($o@@55 T@U) ($f@@45 T@U) (|l#0@@90| T@U) (|l#1@@50| T@U) (|l#2@@50| T@U) (|l#3@@47| Bool) ) (! (let ((alpha@@52 (FieldTypeInv0 (type $f@@45))))
- (=> (and (and (and (and (= (type $o@@55) refType) (= (type $f@@45) (FieldType alpha@@52))) (= (type |l#0@@90|) refType)) (= (type |l#1@@50|) (MapType0Type refType MapType1Type))) (= (type |l#2@@50|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#106| |l#0@@90| |l#1@@50| |l#2@@50| |l#3@@47|) $o@@55 $f@@45))  (=> (and (not (= $o@@55 |l#0@@90|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@50| $o@@55) |l#2@@50|))) |l#3@@47|))))
- :qid |DLLDafny.338:14|
- :skolemid |1720|
- :pattern ( (MapType6Select (|lambda#106| |l#0@@90| |l#1@@50| |l#2@@50| |l#3@@47|) $o@@55 $f@@45))
+(assert (forall (($o@@55 T@U) ($f@@45 T@U) (|l#0@@89| T@U) (|l#1@@49| T@U) (|l#2@@49| T@U) (|l#3@@46| Bool) ) (! (let ((alpha@@52 (FieldTypeInv0 (type $f@@45))))
+ (=> (and (and (and (and (= (type $o@@55) refType) (= (type $f@@45) (FieldType alpha@@52))) (= (type |l#0@@89|) refType)) (= (type |l#1@@49|) (MapType0Type refType MapType1Type))) (= (type |l#2@@49|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#106| |l#0@@89| |l#1@@49| |l#2@@49| |l#3@@46|) $o@@55 $f@@45))  (=> (and (not (= $o@@55 |l#0@@89|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@49| $o@@55) |l#2@@49|))) |l#3@@46|))))
+ :qid |DLLDafny.313:14|
+ :skolemid |1729|
+ :pattern ( (MapType6Select (|lambda#106| |l#0@@89| |l#1@@49| |l#2@@49| |l#3@@46|) $o@@55 $f@@45))
 )))
-(assert (forall ((arg0@@312 T@U) (arg1@@175 T@U) (arg2@@125 T@U) (arg3@@93 Bool) ) (! (= (type (|lambda#107| arg0@@312 arg1@@175 arg2@@125 arg3@@93)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@311 Int) (arg1@@174 Int) (arg2@@124 Int) (arg3@@92 T@U) (arg4@@31 T@U) (arg5@@20 Int) (arg6@@16 T@U) ) (! (= (type (|lambda#107| arg0@@311 arg1@@174 arg2@@124 arg3@@92 arg4@@31 arg5@@20 arg6@@16)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
  :qid |funType:lambda#107|
- :pattern ( (|lambda#107| arg0@@312 arg1@@175 arg2@@125 arg3@@93))
+ :pattern ( (|lambda#107| arg0@@311 arg1@@174 arg2@@124 arg3@@92 arg4@@31 arg5@@20 arg6@@16))
+)))
+(assert (forall ((|$l#1#heap#0@@5| T@U) (|$l#1#x#0@@2| T@U) (|l#0@@90| Int) (|l#1@@50| Int) (|l#2@@50| Int) (|l#3@@47| T@U) (|l#4@@0| T@U) (|l#5@@0| Int) (|l#6@@0| T@U) ) (!  (=> (and (and (and (and (= (type |$l#1#heap#0@@5|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0@@2|) BoxType)) (= (type |l#3@@47|) (SeqType BoxType))) (= (type |l#4@@0|) (SeqType BoxType))) (= (type |l#6@@0|) (SeqType BoxType))) (= (MapType2Select (|lambda#107| |l#0@@90| |l#1@@50| |l#2@@50| |l#3@@47| |l#4@@0| |l#5@@0| |l#6@@0|) |$l#1#heap#0@@5| |$l#1#x#0@@2|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType |$l#1#x#0@@2|)) |l#0@@90|) |l#1@@50| (ite (< |l#2@@50| (U_2_int ($Unbox intType (|Seq#Index| |l#3@@47| (U_2_int ($Unbox intType |$l#1#x#0@@2|)))))) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| |l#4@@0| (U_2_int ($Unbox intType |$l#1#x#0@@2|))))) |l#5@@0|) (U_2_int ($Unbox intType (|Seq#Index| |l#6@@0| (U_2_int ($Unbox intType |$l#1#x#0@@2|)))))))))))
+ :qid |DafnyPre.515:12|
+ :skolemid |1730|
+ :pattern ( (MapType2Select (|lambda#107| |l#0@@90| |l#1@@50| |l#2@@50| |l#3@@47| |l#4@@0| |l#5@@0| |l#6@@0|) |$l#1#heap#0@@5| |$l#1#x#0@@2|))
+)))
+(assert (forall ((arg0@@312 T@U) (arg1@@175 T@U) (arg2@@125 T@U) (arg3@@93 Bool) ) (! (= (type (|lambda#127| arg0@@312 arg1@@175 arg2@@125 arg3@@93)) (MapType6Type refType boolType))
+ :qid |funType:lambda#127|
+ :pattern ( (|lambda#127| arg0@@312 arg1@@175 arg2@@125 arg3@@93))
 )))
 (assert (forall (($o@@56 T@U) ($f@@46 T@U) (|l#0@@91| T@U) (|l#1@@51| T@U) (|l#2@@51| T@U) (|l#3@@48| Bool) ) (! (let ((alpha@@53 (FieldTypeInv0 (type $f@@46))))
- (=> (and (and (and (and (= (type $o@@56) refType) (= (type $f@@46) (FieldType alpha@@53))) (= (type |l#0@@91|) refType)) (= (type |l#1@@51|) (MapType0Type refType MapType1Type))) (= (type |l#2@@51|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#107| |l#0@@91| |l#1@@51| |l#2@@51| |l#3@@48|) $o@@56 $f@@46))  (=> (and (not (= $o@@56 |l#0@@91|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@51| $o@@56) |l#2@@51|))) |l#3@@48|))))
- :qid |DLLDafny.338:14|
- :skolemid |1721|
- :pattern ( (MapType6Select (|lambda#107| |l#0@@91| |l#1@@51| |l#2@@51| |l#3@@48|) $o@@56 $f@@46))
+ (=> (and (and (and (and (= (type $o@@56) refType) (= (type $f@@46) (FieldType alpha@@53))) (= (type |l#0@@91|) refType)) (= (type |l#1@@51|) (MapType0Type refType MapType1Type))) (= (type |l#2@@51|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#127| |l#0@@91| |l#1@@51| |l#2@@51| |l#3@@48|) $o@@56 $f@@46))  (=> (and (not (= $o@@56 |l#0@@91|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@51| $o@@56) |l#2@@51|))) |l#3@@48|))))
+ :qid |DLLDafny.321:24|
+ :skolemid |1731|
+ :pattern ( (MapType6Select (|lambda#127| |l#0@@91| |l#1@@51| |l#2@@51| |l#3@@48|) $o@@56 $f@@46))
 )))
-(assert (forall ((arg0@@313 Int) (arg1@@176 Int) (arg2@@126 T@U) (arg3@@94 Int) (arg4@@32 T@U) (arg5@@21 Int) (arg6@@17 T@U) ) (! (= (type (|lambda#108| arg0@@313 arg1@@176 arg2@@126 arg3@@94 arg4@@32 arg5@@21 arg6@@17)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
- :qid |funType:lambda#108|
- :pattern ( (|lambda#108| arg0@@313 arg1@@176 arg2@@126 arg3@@94 arg4@@32 arg5@@21 arg6@@17))
-)))
-(assert (forall ((|$l#1#heap#0@@1| T@U) (|$l#1#x#0@@1| T@U) (|l#0@@92| Int) (|l#1@@52| Int) (|l#2@@52| T@U) (|l#3@@49| Int) (|l#4@@1| T@U) (|l#5@@1| Int) (|l#6@@1| T@U) ) (!  (=> (and (and (and (and (= (type |$l#1#heap#0@@1|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0@@1|) BoxType)) (= (type |l#2@@52|) (SeqType BoxType))) (= (type |l#4@@1|) (SeqType BoxType))) (= (type |l#6@@1|) (SeqType BoxType))) (= (MapType2Select (|lambda#108| |l#0@@92| |l#1@@52| |l#2@@52| |l#3@@49| |l#4@@1| |l#5@@1| |l#6@@1|) |$l#1#heap#0@@1| |$l#1#x#0@@1|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType |$l#1#x#0@@1|)) |l#0@@92|) |l#1@@52| (ite (>= (U_2_int ($Unbox intType (|Seq#Index| |l#2@@52| (U_2_int ($Unbox intType |$l#1#x#0@@1|))))) |l#3@@49|) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| |l#4@@1| (U_2_int ($Unbox intType |$l#1#x#0@@1|))))) |l#5@@1|) (U_2_int ($Unbox intType (|Seq#Index| |l#6@@1| (U_2_int ($Unbox intType |$l#1#x#0@@1|)))))))))))
- :qid |DafnyPre.515:12|
- :skolemid |1722|
- :pattern ( (MapType2Select (|lambda#108| |l#0@@92| |l#1@@52| |l#2@@52| |l#3@@49| |l#4@@1| |l#5@@1| |l#6@@1|) |$l#1#heap#0@@1| |$l#1#x#0@@1|))
-)))
-(assert (forall ((arg0@@314 T@U) (arg1@@177 T@U) (arg2@@127 T@U) (arg3@@95 Bool) ) (! (= (type (|lambda#128| arg0@@314 arg1@@177 arg2@@127 arg3@@95)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@313 T@U) (arg1@@176 T@U) (arg2@@126 T@U) (arg3@@94 Bool) ) (! (= (type (|lambda#128| arg0@@313 arg1@@176 arg2@@126 arg3@@94)) (MapType6Type refType boolType))
  :qid |funType:lambda#128|
- :pattern ( (|lambda#128| arg0@@314 arg1@@177 arg2@@127 arg3@@95))
+ :pattern ( (|lambda#128| arg0@@313 arg1@@176 arg2@@126 arg3@@94))
 )))
-(assert (forall (($o@@57 T@U) ($f@@47 T@U) (|l#0@@93| T@U) (|l#1@@53| T@U) (|l#2@@53| T@U) (|l#3@@50| Bool) ) (! (let ((alpha@@54 (FieldTypeInv0 (type $f@@47))))
- (=> (and (and (and (and (= (type $o@@57) refType) (= (type $f@@47) (FieldType alpha@@54))) (= (type |l#0@@93|) refType)) (= (type |l#1@@53|) (MapType0Type refType MapType1Type))) (= (type |l#2@@53|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#128| |l#0@@93| |l#1@@53| |l#2@@53| |l#3@@50|) $o@@57 $f@@47))  (=> (and (not (= $o@@57 |l#0@@93|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@53| $o@@57) |l#2@@53|))) |l#3@@50|))))
- :qid |DLLDafny.346:24|
- :skolemid |1723|
- :pattern ( (MapType6Select (|lambda#128| |l#0@@93| |l#1@@53| |l#2@@53| |l#3@@50|) $o@@57 $f@@47))
+(assert (forall (($o@@57 T@U) ($f@@47 T@U) (|l#0@@92| T@U) (|l#1@@52| T@U) (|l#2@@52| T@U) (|l#3@@49| Bool) ) (! (let ((alpha@@54 (FieldTypeInv0 (type $f@@47))))
+ (=> (and (and (and (and (= (type $o@@57) refType) (= (type $f@@47) (FieldType alpha@@54))) (= (type |l#0@@92|) refType)) (= (type |l#1@@52|) (MapType0Type refType MapType1Type))) (= (type |l#2@@52|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#128| |l#0@@92| |l#1@@52| |l#2@@52| |l#3@@49|) $o@@57 $f@@47))  (=> (and (not (= $o@@57 |l#0@@92|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@52| $o@@57) |l#2@@52|))) |l#3@@49|))))
+ :qid |DLLDafny.326:8|
+ :skolemid |1732|
+ :pattern ( (MapType6Select (|lambda#128| |l#0@@92| |l#1@@52| |l#2@@52| |l#3@@49|) $o@@57 $f@@47))
 )))
-(assert (forall ((arg0@@315 T@U) (arg1@@178 T@U) (arg2@@128 T@U) (arg3@@96 Bool) ) (! (= (type (|lambda#129| arg0@@315 arg1@@178 arg2@@128 arg3@@96)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@314 T@U) (arg1@@177 T@U) (arg2@@127 T@U) (arg3@@95 Bool) ) (! (= (type (|lambda#129| arg0@@314 arg1@@177 arg2@@127 arg3@@95)) (MapType6Type refType boolType))
  :qid |funType:lambda#129|
- :pattern ( (|lambda#129| arg0@@315 arg1@@178 arg2@@128 arg3@@96))
+ :pattern ( (|lambda#129| arg0@@314 arg1@@177 arg2@@127 arg3@@95))
 )))
-(assert (forall (($o@@58 T@U) ($f@@48 T@U) (|l#0@@94| T@U) (|l#1@@54| T@U) (|l#2@@54| T@U) (|l#3@@51| Bool) ) (! (let ((alpha@@55 (FieldTypeInv0 (type $f@@48))))
- (=> (and (and (and (and (= (type $o@@58) refType) (= (type $f@@48) (FieldType alpha@@55))) (= (type |l#0@@94|) refType)) (= (type |l#1@@54|) (MapType0Type refType MapType1Type))) (= (type |l#2@@54|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#129| |l#0@@94| |l#1@@54| |l#2@@54| |l#3@@51|) $o@@58 $f@@48))  (=> (and (not (= $o@@58 |l#0@@94|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@54| $o@@58) |l#2@@54|))) |l#3@@51|))))
- :qid |DLLDafny.351:8|
- :skolemid |1724|
- :pattern ( (MapType6Select (|lambda#129| |l#0@@94| |l#1@@54| |l#2@@54| |l#3@@51|) $o@@58 $f@@48))
+(assert (forall (($o@@58 T@U) ($f@@48 T@U) (|l#0@@93| T@U) (|l#1@@53| T@U) (|l#2@@53| T@U) (|l#3@@50| Bool) ) (! (let ((alpha@@55 (FieldTypeInv0 (type $f@@48))))
+ (=> (and (and (and (and (= (type $o@@58) refType) (= (type $f@@48) (FieldType alpha@@55))) (= (type |l#0@@93|) refType)) (= (type |l#1@@53|) (MapType0Type refType MapType1Type))) (= (type |l#2@@53|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#129| |l#0@@93| |l#1@@53| |l#2@@53| |l#3@@50|) $o@@58 $f@@48))  (=> (and (not (= $o@@58 |l#0@@93|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@53| $o@@58) |l#2@@53|))) |l#3@@50|))))
+ :qid |DLLDafny.326:8|
+ :skolemid |1733|
+ :pattern ( (MapType6Select (|lambda#129| |l#0@@93| |l#1@@53| |l#2@@53| |l#3@@50|) $o@@58 $f@@48))
 )))
-(assert (forall ((arg0@@316 T@U) (arg1@@179 T@U) (arg2@@129 T@U) (arg3@@97 Bool) ) (! (= (type (|lambda#130| arg0@@316 arg1@@179 arg2@@129 arg3@@97)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@315 T@U) (arg1@@178 T@U) (arg2@@128 T@U) (arg3@@96 Bool) ) (! (= (type (|lambda#130| arg0@@315 arg1@@178 arg2@@128 arg3@@96)) (MapType6Type refType boolType))
  :qid |funType:lambda#130|
- :pattern ( (|lambda#130| arg0@@316 arg1@@179 arg2@@129 arg3@@97))
+ :pattern ( (|lambda#130| arg0@@315 arg1@@178 arg2@@128 arg3@@96))
 )))
-(assert (forall (($o@@59 T@U) ($f@@49 T@U) (|l#0@@95| T@U) (|l#1@@55| T@U) (|l#2@@55| T@U) (|l#3@@52| Bool) ) (! (let ((alpha@@56 (FieldTypeInv0 (type $f@@49))))
- (=> (and (and (and (and (= (type $o@@59) refType) (= (type $f@@49) (FieldType alpha@@56))) (= (type |l#0@@95|) refType)) (= (type |l#1@@55|) (MapType0Type refType MapType1Type))) (= (type |l#2@@55|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#130| |l#0@@95| |l#1@@55| |l#2@@55| |l#3@@52|) $o@@59 $f@@49))  (=> (and (not (= $o@@59 |l#0@@95|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@55| $o@@59) |l#2@@55|))) |l#3@@52|))))
- :qid |DLLDafny.351:8|
- :skolemid |1725|
- :pattern ( (MapType6Select (|lambda#130| |l#0@@95| |l#1@@55| |l#2@@55| |l#3@@52|) $o@@59 $f@@49))
+(assert (forall (($o@@59 T@U) ($f@@49 T@U) (|l#0@@94| T@U) (|l#1@@54| T@U) (|l#2@@54| T@U) (|l#3@@51| Bool) ) (! (let ((alpha@@56 (FieldTypeInv0 (type $f@@49))))
+ (=> (and (and (and (and (= (type $o@@59) refType) (= (type $f@@49) (FieldType alpha@@56))) (= (type |l#0@@94|) refType)) (= (type |l#1@@54|) (MapType0Type refType MapType1Type))) (= (type |l#2@@54|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#130| |l#0@@94| |l#1@@54| |l#2@@54| |l#3@@51|) $o@@59 $f@@49))  (=> (and (not (= $o@@59 |l#0@@94|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@54| $o@@59) |l#2@@54|))) |l#3@@51|))))
+ :qid |DLLDafny.363:14|
+ :skolemid |1734|
+ :pattern ( (MapType6Select (|lambda#130| |l#0@@94| |l#1@@54| |l#2@@54| |l#3@@51|) $o@@59 $f@@49))
 )))
-(assert (forall ((arg0@@317 T@U) (arg1@@180 T@U) (arg2@@130 T@U) (arg3@@98 Bool) ) (! (= (type (|lambda#131| arg0@@317 arg1@@180 arg2@@130 arg3@@98)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@316 T@U) (arg1@@179 T@U) (arg2@@129 T@U) (arg3@@97 Bool) ) (! (= (type (|lambda#131| arg0@@316 arg1@@179 arg2@@129 arg3@@97)) (MapType6Type refType boolType))
  :qid |funType:lambda#131|
- :pattern ( (|lambda#131| arg0@@317 arg1@@180 arg2@@130 arg3@@98))
+ :pattern ( (|lambda#131| arg0@@316 arg1@@179 arg2@@129 arg3@@97))
 )))
-(assert (forall (($o@@60 T@U) ($f@@50 T@U) (|l#0@@96| T@U) (|l#1@@56| T@U) (|l#2@@56| T@U) (|l#3@@53| Bool) ) (! (let ((alpha@@57 (FieldTypeInv0 (type $f@@50))))
- (=> (and (and (and (and (= (type $o@@60) refType) (= (type $f@@50) (FieldType alpha@@57))) (= (type |l#0@@96|) refType)) (= (type |l#1@@56|) (MapType0Type refType MapType1Type))) (= (type |l#2@@56|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#131| |l#0@@96| |l#1@@56| |l#2@@56| |l#3@@53|) $o@@60 $f@@50))  (=> (and (not (= $o@@60 |l#0@@96|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@56| $o@@60) |l#2@@56|))) |l#3@@53|))))
- :qid |DLLDafny.384:8|
- :skolemid |1726|
- :pattern ( (MapType6Select (|lambda#131| |l#0@@96| |l#1@@56| |l#2@@56| |l#3@@53|) $o@@60 $f@@50))
+(assert (forall (($o@@60 T@U) ($f@@50 T@U) (|l#0@@95| T@U) (|l#1@@55| T@U) (|l#2@@55| T@U) (|l#3@@52| Bool) ) (! (let ((alpha@@57 (FieldTypeInv0 (type $f@@50))))
+ (=> (and (and (and (and (= (type $o@@60) refType) (= (type $f@@50) (FieldType alpha@@57))) (= (type |l#0@@95|) refType)) (= (type |l#1@@55|) (MapType0Type refType MapType1Type))) (= (type |l#2@@55|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#131| |l#0@@95| |l#1@@55| |l#2@@55| |l#3@@52|) $o@@60 $f@@50))  (=> (and (not (= $o@@60 |l#0@@95|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@55| $o@@60) |l#2@@55|))) |l#3@@52|))))
+ :qid |DLLDafny.363:14|
+ :skolemid |1735|
+ :pattern ( (MapType6Select (|lambda#131| |l#0@@95| |l#1@@55| |l#2@@55| |l#3@@52|) $o@@60 $f@@50))
 )))
-(assert (forall ((arg0@@318 T@U) (arg1@@181 T@U) (arg2@@131 T@U) (arg3@@99 Bool) ) (! (= (type (|lambda#132| arg0@@318 arg1@@181 arg2@@131 arg3@@99)) (MapType6Type refType boolType))
+(assert (forall ((arg0@@317 Int) (arg1@@180 Int) (arg2@@130 T@U) (arg3@@98 Int) (arg4@@32 T@U) (arg5@@21 Int) (arg6@@17 T@U) ) (! (= (type (|lambda#132| arg0@@317 arg1@@180 arg2@@130 arg3@@98 arg4@@32 arg5@@21 arg6@@17)) (MapType2Type (MapType0Type refType MapType1Type) BoxType BoxType))
  :qid |funType:lambda#132|
- :pattern ( (|lambda#132| arg0@@318 arg1@@181 arg2@@131 arg3@@99))
+ :pattern ( (|lambda#132| arg0@@317 arg1@@180 arg2@@130 arg3@@98 arg4@@32 arg5@@21 arg6@@17))
+)))
+(assert (forall ((|$l#1#heap#0@@6| T@U) (|$l#1#x#0@@3| T@U) (|l#0@@96| Int) (|l#1@@56| Int) (|l#2@@56| T@U) (|l#3@@53| Int) (|l#4@@1| T@U) (|l#5@@1| Int) (|l#6@@1| T@U) ) (!  (=> (and (and (and (and (= (type |$l#1#heap#0@@6|) (MapType0Type refType MapType1Type)) (= (type |$l#1#x#0@@3|) BoxType)) (= (type |l#2@@56|) (SeqType BoxType))) (= (type |l#4@@1|) (SeqType BoxType))) (= (type |l#6@@1|) (SeqType BoxType))) (= (MapType2Select (|lambda#132| |l#0@@96| |l#1@@56| |l#2@@56| |l#3@@53| |l#4@@1| |l#5@@1| |l#6@@1|) |$l#1#heap#0@@6| |$l#1#x#0@@3|) ($Box (int_2_U (ite (= (U_2_int ($Unbox intType |$l#1#x#0@@3|)) |l#0@@96|) |l#1@@56| (ite (>= (U_2_int ($Unbox intType (|Seq#Index| |l#2@@56| (U_2_int ($Unbox intType |$l#1#x#0@@3|))))) |l#3@@53|) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| |l#4@@1| (U_2_int ($Unbox intType |$l#1#x#0@@3|))))) |l#5@@1|) (U_2_int ($Unbox intType (|Seq#Index| |l#6@@1| (U_2_int ($Unbox intType |$l#1#x#0@@3|)))))))))))
+ :qid |DafnyPre.515:12|
+ :skolemid |1736|
+ :pattern ( (MapType2Select (|lambda#132| |l#0@@96| |l#1@@56| |l#2@@56| |l#3@@53| |l#4@@1| |l#5@@1| |l#6@@1|) |$l#1#heap#0@@6| |$l#1#x#0@@3|))
+)))
+(assert (forall ((arg0@@318 T@U) (arg1@@181 T@U) (arg2@@131 T@U) (arg3@@99 Bool) ) (! (= (type (|lambda#152| arg0@@318 arg1@@181 arg2@@131 arg3@@99)) (MapType6Type refType boolType))
+ :qid |funType:lambda#152|
+ :pattern ( (|lambda#152| arg0@@318 arg1@@181 arg2@@131 arg3@@99))
 )))
 (assert (forall (($o@@61 T@U) ($f@@51 T@U) (|l#0@@97| T@U) (|l#1@@57| T@U) (|l#2@@57| T@U) (|l#3@@54| Bool) ) (! (let ((alpha@@58 (FieldTypeInv0 (type $f@@51))))
- (=> (and (and (and (and (= (type $o@@61) refType) (= (type $f@@51) (FieldType alpha@@58))) (= (type |l#0@@97|) refType)) (= (type |l#1@@57|) (MapType0Type refType MapType1Type))) (= (type |l#2@@57|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#132| |l#0@@97| |l#1@@57| |l#2@@57| |l#3@@54|) $o@@61 $f@@51))  (=> (and (not (= $o@@61 |l#0@@97|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@57| $o@@61) |l#2@@57|))) |l#3@@54|))))
- :qid |DLLDafny.394:8|
- :skolemid |1727|
- :pattern ( (MapType6Select (|lambda#132| |l#0@@97| |l#1@@57| |l#2@@57| |l#3@@54|) $o@@61 $f@@51))
+ (=> (and (and (and (and (= (type $o@@61) refType) (= (type $f@@51) (FieldType alpha@@58))) (= (type |l#0@@97|) refType)) (= (type |l#1@@57|) (MapType0Type refType MapType1Type))) (= (type |l#2@@57|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#152| |l#0@@97| |l#1@@57| |l#2@@57| |l#3@@54|) $o@@61 $f@@51))  (=> (and (not (= $o@@61 |l#0@@97|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@57| $o@@61) |l#2@@57|))) |l#3@@54|))))
+ :qid |DLLDafny.371:24|
+ :skolemid |1737|
+ :pattern ( (MapType6Select (|lambda#152| |l#0@@97| |l#1@@57| |l#2@@57| |l#3@@54|) $o@@61 $f@@51))
 )))
-(declare-fun _module._default.Expand$A () T@U)
-(declare-fun |l'#0@1| () T@U)
-(declare-fun |l#0@@98| () T@U)
-(declare-fun |call5formal@b#0@0| () T@U)
-(declare-fun $Heap@1 () T@U)
-(declare-fun |g#0@0| () T@U)
-(declare-fun $LZ () T@U)
-(declare-fun |l'#0@0| () T@U)
-(declare-fun |s#0@0| () T@U)
-(declare-fun |f#0@0| () T@U)
-(declare-fun $Heap@2 () T@U)
-(declare-fun |$_Frame#l0@0| () T@U)
+(assert (forall ((arg0@@319 T@U) (arg1@@182 T@U) (arg2@@132 T@U) (arg3@@100 Bool) ) (! (= (type (|lambda#153| arg0@@319 arg1@@182 arg2@@132 arg3@@100)) (MapType6Type refType boolType))
+ :qid |funType:lambda#153|
+ :pattern ( (|lambda#153| arg0@@319 arg1@@182 arg2@@132 arg3@@100))
+)))
+(assert (forall (($o@@62 T@U) ($f@@52 T@U) (|l#0@@98| T@U) (|l#1@@58| T@U) (|l#2@@58| T@U) (|l#3@@55| Bool) ) (! (let ((alpha@@59 (FieldTypeInv0 (type $f@@52))))
+ (=> (and (and (and (and (= (type $o@@62) refType) (= (type $f@@52) (FieldType alpha@@59))) (= (type |l#0@@98|) refType)) (= (type |l#1@@58|) (MapType0Type refType MapType1Type))) (= (type |l#2@@58|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#153| |l#0@@98| |l#1@@58| |l#2@@58| |l#3@@55|) $o@@62 $f@@52))  (=> (and (not (= $o@@62 |l#0@@98|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@58| $o@@62) |l#2@@58|))) |l#3@@55|))))
+ :qid |DLLDafny.376:8|
+ :skolemid |1738|
+ :pattern ( (MapType6Select (|lambda#153| |l#0@@98| |l#1@@58| |l#2@@58| |l#3@@55|) $o@@62 $f@@52))
+)))
+(assert (forall ((arg0@@320 T@U) (arg1@@183 T@U) (arg2@@133 T@U) (arg3@@101 Bool) ) (! (= (type (|lambda#154| arg0@@320 arg1@@183 arg2@@133 arg3@@101)) (MapType6Type refType boolType))
+ :qid |funType:lambda#154|
+ :pattern ( (|lambda#154| arg0@@320 arg1@@183 arg2@@133 arg3@@101))
+)))
+(assert (forall (($o@@63 T@U) ($f@@53 T@U) (|l#0@@99| T@U) (|l#1@@59| T@U) (|l#2@@59| T@U) (|l#3@@56| Bool) ) (! (let ((alpha@@60 (FieldTypeInv0 (type $f@@53))))
+ (=> (and (and (and (and (= (type $o@@63) refType) (= (type $f@@53) (FieldType alpha@@60))) (= (type |l#0@@99|) refType)) (= (type |l#1@@59|) (MapType0Type refType MapType1Type))) (= (type |l#2@@59|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#154| |l#0@@99| |l#1@@59| |l#2@@59| |l#3@@56|) $o@@63 $f@@53))  (=> (and (not (= $o@@63 |l#0@@99|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@59| $o@@63) |l#2@@59|))) |l#3@@56|))))
+ :qid |DLLDafny.376:8|
+ :skolemid |1739|
+ :pattern ( (MapType6Select (|lambda#154| |l#0@@99| |l#1@@59| |l#2@@59| |l#3@@56|) $o@@63 $f@@53))
+)))
+(assert (forall ((arg0@@321 T@U) (arg1@@184 T@U) (arg2@@134 T@U) (arg3@@102 Bool) ) (! (= (type (|lambda#155| arg0@@321 arg1@@184 arg2@@134 arg3@@102)) (MapType6Type refType boolType))
+ :qid |funType:lambda#155|
+ :pattern ( (|lambda#155| arg0@@321 arg1@@184 arg2@@134 arg3@@102))
+)))
+(assert (forall (($o@@64 T@U) ($f@@54 T@U) (|l#0@@100| T@U) (|l#1@@60| T@U) (|l#2@@60| T@U) (|l#3@@57| Bool) ) (! (let ((alpha@@61 (FieldTypeInv0 (type $f@@54))))
+ (=> (and (and (and (and (= (type $o@@64) refType) (= (type $f@@54) (FieldType alpha@@61))) (= (type |l#0@@100|) refType)) (= (type |l#1@@60|) (MapType0Type refType MapType1Type))) (= (type |l#2@@60|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#155| |l#0@@100| |l#1@@60| |l#2@@60| |l#3@@57|) $o@@64 $f@@54))  (=> (and (not (= $o@@64 |l#0@@100|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@60| $o@@64) |l#2@@60|))) |l#3@@57|))))
+ :qid |DLLDafny.409:8|
+ :skolemid |1740|
+ :pattern ( (MapType6Select (|lambda#155| |l#0@@100| |l#1@@60| |l#2@@60| |l#3@@57|) $o@@64 $f@@54))
+)))
+(assert (forall ((arg0@@322 T@U) (arg1@@185 T@U) (arg2@@135 T@U) (arg3@@103 Bool) ) (! (= (type (|lambda#156| arg0@@322 arg1@@185 arg2@@135 arg3@@103)) (MapType6Type refType boolType))
+ :qid |funType:lambda#156|
+ :pattern ( (|lambda#156| arg0@@322 arg1@@185 arg2@@135 arg3@@103))
+)))
+(assert (forall (($o@@65 T@U) ($f@@55 T@U) (|l#0@@101| T@U) (|l#1@@61| T@U) (|l#2@@61| T@U) (|l#3@@58| Bool) ) (! (let ((alpha@@62 (FieldTypeInv0 (type $f@@55))))
+ (=> (and (and (and (and (= (type $o@@65) refType) (= (type $f@@55) (FieldType alpha@@62))) (= (type |l#0@@101|) refType)) (= (type |l#1@@61|) (MapType0Type refType MapType1Type))) (= (type |l#2@@61|) (FieldType boolType))) (= (U_2_bool (MapType6Select (|lambda#156| |l#0@@101| |l#1@@61| |l#2@@61| |l#3@@58|) $o@@65 $f@@55))  (=> (and (not (= $o@@65 |l#0@@101|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@61| $o@@65) |l#2@@61|))) |l#3@@58|))))
+ :qid |DLLDafny.419:8|
+ :skolemid |1741|
+ :pattern ( (MapType6Select (|lambda#156| |l#0@@101| |l#1@@61| |l#2@@61| |l#3@@58|) $o@@65 $f@@55))
+)))
 (declare-fun $_Frame@0 () T@U)
 (declare-fun $Heap@@1 () T@U)
 (declare-fun |nodes#0@0| () T@U)
+(declare-fun _module._default.Remove$A () T@U)
+(declare-fun |s#0@0| () T@U)
+(declare-fun |f#0@0| () T@U)
+(declare-fun |g#0@0| () T@U)
 (declare-fun |let#0#0#0| () T@U)
-(declare-fun |a##0@0| () T@U)
+(declare-fun |l#0@@102| () T@U)
+(declare-fun |s'#0@0| () T@U)
+(declare-fun |f'#0@0| () T@U)
 (declare-fun TType () T@T)
 (declare-fun type@@0 (T@U) T@U)
-(declare-fun |call6formal@s2#0| () T@U)
-(declare-fun call0formal@_module._default.SeqResize$A () T@U)
-(declare-fun call0formal@_module._default.SeqResize$A@0 () T@U)
+(declare-fun |call4formal@g'#0| () T@U)
 (declare-fun $Heap@0 () T@U)
-(declare-fun |call6formal@s2#0@0| () T@U)
-(declare-fun |call5formal@b#0| () T@U)
-(declare-fun call0formal@_module._default.BuildFreeStack$A () T@U)
+(declare-fun |call4formal@g'#0@0| () T@U)
+(declare-fun |node#0@0| () T@U)
+(declare-fun |node_prev#0@0| () T@U)
+(declare-fun |dt_update_tmp#0#0@0| () T@U)
+(declare-fun |let#1#0#0| () T@U)
+(declare-fun |##a#1@0| () T@U)
+(declare-fun |nodes#0@1| () T@U)
+(declare-fun |node_next#0@0| () T@U)
+(declare-fun |dt_update_tmp#1#0@0| () T@U)
+(declare-fun |let#3#0#0| () T@U)
+(declare-fun |##a#2@0| () T@U)
+(declare-fun |nodes#0@2| () T@U)
+(declare-fun |##a#3@0| () T@U)
+(declare-fun |nodes#0@3| () T@U)
+(declare-fun |l'#0@0| () T@U)
 (declare-fun |l'#0| () T@U)
+(declare-fun |s'#0| () T@U)
+(declare-fun |f'#0| () T@U)
+(declare-fun |g'#0| () T@U)
 (declare-fun |$rhs##0| () T@U)
-(declare-fun |$rhs##1| () T@U)
+(declare-fun |node#0| () T@U)
+(declare-fun |node_prev#0| () T@U)
+(declare-fun |node_next#0| () T@U)
 (declare-fun %lbl%+0 () Bool)
-(declare-fun %lbl%+1 () Bool)
-(declare-fun |i#8@0| () Int)
-(declare-fun |lambdaResult#0| () Int)
-(declare-fun %lbl%+2 () Bool)
+(declare-fun |freeStack#0@0| () Int)
+(declare-fun %lbl%@1 () Bool)
+(declare-fun |p#0@@30| () Int)
+(declare-fun |index#0@0| () Int)
+(declare-fun %lbl%@2 () Bool)
 (declare-fun %lbl%@3 () Bool)
-(declare-fun %lbl%+4 () Bool)
-(declare-fun %lbl%+5 () Bool)
-(declare-fun %lbl%+6 () Bool)
-(declare-fun %lbl%+7 () Bool)
-(declare-fun %lbl%+8 () Bool)
+(declare-fun %lbl%@4 () Bool)
+(declare-fun %lbl%@5 () Bool)
+(declare-fun %lbl%@6 () Bool)
+(declare-fun $o@@66 () T@U)
+(declare-fun $f@@56 () T@U)
 (declare-fun $IsHeapAnchor (T@U) Bool)
-(declare-fun %lbl%+9 () Bool)
+(declare-fun %lbl%@7 () Bool)
+(declare-fun %lbl%@8 () Bool)
+(declare-fun |##i#1@0| () Int)
+(declare-fun %lbl%@9 () Bool)
 (declare-fun %lbl%@10 () Bool)
+(declare-fun |let#2#0#0| () Int)
+(declare-fun |dt_update#next#0#0@0| () Int)
+(declare-fun |##i#2@0| () Int)
 (declare-fun %lbl%@11 () Bool)
 (declare-fun %lbl%@12 () Bool)
+(declare-fun |##i#3@0| () Int)
 (declare-fun %lbl%@13 () Bool)
 (declare-fun %lbl%@14 () Bool)
+(declare-fun |let#4#0#0| () Int)
+(declare-fun |dt_update#prev#0#0@0| () Int)
+(declare-fun |##i#4@0| () Int)
 (declare-fun %lbl%@15 () Bool)
 (declare-fun %lbl%@16 () Bool)
 (declare-fun %lbl%@17 () Bool)
@@ -7296,215 +7359,162 @@
 (declare-fun %lbl%@26 () Bool)
 (declare-fun %lbl%@27 () Bool)
 (declare-fun %lbl%@28 () Bool)
-(declare-fun %lbl%+29 () Bool)
+(declare-fun %lbl%@29 () Bool)
 (declare-fun %lbl%@30 () Bool)
-(declare-fun |len'#0@0| () Int)
-(declare-fun %lbl%+31 () Bool)
-(declare-fun |freeStack#0@0| () Int)
-(declare-fun |len#0@0| () Int)
+(declare-fun %lbl%@31 () Bool)
 (declare-fun %lbl%@32 () Bool)
-(declare-fun $o@@62 () T@U)
-(declare-fun $f@@52 () T@U)
-(declare-fun |##b#1@0| () Int)
-(declare-fun |##b#3@0| () Int)
-(declare-fun |k##0@0| () Int)
 (declare-fun %lbl%@33 () Bool)
-(declare-fun $o@@63 () T@U)
-(declare-fun $f@@53 () T@U)
 (declare-fun %lbl%@34 () Bool)
 (declare-fun %lbl%@35 () Bool)
-(declare-fun |##b#4@0| () Int)
-(declare-fun %lbl%@36 () Bool)
-(declare-fun %lbl%+37 () Bool)
-(assert  (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (= (type _module._default.Expand$A) TyType) (= (type |l'#0@1|) DatatypeTypeType)) (= (type |l#0@@98|) DatatypeTypeType)) (= (type |call5formal@b#0@0|) (SeqType BoxType))) (= (type $Heap@1) (MapType0Type refType MapType1Type))) (= (type |g#0@0|) (SeqType BoxType))) (= (type $LZ) LayerTypeType)) (= (type |l'#0@0|) DatatypeTypeType)) (= (type |s#0@0|) (SeqType BoxType))) (= (type |f#0@0|) (SeqType BoxType))) (= (type $Heap@2) (MapType0Type refType MapType1Type))) (= (type |$_Frame#l0@0|) (MapType6Type refType boolType))) (= (type $_Frame@0) (MapType6Type refType boolType))) (= (type $Heap@@1) (MapType0Type refType MapType1Type))) (= (type |nodes#0@0|) (SeqType BoxType))) (= (type |let#0#0#0|) DatatypeTypeType)) (= (type |a##0@0|) BoxType)) (= (Ctor TType) 28)) (forall ((arg0@@319 T@U) ) (! (= (type (type@@0 arg0@@319)) TType)
+(declare-fun %lbl%+36 () Bool)
+(assert  (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (and (= (type $_Frame@0) (MapType6Type refType boolType)) (= (type $Heap@@1) (MapType0Type refType MapType1Type))) (= (type |nodes#0@0|) (SeqType BoxType))) (= (type _module._default.Remove$A) TyType)) (= (type |s#0@0|) (SeqType BoxType))) (= (type |f#0@0|) (SeqType BoxType))) (= (type |g#0@0|) (SeqType BoxType))) (= (type |let#0#0#0|) DatatypeTypeType)) (= (type |l#0@@102|) DatatypeTypeType)) (= (type |s'#0@0|) (SeqType BoxType))) (= (type |f'#0@0|) (SeqType BoxType))) (= (Ctor TType) 28)) (forall ((arg0@@323 T@U) ) (! (= (type (type@@0 arg0@@323)) TType)
  :qid |funType:type|
- :pattern ( (type@@0 arg0@@319))
-))) (= (type |call6formal@s2#0|) (SeqType BoxType))) (= (type call0formal@_module._default.SeqResize$A) TyType)) (= (type call0formal@_module._default.SeqResize$A@0) TyType)) (= (type $Heap@0) (MapType0Type refType MapType1Type))) (= (type |call6formal@s2#0@0|) (SeqType BoxType))) (= (type |call5formal@b#0|) (SeqType BoxType))) (= (type call0formal@_module._default.BuildFreeStack$A) TyType)) (= (type |l'#0|) DatatypeTypeType)) (= (type |$rhs##0|) (SeqType BoxType))) (= (type |$rhs##1|) (SeqType BoxType))))
+ :pattern ( (type@@0 arg0@@323))
+))) (= (type |call4formal@g'#0|) (SeqType BoxType))) (= (type $Heap@0) (MapType0Type refType MapType1Type))) (= (type |call4formal@g'#0@0|) (SeqType BoxType))) (= (type |node#0@0|) DatatypeTypeType)) (= (type |node_prev#0@0|) DatatypeTypeType)) (= (type |dt_update_tmp#0#0@0|) DatatypeTypeType)) (= (type |let#1#0#0|) DatatypeTypeType)) (= (type |##a#1@0|) DatatypeTypeType)) (= (type |nodes#0@1|) (SeqType BoxType))) (= (type |node_next#0@0|) DatatypeTypeType)) (= (type |dt_update_tmp#1#0@0|) DatatypeTypeType)) (= (type |let#3#0#0|) DatatypeTypeType)) (= (type |##a#2@0|) DatatypeTypeType)) (= (type |nodes#0@2|) (SeqType BoxType))) (= (type |##a#3@0|) DatatypeTypeType)) (= (type |nodes#0@3|) (SeqType BoxType))) (= (type |l'#0@0|) DatatypeTypeType)) (= (type |l'#0|) DatatypeTypeType)) (= (type |s'#0|) (SeqType BoxType))) (= (type |f'#0|) (SeqType BoxType))) (= (type |g'#0|) (SeqType BoxType))) (= (type |$rhs##0|) (SeqType BoxType))) (= (type |node#0|) DatatypeTypeType)) (= (type |node_prev#0|) DatatypeTypeType)) (= (type |node_next#0|) DatatypeTypeType)))
 (push 1)
-(set-info :boogie-vc-id Impl$$_module.__default.Expand)
+(set-info :boogie-vc-id Impl$$_module.__default.Remove)
 (assert (not
-(let ((anon7_correct  (=> (! (and %lbl%+0 true) :lblpos +0) true)))
-(let ((anon12_Else_correct  (=> (! (and %lbl%+1 true) :lblpos +1) (=> (<= (|Seq#Length| |g#0@0|) |i#8@0|) (=> (and (= |lambdaResult#0| (- 0 2)) ($Is (int_2_U |lambdaResult#0|) TInt)) anon7_correct)))))
-(let ((anon12_Then_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (< |i#8@0| (|Seq#Length| |g#0@0|)) (and (! (or %lbl%@3  (and (<= 0 |i#8@0|) (< |i#8@0| (|Seq#Length| |g#0@0|)))) :lblneg @3) (=> (and (<= 0 |i#8@0|) (< |i#8@0| (|Seq#Length| |g#0@0|))) (=> (and (= |lambdaResult#0| (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |i#8@0|)))) ($Is (int_2_U |lambdaResult#0|) TInt)) anon7_correct)))))))
-(let ((anon11_Then_correct  (=> (! (and %lbl%+4 true) :lblpos +4) (=> (and (<= 0 |i#8@0|) (< |i#8@0| (|Seq#Length| |call5formal@b#0@0|))) (and anon12_Then_correct anon12_Else_correct)))))
-(let ((anon11_Else_correct  (=> (! (and %lbl%+5 true) :lblpos +5) (=> (not (and (<= 0 |i#8@0|) (< |i#8@0| (|Seq#Length| |call5formal@b#0@0|)))) anon7_correct))))
-(let ((anon10_Else_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (< |i#8@0| 0) (and anon11_Then_correct anon11_Else_correct)))))
-(let ((anon10_Then_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (<= 0 |i#8@0|) (and anon11_Then_correct anon11_Else_correct)))))
-(let ((anon9_Then_correct  (=> (! (and %lbl%+8 true) :lblpos +8) (=> (and (and (and ($IsGoodHeap $Heap@2) ($IsHeapAnchor $Heap@2)) ($IsGoodHeap $Heap@2)) (and (or (= $Heap@1 $Heap@2) ($HeapSucc $Heap@1 $Heap@2)) (= |$_Frame#l0@0| (|lambda#55| null $Heap@2 alloc false)))) (and anon10_Then_correct anon10_Else_correct)))))
-(let ((GeneratedUnifiedExit_correct  (=> (! (and %lbl%+9 true) :lblpos +9) (and (! (or %lbl%@10  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (= (|Seq#Length| (_module.DList.f |l'#0@1|)) (|Seq#Length| (_module.DList.s |l'#0@1|)))))))) :lblneg @10) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (= (|Seq#Length| (_module.DList.f |l'#0@1|)) (|Seq#Length| (_module.DList.s |l'#0@1|))))))) (and (! (or %lbl%@11  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (= (|Seq#Length| (_module.DList.g |l'#0@1|)) (|Seq#Length| (_module.DList.nodes |l'#0@1|)))))))) :lblneg @11) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (= (|Seq#Length| (_module.DList.g |l'#0@1|)) (|Seq#Length| (_module.DList.nodes |l'#0@1|))))))) (and (! (or %lbl%@12  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (> (|Seq#Length| (_module.DList.nodes |l'#0@1|)) 0)))))) :lblneg @12) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (> (|Seq#Length| (_module.DList.nodes |l'#0@1|)) 0))))) (and (! (or %lbl%@13  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) 0))) (- 0 1))))))) :lblneg @13) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) 0))) (- 0 1)))))) (and (! (or %lbl%@14  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (<= 0 (_module.DList.freeStack |l'#0@1|))))))) :lblneg @14) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (<= 0 (_module.DList.freeStack |l'#0@1|)))))) (and (! (or %lbl%@15  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (< (_module.DList.freeStack |l'#0@1|) (|Seq#Length| (_module.DList.nodes |l'#0@1|)))))))) :lblneg @15) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (< (_module.DList.freeStack |l'#0@1|) (|Seq#Length| (_module.DList.nodes |l'#0@1|))))))) (and (! (or %lbl%@16  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|i#6| Int) ) (!  (=> true (and (=> (and (<= 0 |i#6|) (< |i#6| (|Seq#Length| (_module.DList.f |l'#0@1|)))) (< 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#6|))))) (=> (and (<= 0 |i#6|) (< |i#6| (|Seq#Length| (_module.DList.f |l'#0@1|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#6|))) (|Seq#Length| (_module.DList.nodes |l'#0@1|))))))
- :qid |DLLDafny.95:14|
- :skolemid |1352|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#6|)))
-))))))) :lblneg @16) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|i#6@@0| Int) ) (!  (=> true (and (=> (and (<= 0 |i#6@@0|) (< |i#6@@0| (|Seq#Length| (_module.DList.f |l'#0@1|)))) (< 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#6@@0|))))) (=> (and (<= 0 |i#6@@0|) (< |i#6@@0| (|Seq#Length| (_module.DList.f |l'#0@1|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#6@@0|))) (|Seq#Length| (_module.DList.nodes |l'#0@1|))))))
- :qid |DLLDafny.95:14|
- :skolemid |1352|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#6@@0|)))
-)))))) (and (! (or %lbl%@17  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|i#7| Int) ) (!  (=> true (=> (and (<= 0 |i#7|) (< |i#7| (|Seq#Length| (_module.DList.f |l'#0@1|)))) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#7|)))))) |i#7|)))
- :qid |DLLDafny.96:14|
- :skolemid |1353|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#7|))))))
-))))))) :lblneg @17) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|i#7@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#7@@0|) (< |i#7@@0| (|Seq#Length| (_module.DList.f |l'#0@1|)))) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#7@@0|)))))) |i#7@@0|)))
- :qid |DLLDafny.96:14|
- :skolemid |1353|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) |i#7@@0|))))))
-)))))) (and (! (or %lbl%@18  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#21| Int) ) (!  (=> true (and (=> (and (<= 0 |p#21|) (< |p#21| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 2) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#21|))))) (=> (and (<= 0 |p#21|) (< |p#21| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#21|))) (|Seq#Length| (_module.DList.s |l'#0@1|))))))
- :qid |DLLDafny.97:14|
- :skolemid |1354|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#21|)))
-))))))) :lblneg @18) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#21@@0| Int) ) (!  (=> true (and (=> (and (<= 0 |p#21@@0|) (< |p#21@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 2) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#21@@0|))))) (=> (and (<= 0 |p#21@@0|) (< |p#21@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#21@@0|))) (|Seq#Length| (_module.DList.s |l'#0@1|))))))
- :qid |DLLDafny.97:14|
- :skolemid |1354|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#21@@0|)))
-)))))) (and (! (or %lbl%@19  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#22| Int) ) (!  (=> true (and (=> (and (<= 0 |p#22|) (< |p#22| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= 0 (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#22|))))) (=> (and (<= 0 |p#22|) (< |p#22| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (< (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#22|))) (|Seq#Length| (_module.DList.g |l'#0@1|))))))
- :qid |DLLDafny.99:14|
- :skolemid |1355|
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#22|)))
-))))))) :lblneg @19) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#22@@0| Int) ) (!  (=> true (and (=> (and (<= 0 |p#22@@0|) (< |p#22@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= 0 (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#22@@0|))))) (=> (and (<= 0 |p#22@@0|) (< |p#22@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (< (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#22@@0|))) (|Seq#Length| (_module.DList.g |l'#0@1|))))))
- :qid |DLLDafny.99:14|
- :skolemid |1355|
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#22@@0|)))
-)))))) (and (! (or %lbl%@20  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#23| Int) ) (!  (=> true (=> (and (<= 0 |p#23|) (< |p#23| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (and (=> (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#23|))) 0) (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#23|))))) (=> (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#23|)))) (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#23|))) 0)))))
- :qid |DLLDafny.101:14|
- :skolemid |1356|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#23|)))
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#23|)))
-))))))) :lblneg @20) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#23@@0| Int) ) (!  (=> true (=> (and (<= 0 |p#23@@0|) (< |p#23@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (and (=> (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#23@@0|))) 0) (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#23@@0|))))) (=> (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#23@@0|)))) (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#23@@0|))) 0)))))
- :qid |DLLDafny.101:14|
- :skolemid |1356|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#23@@0|)))
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#23@@0|)))
-)))))) (and (! (or %lbl%@21  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#24| Int) ) (!  (=> true (=> (and (and (<= 0 |p#24|) (< |p#24| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#24|))))) (=> (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#24|))) (- 0 1)) (= |p#24| 0))))
- :qid |DLLDafny.103:14|
- :skolemid |1357|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#24|)))
-))))))) :lblneg @21) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#24@@0| Int) ) (!  (=> true (=> (and (and (<= 0 |p#24@@0|) (< |p#24@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#24@@0|))))) (=> (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#24@@0|))) (- 0 1)) (= |p#24@@0| 0))))
- :qid |DLLDafny.103:14|
- :skolemid |1357|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#24@@0|)))
-)))))) (and (! (or %lbl%@22  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#25| Int) ) (!  (=> true (=> (and (and (<= 0 |p#25|) (< |p#25| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|))))) (=> (<= 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|)))) (and (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|)))))) |p#25|) (|_module.Option#Equal| (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#25|))) (|#_module.Option.Some| (|Seq#Index| (_module.DList.s |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|))))))))))
- :qid |DLLDafny.105:14|
- :skolemid |1358|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|)))
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|))))))
- :pattern ( (|Seq#Index| (_module.DList.s |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25|)))))
-))))))) :lblneg @22) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#25@@0| Int) ) (!  (=> true (=> (and (and (<= 0 |p#25@@0|) (< |p#25@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|))))) (=> (<= 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|)))) (and (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|)))))) |p#25@@0|) (|_module.Option#Equal| (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#25@@0|))) (|#_module.Option.Some| (|Seq#Index| (_module.DList.s |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|))))))))))
- :qid |DLLDafny.105:14|
- :skolemid |1358|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|)))
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|))))))
- :pattern ( (|Seq#Index| (_module.DList.s |l'#0@1|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#25@@0|)))))
-)))))) (and (! (or %lbl%@23  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#26| Int) ) (!  (=> true (=> (and (and (<= 0 |p#26|) (< |p#26| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26|))))) (= (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#26|))) (ite (< (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26|))) 1) (|Seq#Length| (_module.DList.f |l'#0@1|))) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26|))) 1)))) 0))))
- :qid |DLLDafny.108:14|
- :skolemid |1359|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26|)))
- :pattern ( (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#26|))))
-))))))) :lblneg @23) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#26@@0| Int) ) (!  (=> true (=> (and (and (<= 0 |p#26@@0|) (< |p#26@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26@@0|))))) (= (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#26@@0|))) (ite (< (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26@@0|))) 1) (|Seq#Length| (_module.DList.f |l'#0@1|))) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26@@0|))) 1)))) 0))))
- :qid |DLLDafny.108:14|
- :skolemid |1359|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#26@@0|)))
- :pattern ( (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#26@@0|))))
-)))))) (and (! (or %lbl%@24  (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#27| Int) ) (!  (=> true (and (=> (and (and (<= 0 |p#27|) (< |p#27| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27|))))) true) (=> (and (and (<= 0 |p#27|) (< |p#27| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27|))))) (= (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#27|))) (ite (> (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27|))) 0) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27|))) 1)))) (ite  (or (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27|))) 0) (= (|Seq#Length| (_module.DList.f |l'#0@1|)) 0)) 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (_module.__default.Sub (|Seq#Length| (_module.DList.f |l'#0@1|)) 1))))))))))
- :qid |DLLDafny.113:14|
- :skolemid |1360|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27|)))
- :pattern ( (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#27|))))
-))))))) :lblneg @24) (=> (=> (|_module.__default.Inv#canCall| _module._default.Expand$A |l'#0@1|) (or (_module.__default.Inv _module._default.Expand$A |l'#0@1|) (=> (|_module.__default.Invs#canCall| _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (or (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|) (_module.DList.s |l'#0@1|) (_module.DList.f |l'#0@1|) (_module.DList.g |l'#0@1|)) (forall ((|p#27@@0| Int) ) (!  (=> true (and (=> (and (and (<= 0 |p#27@@0|) (< |p#27@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27@@0|))))) true) (=> (and (and (<= 0 |p#27@@0|) (< |p#27@@0| (|Seq#Length| (_module.DList.g |l'#0@1|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27@@0|))))) (= (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#27@@0|))) (ite (> (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27@@0|))) 0) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27@@0|))) 1)))) (ite  (or (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27@@0|))) 0) (= (|Seq#Length| (_module.DList.f |l'#0@1|)) 0)) 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@1|) (_module.__default.Sub (|Seq#Length| (_module.DList.f |l'#0@1|)) 1))))))))))
- :qid |DLLDafny.113:14|
- :skolemid |1360|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |p#27@@0|)))
- :pattern ( (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) |p#27@@0|))))
-)))))) (and (! (or %lbl%@25 (|Seq#Equal| (_module.DList.s |l'#0@1|) (_module.DList.s |l#0@@98|))) :lblneg @25) (=> (|Seq#Equal| (_module.DList.s |l'#0@1|) (_module.DList.s |l#0@@98|)) (and (! (or %lbl%@26 (forall ((|x#1| Int) ) (!  (=> true (and (=> (_module.__default.ValidPtr _module._default.Expand$A |l#0@@98| |x#1|) (_module.__default.ValidPtr _module._default.Expand$A |l'#0@1| |x#1|)) (=> (_module.__default.ValidPtr _module._default.Expand$A |l#0@@98| |x#1|) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |x#1|))) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l#0@@98|) |x#1|)))))))
- :qid |DLLDafny.233:18|
- :skolemid |1371|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |x#1|)))
- :pattern ( (_module.__default.ValidPtr _module._default.Expand$A |l#0@@98| |x#1|))
- :pattern ( (_module.__default.ValidPtr _module._default.Expand$A |l'#0@1| |x#1|))
-))) :lblneg @26) (=> (forall ((|x#1@@0| Int) ) (!  (=> true (and (=> (_module.__default.ValidPtr _module._default.Expand$A |l#0@@98| |x#1@@0|) (_module.__default.ValidPtr _module._default.Expand$A |l'#0@1| |x#1@@0|)) (=> (_module.__default.ValidPtr _module._default.Expand$A |l#0@@98| |x#1@@0|) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |x#1@@0|))) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l#0@@98|) |x#1@@0|)))))))
- :qid |DLLDafny.233:18|
- :skolemid |1371|
- :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@1|) |x#1@@0|)))
- :pattern ( (_module.__default.ValidPtr _module._default.Expand$A |l#0@@98| |x#1@@0|))
- :pattern ( (_module.__default.ValidPtr _module._default.Expand$A |l'#0@1| |x#1@@0|))
-)) (and (! (or %lbl%@27 (not (= (_module.DList.freeStack |l'#0@1|) 0))) :lblneg @27) (=> (not (= (_module.DList.freeStack |l'#0@1|) 0)) (! (or %lbl%@28 (_module.Option.None_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@1|) (_module.DList.freeStack |l'#0@1|)))))) :lblneg @28))))))))))))))))))))))))))))))))))))))))
-(let ((anon9_Else_correct  (=> (! (and %lbl%+29 true) :lblpos +29) (and (! (or %lbl%@30 (forall ((|seqinit#0#i0#0| Int) ) (!  (=> (and (<= 0 |seqinit#0#i0#0|) (< |seqinit#0#i0#0| (|Seq#Length| |call5formal@b#0@0|))) (Requires1 TInt TInt $Heap@1 (Lit (AtLayer (|lambda#36| (Handle1 (|lambda#45| (|Seq#Length| |g#0@0|) |g#0@0| (- 0 2)) (|lambda#46| TInt 0 (|Seq#Length| |call5formal@b#0@0|)) (|lambda#35| (SetRef_to_SetBox (|lambda#34| false))))) ($LS $LZ))) ($Box (int_2_U |seqinit#0#i0#0|))))
- :qid |DLLDafny.245:42|
- :skolemid |1375|
-))) :lblneg @30) (=> (|_module.__default.Sub#canCall| |len'#0@0| 1) (=> (and (= |l'#0@0| (|#_module.DList.DList| |call5formal@b#0@0| (_module.__default.Sub |len'#0@0| 1) |s#0@0| |f#0@0| (|Seq#Create| TInt $Heap@1 (|Seq#Length| |call5formal@b#0@0|) (Lit (AtLayer (|lambda#36| (Handle1 (|lambda#45| (|Seq#Length| |g#0@0|) |g#0@0| (- 0 2)) (|lambda#46| TInt 0 (|Seq#Length| |call5formal@b#0@0|)) (|lambda#35| (SetRef_to_SetBox (|lambda#34| false))))) ($LS $LZ)))))) (= |l'#0@1| |l'#0@0|)) GeneratedUnifiedExit_correct))))))
-(let ((anon0_correct  (=> (! (and %lbl%+31 true) :lblpos +31) (=> (= $_Frame@0 (|lambda#44| null $Heap@@1 alloc false)) (=> (and ($Is |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Expand$A))) ($IsAlloc |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Expand$A)) $Heap@@1)) (=> (and (and (and ($Is |s#0@0| (TSeq _module._default.Expand$A)) ($IsAlloc |s#0@0| (TSeq _module._default.Expand$A) $Heap@@1)) (and ($Is |f#0@0| (TSeq TInt)) ($IsAlloc |f#0@0| (TSeq TInt) $Heap@@1))) (and (and ($Is |g#0@0| (TSeq TInt)) ($IsAlloc |g#0@0| (TSeq TInt) $Heap@@1)) (and (= |let#0#0#0| |l#0@@98|) ($Is |let#0#0#0| (Tclass._module.DList _module._default.Expand$A))))) (=> (and (and (and (and (_module.DList.DList_q |let#0#0#0|) (_module.DList.DList_q |let#0#0#0|)) (and (_module.DList.DList_q |let#0#0#0|) (_module.DList.DList_q |let#0#0#0|))) (and (and (_module.DList.DList_q |let#0#0#0|) (= (|#_module.DList.DList| |nodes#0@0| |freeStack#0@0| |s#0@0| |f#0@0| |g#0@0|) |let#0#0#0|)) (and ($IsAlloc |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Expand$A)) $Heap@@1) (|_module.__default.seq_length#canCall| (Tclass._module.Node _module._default.Expand$A) |nodes#0@0|)))) (and (and (and (|_module.__default.seq_length#canCall| (Tclass._module.Node _module._default.Expand$A) |nodes#0@0|) (= |len#0@0| (_module.__default.seq_length (Tclass._module.Node _module._default.Expand$A) |nodes#0@0|))) (and ($IsAlloc (int_2_U |len#0@0|) TInt $Heap@@1) ($IsAlloc (int_2_U |len#0@0|) TInt $Heap@@1))) (and (and (|_module.__default.Add#canCall| |len#0@0| |len#0@0|) (|_module.__default.Add#canCall| |len#0@0| |len#0@0|)) (and (= |len'#0@0| (_module.__default.Add |len#0@0| |len#0@0|)) (= |a##0@0| ($Box (|#_module.Node.Node| (Lit |#_module.Option.None|) |freeStack#0@0| 0))))))) (and (! (or %lbl%@32 (forall (($o@@64 T@U) ($f@@54 T@U) ) (! (let ((alpha@@59 (FieldTypeInv0 (type $f@@54))))
- (=> (and (and (= (type $o@@64) refType) (= (type $f@@54) (FieldType alpha@@59))) false) (U_2_bool (MapType6Select $_Frame@0 $o@@64 $f@@54))))
- :qid |DLLDafny.242:21|
- :skolemid |1373|
- :no-pattern (type $o@@64)
- :no-pattern (type $f@@54)
- :no-pattern (U_2_int $o@@64)
- :no-pattern (U_2_bool $o@@64)
- :no-pattern (U_2_int $f@@54)
- :no-pattern (U_2_bool $f@@54)
-))) :lblneg @32) (=> (forall (($o@@65 T@U) ($f@@55 T@U) ) (! (let ((alpha@@60 (FieldTypeInv0 (type $f@@55))))
- (=> (and (and (= (type $o@@65) refType) (= (type $f@@55) (FieldType alpha@@60))) false) (U_2_bool (MapType6Select $_Frame@0 $o@@65 $f@@55))))
- :qid |DLLDafny.242:21|
- :skolemid |1373|
- :no-pattern (type@@0 $o@@62)
- :no-pattern (type@@0 $f@@52)
- :no-pattern (type $o@@65)
- :no-pattern (type $f@@55)
- :no-pattern (U_2_int $o@@65)
- :no-pattern (U_2_bool $o@@65)
- :no-pattern (U_2_int $f@@55)
- :no-pattern (U_2_bool $f@@55)
-)) (=> (and (and (and ($Is |call6formal@s2#0| (TSeq call0formal@_module._default.SeqResize$A)) ($IsAlloc |call6formal@s2#0| (TSeq call0formal@_module._default.SeqResize$A) $Heap@@1)) (= call0formal@_module._default.SeqResize$A@0 (Tclass._module.Node _module._default.Expand$A))) (and ($IsGoodHeap $Heap@0) ($IsHeapAnchor $Heap@0))) (=> (and (and (and (and (and ($Is |call6formal@s2#0@0| (TSeq call0formal@_module._default.SeqResize$A@0)) ($IsAlloc |call6formal@s2#0@0| (TSeq call0formal@_module._default.SeqResize$A@0) $Heap@0)) (= (|Seq#Length| |call6formal@s2#0@0|) |len'#0@0|)) (and (forall ((|j#1| Int) ) (!  (=> true (=> (and (<= 0 |j#1|) (< |j#1| |len'#0@0|)) (= (|Seq#Index| |call6formal@s2#0@0| |j#1|) (ite (< |j#1| (|Seq#Length| |nodes#0@0|)) (|Seq#Index| |nodes#0@0| |j#1|) |a##0@0|))))
- :qid |DLLDafny.59:18|
- :skolemid |1053|
- :pattern ( (|Seq#Index| |call6formal@s2#0@0| |j#1|))
-)) (forall (($o@@66 T@U) ) (!  (=> (= (type $o@@66) refType) (=> (and (not (= $o@@66 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@@1 $o@@66) alloc))) (= (MapType0Select $Heap@0 $o@@66) (MapType0Select $Heap@@1 $o@@66))))
- :qid |DLLDafny.57:8|
- :skolemid |1054|
- :pattern ( (MapType0Select $Heap@0 $o@@66))
-)))) (and (and (and ($HeapSucc $Heap@@1 $Heap@0) ($IsAlloc (int_2_U |len#0@0|) TInt $Heap@0)) (and (= |##b#1@0| 1) ($IsAlloc (int_2_U |##b#1@0|) TInt $Heap@0))) (and (and (|_module.__default.Add#canCall| |len#0@0| 1) ($IsAlloc (int_2_U |len#0@0|) TInt $Heap@0)) (and ($IsAlloc (int_2_U |len#0@0|) TInt $Heap@0) (|_module.__default.Add#canCall| |len#0@0| |len#0@0|))))) (and (and (and (and (|_module.__default.Add#canCall| |len#0@0| 1) (|_module.__default.Add#canCall| |len#0@0| |len#0@0|)) (<= (_module.__default.Add |len#0@0| 1) (_module.__default.Add |len#0@0| |len#0@0|))) (and ($IsAlloc (int_2_U |len#0@0|) TInt $Heap@0) (= |##b#3@0| 1))) (and (and ($IsAlloc (int_2_U |##b#3@0|) TInt $Heap@0) (|_module.__default.Add#canCall| |len#0@0| 1)) (and (|_module.__default.Add#canCall| |len#0@0| 1) (= |k##0@0| (_module.__default.Add |len#0@0| 1)))))) (and (! (or %lbl%@33 (forall (($o@@67 T@U) ($f@@56 T@U) ) (! (let ((alpha@@61 (FieldTypeInv0 (type $f@@56))))
- (=> (and (and (= (type $o@@67) refType) (= (type $f@@56) (FieldType alpha@@61))) false) (U_2_bool (MapType6Select $_Frame@0 $o@@67 $f@@56))))
- :qid |DLLDafny.244:26|
- :skolemid |1374|
+(let ((anon0_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (=> (= $_Frame@0 (|lambda#104| null $Heap@@1 alloc false)) (=> (and (and (and (and ($Is |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Remove$A))) ($IsAlloc |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@@1)) (and ($Is |s#0@0| (TSeq _module._default.Remove$A)) ($IsAlloc |s#0@0| (TSeq _module._default.Remove$A) $Heap@@1))) (and (and ($Is |f#0@0| (TSeq TInt)) ($IsAlloc |f#0@0| (TSeq TInt) $Heap@@1)) (and ($Is |g#0@0| (TSeq TInt)) ($IsAlloc |g#0@0| (TSeq TInt) $Heap@@1)))) (and (and (and (= |let#0#0#0| |l#0@@102|) ($Is |let#0#0#0| (Tclass._module.DList _module._default.Remove$A))) (and (_module.DList.DList_q |let#0#0#0|) (_module.DList.DList_q |let#0#0#0|))) (and (and (_module.DList.DList_q |let#0#0#0|) (_module.DList.DList_q |let#0#0#0|)) (and (_module.DList.DList_q |let#0#0#0|) (= (|#_module.DList.DList| |nodes#0@0| |freeStack#0@0| |s#0@0| |f#0@0| |g#0@0|) |let#0#0#0|))))) (and (! (or %lbl%@1  (and (<= 0 |p#0@@30|) (< |p#0@@30| (|Seq#Length| |g#0@0|)))) :lblneg @1) (=> (and (<= 0 |p#0@@30|) (< |p#0@@30| (|Seq#Length| |g#0@0|))) (=> (= |index#0@0| (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |p#0@@30|)))) (=> (and ($IsAlloc |s#0@0| (TSeq _module._default.Remove$A) $Heap@@1) ($IsAlloc (int_2_U |index#0@0|) TInt $Heap@@1)) (and (! (or %lbl%@2 (<= 0 |index#0@0|)) :lblneg @2) (and (! (or %lbl%@3 (< |index#0@0| (|Seq#Length| |s#0@0|))) :lblneg @3) (=> (and (and (and (<= 0 |index#0@0|) (< |index#0@0| (|Seq#Length| |s#0@0|))) (|_module.__default.SeqRemove#canCall| _module._default.Remove$A |s#0@0| |index#0@0|)) (and (and (|_module.__default.SeqRemove#canCall| _module._default.Remove$A |s#0@0| |index#0@0|) (= |s'#0@0| (_module.__default.SeqRemove _module._default.Remove$A |s#0@0| |index#0@0|))) (and ($IsAlloc |f#0@0| (TSeq TInt) $Heap@@1) ($IsAlloc (int_2_U |index#0@0|) TInt $Heap@@1)))) (and (! (or %lbl%@4 (<= 0 |index#0@0|)) :lblneg @4) (and (! (or %lbl%@5 (< |index#0@0| (|Seq#Length| |f#0@0|))) :lblneg @5) (=> (and (and (and (<= 0 |index#0@0|) (< |index#0@0| (|Seq#Length| |f#0@0|))) (|_module.__default.SeqRemove#canCall| TInt |f#0@0| |index#0@0|)) (and (|_module.__default.SeqRemove#canCall| TInt |f#0@0| |index#0@0|) (= |f'#0@0| (_module.__default.SeqRemove TInt |f#0@0| |index#0@0|)))) (and (! (or %lbl%@6 (forall (($o@@67 T@U) ($f@@57 T@U) ) (! (let ((alpha@@63 (FieldTypeInv0 (type $f@@57))))
+ (=> (and (and (= (type $o@@67) refType) (= (type $f@@57) (FieldType alpha@@63))) false) (U_2_bool (MapType6Select $_Frame@0 $o@@67 $f@@57))))
+ :qid |DLLDafny.303:33|
+ :skolemid |1475|
  :no-pattern (type $o@@67)
- :no-pattern (type $f@@56)
+ :no-pattern (type $f@@57)
  :no-pattern (U_2_int $o@@67)
  :no-pattern (U_2_bool $o@@67)
- :no-pattern (U_2_int $f@@56)
- :no-pattern (U_2_bool $f@@56)
-))) :lblneg @33) (=> (forall (($o@@68 T@U) ($f@@57 T@U) ) (! (let ((alpha@@62 (FieldTypeInv0 (type $f@@57))))
- (=> (and (and (= (type $o@@68) refType) (= (type $f@@57) (FieldType alpha@@62))) false) (U_2_bool (MapType6Select $_Frame@0 $o@@68 $f@@57))))
- :qid |DLLDafny.244:26|
- :skolemid |1374|
- :no-pattern (type@@0 $o@@63)
- :no-pattern (type@@0 $f@@53)
- :no-pattern (type $o@@68)
- :no-pattern (type $f@@57)
- :no-pattern (U_2_int $o@@68)
- :no-pattern (U_2_bool $o@@68)
  :no-pattern (U_2_int $f@@57)
  :no-pattern (U_2_bool $f@@57)
-)) (=> (and ($Is |call5formal@b#0| (TSeq (Tclass._module.Node call0formal@_module._default.BuildFreeStack$A))) ($IsAlloc |call5formal@b#0| (TSeq (Tclass._module.Node call0formal@_module._default.BuildFreeStack$A)) $Heap@@1)) (and (! (or %lbl%@34 (< 0 |k##0@0|)) :lblneg @34) (=> (< 0 |k##0@0|) (and (! (or %lbl%@35 (<= |k##0@0| (|Seq#Length| |call6formal@s2#0@0|))) :lblneg @35) (=> (<= |k##0@0| (|Seq#Length| |call6formal@s2#0@0|)) (=> (and ($IsGoodHeap $Heap@1) ($IsHeapAnchor $Heap@1)) (=> (and (and (and (and ($Is |call5formal@b#0@0| (TSeq (Tclass._module.Node _module._default.Expand$A))) ($IsAlloc |call5formal@b#0@0| (TSeq (Tclass._module.Node _module._default.Expand$A)) $Heap@1)) (= (|Seq#Length| |call5formal@b#0@0|) (|Seq#Length| |call6formal@s2#0@0|))) (and (forall ((|i#1@@3| Int) ) (!  (=> (and (<= 0 |i#1@@3|) (< |i#1@@3| |k##0@0|)) (and (|$IsA#_module.Node| ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#1@@3|))) (|$IsA#_module.Node| ($Unbox DatatypeTypeType (|Seq#Index| |call6formal@s2#0@0| |i#1@@3|)))))
- :qid |DLLDafny.191:18|
- :skolemid |1223|
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#1@@3|)))
-)) (forall ((|i#1@@4| Int) ) (!  (=> true (=> (and (<= 0 |i#1@@4|) (< |i#1@@4| |k##0@0|)) (|_module.Node#Equal| ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#1@@4|)) ($Unbox DatatypeTypeType (|Seq#Index| |call6formal@s2#0@0| |i#1@@4|)))))
- :qid |DLLDafny.191:18|
- :skolemid |1224|
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#1@@4|)))
-)))) (and (and (and (forall ((|i#3@@2| Int) ) (!  (=> (and (<= |k##0@0| |i#3@@2|) (< |i#3@@2| (|Seq#Length| |call6formal@s2#0@0|))) (and (|$IsA#_module.Node| ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#3@@2|))) (|_module.__default.Sub#canCall| |i#3@@2| 1)))
- :qid |DLLDafny.192:18|
- :skolemid |1225|
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#3@@2|)))
-)) (forall ((|i#3@@3| Int) ) (!  (=> true (=> (and (<= |k##0@0| |i#3@@3|) (< |i#3@@3| (|Seq#Length| |call6formal@s2#0@0|))) (|_module.Node#Equal| ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#3@@3|)) (|#_module.Node.Node| (Lit |#_module.Option.None|) (_module.__default.Sub |i#3@@3| 1) 0))))
- :qid |DLLDafny.192:18|
- :skolemid |1226|
- :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| |call5formal@b#0@0| |i#3@@3|)))
-))) (and (forall (($o@@69 T@U) ) (!  (=> (= (type $o@@69) refType) (=> (and (not (= $o@@69 null)) (U_2_bool (MapType1Select (MapType0Select $Heap@0 $o@@69) alloc))) (= (MapType0Select $Heap@1 $o@@69) (MapType0Select $Heap@0 $o@@69))))
- :qid |DLLDafny.188:8|
- :skolemid |1227|
- :pattern ( (MapType0Select $Heap@1 $o@@69))
-)) ($HeapSucc $Heap@0 $Heap@1))) (and (and ($IsAlloc (int_2_U |len'#0@0|) TInt $Heap@1) (= |##b#4@0| 1)) (and ($IsAlloc (int_2_U |##b#4@0|) TInt $Heap@1) (|_module.__default.Sub#canCall| |len'#0@0| 1))))) (and (! (or %lbl%@36 (<= 0 (|Seq#Length| |call5formal@b#0@0|))) :lblneg @36) (=> (<= 0 (|Seq#Length| |call5formal@b#0@0|)) (and anon9_Then_correct anon9_Else_correct)))))))))))))))))))))))
-(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+37 true) :lblpos +37) (=> (and ($IsGoodHeap $Heap@@1) ($IsHeapAnchor $Heap@@1)) (=> (and (and (and (and ($Is |l#0@@98| (Tclass._module.DList _module._default.Expand$A)) ($IsAlloc |l#0@@98| (Tclass._module.DList _module._default.Expand$A) $Heap@@1)) (|$IsA#_module.DList| |l#0@@98|)) (and (and ($Is |l'#0| (Tclass._module.DList _module._default.Expand$A)) ($IsAlloc |l'#0| (Tclass._module.DList _module._default.Expand$A) $Heap@@1)) (and ($Is |$rhs##0| (TSeq (Tclass._module.Node _module._default.Expand$A))) ($IsAlloc |$rhs##0| (TSeq (Tclass._module.Node _module._default.Expand$A)) $Heap@@1)))) (and (and (and ($Is |$rhs##1| (TSeq (Tclass._module.Node _module._default.Expand$A))) ($IsAlloc |$rhs##1| (TSeq (Tclass._module.Node _module._default.Expand$A)) $Heap@@1)) (= 32 $FunctionContextHeight)) (and (|_module.__default.Inv#canCall| _module._default.Expand$A |l#0@@98|) (and (and (and (and (and (_module.__default.Inv _module._default.Expand$A |l#0@@98|) ($Is (_module.DList.nodes |l#0@@98|) (TSeq (Tclass._module.Node _module._default.Expand$A)))) ($Is (_module.DList.s |l#0@@98|) (TSeq _module._default.Expand$A))) ($Is (_module.DList.f |l#0@@98|) (TSeq TInt))) ($Is (_module.DList.g |l#0@@98|) (TSeq TInt))) (_module.__default.Invs _module._default.Expand$A (_module.DList.nodes |l#0@@98|) (_module.DList.freeStack |l#0@@98|) (_module.DList.s |l#0@@98|) (_module.DList.f |l#0@@98|) (_module.DList.g |l#0@@98|)))))) anon0_correct)))))
-PreconditionGeneratedEntry_correct))))))))))))
+))) :lblneg @6) (=> (forall (($o@@68 T@U) ($f@@58 T@U) ) (! (let ((alpha@@64 (FieldTypeInv0 (type $f@@58))))
+ (=> (and (and (= (type $o@@68) refType) (= (type $f@@58) (FieldType alpha@@64))) false) (U_2_bool (MapType6Select $_Frame@0 $o@@68 $f@@58))))
+ :qid |DLLDafny.303:33|
+ :skolemid |1475|
+ :no-pattern (type@@0 $o@@66)
+ :no-pattern (type@@0 $f@@56)
+ :no-pattern (type $o@@68)
+ :no-pattern (type $f@@58)
+ :no-pattern (U_2_int $o@@68)
+ :no-pattern (U_2_bool $o@@68)
+ :no-pattern (U_2_int $f@@58)
+ :no-pattern (U_2_bool $f@@58)
+)) (=> (and (and ($Is |call4formal@g'#0| (TSeq TInt)) ($IsAlloc |call4formal@g'#0| (TSeq TInt) $Heap@@1)) (and ($IsGoodHeap $Heap@0) ($IsHeapAnchor $Heap@0))) (=> (and (and (and ($Is |call4formal@g'#0@0| (TSeq TInt)) ($IsAlloc |call4formal@g'#0@0| (TSeq TInt) $Heap@0)) (and (= (|Seq#Length| |call4formal@g'#0@0|) (|Seq#Length| |g#0@0|)) (forall ((|x#1| Int) ) (!  (=> (and (<= 0 |x#1|) (< |x#1| (|Seq#Length| |g#0@0|))) (=> (not (= (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1|))) |index#0@0|)) (=> (< |index#0@0| (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1|)))) (|_module.__default.Sub#canCall| (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1|))) 1))))
+ :qid |DLLDafny.276:18|
+ :skolemid |1387|
+ :pattern ( ($Unbox intType (|Seq#Index| |call4formal@g'#0@0| |x#1|)))
+ :pattern ( ($Unbox intType (|Seq#Index| |g#0@0| |x#1|)))
+)))) (and (and (forall ((|x#1@@0| Int) ) (!  (=> true (=> (and (<= 0 |x#1@@0|) (< |x#1@@0| (|Seq#Length| |g#0@0|))) (ite (= (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1@@0|))) |index#0@0|) (= (U_2_int ($Unbox intType (|Seq#Index| |call4formal@g'#0@0| |x#1@@0|))) (- 0 2)) (ite (< |index#0@0| (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1@@0|)))) (= (U_2_int ($Unbox intType (|Seq#Index| |call4formal@g'#0@0| |x#1@@0|))) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1@@0|))) 1)) (= (U_2_int ($Unbox intType (|Seq#Index| |call4formal@g'#0@0| |x#1@@0|))) (U_2_int ($Unbox intType (|Seq#Index| |g#0@0| |x#1@@0|))))))))
+ :qid |DLLDafny.276:18|
+ :skolemid |1388|
+ :pattern ( ($Unbox intType (|Seq#Index| |call4formal@g'#0@0| |x#1@@0|)))
+ :pattern ( ($Unbox intType (|Seq#Index| |g#0@0| |x#1@@0|)))
+)) (= $Heap@@1 $Heap@0)) (and ($IsAlloc |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@0) ($IsAlloc (int_2_U |p#0@@30|) TInt $Heap@0)))) (and (! (or %lbl%@7 (<= 0 |p#0@@30|)) :lblneg @7) (and (! (or %lbl%@8 (< |p#0@@30| (|Seq#Length| |nodes#0@0|))) :lblneg @8) (=> (and (<= 0 |p#0@@30|) (< |p#0@@30| (|Seq#Length| |nodes#0@0|))) (=> (and (and (and (|_module.__default.seq__get#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| |p#0@@30|) (_module.Node.Node_q ($Unbox DatatypeTypeType (_module.__default.seq__get (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| |p#0@@30|)))) (and (|_module.__default.seq__get#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| |p#0@@30|) (= |node#0@0| ($Unbox DatatypeTypeType (_module.__default.seq__get (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| |p#0@@30|))))) (and (and (_module.Node.Node_q |node#0@0|) ($IsAlloc |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@0)) (and (= |##i#1@0| (_module.Node.prev |node#0@0|)) ($IsAlloc (int_2_U |##i#1@0|) TInt $Heap@0)))) (and (! (or %lbl%@9 (<= 0 |##i#1@0|)) :lblneg @9) (and (! (or %lbl%@10 (< |##i#1@0| (|Seq#Length| |nodes#0@0|))) :lblneg @10) (=> (and (and (and (<= 0 |##i#1@0|) (< |##i#1@0| (|Seq#Length| |nodes#0@0|))) (and (|_module.__default.seq__get#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|)) (_module.Node.Node_q ($Unbox DatatypeTypeType (_module.__default.seq__get (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|)))))) (and (and (_module.Node.Node_q |node#0@0|) (|_module.__default.seq__get#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|))) (and (= |node_prev#0@0| ($Unbox DatatypeTypeType (_module.__default.seq__get (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|)))) (_module.Node.Node_q |node#0@0|)))) (=> (and (and (and (and ($Is |dt_update_tmp#0#0@0| (Tclass._module.Node _module._default.Remove$A)) (= |let#1#0#0| |node_prev#0@0|)) (and ($Is |let#1#0#0| (Tclass._module.Node _module._default.Remove$A)) (= |dt_update_tmp#0#0@0| |let#1#0#0|))) (and (and (_module.Node.Node_q |node#0@0|) (= |let#2#0#0| (_module.Node.next |node#0@0|))) (and (_module.Node.Node_q |node#0@0|) ($Is (int_2_U |let#2#0#0|) TInt)))) (and (and (and (= |dt_update#next#0#0@0| |let#2#0#0|) (_module.Node.Node_q |dt_update_tmp#0#0@0|)) (and (_module.Node.Node_q |dt_update_tmp#0#0@0|) ($IsAlloc |nodes#0@0| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@0))) (and (and (= |##i#2@0| (_module.Node.prev |node#0@0|)) ($IsAlloc (int_2_U |##i#2@0|) TInt $Heap@0)) (and (= |##a#1@0| (let ((|dt_update_tmp#0#1| |node_prev#0@0|))
+(let ((|dt_update#next#0#1| (_module.Node.next |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#0#1|) |dt_update#next#0#1| (_module.Node.prev |dt_update_tmp#0#1|))))) ($IsAlloc |##a#1@0| (Tclass._module.Node _module._default.Remove$A) $Heap@0))))) (and (! (or %lbl%@11 (<= 0 |##i#2@0|)) :lblneg @11) (and (! (or %lbl%@12 (< |##i#2@0| (|Seq#Length| |nodes#0@0|))) :lblneg @12) (=> (and (and (<= 0 |##i#2@0|) (< |##i#2@0| (|Seq#Length| |nodes#0@0|))) (|_module.__default.seq__set#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|) ($Box (let ((|dt_update_tmp#0#1@@0| |node_prev#0@0|))
+(let ((|dt_update#next#0#1@@0| (_module.Node.next |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#0#1@@0|) |dt_update#next#0#1@@0| (_module.Node.prev |dt_update_tmp#0#1@@0|))))))) (=> (and (and (and (and (_module.Node.Node_q |node#0@0|) (let ((|dt_update_tmp#0#1@@1| |node_prev#0@0|))
+ (and (_module.Node.Node_q |node#0@0|) (and (_module.Node.Node_q |dt_update_tmp#0#1@@1|) (_module.Node.Node_q |dt_update_tmp#0#1@@1|))))) (|_module.__default.seq__set#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|) ($Box (let ((|dt_update_tmp#0#1@@2| |node_prev#0@0|))
+(let ((|dt_update#next#0#1@@1| (_module.Node.next |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#0#1@@2|) |dt_update#next#0#1@@1| (_module.Node.prev |dt_update_tmp#0#1@@2|))))))) (= |nodes#0@1| (_module.__default.seq__set (Tclass._module.Node _module._default.Remove$A) |nodes#0@0| (_module.Node.prev |node#0@0|) ($Box (let ((|dt_update_tmp#0#1@@3| |node_prev#0@0|))
+(let ((|dt_update#next#0#1@@2| (_module.Node.next |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#0#1@@3|) |dt_update#next#0#1@@2| (_module.Node.prev |dt_update_tmp#0#1@@3|)))))))) (and (and (_module.Node.Node_q |node#0@0|) ($IsAlloc |nodes#0@1| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@0)) (and (= |##i#3@0| (_module.Node.next |node#0@0|)) ($IsAlloc (int_2_U |##i#3@0|) TInt $Heap@0)))) (and (! (or %lbl%@13 (<= 0 |##i#3@0|)) :lblneg @13) (and (! (or %lbl%@14 (< |##i#3@0| (|Seq#Length| |nodes#0@1|))) :lblneg @14) (=> (and (and (and (<= 0 |##i#3@0|) (< |##i#3@0| (|Seq#Length| |nodes#0@1|))) (and (|_module.__default.seq__get#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|)) (_module.Node.Node_q ($Unbox DatatypeTypeType (_module.__default.seq__get (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|)))))) (and (and (_module.Node.Node_q |node#0@0|) (|_module.__default.seq__get#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|))) (and (= |node_next#0@0| ($Unbox DatatypeTypeType (_module.__default.seq__get (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|)))) (_module.Node.Node_q |node#0@0|)))) (=> (and (and (and (and ($Is |dt_update_tmp#1#0@0| (Tclass._module.Node _module._default.Remove$A)) (= |let#3#0#0| |node_next#0@0|)) (and ($Is |let#3#0#0| (Tclass._module.Node _module._default.Remove$A)) (= |dt_update_tmp#1#0@0| |let#3#0#0|))) (and (and (_module.Node.Node_q |node#0@0|) (= |let#4#0#0| (_module.Node.prev |node#0@0|))) (and (_module.Node.Node_q |node#0@0|) ($Is (int_2_U |let#4#0#0|) TInt)))) (and (and (and (= |dt_update#prev#0#0@0| |let#4#0#0|) (_module.Node.Node_q |dt_update_tmp#1#0@0|)) (and (_module.Node.Node_q |dt_update_tmp#1#0@0|) ($IsAlloc |nodes#0@1| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@0))) (and (and (= |##i#4@0| (_module.Node.next |node#0@0|)) ($IsAlloc (int_2_U |##i#4@0|) TInt $Heap@0)) (and (= |##a#2@0| (let ((|dt_update_tmp#1#1| |node_next#0@0|))
+(let ((|dt_update#prev#0#1| (_module.Node.prev |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#1#1|) (_module.Node.next |dt_update_tmp#1#1|) |dt_update#prev#0#1|)))) ($IsAlloc |##a#2@0| (Tclass._module.Node _module._default.Remove$A) $Heap@0))))) (and (! (or %lbl%@15 (<= 0 |##i#4@0|)) :lblneg @15) (and (! (or %lbl%@16 (< |##i#4@0| (|Seq#Length| |nodes#0@1|))) :lblneg @16) (=> (and (and (<= 0 |##i#4@0|) (< |##i#4@0| (|Seq#Length| |nodes#0@1|))) (|_module.__default.seq__set#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|) ($Box (let ((|dt_update_tmp#1#1@@0| |node_next#0@0|))
+(let ((|dt_update#prev#0#1@@0| (_module.Node.prev |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#1#1@@0|) (_module.Node.next |dt_update_tmp#1#1@@0|) |dt_update#prev#0#1@@0|)))))) (=> (and (and (and (and (_module.Node.Node_q |node#0@0|) (let ((|dt_update_tmp#1#1@@1| |node_next#0@0|))
+ (and (_module.Node.Node_q |node#0@0|) (and (_module.Node.Node_q |dt_update_tmp#1#1@@1|) (_module.Node.Node_q |dt_update_tmp#1#1@@1|))))) (|_module.__default.seq__set#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|) ($Box (let ((|dt_update_tmp#1#1@@2| |node_next#0@0|))
+(let ((|dt_update#prev#0#1@@1| (_module.Node.prev |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#1#1@@2|) (_module.Node.next |dt_update_tmp#1#1@@2|) |dt_update#prev#0#1@@1|)))))) (= |nodes#0@2| (_module.__default.seq__set (Tclass._module.Node _module._default.Remove$A) |nodes#0@1| (_module.Node.next |node#0@0|) ($Box (let ((|dt_update_tmp#1#1@@3| |node_next#0@0|))
+(let ((|dt_update#prev#0#1@@2| (_module.Node.prev |node#0@0|)))
+(|#_module.Node.Node| (_module.Node.data |dt_update_tmp#1#1@@3|) (_module.Node.next |dt_update_tmp#1#1@@3|) |dt_update#prev#0#1@@2|))))))) (and (and ($IsAlloc |nodes#0@2| (TSeq (Tclass._module.Node _module._default.Remove$A)) $Heap@0) ($IsAlloc (int_2_U |p#0@@30|) TInt $Heap@0)) (and (= |##a#3@0| (|#_module.Node.Node| (Lit |#_module.Option.None|) |freeStack#0@0| 0)) ($IsAlloc |##a#3@0| (Tclass._module.Node _module._default.Remove$A) $Heap@0)))) (and (! (or %lbl%@17 (<= 0 |p#0@@30|)) :lblneg @17) (and (! (or %lbl%@18 (< |p#0@@30| (|Seq#Length| |nodes#0@2|))) :lblneg @18) (=> (and (<= 0 |p#0@@30|) (< |p#0@@30| (|Seq#Length| |nodes#0@2|))) (=> (and (and (|_module.__default.seq__set#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@2| |p#0@@30| ($Box (|#_module.Node.Node| (Lit |#_module.Option.None|) |freeStack#0@0| 0))) (|_module.__default.seq__set#canCall| (Tclass._module.Node _module._default.Remove$A) |nodes#0@2| |p#0@@30| ($Box (|#_module.Node.Node| (Lit |#_module.Option.None|) |freeStack#0@0| 0)))) (and (= |nodes#0@3| (_module.__default.seq__set (Tclass._module.Node _module._default.Remove$A) |nodes#0@2| |p#0@@30| ($Box (|#_module.Node.Node| (Lit |#_module.Option.None|) |freeStack#0@0| 0)))) (= |l'#0@0| (|#_module.DList.DList| |nodes#0@3| |p#0@@30| |s'#0@0| |f'#0@0| |call4formal@g'#0@0|)))) (and (! (or %lbl%@19  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (= (|Seq#Length| (_module.DList.f |l'#0@0|)) (|Seq#Length| (_module.DList.s |l'#0@0|)))))))) :lblneg @19) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (= (|Seq#Length| (_module.DList.f |l'#0@0|)) (|Seq#Length| (_module.DList.s |l'#0@0|))))))) (and (! (or %lbl%@20  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (= (|Seq#Length| (_module.DList.g |l'#0@0|)) (|Seq#Length| (_module.DList.nodes |l'#0@0|)))))))) :lblneg @20) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (= (|Seq#Length| (_module.DList.g |l'#0@0|)) (|Seq#Length| (_module.DList.nodes |l'#0@0|))))))) (and (! (or %lbl%@21  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (> (|Seq#Length| (_module.DList.nodes |l'#0@0|)) 0)))))) :lblneg @21) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (> (|Seq#Length| (_module.DList.nodes |l'#0@0|)) 0))))) (and (! (or %lbl%@22  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) 0))) (- 0 1))))))) :lblneg @22) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) 0))) (- 0 1)))))) (and (! (or %lbl%@23  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (<= 0 (_module.DList.freeStack |l'#0@0|))))))) :lblneg @23) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (<= 0 (_module.DList.freeStack |l'#0@0|)))))) (and (! (or %lbl%@24  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (< (_module.DList.freeStack |l'#0@0|) (|Seq#Length| (_module.DList.nodes |l'#0@0|)))))))) :lblneg @24) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (< (_module.DList.freeStack |l'#0@0|) (|Seq#Length| (_module.DList.nodes |l'#0@0|))))))) (and (! (or %lbl%@25  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|i#6| Int) ) (!  (=> true (and (=> (and (<= 0 |i#6|) (< |i#6| (|Seq#Length| (_module.DList.f |l'#0@0|)))) (< 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#6|))))) (=> (and (<= 0 |i#6|) (< |i#6| (|Seq#Length| (_module.DList.f |l'#0@0|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#6|))) (|Seq#Length| (_module.DList.nodes |l'#0@0|))))))
+ :qid |DLLDafny.95:14|
+ :skolemid |1454|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#6|)))
+))))))) :lblneg @25) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|i#6@@0| Int) ) (!  (=> true (and (=> (and (<= 0 |i#6@@0|) (< |i#6@@0| (|Seq#Length| (_module.DList.f |l'#0@0|)))) (< 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#6@@0|))))) (=> (and (<= 0 |i#6@@0|) (< |i#6@@0| (|Seq#Length| (_module.DList.f |l'#0@0|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#6@@0|))) (|Seq#Length| (_module.DList.nodes |l'#0@0|))))))
+ :qid |DLLDafny.95:14|
+ :skolemid |1454|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#6@@0|)))
+)))))) (and (! (or %lbl%@26  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|i#7| Int) ) (!  (=> true (=> (and (<= 0 |i#7|) (< |i#7| (|Seq#Length| (_module.DList.f |l'#0@0|)))) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#7|)))))) |i#7|)))
+ :qid |DLLDafny.96:14|
+ :skolemid |1455|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#7|))))))
+))))))) :lblneg @26) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|i#7@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#7@@0|) (< |i#7@@0| (|Seq#Length| (_module.DList.f |l'#0@0|)))) (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#7@@0|)))))) |i#7@@0|)))
+ :qid |DLLDafny.96:14|
+ :skolemid |1455|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) |i#7@@0|))))))
+)))))) (and (! (or %lbl%@27  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#22| Int) ) (!  (=> true (and (=> (and (<= 0 |p#22|) (< |p#22| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 2) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#22|))))) (=> (and (<= 0 |p#22|) (< |p#22| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#22|))) (|Seq#Length| (_module.DList.s |l'#0@0|))))))
+ :qid |DLLDafny.97:14|
+ :skolemid |1456|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#22|)))
+))))))) :lblneg @27) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#22@@0| Int) ) (!  (=> true (and (=> (and (<= 0 |p#22@@0|) (< |p#22@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 2) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#22@@0|))))) (=> (and (<= 0 |p#22@@0|) (< |p#22@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (< (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#22@@0|))) (|Seq#Length| (_module.DList.s |l'#0@0|))))))
+ :qid |DLLDafny.97:14|
+ :skolemid |1456|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#22@@0|)))
+)))))) (and (! (or %lbl%@28  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#23| Int) ) (!  (=> true (and (=> (and (<= 0 |p#23|) (< |p#23| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= 0 (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#23|))))) (=> (and (<= 0 |p#23|) (< |p#23| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (< (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#23|))) (|Seq#Length| (_module.DList.g |l'#0@0|))))))
+ :qid |DLLDafny.99:14|
+ :skolemid |1457|
+ :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#23|)))
+))))))) :lblneg @28) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#23@@0| Int) ) (!  (=> true (and (=> (and (<= 0 |p#23@@0|) (< |p#23@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= 0 (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#23@@0|))))) (=> (and (<= 0 |p#23@@0|) (< |p#23@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (< (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#23@@0|))) (|Seq#Length| (_module.DList.g |l'#0@0|))))))
+ :qid |DLLDafny.99:14|
+ :skolemid |1457|
+ :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#23@@0|)))
+)))))) (and (! (or %lbl%@29  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#24| Int) ) (!  (=> true (=> (and (<= 0 |p#24|) (< |p#24| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (and (=> (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#24|))) 0) (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#24|))))) (=> (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#24|)))) (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#24|))) 0)))))
+ :qid |DLLDafny.101:14|
+ :skolemid |1458|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#24|)))
+ :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#24|)))
+))))))) :lblneg @29) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#24@@0| Int) ) (!  (=> true (=> (and (<= 0 |p#24@@0|) (< |p#24@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (and (=> (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#24@@0|))) 0) (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#24@@0|))))) (=> (_module.Option.Some_q (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#24@@0|)))) (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#24@@0|))) 0)))))
+ :qid |DLLDafny.101:14|
+ :skolemid |1458|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#24@@0|)))
+ :pattern ( ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#24@@0|)))
+)))))) (and (! (or %lbl%@30  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#25| Int) ) (!  (=> true (=> (and (and (<= 0 |p#25|) (< |p#25| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#25|))))) (=> (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#25|))) (- 0 1)) (= |p#25| 0))))
+ :qid |DLLDafny.103:14|
+ :skolemid |1459|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#25|)))
+))))))) :lblneg @30) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#25@@0| Int) ) (!  (=> true (=> (and (and (<= 0 |p#25@@0|) (< |p#25@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#25@@0|))))) (=> (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#25@@0|))) (- 0 1)) (= |p#25@@0| 0))))
+ :qid |DLLDafny.103:14|
+ :skolemid |1459|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#25@@0|)))
+)))))) (and (! (or %lbl%@31  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#26| Int) ) (!  (=> true (=> (and (and (<= 0 |p#26|) (< |p#26| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|))))) (=> (<= 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|)))) (and (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|)))))) |p#26|) (|_module.Option#Equal| (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#26|))) (|#_module.Option.Some| (|Seq#Index| (_module.DList.s |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|))))))))))
+ :qid |DLLDafny.105:14|
+ :skolemid |1460|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|)))
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|))))))
+ :pattern ( (|Seq#Index| (_module.DList.s |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26|)))))
+))))))) :lblneg @31) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#26@@0| Int) ) (!  (=> true (=> (and (and (<= 0 |p#26@@0|) (< |p#26@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|))))) (=> (<= 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|)))) (and (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|)))))) |p#26@@0|) (|_module.Option#Equal| (_module.Node.data ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#26@@0|))) (|#_module.Option.Some| (|Seq#Index| (_module.DList.s |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|))))))))))
+ :qid |DLLDafny.105:14|
+ :skolemid |1460|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|)))
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|))))))
+ :pattern ( (|Seq#Index| (_module.DList.s |l'#0@0|) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#26@@0|)))))
+)))))) (and (! (or %lbl%@32  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#27| Int) ) (!  (=> true (=> (and (and (<= 0 |p#27|) (< |p#27| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27|))))) (= (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#27|))) (ite (< (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27|))) 1) (|Seq#Length| (_module.DList.f |l'#0@0|))) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27|))) 1)))) 0))))
+ :qid |DLLDafny.108:14|
+ :skolemid |1461|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27|)))
+ :pattern ( (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#27|))))
+))))))) :lblneg @32) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#27@@0| Int) ) (!  (=> true (=> (and (and (<= 0 |p#27@@0|) (< |p#27@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27@@0|))))) (= (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#27@@0|))) (ite (< (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27@@0|))) 1) (|Seq#Length| (_module.DList.f |l'#0@0|))) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (_module.__default.Add (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27@@0|))) 1)))) 0))))
+ :qid |DLLDafny.108:14|
+ :skolemid |1461|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#27@@0|)))
+ :pattern ( (_module.Node.next ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#27@@0|))))
+)))))) (and (! (or %lbl%@33  (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#28| Int) ) (!  (=> true (and (=> (and (and (<= 0 |p#28|) (< |p#28| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28|))))) true) (=> (and (and (<= 0 |p#28|) (< |p#28| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28|))))) (= (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#28|))) (ite (> (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28|))) 0) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28|))) 1)))) (ite  (or (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28|))) 0) (= (|Seq#Length| (_module.DList.f |l'#0@0|)) 0)) 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (_module.__default.Sub (|Seq#Length| (_module.DList.f |l'#0@0|)) 1))))))))))
+ :qid |DLLDafny.113:14|
+ :skolemid |1462|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28|)))
+ :pattern ( (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#28|))))
+))))))) :lblneg @33) (=> (=> (|_module.__default.Inv#canCall| _module._default.Remove$A |l'#0@0|) (or (_module.__default.Inv _module._default.Remove$A |l'#0@0|) (=> (|_module.__default.Invs#canCall| _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (or (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l'#0@0|) (_module.DList.freeStack |l'#0@0|) (_module.DList.s |l'#0@0|) (_module.DList.f |l'#0@0|) (_module.DList.g |l'#0@0|)) (forall ((|p#28@@0| Int) ) (!  (=> true (and (=> (and (and (<= 0 |p#28@@0|) (< |p#28@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28@@0|))))) true) (=> (and (and (<= 0 |p#28@@0|) (< |p#28@@0| (|Seq#Length| (_module.DList.g |l'#0@0|)))) (<= (- 0 1) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28@@0|))))) (= (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#28@@0|))) (ite (> (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28@@0|))) 0) (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (_module.__default.Sub (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28@@0|))) 1)))) (ite  (or (= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28@@0|))) 0) (= (|Seq#Length| (_module.DList.f |l'#0@0|)) 0)) 0 (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.f |l'#0@0|) (_module.__default.Sub (|Seq#Length| (_module.DList.f |l'#0@0|)) 1))))))))))
+ :qid |DLLDafny.113:14|
+ :skolemid |1462|
+ :pattern ( ($Unbox intType (|Seq#Index| (_module.DList.g |l'#0@0|) |p#28@@0|)))
+ :pattern ( (_module.Node.prev ($Unbox DatatypeTypeType (|Seq#Index| (_module.DList.nodes |l'#0@0|) |p#28@@0|))))
+)))))) (and (! (or %lbl%@34 (|Seq#Equal| (_module.__default.Seq _module._default.Remove$A |l'#0@0|) (_module.__default.SeqRemove _module._default.Remove$A (_module.__default.Seq _module._default.Remove$A |l#0@@102|) (_module.__default.Index _module._default.Remove$A |l#0@@102| |p#0@@30|)))) :lblneg @34) (=> (|Seq#Equal| (_module.__default.Seq _module._default.Remove$A |l'#0@0|) (_module.__default.SeqRemove _module._default.Remove$A (_module.__default.Seq _module._default.Remove$A |l#0@@102|) (_module.__default.Index _module._default.Remove$A |l#0@@102| |p#0@@30|))) (! (or %lbl%@35 (forall ((|x#1@@1| Int) ) (!  (=> true (and (=> (and (not (= |x#1@@1| |p#0@@30|)) (_module.__default.ValidPtr _module._default.Remove$A |l#0@@102| |x#1@@1|)) (_module.__default.ValidPtr _module._default.Remove$A |l'#0@0| |x#1@@1|)) (=> (and (not (= |x#1@@1| |p#0@@30|)) (_module.__default.ValidPtr _module._default.Remove$A |l#0@@102| |x#1@@1|)) (ite (< (_module.__default.Index _module._default.Remove$A |l#0@@102| |x#1@@1|) (_module.__default.Index _module._default.Remove$A |l#0@@102| |p#0@@30|)) (= (_module.__default.Index _module._default.Remove$A |l'#0@0| |x#1@@1|) (_module.__default.Index _module._default.Remove$A |l#0@@102| |x#1@@1|)) (= (_module.__default.Index _module._default.Remove$A |l'#0@0| |x#1@@1|) (_module.__default.Sub (_module.__default.Index _module._default.Remove$A |l#0@@102| |x#1@@1|) 1))))))
+ :qid |DLLDafny.292:18|
+ :skolemid |1473|
+ :pattern ( (_module.__default.Index _module._default.Remove$A |l'#0@0| |x#1@@1|))
+ :pattern ( (_module.__default.ValidPtr _module._default.Remove$A |l#0@@102| |x#1@@1|))
+ :pattern ( (_module.__default.ValidPtr _module._default.Remove$A |l'#0@0| |x#1@@1|))
+))) :lblneg @35))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+36 true) :lblpos +36) (=> (and ($IsGoodHeap $Heap@@1) ($IsHeapAnchor $Heap@@1)) (=> (and (and (and (and (and ($Is |l#0@@102| (Tclass._module.DList _module._default.Remove$A)) ($IsAlloc |l#0@@102| (Tclass._module.DList _module._default.Remove$A) $Heap@@1)) (|$IsA#_module.DList| |l#0@@102|)) (and ($Is |l'#0| (Tclass._module.DList _module._default.Remove$A)) ($IsAlloc |l'#0| (Tclass._module.DList _module._default.Remove$A) $Heap@@1))) (and (and ($Is |s'#0| (TSeq _module._default.Remove$A)) ($IsAlloc |s'#0| (TSeq _module._default.Remove$A) $Heap@@1)) (and ($Is |f'#0| (TSeq TInt)) ($IsAlloc |f'#0| (TSeq TInt) $Heap@@1)))) (and (and (and (and ($Is |g'#0| (TSeq TInt)) ($IsAlloc |g'#0| (TSeq TInt) $Heap@@1)) (and ($Is |$rhs##0| (TSeq TInt)) ($IsAlloc |$rhs##0| (TSeq TInt) $Heap@@1))) (and (and ($Is |node#0| (Tclass._module.Node _module._default.Remove$A)) ($IsAlloc |node#0| (Tclass._module.Node _module._default.Remove$A) $Heap@@1)) (and ($Is |node_prev#0| (Tclass._module.Node _module._default.Remove$A)) ($IsAlloc |node_prev#0| (Tclass._module.Node _module._default.Remove$A) $Heap@@1)))) (and (and (and ($Is |node_next#0| (Tclass._module.Node _module._default.Remove$A)) ($IsAlloc |node_next#0| (Tclass._module.Node _module._default.Remove$A) $Heap@@1)) (= 37 $FunctionContextHeight)) (and (and (|_module.__default.Inv#canCall| _module._default.Remove$A |l#0@@102|) (and (and (and (and (and (_module.__default.Inv _module._default.Remove$A |l#0@@102|) ($Is (_module.DList.nodes |l#0@@102|) (TSeq (Tclass._module.Node _module._default.Remove$A)))) ($Is (_module.DList.s |l#0@@102|) (TSeq _module._default.Remove$A))) ($Is (_module.DList.f |l#0@@102|) (TSeq TInt))) ($Is (_module.DList.g |l#0@@102|) (TSeq TInt))) (_module.__default.Invs _module._default.Remove$A (_module.DList.nodes |l#0@@102|) (_module.DList.freeStack |l#0@@102|) (_module.DList.s |l#0@@102|) (_module.DList.f |l#0@@102|) (_module.DList.g |l#0@@102|)))) (and (|_module.__default.ValidPtr#canCall| _module._default.Remove$A |l#0@@102| |p#0@@30|) (and (_module.__default.ValidPtr _module._default.Remove$A |l#0@@102| |p#0@@30|) (and (and (< 0 |p#0@@30|) (< |p#0@@30| (|Seq#Length| (_module.DList.g |l#0@@102|)))) (>= (U_2_int ($Unbox intType (|Seq#Index| (_module.DList.g |l#0@@102|) |p#0@@30|))) 0)))))))) anon0_correct)))))
+PreconditionGeneratedEntry_correct))
 ))
 (check-sat)
 (pop 1)
