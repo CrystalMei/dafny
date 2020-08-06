@@ -1,0 +1,414 @@
+(QF-LIA probe check)
+(QF-AUFLIA probe check)
+(QF-LRA probe check)
+(QF-LIRA probe check)
+(ILP probe check)
+(QF-NIA probe check)
+(QF-NRA probe check)
+(NIA probe check)
+(NRA probe check)
+(NIRA probe check)
+(LIA probe check)
+(LRA probe check)
+(LIRA probe check)
+(AF-UFNRA probe check)
+	(Quantifier Probe)
+	(mk SMT tactic)
+	(mk preamble tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk NRA tactic)
+	(mk SMT tactic)
+(QF-NRA probe check)
+(NRA probe check)
+	(mk LIRA tactic)
+	(mk LRA tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QSAT tactic)
+(LIRA probe check)
+	(Quantifier Probe)
+	(mk quant preprocessor)
+(LIRA probe check)
+	(mk QF_NIA tactic)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA NLSAT solver)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA SAT solver)
+	(mk QF_NIA BV solver)
+	(mk QF_NIA preamble tactic)
+(QF-NIA probe check)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+(QF-NRA probe check)
+	(mk QF_LRA tactic)
+	(mk SMT tactic)
+(QF-LRA probe check)
+	(mk QF_AUFLIA tactic)
+	(mk SMT tactic)
+(QF-AUFLIA probe check)
+	(mk QF-LIA tactic)
+	(mk preamble tactic)
+	(mk SMT tactic)
+	(mk bounded tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_no_relevancy_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk pb tactic)
+	(mk bv2sat tactic)
+(ILP probe check)
+	(mk ilp_model_finder tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+(ILP probe check)
+(QF-LIA probe check)
+	(mk QF_AUFBV tactic)
+	(mk QF_AUFBV preamble tactic)
+	(mk SMT tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk FD tactic)
+	(mk FD tactic)
+mk_combined_solver...
+	(mk SMT solver)
+
+mk_bool_var: creating boolean variable: 0 for:
+true, its ID: 1
+
+	(unknown logic setup)
+	(setup arith: Weaken Diff Logic)
+	(setup arith: Weaken Diff Logic - theory_weak_rdl)
+W-DL: enode mk_var: 0
+W-DL: set_sort: 0
+W-DL: enode mk_var: 1
+W-DL: set_sort: 0.0
+(smt.simplifier-start)
+(smt.simplifier-start)
+W-DL: push_scope_eh
+	(call solver...)
+	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.refine-injectivity)
+(smt.pattern-inference)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(forall ((a Int) (b Int))
+  (let ((a!1 (not (>= (+ a (* (- 1) b)) 0))))
+    (or (>= (+ a (* (- 1) b)) (- 10)) a!1)))
+#26 := (:var 0 Int)
+#42 := (* -1 #26)
+#25 := (:var 1 Int)
+#43 := (+ #25 #42)
+#46 := (>= #43 0)
+#47 := (not #46)
+#40 := (>= #43 -10)
+#48 := (or #40 #47)
+(forall (vars (a Int) (b Int)) #48)
+
+assert_default: expr = (forall ((a Int) (b Int))
+  (let ((a!1 (not (>= (+ a (* (- 1) b)) 0))))
+    (or (>= (+ a (* (- 1) b)) (- 10)) a!1))), its ID: 49
+
+internalize_rec:
+(forall ((a Int) (b Int))
+  (let ((a!1 (not (>= (+ a (* (- 1) b)) 0))))
+    (or (>= (+ a (* (- 1) b)) (- 10)) a!1)))
+#26 := (:var 0 Int)
+#42 := (* -1 #26)
+#25 := (:var 1 Int)
+#43 := (+ #25 #42)
+#46 := (>= #43 0)
+#47 := (not #46)
+#40 := (>= #43 -10)
+#48 := (or #40 #47)
+(forall (vars (a Int) (b Int)) #48)
+
+
+internalize_formula:
+(forall ((a Int) (b Int))
+  (let ((a!1 (not (>= (+ a (* (- 1) b)) 0))))
+    (or (>= (+ a (* (- 1) b)) (- 10)) a!1)))
+#26 := (:var 0 Int)
+#42 := (* -1 #26)
+#25 := (:var 1 Int)
+#43 := (+ #25 #42)
+#46 := (>= #43 0)
+#47 := (not #46)
+#40 := (>= #43 -10)
+#48 := (or #40 #47)
+(forall (vars (a Int) (b Int)) #48)
+
+
+mk_bool_var: creating boolean variable: 1 for:
+(forall ((a Int) (b Int))
+  (let ((a!1 (not (>= (+ a (* (- 1) b)) 0))))
+    (or (>= (+ a (* (- 1) b)) (- 10)) a!1))), its ID: 49
+
+propagate_relevancy_to_args # 49
+(forall ((a Int) (b Int))
+  (let ((a!1 (not (>= (+ a (* (- 1) b)) 0))))
+    (or (>= (+ a (* (- 1) b)) (- 10)) a!1)))
+(smt.searching)
+
+W-DL: final_check_eh
+W-DL: final_check - done
+W-DL: init_model
+W-DL: compute_delta
+(smt.mbqi)
+
+mk_bool_var: creating boolean variable: 0 for:
+true, its ID: 1
+
+W-DL: enode mk_var: 0
+W-DL: set_sort: 0
+W-DL: enode mk_var: 1
+W-DL: set_sort: 0.0
+	(unknown logic setup)
+	(setup arith: Weaken Diff Logic)
+	(setup arith: Weaken Diff Logic - theory_weak_rdl)
+(smt.simplifier-start)
+(smt.simplifier-start)
+W-DL: push_scope_eh
+(smt.simplifier-start)
+(smt.propagate-values)
+(smt.nnf-cnf)
+(smt.reduce-asserted)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(>= (+ k!2 (* (- 1) k!1)) 0)
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 0)
+
+assert_default: expr = (>= (+ k!2 (* (- 1) k!1)) 0), its ID: 38
+
+internalize_rec:
+(>= (+ k!2 (* (- 1) k!1)) 0)
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 0)
+
+
+internalize_formula:
+(>= (+ k!2 (* (- 1) k!1)) 0)
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 0)
+
+
+internalize_theory_atom: #38
+(>= (+ k!2 (* (- 1) k!1)) 0)
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 0)
+
+W-DL: internalize_atom: (>= (+ k!2 (* (- 1) k!1)) 0)
+W-DL: internalize_atom: LHS = (+ k!2 (* (- 1) k!1))
+W-DL: internalize_atom: RHS = 0
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: k!2
+
+internalize_rec:
+k!2
+k!2
+
+W-DL: enode mk_var: 2
+W-DL: set_sort: k!2
+W-DL: mk_var returns: k!2 |-> 2
+W-DL: mk_var starts: k!1
+
+internalize_rec:
+k!1
+k!1
+
+W-DL: enode mk_var: 3
+W-DL: set_sort: k!1
+W-DL: mk_var returns: k!1 |-> 3
+
+mk_bool_var: creating boolean variable: 1 for:
+(>= (+ k!2 (* (- 1) k!1)) 0), its ID: 38
+
+DL: add_edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+DL: add_edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+W-DL: internalize_atom done: (>= (+ k!2 (* (- 1) k!1)) 0)
+	pos: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+	neg: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+
+W-DL: graph display:
+atoms
+(not p1) (>= (+ k!2 (* (- 1) k!1)) 0) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+
+internalize_theory_atom: #38 internalization succeeded
+(>= (+ k!2 (* (- 1) k!1)) 0)
+
+internalize_assertion:
+(not (>= (+ k!2 (* (- 1) k!1)) (- 10)))
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+#41 := (>= #35 -10)
+(not #41)
+
+assert_default: expr = (not (>= (+ k!2 (* (- 1) k!1)) (- 10))), its ID: 54
+
+internalize_rec:
+(not (>= (+ k!2 (* (- 1) k!1)) (- 10)))
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+#41 := (>= #35 -10)
+(not #41)
+
+
+internalize_formula:
+(not (>= (+ k!2 (* (- 1) k!1)) (- 10)))
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+#41 := (>= #35 -10)
+(not #41)
+
+
+internalize_rec:
+(>= (+ k!2 (* (- 1) k!1)) (- 10))
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 -10)
+
+
+internalize_formula:
+(>= (+ k!2 (* (- 1) k!1)) (- 10))
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 -10)
+
+
+internalize_theory_atom: #41
+(>= (+ k!2 (* (- 1) k!1)) (- 10))
+#34 := (* -1 k!1)
+#35 := (+ k!2 #34)
+(>= #35 -10)
+
+W-DL: internalize_atom: (>= (+ k!2 (* (- 1) k!1)) (- 10))
+W-DL: internalize_atom: LHS = (+ k!2 (* (- 1) k!1))
+W-DL: internalize_atom: RHS = (- 10)
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: k!2
+W-DL: mk_var returns: k!2 |-> 2
+W-DL: mk_var starts: k!1
+W-DL: mk_var returns: k!1 |-> 3
+
+mk_bool_var: creating boolean variable: 2 for:
+(>= (+ k!2 (* (- 1) k!1)) (- 10)), its ID: 41
+
+DL: add_edge: p2 (<= (- dst$3 src$2) [weight: 10] ) {timestamp: 0}
+DL: add_edge: (not p2) (<= (- dst$2 src$3) [weight: -11] ) {timestamp: 0}
+W-DL: internalize_atom done: (>= (+ k!2 (* (- 1) k!1)) (- 10))
+	pos: p2 (<= (- dst$3 src$2) [weight: 10] ) {timestamp: 0}
+	neg: (not p2) (<= (- dst$2 src$3) [weight: -11] ) {timestamp: 0}
+
+W-DL: graph display:
+atoms
+p1 (>= (+ k!2 (* (- 1) k!1)) 0) 
+(not p2) (>= (+ k!2 (* (- 1) k!1)) (- 10)) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$3 src$2) [weight: 10] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$2 src$3) [weight: -11] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+
+internalize_theory_atom: #41 internalization succeeded
+(>= (+ k!2 (* (- 1) k!1)) (- 10))
+(smt.searching)
+W-DL: assign_eh: 1
+W-DL: assign_eh: 2
+W-DL: propagate_atom: atom = (not p1) (>= (+ k!2 (* (- 1) k!1)) 0) 
+W-DL: propagate_atom: atom = p2 (>= (+ k!2 (* (- 1) k!1)) (- 10)) 
+W-DL: propagate_atom: before set_neg_cycle_conflict
+atoms
+(not p1) (>= (+ k!2 (* (- 1) k!1)) 0) 
+p2 (>= (+ k!2 (* (- 1) k!1)) (- 10)) 
+graph
+	edge
+p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$3 src$2) [weight: 10] ) {timestamp: 0}
+(not p2) (<= (- dst$2 src$3) [weight: -11] ) {timestamp: 1}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+
+W-DL: neg_cycle_conflict:
+(not #41)(not (>= (+ k!2 (* (- 1) k!1)) (- 10))) relevant: 1, val: l_true
+#38(>= (+ k!2 (* (- 1) k!1)) 0) relevant: 1, val: l_true
+
+W-DL: pop_scope_eh: 1
+sat
+W-DL: pop_scope_eh: 1
