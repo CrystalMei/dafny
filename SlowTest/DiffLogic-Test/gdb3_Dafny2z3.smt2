@@ -4122,7 +4122,7 @@
  :skolemid |807|
  :pattern ( ($IsAlloc $o@@8 Tclass._module.__default $h@@17))
 )))
-(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0| Int) (|b#0| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0| |b#0|) (not (= 2 $FunctionContextHeight))) true)
+(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0| Int) (|b#0| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0| |b#0|) (not (= 0 $FunctionContextHeight))) true)
  :qid |gdb3Dafn.2:21|
  :skolemid |808|
  :pattern ( (_module.__default.Add |a#0| |b#0|))
@@ -4132,18 +4132,18 @@
  :skolemid |809|
  :pattern ( (|_module.__default.Add#requires| |a#0@@0| |b#0@@0|))
 )))
-(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@1| Int) (|b#0@@1| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@1| |b#0@@1|) (not (= 2 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@1| |b#0@@1|) (+ |a#0@@1| |b#0@@1|)))
+(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@1| Int) (|b#0@@1| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@1| |b#0@@1|) (not (= 0 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@1| |b#0@@1|) (+ |a#0@@1| |b#0@@1|)))
  :qid |gdb3Dafn.2:21|
  :skolemid |810|
  :pattern ( (_module.__default.Add |a#0@@1| |b#0@@1|))
 ))))
-(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@2| Int) (|b#0@@2| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@2| |b#0@@2|) (not (= 2 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@2| |b#0@@2|) (+ |a#0@@2| |b#0@@2|)))
+(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@2| Int) (|b#0@@2| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@2| |b#0@@2|) (not (= 0 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@2| |b#0@@2|) (+ |a#0@@2| |b#0@@2|)))
  :qid |gdb3Dafn.2:21|
  :weight 3
  :skolemid |811|
  :pattern ( (_module.__default.Add |a#0@@2| |b#0@@2|))
 ))))
-(assert  (=> (<= 3 $FunctionContextHeight) (forall ((|a#0@@3| Int) (|b#0@@3| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@3| |b#0@@3|) (not (= 3 $FunctionContextHeight))) true)
+(assert  (=> (<= 4 $FunctionContextHeight) (forall ((|a#0@@3| Int) (|b#0@@3| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@3| |b#0@@3|) (not (= 4 $FunctionContextHeight))) true)
  :qid |gdb3Dafn.3:21|
  :skolemid |812|
  :pattern ( (_module.__default.Sub |a#0@@3| |b#0@@3|))
@@ -4153,36 +4153,36 @@
  :skolemid |813|
  :pattern ( (|_module.__default.Sub#requires| |a#0@@4| |b#0@@4|))
 )))
-(assert  (=> (<= 3 $FunctionContextHeight) (forall ((|a#0@@5| Int) (|b#0@@5| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@5| |b#0@@5|) (not (= 3 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@5| |b#0@@5|) (- |a#0@@5| |b#0@@5|)))
+(assert  (=> (<= 4 $FunctionContextHeight) (forall ((|a#0@@5| Int) (|b#0@@5| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@5| |b#0@@5|) (not (= 4 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@5| |b#0@@5|) (- |a#0@@5| |b#0@@5|)))
  :qid |gdb3Dafn.3:21|
  :skolemid |814|
  :pattern ( (_module.__default.Sub |a#0@@5| |b#0@@5|))
 ))))
-(assert  (=> (<= 3 $FunctionContextHeight) (forall ((|a#0@@6| Int) (|b#0@@6| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@6| |b#0@@6|) (not (= 3 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@6| |b#0@@6|) (- |a#0@@6| |b#0@@6|)))
+(assert  (=> (<= 4 $FunctionContextHeight) (forall ((|a#0@@6| Int) (|b#0@@6| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@6| |b#0@@6|) (not (= 4 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@6| |b#0@@6|) (- |a#0@@6| |b#0@@6|)))
  :qid |gdb3Dafn.3:21|
  :weight 3
  :skolemid |815|
  :pattern ( (_module.__default.Sub |a#0@@6| |b#0@@6|))
 ))))
-(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@7| Bool) (|b#0@@7| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@7| |b#0@@7|) (not (= 0 $FunctionContextHeight))) true)
- :qid |gdb3Dafn.14:15|
- :skolemid |823|
+(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@7| Bool) (|b#0@@7| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@7| |b#0@@7|) (not (= 2 $FunctionContextHeight))) true)
+ :qid |gdb3Dafn.18:15|
+ :skolemid |825|
  :pattern ( (_module.__default.myP |a#0@@7| |b#0@@7|))
 ))))
 (assert (forall ((|a#0@@8| Bool) (|b#0@@8| Bool) ) (!  (and (=> (|_module.__default.myP#requires| |a#0@@8| |b#0@@8|) true) (=> true (|_module.__default.myP#requires| |a#0@@8| |b#0@@8|)))
- :qid |gdb3Dafn.14:15|
- :skolemid |824|
+ :qid |gdb3Dafn.18:15|
+ :skolemid |826|
  :pattern ( (|_module.__default.myP#requires| |a#0@@8| |b#0@@8|))
 )))
-(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@9| Bool) (|b#0@@9| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@9| |b#0@@9|) (not (= 0 $FunctionContextHeight))) (and (=> (_module.__default.myP |a#0@@9| |b#0@@9|) (or |a#0@@9| |b#0@@9|)) (=> (or |a#0@@9| |b#0@@9|) (_module.__default.myP |a#0@@9| |b#0@@9|))))
- :qid |gdb3Dafn.14:15|
- :skolemid |825|
+(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@9| Bool) (|b#0@@9| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@9| |b#0@@9|) (not (= 2 $FunctionContextHeight))) (and (=> (_module.__default.myP |a#0@@9| |b#0@@9|) (or |a#0@@9| |b#0@@9|)) (=> (or |a#0@@9| |b#0@@9|) (_module.__default.myP |a#0@@9| |b#0@@9|))))
+ :qid |gdb3Dafn.18:15|
+ :skolemid |827|
  :pattern ( (_module.__default.myP |a#0@@9| |b#0@@9|))
 ))))
-(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@10| T@U) (|b#0@@10| T@U) ) (!  (=> (and (and (= (type |a#0@@10|) boolType) (= (type |b#0@@10|) boolType)) (or (|_module.__default.myP#canCall| (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (not (= 0 $FunctionContextHeight)))) (and (=> (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|)))))) (=> (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|))))) (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))))))
- :qid |gdb3Dafn.14:15|
+(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@10| T@U) (|b#0@@10| T@U) ) (!  (=> (and (and (= (type |a#0@@10|) boolType) (= (type |b#0@@10|) boolType)) (or (|_module.__default.myP#canCall| (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (not (= 2 $FunctionContextHeight)))) (and (=> (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|)))))) (=> (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|))))) (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))))))
+ :qid |gdb3Dafn.18:15|
  :weight 3
- :skolemid |826|
+ :skolemid |828|
  :pattern ( (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))))
 ))))
 (assert  (and (and (and (and (and (and (and (forall ((arg0@@165 T@T) (arg1@@76 T@T) ) (! (= (Ctor (MapType4Type arg0@@165 arg1@@76)) 25)
@@ -4222,7 +4222,7 @@
 (assert (forall (($o@@9 T@U) ($f T@U) (|l#0| T@U) (|l#1| T@U) (|l#2| T@U) (|l#3| Bool) ) (! (let ((alpha@@6 (FieldTypeInv0 (type $f))))
  (=> (and (and (and (and (= (type $o@@9) refType) (= (type $f) (FieldType alpha@@6))) (= (type |l#0|) refType)) (= (type |l#1|) (MapType0Type refType MapType1Type))) (= (type |l#2|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#0| |l#0| |l#1| |l#2| |l#3|) $o@@9 $f))  (=> (and (not (= $o@@9 |l#0|)) (U_2_bool (MapType1Select (MapType0Select |l#1| $o@@9) |l#2|))) |l#3|))))
  :qid |gdb3Dafn.5:8|
- :skolemid |830|
+ :skolemid |832|
  :pattern ( (MapType4Select (|lambda#0| |l#0| |l#1| |l#2| |l#3|) $o@@9 $f))
 )))
 (assert (forall ((arg0@@171 T@U) (arg1@@82 T@U) (arg2@@35 T@U) (arg3@@14 Bool) ) (! (= (type (|lambda#1| arg0@@171 arg1@@82 arg2@@35 arg3@@14)) (MapType4Type refType boolType))
@@ -4231,66 +4231,69 @@
 )))
 (assert (forall (($o@@10 T@U) ($f@@0 T@U) (|l#0@@0| T@U) (|l#1@@0| T@U) (|l#2@@0| T@U) (|l#3@@0| Bool) ) (! (let ((alpha@@7 (FieldTypeInv0 (type $f@@0))))
  (=> (and (and (and (and (= (type $o@@10) refType) (= (type $f@@0) (FieldType alpha@@7))) (= (type |l#0@@0|) refType)) (= (type |l#1@@0|) (MapType0Type refType MapType1Type))) (= (type |l#2@@0|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#1| |l#0@@0| |l#1@@0| |l#2@@0| |l#3@@0|) $o@@10 $f@@0))  (=> (and (not (= $o@@10 |l#0@@0|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@0| $o@@10) |l#2@@0|))) |l#3@@0|))))
- :qid |gdb3Dafn.18:8|
- :skolemid |831|
+ :qid |gdb3Dafn.22:8|
+ :skolemid |833|
  :pattern ( (MapType4Select (|lambda#1| |l#0@@0| |l#1@@0| |l#2@@0| |l#3@@0|) $o@@10 $f@@0))
 )))
 (declare-fun |s'#0| () T@U)
 (declare-fun |s#0| () T@U)
-(declare-fun $_Frame@0 () T@U)
 (declare-fun $Heap () T@U)
+(declare-fun $_Frame@0 () T@U)
 (declare-fun _module._default.test$X () T@U)
 (declare-fun %lbl%+0 () Bool)
 (declare-fun %lbl%@1 () Bool)
 (declare-fun %lbl%+2 () Bool)
 (declare-fun |i#2@0| () Int)
 (declare-fun %lbl%+3 () Bool)
+(declare-fun |##b#2@0| () Int)
 (declare-fun %lbl%+4 () Bool)
-(declare-fun %lbl%+5 () Bool)
+(declare-fun %lbl%@5 () Bool)
 (declare-fun %lbl%+6 () Bool)
-(declare-fun %lbl%@7 () Bool)
-(declare-fun %lbl%+8 () Bool)
 (declare-fun |i#0@0| () Int)
+(declare-fun %lbl%+7 () Bool)
+(declare-fun |##b#1@0| () Int)
+(declare-fun %lbl%+8 () Bool)
+(declare-fun |##a#0@0| () Int)
+(declare-fun |##b#0@0| () Int)
 (declare-fun %lbl%+9 () Bool)
-(declare-fun %lbl%+10 () Bool)
-(declare-fun %lbl%+11 () Bool)
-(declare-fun %lbl%+12 () Bool)
-(declare-fun %lbl%+13 () Bool)
 (declare-fun $IsHeapAnchor (T@U) Bool)
-(assert  (and (and (and (and (= (type |s'#0|) (SeqType BoxType)) (= (type |s#0|) (SeqType BoxType))) (= (type $_Frame@0) (MapType4Type refType boolType))) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type _module._default.test$X) TyType)))
+(assert  (and (and (and (and (= (type |s'#0|) (SeqType BoxType)) (= (type |s#0|) (SeqType BoxType))) (= (type $Heap) (MapType0Type refType MapType1Type))) (= (type $_Frame@0) (MapType4Type refType boolType))) (= (type _module._default.test$X) TyType)))
 (push 1)
 (set-info :boogie-vc-id Impl$$_module.__default.test)
 (assert (not
-(let ((anon8_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (! (or %lbl%@1 (forall ((|i#3| Int) ) (!  (=> true (=> (and (<= 0 |i#3|) (< |i#3| (|Seq#Length| |s'#0|))) (< (+ |i#3| 1) (|Seq#Length| |s#0|))))
+(let ((anon4_correct  (=> (! (and %lbl%+0 true) :lblpos +0) (=> (forall ((|i#3| Int) ) (!  (=> (< |i#3| (|Seq#Length| |s'#0|)) (|_module.__default.Add#canCall| |i#3| 1))
  :qid |gdb3Dafn.10:23|
  :skolemid |822|
-))) :lblneg @1))))
-(let ((anon12_Else_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (not (and (<= 0 |i#2@0|) (< |i#2@0| (|Seq#Length| |s'#0|)))) anon8_correct))))
-(let ((anon12_Then_correct  (=> (! (and %lbl%+3 true) :lblpos +3) (=> (and (<= 0 |i#2@0|) (< |i#2@0| (|Seq#Length| |s'#0|))) anon8_correct))))
-(let ((anon11_Else_correct  (=> (! (and %lbl%+4 true) :lblpos +4) (=> (< |i#2@0| 0) (and anon12_Then_correct anon12_Else_correct)))))
-(let ((anon11_Then_correct  (=> (! (and %lbl%+5 true) :lblpos +5) (=> (<= 0 |i#2@0|) (and anon12_Then_correct anon12_Else_correct)))))
-(let ((anon4_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (and (! (or %lbl%@7 (forall ((|i#1| Int) ) (!  (=> true (=> (and (<= 0 |i#1|) (< |i#1| (|Seq#Length| |s'#0|))) (<= 0 (+ |i#1| 1))))
+ :pattern ( (_module.__default.Add |i#3| 1))
+)) (! (or %lbl%@1 (forall ((|i#3@@0| Int) ) (!  (=> true (=> (< |i#3@@0| (|Seq#Length| |s'#0|)) (< (_module.__default.Add |i#3@@0| 1) (|Seq#Length| |s#0|))))
+ :qid |gdb3Dafn.10:23|
+ :skolemid |824|
+ :pattern ( (_module.__default.Add |i#3@@0| 1))
+))) :lblneg @1)))))
+(let ((anon6_Else_correct  (=> (! (and %lbl%+2 true) :lblpos +2) (=> (<= (|Seq#Length| |s'#0|) |i#2@0|) anon4_correct))))
+(let ((anon6_Then_correct  (=> (! (and %lbl%+3 true) :lblpos +3) (=> (< |i#2@0| (|Seq#Length| |s'#0|)) (=> (and (and ($IsAlloc (int_2_U |i#2@0|) TInt $Heap) (= |##b#2@0| 1)) (and ($IsAlloc (int_2_U |##b#2@0|) TInt $Heap) (|_module.__default.Add#canCall| |i#2@0| 1))) anon4_correct)))))
+(let ((anon2_correct  (=> (! (and %lbl%+4 true) :lblpos +4) (=> (forall ((|i#1| Int) ) (!  (=> (<= 0 |i#1|) (|_module.__default.Add#canCall| |i#1| 1))
  :qid |gdb3Dafn.9:23|
- :skolemid |820|
-))) :lblneg @7) (=> (forall ((|i#1@@0| Int) ) (!  (=> true (=> (and (<= 0 |i#1@@0|) (< |i#1@@0| (|Seq#Length| |s'#0|))) (<= 0 (+ |i#1@@0| 1))))
+ :skolemid |819|
+ :pattern ( (_module.__default.Add |i#1| 1))
+)) (and (! (or %lbl%@5 (forall ((|i#1@@0| Int) ) (!  (=> true (=> (<= 0 |i#1@@0|) (<= 0 (_module.__default.Add |i#1@@0| 1))))
  :qid |gdb3Dafn.9:23|
- :skolemid |820|
-)) (and anon11_Then_correct anon11_Else_correct))))))
-(let ((anon10_Else_correct  (=> (! (and %lbl%+8 true) :lblpos +8) (=> (not (and (<= 0 |i#0@0|) (< |i#0@0| (|Seq#Length| |s'#0|)))) anon4_correct))))
-(let ((anon10_Then_correct  (=> (! (and %lbl%+9 true) :lblpos +9) (=> (and (<= 0 |i#0@0|) (< |i#0@0| (|Seq#Length| |s'#0|))) anon4_correct))))
-(let ((anon9_Else_correct  (=> (! (and %lbl%+10 true) :lblpos +10) (=> (< |i#0@0| 0) (and anon10_Then_correct anon10_Else_correct)))))
-(let ((anon9_Then_correct  (=> (! (and %lbl%+11 true) :lblpos +11) (=> (<= 0 |i#0@0|) (and anon10_Then_correct anon10_Else_correct)))))
-(let ((anon0_correct  (=> (! (and %lbl%+12 true) :lblpos +12) (=> (and (= $_Frame@0 (|lambda#0| null $Heap alloc false)) (= (|Seq#Length| |s#0|) (+ (|Seq#Length| |s'#0|) 1))) (and anon9_Then_correct anon9_Else_correct)))))
-(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+13 true) :lblpos +13) (=> (and (and (and ($IsGoodHeap $Heap) ($IsHeapAnchor $Heap)) (and ($Is |s#0| (TSeq _module._default.test$X)) ($IsAlloc |s#0| (TSeq _module._default.test$X) $Heap))) (and (and ($Is |s'#0| (TSeq _module._default.test$X)) ($IsAlloc |s'#0| (TSeq _module._default.test$X) $Heap)) (= 4 $FunctionContextHeight))) anon0_correct))))
-PreconditionGeneratedEntry_correct))))))))))))
+ :skolemid |821|
+ :pattern ( (_module.__default.Add |i#1@@0| 1))
+))) :lblneg @5) (=> (forall ((|i#1@@1| Int) ) (!  (=> true (=> (<= 0 |i#1@@1|) (<= 0 (_module.__default.Add |i#1@@1| 1))))
+ :qid |gdb3Dafn.9:23|
+ :skolemid |821|
+ :pattern ( (_module.__default.Add |i#1@@1| 1))
+)) (and anon6_Then_correct anon6_Else_correct)))))))
+(let ((anon5_Else_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (< |i#0@0| 0) anon2_correct))))
+(let ((anon5_Then_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (<= 0 |i#0@0|) (=> (and (and ($IsAlloc (int_2_U |i#0@0|) TInt $Heap) (= |##b#1@0| 1)) (and ($IsAlloc (int_2_U |##b#1@0|) TInt $Heap) (|_module.__default.Add#canCall| |i#0@0| 1))) anon2_correct)))))
+(let ((anon0_correct  (=> (! (and %lbl%+8 true) :lblpos +8) (=> (and (and (and (= $_Frame@0 (|lambda#0| null $Heap alloc false)) (= |##a#0@0| (|Seq#Length| |s'#0|))) (and ($IsAlloc (int_2_U |##a#0@0|) TInt $Heap) (= |##b#0@0| 1))) (and (and ($IsAlloc (int_2_U |##b#0@0|) TInt $Heap) (|_module.__default.Add#canCall| (|Seq#Length| |s'#0|) 1)) (and (|_module.__default.Add#canCall| (|Seq#Length| |s'#0|) 1) (= (|Seq#Length| |s#0|) (_module.__default.Add (|Seq#Length| |s'#0|) 1))))) (and anon5_Then_correct anon5_Else_correct)))))
+(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+9 true) :lblpos +9) (=> (and (and (and ($IsGoodHeap $Heap) ($IsHeapAnchor $Heap)) (and ($Is |s#0| (TSeq _module._default.test$X)) ($IsAlloc |s#0| (TSeq _module._default.test$X) $Heap))) (and (and ($Is |s'#0| (TSeq _module._default.test$X)) ($IsAlloc |s'#0| (TSeq _module._default.test$X) $Heap)) (= 1 $FunctionContextHeight))) anon0_correct))))
+PreconditionGeneratedEntry_correct))))))))
 ))
 (check-sat)
-(get-info :reason-unknown)
-(labels)
-(assert %lbl%@1)
-(check-sat)
 (pop 1)
-; Invalid
+; Valid
 (reset)
 (set-option :print-success false)
 (set-info :smt-lib-version 2.0)
@@ -8416,7 +8419,7 @@ PreconditionGeneratedEntry_correct))))))))))))
  :skolemid |807|
  :pattern ( ($IsAlloc $o@@8 Tclass._module.__default $h@@17))
 )))
-(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0| Int) (|b#0| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0| |b#0|) (not (= 2 $FunctionContextHeight))) true)
+(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0| Int) (|b#0| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0| |b#0|) (not (= 0 $FunctionContextHeight))) true)
  :qid |gdb3Dafn.2:21|
  :skolemid |808|
  :pattern ( (_module.__default.Add |a#0| |b#0|))
@@ -8426,18 +8429,18 @@ PreconditionGeneratedEntry_correct))))))))))))
  :skolemid |809|
  :pattern ( (|_module.__default.Add#requires| |a#0@@0| |b#0@@0|))
 )))
-(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@1| Int) (|b#0@@1| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@1| |b#0@@1|) (not (= 2 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@1| |b#0@@1|) (+ |a#0@@1| |b#0@@1|)))
+(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@1| Int) (|b#0@@1| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@1| |b#0@@1|) (not (= 0 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@1| |b#0@@1|) (+ |a#0@@1| |b#0@@1|)))
  :qid |gdb3Dafn.2:21|
  :skolemid |810|
  :pattern ( (_module.__default.Add |a#0@@1| |b#0@@1|))
 ))))
-(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@2| Int) (|b#0@@2| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@2| |b#0@@2|) (not (= 2 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@2| |b#0@@2|) (+ |a#0@@2| |b#0@@2|)))
+(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@2| Int) (|b#0@@2| Int) ) (!  (=> (or (|_module.__default.Add#canCall| |a#0@@2| |b#0@@2|) (not (= 0 $FunctionContextHeight))) (= (_module.__default.Add |a#0@@2| |b#0@@2|) (+ |a#0@@2| |b#0@@2|)))
  :qid |gdb3Dafn.2:21|
  :weight 3
  :skolemid |811|
  :pattern ( (_module.__default.Add |a#0@@2| |b#0@@2|))
 ))))
-(assert  (=> (<= 3 $FunctionContextHeight) (forall ((|a#0@@3| Int) (|b#0@@3| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@3| |b#0@@3|) (not (= 3 $FunctionContextHeight))) true)
+(assert  (=> (<= 4 $FunctionContextHeight) (forall ((|a#0@@3| Int) (|b#0@@3| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@3| |b#0@@3|) (not (= 4 $FunctionContextHeight))) true)
  :qid |gdb3Dafn.3:21|
  :skolemid |812|
  :pattern ( (_module.__default.Sub |a#0@@3| |b#0@@3|))
@@ -8447,36 +8450,36 @@ PreconditionGeneratedEntry_correct))))))))))))
  :skolemid |813|
  :pattern ( (|_module.__default.Sub#requires| |a#0@@4| |b#0@@4|))
 )))
-(assert  (=> (<= 3 $FunctionContextHeight) (forall ((|a#0@@5| Int) (|b#0@@5| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@5| |b#0@@5|) (not (= 3 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@5| |b#0@@5|) (- |a#0@@5| |b#0@@5|)))
+(assert  (=> (<= 4 $FunctionContextHeight) (forall ((|a#0@@5| Int) (|b#0@@5| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@5| |b#0@@5|) (not (= 4 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@5| |b#0@@5|) (- |a#0@@5| |b#0@@5|)))
  :qid |gdb3Dafn.3:21|
  :skolemid |814|
  :pattern ( (_module.__default.Sub |a#0@@5| |b#0@@5|))
 ))))
-(assert  (=> (<= 3 $FunctionContextHeight) (forall ((|a#0@@6| Int) (|b#0@@6| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@6| |b#0@@6|) (not (= 3 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@6| |b#0@@6|) (- |a#0@@6| |b#0@@6|)))
+(assert  (=> (<= 4 $FunctionContextHeight) (forall ((|a#0@@6| Int) (|b#0@@6| Int) ) (!  (=> (or (|_module.__default.Sub#canCall| |a#0@@6| |b#0@@6|) (not (= 4 $FunctionContextHeight))) (= (_module.__default.Sub |a#0@@6| |b#0@@6|) (- |a#0@@6| |b#0@@6|)))
  :qid |gdb3Dafn.3:21|
  :weight 3
  :skolemid |815|
  :pattern ( (_module.__default.Sub |a#0@@6| |b#0@@6|))
 ))))
-(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@7| Bool) (|b#0@@7| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@7| |b#0@@7|) (not (= 0 $FunctionContextHeight))) true)
- :qid |gdb3Dafn.14:15|
- :skolemid |823|
+(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@7| Bool) (|b#0@@7| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@7| |b#0@@7|) (not (= 2 $FunctionContextHeight))) true)
+ :qid |gdb3Dafn.18:15|
+ :skolemid |825|
  :pattern ( (_module.__default.myP |a#0@@7| |b#0@@7|))
 ))))
 (assert (forall ((|a#0@@8| Bool) (|b#0@@8| Bool) ) (!  (and (=> (|_module.__default.myP#requires| |a#0@@8| |b#0@@8|) true) (=> true (|_module.__default.myP#requires| |a#0@@8| |b#0@@8|)))
- :qid |gdb3Dafn.14:15|
- :skolemid |824|
+ :qid |gdb3Dafn.18:15|
+ :skolemid |826|
  :pattern ( (|_module.__default.myP#requires| |a#0@@8| |b#0@@8|))
 )))
-(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@9| Bool) (|b#0@@9| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@9| |b#0@@9|) (not (= 0 $FunctionContextHeight))) (and (=> (_module.__default.myP |a#0@@9| |b#0@@9|) (or |a#0@@9| |b#0@@9|)) (=> (or |a#0@@9| |b#0@@9|) (_module.__default.myP |a#0@@9| |b#0@@9|))))
- :qid |gdb3Dafn.14:15|
- :skolemid |825|
+(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@9| Bool) (|b#0@@9| Bool) ) (!  (=> (or (|_module.__default.myP#canCall| |a#0@@9| |b#0@@9|) (not (= 2 $FunctionContextHeight))) (and (=> (_module.__default.myP |a#0@@9| |b#0@@9|) (or |a#0@@9| |b#0@@9|)) (=> (or |a#0@@9| |b#0@@9|) (_module.__default.myP |a#0@@9| |b#0@@9|))))
+ :qid |gdb3Dafn.18:15|
+ :skolemid |827|
  :pattern ( (_module.__default.myP |a#0@@9| |b#0@@9|))
 ))))
-(assert  (=> (<= 0 $FunctionContextHeight) (forall ((|a#0@@10| T@U) (|b#0@@10| T@U) ) (!  (=> (and (and (= (type |a#0@@10|) boolType) (= (type |b#0@@10|) boolType)) (or (|_module.__default.myP#canCall| (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (not (= 0 $FunctionContextHeight)))) (and (=> (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|)))))) (=> (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|))))) (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))))))
- :qid |gdb3Dafn.14:15|
+(assert  (=> (<= 2 $FunctionContextHeight) (forall ((|a#0@@10| T@U) (|b#0@@10| T@U) ) (!  (=> (and (and (= (type |a#0@@10|) boolType) (= (type |b#0@@10|) boolType)) (or (|_module.__default.myP#canCall| (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (not (= 2 $FunctionContextHeight)))) (and (=> (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))) (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|)))))) (=> (U_2_bool (Lit (bool_2_U  (or (U_2_bool |a#0@@10|) (U_2_bool |b#0@@10|))))) (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))))))
+ :qid |gdb3Dafn.18:15|
  :weight 3
- :skolemid |826|
+ :skolemid |828|
  :pattern ( (_module.__default.myP (U_2_bool (Lit |a#0@@10|)) (U_2_bool (Lit |b#0@@10|))))
 ))))
 (assert  (and (and (and (and (and (and (and (forall ((arg0@@165 T@T) (arg1@@76 T@T) ) (! (= (Ctor (MapType4Type arg0@@165 arg1@@76)) 25)
@@ -8516,7 +8519,7 @@ PreconditionGeneratedEntry_correct))))))))))))
 (assert (forall (($o@@9 T@U) ($f T@U) (|l#0| T@U) (|l#1| T@U) (|l#2| T@U) (|l#3| Bool) ) (! (let ((alpha@@6 (FieldTypeInv0 (type $f))))
  (=> (and (and (and (and (= (type $o@@9) refType) (= (type $f) (FieldType alpha@@6))) (= (type |l#0|) refType)) (= (type |l#1|) (MapType0Type refType MapType1Type))) (= (type |l#2|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#0| |l#0| |l#1| |l#2| |l#3|) $o@@9 $f))  (=> (and (not (= $o@@9 |l#0|)) (U_2_bool (MapType1Select (MapType0Select |l#1| $o@@9) |l#2|))) |l#3|))))
  :qid |gdb3Dafn.5:8|
- :skolemid |830|
+ :skolemid |832|
  :pattern ( (MapType4Select (|lambda#0| |l#0| |l#1| |l#2| |l#3|) $o@@9 $f))
 )))
 (assert (forall ((arg0@@171 T@U) (arg1@@82 T@U) (arg2@@35 T@U) (arg3@@14 Bool) ) (! (= (type (|lambda#1| arg0@@171 arg1@@82 arg2@@35 arg3@@14)) (MapType4Type refType boolType))
@@ -8525,11 +8528,11 @@ PreconditionGeneratedEntry_correct))))))))))))
 )))
 (assert (forall (($o@@10 T@U) ($f@@0 T@U) (|l#0@@0| T@U) (|l#1@@0| T@U) (|l#2@@0| T@U) (|l#3@@0| Bool) ) (! (let ((alpha@@7 (FieldTypeInv0 (type $f@@0))))
  (=> (and (and (and (and (= (type $o@@10) refType) (= (type $f@@0) (FieldType alpha@@7))) (= (type |l#0@@0|) refType)) (= (type |l#1@@0|) (MapType0Type refType MapType1Type))) (= (type |l#2@@0|) (FieldType boolType))) (= (U_2_bool (MapType4Select (|lambda#1| |l#0@@0| |l#1@@0| |l#2@@0| |l#3@@0|) $o@@10 $f@@0))  (=> (and (not (= $o@@10 |l#0@@0|)) (U_2_bool (MapType1Select (MapType0Select |l#1@@0| $o@@10) |l#2@@0|))) |l#3@@0|))))
- :qid |gdb3Dafn.18:8|
- :skolemid |831|
+ :qid |gdb3Dafn.22:8|
+ :skolemid |833|
  :pattern ( (MapType4Select (|lambda#1| |l#0@@0| |l#1@@0| |l#2@@0| |l#3@@0|) $o@@10 $f@@0))
 )))
-; Invalid
+; Valid
 
 (declare-fun $_Frame@0 () T@U)
 (declare-fun $Heap () T@U)
@@ -8554,13 +8557,9 @@ PreconditionGeneratedEntry_correct))))))))))))
 (let ((anon5_Then_correct  (=> (! (and %lbl%+4 true) :lblpos +4) (=> (_module.__default.myP |a#0@@11| |b#0@@11|) (and anon6_Then_correct anon6_Else_correct)))))
 (let ((anon5_Else_correct  (=> (! (and %lbl%+5 true) :lblpos +5) true)))
 (let ((anon0_correct  (=> (! (and %lbl%+6 true) :lblpos +6) (=> (= $_Frame@0 (|lambda#1| null $Heap alloc false)) (=> (and (and ($IsAlloc (bool_2_U |a#0@@11|) TBool $Heap) ($IsAlloc (bool_2_U |b#0@@11|) TBool $Heap)) (and (|_module.__default.myP#canCall| |a#0@@11| |b#0@@11|) (|_module.__default.myP#canCall| |a#0@@11| |b#0@@11|))) (and anon5_Then_correct anon5_Else_correct))))))
-(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (and (and ($IsGoodHeap $Heap) ($IsHeapAnchor $Heap)) (= 1 $FunctionContextHeight)) anon0_correct))))
+(let ((PreconditionGeneratedEntry_correct  (=> (! (and %lbl%+7 true) :lblpos +7) (=> (and (and ($IsGoodHeap $Heap) ($IsHeapAnchor $Heap)) (= 3 $FunctionContextHeight)) anon0_correct))))
 PreconditionGeneratedEntry_correct)))))))
 ))
 (check-sat)
-(get-info :reason-unknown)
-(labels)
-(assert %lbl%@1)
-(check-sat)
 (pop 1)
-; Invalid
+; Valid

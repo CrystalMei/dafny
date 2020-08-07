@@ -3033,10 +3033,10 @@ function _module.__default.Add(a#0: int, b#0: int) : int;
 function _module.__default.Add#canCall(a#0: int, b#0: int) : bool;
 
 // consequence axiom for _module.__default.Add
-axiom 2 <= $FunctionContextHeight
+axiom 0 <= $FunctionContextHeight
    ==> (forall a#0: int, b#0: int :: 
     { _module.__default.Add(a#0, b#0) } 
-    _module.__default.Add#canCall(a#0, b#0) || 2 != $FunctionContextHeight ==> true);
+    _module.__default.Add#canCall(a#0, b#0) || 0 != $FunctionContextHeight ==> true);
 
 function _module.__default.Add#requires(int, int) : bool;
 
@@ -3046,22 +3046,22 @@ axiom (forall a#0: int, b#0: int ::
   _module.__default.Add#requires(a#0, b#0) == true);
 
 // definition axiom for _module.__default.Add (revealed)
-axiom 2 <= $FunctionContextHeight
+axiom 0 <= $FunctionContextHeight
    ==> (forall a#0: int, b#0: int :: 
     { _module.__default.Add(a#0, b#0) } 
-    _module.__default.Add#canCall(a#0, b#0) || 2 != $FunctionContextHeight
+    _module.__default.Add#canCall(a#0, b#0) || 0 != $FunctionContextHeight
        ==> _module.__default.Add(a#0, b#0) == a#0 + b#0);
 
 // definition axiom for _module.__default.Add for all literals (revealed)
-axiom 2 <= $FunctionContextHeight
+axiom 0 <= $FunctionContextHeight
    ==> (forall a#0: int, b#0: int :: 
     {:weight 3} { _module.__default.Add(LitInt(a#0), LitInt(b#0)) } 
     _module.__default.Add#canCall(LitInt(a#0), LitInt(b#0))
-         || 2 != $FunctionContextHeight
+         || 0 != $FunctionContextHeight
        ==> _module.__default.Add(LitInt(a#0), LitInt(b#0)) == LitInt(a#0 + b#0));
 
 procedure CheckWellformed$$_module.__default.Add(a#0: int, b#0: int);
-  free requires 2 == $FunctionContextHeight;
+  free requires 0 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3072,10 +3072,10 @@ function _module.__default.Sub(a#0: int, b#0: int) : int;
 function _module.__default.Sub#canCall(a#0: int, b#0: int) : bool;
 
 // consequence axiom for _module.__default.Sub
-axiom 3 <= $FunctionContextHeight
+axiom 4 <= $FunctionContextHeight
    ==> (forall a#0: int, b#0: int :: 
     { _module.__default.Sub(a#0, b#0) } 
-    _module.__default.Sub#canCall(a#0, b#0) || 3 != $FunctionContextHeight ==> true);
+    _module.__default.Sub#canCall(a#0, b#0) || 4 != $FunctionContextHeight ==> true);
 
 function _module.__default.Sub#requires(int, int) : bool;
 
@@ -3085,22 +3085,22 @@ axiom (forall a#0: int, b#0: int ::
   _module.__default.Sub#requires(a#0, b#0) == true);
 
 // definition axiom for _module.__default.Sub (revealed)
-axiom 3 <= $FunctionContextHeight
+axiom 4 <= $FunctionContextHeight
    ==> (forall a#0: int, b#0: int :: 
     { _module.__default.Sub(a#0, b#0) } 
-    _module.__default.Sub#canCall(a#0, b#0) || 3 != $FunctionContextHeight
+    _module.__default.Sub#canCall(a#0, b#0) || 4 != $FunctionContextHeight
        ==> _module.__default.Sub(a#0, b#0) == a#0 - b#0);
 
 // definition axiom for _module.__default.Sub for all literals (revealed)
-axiom 3 <= $FunctionContextHeight
+axiom 4 <= $FunctionContextHeight
    ==> (forall a#0: int, b#0: int :: 
     {:weight 3} { _module.__default.Sub(LitInt(a#0), LitInt(b#0)) } 
     _module.__default.Sub#canCall(LitInt(a#0), LitInt(b#0))
-         || 3 != $FunctionContextHeight
+         || 4 != $FunctionContextHeight
        ==> _module.__default.Sub(LitInt(a#0), LitInt(b#0)) == LitInt(a#0 - b#0));
 
 procedure CheckWellformed$$_module.__default.Sub(a#0: int, b#0: int);
-  free requires 3 == $FunctionContextHeight;
+  free requires 4 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3112,7 +3112,7 @@ procedure CheckWellformed$$_module.__default.test(_module._default.test$X: Ty,
    returns (s'#0: Seq Box
        where $Is(s'#0, TSeq(_module._default.test$X))
          && $IsAlloc(s'#0, TSeq(_module._default.test$X), $Heap));
-  free requires 4 == $FunctionContextHeight;
+  free requires 1 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3142,7 +3142,7 @@ procedure Impl$$_module.__default.test(_module._default.test$X: Ty,
        where $Is(s'#0, TSeq(_module._default.test$X))
          && $IsAlloc(s'#0, TSeq(_module._default.test$X), $Heap), 
     $_reverifyPost: bool);
-  free requires 4 == $FunctionContextHeight;
+  free requires 1 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   // frame condition: object granularity
   free ensures (forall $o: ref :: 
@@ -3157,8 +3157,14 @@ implementation Impl$$_module.__default.test(_module._default.test$X: Ty, s#0: Se
    returns (s'#0: Seq Box, $_reverifyPost: bool)
 {
   var $_Frame: <beta>[ref,Field beta]bool;
+  var ##a#0: int;
+  var ##b#0: int;
   var i#0: int;
+  var ##a#1: int;
+  var ##b#1: int;
   var i#2: int;
+  var ##a#2: int;
+  var ##b#2: int;
 
     // AddMethodImpl: test, Impl$$_module.__default.test
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
@@ -3166,41 +3172,60 @@ implementation Impl$$_module.__default.test(_module._default.test$X: Ty, s#0: Se
     assume {:captureState "gdb3_Dafny.dfy(6,4): initial state"} true;
     $_reverifyPost := false;
     // ----- assume statement ----- gdb3_Dafny.dfy(8,9)
-    assume true;
-    assume Seq#Length(s#0) == Seq#Length(s'#0) + 1;
+    ##a#0 := Seq#Length(s'#0);
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##a#0, TInt, $Heap);
+    ##b#0 := LitInt(1);
+    // assume allocatedness for argument to function
+    assume $IsAlloc(##b#0, TInt, $Heap);
+    assume _module.__default.Add#canCall(Seq#Length(s'#0), LitInt(1));
+    assume _module.__default.Add#canCall(Seq#Length(s'#0), LitInt(1));
+    assume Seq#Length(s#0) == _module.__default.Add(Seq#Length(s'#0), LitInt(1));
     // ----- assert statement ----- gdb3_Dafny.dfy(9,9)
     havoc i#0;
     // Begin Comprehension WF check
     if (LitInt(0) <= i#0)
     {
-    }
-
-    if (LitInt(0) <= i#0 && i#0 < Seq#Length(s'#0))
-    {
+        ##a#1 := i#0;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##a#1, TInt, $Heap);
+        ##b#1 := LitInt(1);
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##b#1, TInt, $Heap);
+        assume _module.__default.Add#canCall(i#0, LitInt(1));
     }
 
     // End Comprehension WF check
-    assume true;
+    assume (forall i#1: int :: 
+      { _module.__default.Add(i#1, 1) } 
+      LitInt(0) <= i#1 ==> _module.__default.Add#canCall(i#1, LitInt(1)));
     assert (forall i#1: int :: 
-      true ==> LitInt(0) <= i#1 && i#1 < Seq#Length(s'#0) ==> LitInt(0) <= i#1 + 1);
+      { _module.__default.Add(i#1, 1) } 
+      true ==> LitInt(0) <= i#1 ==> LitInt(0) <= _module.__default.Add(i#1, LitInt(1)));
     // ----- assert statement ----- gdb3_Dafny.dfy(10,9)
     havoc i#2;
     // Begin Comprehension WF check
-    if (LitInt(0) <= i#2)
+    if (i#2 < Seq#Length(s'#0))
     {
-    }
-
-    if (LitInt(0) <= i#2 && i#2 < Seq#Length(s'#0))
-    {
+        ##a#2 := i#2;
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##a#2, TInt, $Heap);
+        ##b#2 := LitInt(1);
+        // assume allocatedness for argument to function
+        assume $IsAlloc(##b#2, TInt, $Heap);
+        assume _module.__default.Add#canCall(i#2, LitInt(1));
     }
 
     // End Comprehension WF check
-    assume true;
+    assume (forall i#3: int :: 
+      { _module.__default.Add(i#3, 1) } 
+      i#3 < Seq#Length(s'#0) ==> _module.__default.Add#canCall(i#3, LitInt(1)));
     assert (forall i#3: int :: 
+      { _module.__default.Add(i#3, 1) } 
       true
          ==> 
-        LitInt(0) <= i#3 && i#3 < Seq#Length(s'#0)
-         ==> i#3 + 1 < Seq#Length(s#0));
+        i#3 < Seq#Length(s'#0)
+         ==> _module.__default.Add(i#3, LitInt(1)) < Seq#Length(s#0));
 }
 
 
@@ -3211,10 +3236,10 @@ function _module.__default.myP(a#0: bool, b#0: bool) : bool;
 function _module.__default.myP#canCall(a#0: bool, b#0: bool) : bool;
 
 // consequence axiom for _module.__default.myP
-axiom 0 <= $FunctionContextHeight
+axiom 2 <= $FunctionContextHeight
    ==> (forall a#0: bool, b#0: bool :: 
     { _module.__default.myP(a#0, b#0) } 
-    _module.__default.myP#canCall(a#0, b#0) || 0 != $FunctionContextHeight ==> true);
+    _module.__default.myP#canCall(a#0, b#0) || 2 != $FunctionContextHeight ==> true);
 
 function _module.__default.myP#requires(bool, bool) : bool;
 
@@ -3224,27 +3249,27 @@ axiom (forall a#0: bool, b#0: bool ::
   _module.__default.myP#requires(a#0, b#0) == true);
 
 // definition axiom for _module.__default.myP (revealed)
-axiom 0 <= $FunctionContextHeight
+axiom 2 <= $FunctionContextHeight
    ==> (forall a#0: bool, b#0: bool :: 
     { _module.__default.myP(a#0, b#0) } 
-    _module.__default.myP#canCall(a#0, b#0) || 0 != $FunctionContextHeight
+    _module.__default.myP#canCall(a#0, b#0) || 2 != $FunctionContextHeight
        ==> _module.__default.myP(a#0, b#0) == (a#0 || b#0));
 
 // definition axiom for _module.__default.myP for all literals (revealed)
-axiom 0 <= $FunctionContextHeight
+axiom 2 <= $FunctionContextHeight
    ==> (forall a#0: bool, b#0: bool :: 
     {:weight 3} { _module.__default.myP(Lit(a#0), Lit(b#0)) } 
-    _module.__default.myP#canCall(Lit(a#0), Lit(b#0)) || 0 != $FunctionContextHeight
+    _module.__default.myP#canCall(Lit(a#0), Lit(b#0)) || 2 != $FunctionContextHeight
        ==> _module.__default.myP(Lit(a#0), Lit(b#0)) == Lit(a#0 || b#0));
 
 procedure CheckWellformed$$_module.__default.myP(a#0: bool, b#0: bool);
-  free requires 0 == $FunctionContextHeight;
+  free requires 2 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
 
 procedure CheckWellformed$$_module.__default.myTest2(a#0: bool, b#0: bool);
-  free requires 1 == $FunctionContextHeight;
+  free requires 3 == $FunctionContextHeight;
   modifies $Heap, $Tick;
 
 
@@ -3261,7 +3286,7 @@ procedure Call$$_module.__default.myTest2(a#0: bool, b#0: bool);
 
 
 procedure Impl$$_module.__default.myTest2(a#0: bool, b#0: bool) returns ($_reverifyPost: bool);
-  free requires 1 == $FunctionContextHeight;
+  free requires 3 == $FunctionContextHeight;
   modifies $Heap, $Tick;
   // frame condition: object granularity
   free ensures (forall $o: ref :: 
@@ -3281,9 +3306,9 @@ implementation Impl$$_module.__default.myTest2(a#0: bool, b#0: bool) returns ($_
     // AddMethodImpl: myTest2, Impl$$_module.__default.myTest2
     $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
       $o != null && read($Heap, $o, alloc) ==> false);
-    assume {:captureState "gdb3_Dafny.dfy(19,4): initial state"} true;
+    assume {:captureState "gdb3_Dafny.dfy(23,4): initial state"} true;
     $_reverifyPost := false;
-    // ----- if statement ----- gdb3_Dafny.dfy(19,7)
+    // ----- if statement ----- gdb3_Dafny.dfy(23,7)
     ##a#0 := a#0;
     // assume allocatedness for argument to function
     assume $IsAlloc(##a#0, TBool, $Heap);
@@ -3294,7 +3319,7 @@ implementation Impl$$_module.__default.myTest2(a#0: bool, b#0: bool) returns ($_
     assume _module.__default.myP#canCall(a#0, b#0);
     if (_module.__default.myP(a#0, b#0))
     {
-        // ----- assert statement ----- gdb3_Dafny.dfy(19,22)
+        // ----- assert statement ----- gdb3_Dafny.dfy(23,22)
         if (!a#0)
         {
         }

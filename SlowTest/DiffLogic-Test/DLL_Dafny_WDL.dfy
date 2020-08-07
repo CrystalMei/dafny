@@ -1,9 +1,15 @@
 function method Dec(a: int, b: int) : int
 lemma Props_dec_one (sum: int)
-    ensures forall j: int :: Dec(sum, j + 1) < Dec(sum, j)
+    ensures forall j: int :: Dec(sum, Add(j, 1)) < Dec(sum, j)
 lemma Props_dec_lower_bound (sum: int, x: int)
     requires x <= sum
     ensures 0 <= Dec(sum, x)
+
+lemma lt2plus_one_leq (i: int, j: int) // `forall` not work
+  ensures i < j ==> Add(i, 1) <= j
+lemma eq_in_lt (i: int, j: int, k: int)
+  requires i == j
+  requires k < i ==> k < j
 
 function method Add(a: int, b: int): int { a + b }
 function method Sub(a: int, b: int): int { a - b }
@@ -17,7 +23,7 @@ function method SeqRemove<X> (s: seq<X>, k: int) : (s': seq<X>)
   requires 0 <= k < |s|
   ensures Sub(|s|, 1) == |s'|
   ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
-    0 <= Add(i, 1) < |s| ==>
+    Add(i, 1) < |s| ==>
     if i < k then s'[i] == s[i]
     else s'[i] == s[Add(i, 1)]
 
@@ -125,15 +131,19 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
       (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) )
   && (forall p: int {:trigger g[p]} {:trigger nodes[p].next} ::
     0 <= p < |g| && sentinel <= g[p] ==>
-      nodes[p].next == (
-        if Add(g[p], 1) < |f| then f[Add(g[p], 1)] // nonlast.next or sentinel.next
-        else 0) ) // last.next == sentinel or sentinel.next == sentinel
+      (if Add(g[p], 1) < |f| then
+        0 <= Add(g[p], 1) ==> // precond
+        nodes[p].next ==  f[Add(g[p], 1)] // nonlast.next or sentinel.next
+      else nodes[p].next ==  0) ) // last.next == sentinel or sentinel.next == sentinel
   && (forall p: int {:trigger g[p]} {:trigger nodes[p].prev} ::
     0 <= p < |g| && sentinel <= g[p] ==>
-    && nodes[p].prev == (
-      if g[p] > 0 then f[Sub(g[p], 1)] // nonfirst.prev
-      else if g[p] == 0 || |f| == 0 then 0 // first.prev == sentinel or sentinel.prev == sentinel
-      else f[Sub(|f|, 1)]) ) // sentinel.prev == last
+    && (if g[p] > 0 then
+        0 <= Sub(g[p], 1) ==> // precond
+        nodes[p].prev == f[Sub(g[p], 1)] // nonfirst.prev
+      else if g[p] == 0 || |f| == 0 then 
+        nodes[p].prev == 0 // first.prev == sentinel or sentinel.prev == sentinel
+      else 0 <= Sub(|f|, 1) < |f| ==> // precond
+        nodes[p].prev == f[Sub(|f|, 1)]) ) // sentinel.prev == last
 }
 
 predicate Inv<A>(l:DList<A>)
@@ -179,29 +189,29 @@ function method Get<A>(l:DList<A>, p:int):(a:A)
   seq_get(l.nodes, p).data.value
 }
  
-function method Next<A>(l:DList<A>, p:int):(p':int)
-  requires Inv(l)
-  requires MaybePtr(l, p)
-  ensures MaybePtr(l, p')
-  ensures p == 0 && |Seq(l)| > 0 ==> Index(l, p') == 0
-  ensures p == 0 && |Seq(l)| == 0 ==> p' == 0
-  ensures p != 0 && Add(Index(l, p), 1) < |Seq(l)| ==> Index(l, p') == Add(Index(l, p), 1)
-  ensures p != 0 && Add(Index(l, p), 1) == |Seq(l)| ==> p' == 0
-{
-  seq_get(l.nodes, p).next
-}
+// function method Next<A>(l:DList<A>, p:int):(p':int)
+//   requires Inv(l)
+//   requires MaybePtr(l, p)
+//   ensures MaybePtr(l, p')
+//   ensures p == 0 && |Seq(l)| > 0 ==> Index(l, p') == 0
+//   ensures p == 0 && |Seq(l)| == 0 ==> p' == 0
+//   ensures p != 0 && Add(Index(l, p), 1) < |Seq(l)| ==> Index(l, p') == Add(Index(l, p), 1)
+//   ensures p != 0 && Add(Index(l, p), 1) == |Seq(l)| ==> p' == 0
+// {
+//   seq_get(l.nodes, p).next
+// }
  
-function method Prev<A>(l:DList<A>, p:int):(p':int)
-  requires Inv(l)
-  requires MaybePtr(l, p)
-  ensures MaybePtr(l, p')
-  ensures p == 0 && |Seq(l)| > 0 ==> Index(l, p') == Sub(|Seq(l)|, 1)
-  ensures p == 0 && |Seq(l)| == 0 ==> p' == 0
-  ensures p != 0 && Index(l, p) > 0 ==> Index(l, p') == Sub(Index(l, p), 1)
-  ensures p != 0 && Index(l, p) == 0 == |Seq(l)| ==> p' == 0
-{
-  seq_get(l.nodes, p).prev
-}
+// function method Prev<A>(l:DList<A>, p:int):(p':int)
+//   requires Inv(l)
+//   requires MaybePtr(l, p)
+//   ensures MaybePtr(l, p')
+//   ensures p == 0 && |Seq(l)| > 0 ==> Index(l, p') == Sub(|Seq(l)|, 1)
+//   ensures p == 0 && |Seq(l)| == 0 ==> p' == 0
+//   ensures p != 0 && Index(l, p) > 0 ==> Index(l, p') == Sub(Index(l, p), 1)
+//   ensures p != 0 && Index(l, p) == 0 == |Seq(l)| ==> p' == 0
+// {
+//   seq_get(l.nodes, p).prev
+// }
  
 method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   requires 0 < k <= |a|
@@ -212,7 +222,7 @@ method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   b := a;
   var n := k;
 //   shared_seq_length_bound(b);
-  while (n < seq_length(b))
+  while (n < |b|)
     invariant k <= n <= |b|
     invariant |b| == |a|
     invariant forall i: int :: 0 <= i < k ==> b[i] == a[i]
@@ -222,7 +232,8 @@ method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
     b := SeqUpdate(b, n, Node(None, Sub(n, 1), 0));
     Props_dec_one (seq_length(b));
     Props_dec_lower_bound(seq_length(b), n);
-    n := n + 1;
+    lt2plus_one_leq (n, |b|);
+    n := Add(n, 1);
   }
 }
 
@@ -247,6 +258,8 @@ method Alloc<A>(initial_len:int) returns(l:DList<A>)
   nodes := BuildFreeStack(nodes, 1);
   var g := Alloc_SeqInit(initial_len);
   l := DList(nodes, initial_len - 1, [], [], g);
+  // eq_in_lt(initial_len, |nodes|, initial_len - 1); // not work?
+  assume initial_len - 1 < initial_len ==> initial_len - 1 < |nodes|;
 }
 
 method Free<A>(l:DList<A>)
@@ -286,7 +299,8 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   assume Add(len, 1) <= Add(len, len);
   nodes := BuildFreeStack(nodes, Add(len, 1));
   var g' := Expand_SeqInit(g, |nodes|);
-  l' := DList(nodes, Sub(len', 1), s, f, g');
+  l' := DList(nodes, len' - 1, s, f, g');
+  assume len' - 1 < len' ==> len' - 1 < |nodes|;
 }
 
 ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)

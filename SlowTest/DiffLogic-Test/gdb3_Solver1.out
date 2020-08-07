@@ -119,15 +119,12 @@ mk_bool_var: creating boolean variable: 0 for:
 true, its ID: 1
 
 	(unknown logic setup)
-	(setup arith: Weaken Diff Logic)
-	(setup arith: Weaken Diff Logic - theory_weak_rdl)
-W-DL: enode mk_var: 0
-W-DL: set_sort: 0
-W-DL: enode mk_var: 1
-W-DL: set_sort: 0.0
+	(setup arith: Diff Logic)
+	(setup arith: Diff Logic - theory_rdl)
+DL: enode mk_var: 0
+DL: enode mk_var: 1
 (smt.simplifier-start)
 (smt.simplifier-start)
-W-DL: push_scope_eh
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: mk_le_ge_eq_core
 	(call solver...)
@@ -180,11 +177,10 @@ internalize_theory_atom: #58
 #41 := (+ y #40)
 (>= #41 1)
 
-W-DL: internalize_atom: (>= (+ y (* (- 1) x)) 1)
-W-DL: internalize_atom: LHS = (+ y (* (- 1) x))
-W-DL: internalize_atom: RHS = 1
-W-DL: is_sign: (- 1)
-W-DL: mk_var starts: y
+DL: internalize_atom: (>= (+ y (* (- 1) x)) 1)
+DL: internalize_atom: LHS = (+ y (* (- 1) x))
+DL: internalize_atom: RHS = 1
+DL: mk_var starts: y
 
 internalize_rec:
 y
@@ -195,10 +191,9 @@ internalize_uninterpreted:
 y
 y
 
-W-DL: enode mk_var: 2
-W-DL: set_sort: y
-W-DL: mk_var returns: y |-> 2
-W-DL: mk_var starts: x
+DL: enode mk_var: 2
+DL: mk_var returns: y |-> 2
+DL: mk_var starts: x
 
 internalize_rec:
 x
@@ -209,28 +204,25 @@ internalize_uninterpreted:
 x
 x
 
-W-DL: enode mk_var: 3
-W-DL: set_sort: x
-W-DL: mk_var returns: x |-> 3
+DL: enode mk_var: 3
+DL: mk_var returns: x |-> 3
 
 mk_bool_var: creating boolean variable: 1 for:
 (>= (+ y (* (- 1) x)) 1), its ID: 58
 
-W-DL: edge: src_id #2, dst_id #3, weight: -1
-W-DL: edge valid weight (<= 0)
-DL Graph: add_edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-DL Graph: add_edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
-W-DL: internalize_atom done: (>= (+ y (* (- 1) x)) 1)
-	pos: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-	neg: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+DL: internalize_atom done: (>= (+ y (* (- 1) x)) 1)
+pos: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+neg: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
 
-W-DL: graph display:
+DL: graph display:
 atoms
 (not p1) (>= (+ y (* (- 1) x)) 1) 
 graph
 	edge
-disabled edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -283,37 +275,33 @@ internalize_theory_atom: #57
 #41 := (+ y #40)
 (<= #41 1)
 
-W-DL: internalize_atom: (<= (+ y (* (- 1) x)) 1)
-W-DL: internalize_atom: LHS = (+ y (* (- 1) x))
-W-DL: internalize_atom: RHS = 1
-W-DL: is_sign: (- 1)
-W-DL: mk_var starts: y
-W-DL: mk_var returns: y |-> 2
-W-DL: mk_var starts: x
-W-DL: mk_var returns: x |-> 3
+DL: internalize_atom: (<= (+ y (* (- 1) x)) 1)
+DL: internalize_atom: LHS = (+ y (* (- 1) x))
+DL: internalize_atom: RHS = 1
+DL: mk_var starts: y
+DL: mk_var returns: y |-> 2
+DL: mk_var starts: x
+DL: mk_var returns: x |-> 3
 
 mk_bool_var: creating boolean variable: 2 for:
 (<= (+ y (* (- 1) x)) 1), its ID: 57
 
-W-DL: edge: src_id #3, dst_id #2, weight: 1
-W-DL: edge invalid weight (> 0)
-W-DL: temp edge of single variable (edge to 0)
-DL Graph: add_edge: p2 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-DL Graph: add_edge: (not p2) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-W-DL: internalize_atom done: (<= (+ y (* (- 1) x)) 1)
-	pos: p2 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-	neg: (not p2) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+DL: internalize_atom done: (<= (+ y (* (- 1) x)) 1)
+pos: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+neg: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 
-W-DL: graph display:
+DL: graph display:
 atoms
 p1 (>= (+ y (* (- 1) x)) 1) 
 (not p2) (<= (+ y (* (- 1) x)) 1) 
 graph
 	edge
-disabled edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
-disabled edge: p2 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p2) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -371,13 +359,12 @@ internalize_theory_atom: #38
 #50 := (+ x #49)
 (<= #50 0)
 
-W-DL: internalize_atom: (<= (+ x (* (- 1) i!0)) 0)
-W-DL: internalize_atom: LHS = (+ x (* (- 1) i!0))
-W-DL: internalize_atom: RHS = 0
-W-DL: is_sign: (- 1)
-W-DL: mk_var starts: x
-W-DL: mk_var returns: x |-> 3
-W-DL: mk_var starts: i!0
+DL: internalize_atom: (<= (+ x (* (- 1) i!0)) 0)
+DL: internalize_atom: LHS = (+ x (* (- 1) i!0))
+DL: internalize_atom: RHS = 0
+DL: mk_var starts: x
+DL: mk_var returns: x |-> 3
+DL: mk_var starts: i!0
 
 internalize_rec:
 i!0
@@ -388,32 +375,29 @@ internalize_uninterpreted:
 i!0
 i!0
 
-W-DL: enode mk_var: 4
-W-DL: set_sort: i!0
-W-DL: mk_var returns: i!0 |-> 4
+DL: enode mk_var: 4
+DL: mk_var returns: i!0 |-> 4
 
 mk_bool_var: creating boolean variable: 3 for:
 (<= (+ x (* (- 1) i!0)) 0), its ID: 38
 
-W-DL: edge: src_id #4, dst_id #3, weight: 0
-W-DL: edge valid weight (<= 0)
 DL Graph: add_edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
 DL Graph: add_edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
-W-DL: internalize_atom done: (<= (+ x (* (- 1) i!0)) 0)
-	pos: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
-	neg: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+DL: internalize_atom done: (<= (+ x (* (- 1) i!0)) 0)
+pos: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+neg: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
 
-W-DL: graph display:
+DL: graph display:
 atoms
 p1 (>= (+ y (* (- 1) x)) 1) 
 p2 (<= (+ y (* (- 1) x)) 1) 
 (not p3) (<= (+ x (* (- 1) i!0)) 0) 
 graph
 	edge
-disabled edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
-disabled edge: p2 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p2) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
 	assignment
@@ -465,28 +449,24 @@ internalize_theory_atom: #56
 #43 := (+ y #49)
 (<= #43 1)
 
-W-DL: internalize_atom: (<= (+ y (* (- 1) i!0)) 1)
-W-DL: internalize_atom: LHS = (+ y (* (- 1) i!0))
-W-DL: internalize_atom: RHS = 1
-W-DL: is_sign: (- 1)
-W-DL: mk_var starts: y
-W-DL: mk_var returns: y |-> 2
-W-DL: mk_var starts: i!0
-W-DL: mk_var returns: i!0 |-> 4
+DL: internalize_atom: (<= (+ y (* (- 1) i!0)) 1)
+DL: internalize_atom: LHS = (+ y (* (- 1) i!0))
+DL: internalize_atom: RHS = 1
+DL: mk_var starts: y
+DL: mk_var returns: y |-> 2
+DL: mk_var starts: i!0
+DL: mk_var returns: i!0 |-> 4
 
 mk_bool_var: creating boolean variable: 4 for:
 (<= (+ y (* (- 1) i!0)) 1), its ID: 56
 
-W-DL: edge: src_id #4, dst_id #2, weight: 1
-W-DL: edge invalid weight (> 0)
-W-DL: temp edge of single variable (edge to 0)
-DL Graph: add_edge: p4 (<= (- dst$4 src$4) [weight: 0] ) {timestamp: 0}
-DL Graph: add_edge: (not p4) (<= (- dst$4 src$4) [weight: 0] ) {timestamp: 0}
-W-DL: internalize_atom done: (<= (+ y (* (- 1) i!0)) 1)
-	pos: p4 (<= (- dst$4 src$4) [weight: 0] ) {timestamp: 0}
-	neg: (not p4) (<= (- dst$4 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+DL: internalize_atom done: (<= (+ y (* (- 1) i!0)) 1)
+pos: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+neg: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 
-W-DL: graph display:
+DL: graph display:
 atoms
 p1 (>= (+ y (* (- 1) x)) 1) 
 p2 (<= (+ y (* (- 1) x)) 1) 
@@ -494,14 +474,14 @@ p3 (<= (+ x (* (- 1) i!0)) 0)
 (not p4) (<= (+ y (* (- 1) i!0)) 1) 
 graph
 	edge
-disabled edge: p1 (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
-disabled edge: p2 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p2) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
-disabled edge: p4 (<= (- dst$4 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p4) (<= (- dst$4 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -516,34 +496,9 @@ propagate_relevancy_to_args # 56
 propagate_relevancy_to_args # 43
 (+ y (* (- 1) i!0))
 (smt.searching)
-W-DL: assign_eh: 1
-W-DL: assign_eh: 2
-W-DL: assign_eh: 3
-W-DL: assign_eh: 4
-W-DL: propagate_atom: atom = (not p1) (>= (+ y (* (- 1) x)) 1) 
-W-DL: propagate_atom: atom = (not p2) (<= (+ y (* (- 1) x)) 1) 
-W-DL: propagate_atom: atom = p3 (<= (+ x (* (- 1) i!0)) 0) 
-W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) i!0)) 1) 
-
-W-DL: final_check_eh
-W-DL: final_check - done
-sat
-W-DL: init_model
-W-DL: compute_delta
-(n_x,k_x): 0, 0, (n_y,k_y): 0, 0, (n_c,k_c): 0, 0
-(n_x,k_x): 0, 0, (n_y,k_y): 0, 0, (n_c,k_c): 0, 0
-(n_x,k_x): -1, 0, (n_y,k_y): 0, 0, (n_c,k_c): -1, 0
-(n_x,k_x): -1, 0, (n_y,k_y): -1, 0, (n_c,k_c): 0, 0
-W-DL: enode mk_value: 0
-W-DL: enode mk_value: 2
-W-DL: enode mk_value: 3
-W-DL: enode mk_value: 4
-(model 
-  (define-fun y () Int
-    0)
-  (define-fun x () Int
-    0)
-  (define-fun z () Int
-    0)
-)
-W-DL: pop_scope_eh: 1
+DL: propagate atom: atom = (not p1) (>= (+ y (* (- 1) x)) 1) 
+DL: propagate atom: atom = (not p2) (<= (+ y (* (- 1) x)) 1) 
+DL: propagate atom: atom = p3 (<= (+ x (* (- 1) i!0)) 0) 
+DL: propagate atom: atom = (not p4) (<= (+ y (* (- 1) i!0)) 1) 
+unsat
+(error "line 41 column 10: model is not available")
