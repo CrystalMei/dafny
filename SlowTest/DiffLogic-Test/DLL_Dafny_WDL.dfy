@@ -135,7 +135,6 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
   && (forall p: int {:trigger g[p]} {:trigger nodes[p].next} ::
     0 <= p < |g| && sentinel <= g[p] ==>
       (if Add(g[p], 1) < |f| then
-        0 <= Add(g[p], 1) ==> // precond
         nodes[p].next ==  f[Add(g[p], 1)] // nonlast.next or sentinel.next
       else nodes[p].next ==  0) ) // last.next == sentinel or sentinel.next == sentinel
   && (forall p: int {:trigger g[p]} {:trigger nodes[p].prev} ::
@@ -145,7 +144,8 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
         nodes[p].prev == f[Sub(g[p], 1)] // nonfirst.prev
       else if g[p] == 0 || |f| == 0 then 
         nodes[p].prev == 0 // first.prev == sentinel or sentinel.prev == sentinel
-      else 0 <= Sub(|f|, 1) < |f| ==> // precond
+      else
+        0 <= Sub(|f|, 1) ==> // precond
         nodes[p].prev == f[Sub(|f|, 1)]) ) // sentinel.prev == last
 }
 
@@ -236,10 +236,10 @@ method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
     Props_dec_one (seq_length(b));
     Props_dec_lower_bound(seq_length(b), n);
 
-    assume forall x: int :: Add(Sub(x, 1), 1) == x;
-    assume forall x: int :: Sub(Add(x, 1), 1) == x;
-    // assume forall x: int {:trigger Add(x, 1)} :: x < |b| ==> Add(x, 1) <= |b|;
-    // lt2plus_one_leq (n, |b|);
+    // assumption: n <= x < n + 1 ==> x == n
+    assume forall x: int :: n <= x < Add(n, 1) ==> x == n && b[x] == Node(None, Sub(n, 1), 0);
+    // assumption: n < |b| ==> n + 1 <= |b|
+    lt2plus_one_leq (n, |b|);
 
     n := Add(n, 1);
   }
@@ -280,7 +280,7 @@ method Free<A>(l:DList<A>)
 ghost method Expand_SeqInit(g: seq<int>, new_len: int) returns (g': seq<int>)
   requires new_len >= 0
   ensures |g'| == new_len
-  ensures forall x: int {:trigger g'[x  ]} {:trigger g[x]} ::
+  ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < new_len ==>
       if x < |g| then g'[x] == g[x]
       else g'[x] == unused
@@ -289,7 +289,6 @@ ghost method Expand_SeqInit(g: seq<int>, new_len: int) returns (g': seq<int>)
       if x < |g| then g[x] else unused);
   }
 
-// 1.014 s
 method Expand<A>(l:DList<A>) returns(l':DList<A>)
   requires Inv(l)
   ensures Inv(l')
@@ -323,7 +322,7 @@ ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
     if g[x] == index then unused else if g[x] > index then Sub(g[x], 1) else g[x]);
   }
 
-// 4.368 s
+// 7+ s
 method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
@@ -341,14 +340,7 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   ghost var g' := Remove_SeqInit(g, index);
   var node := seq_get(nodes, p);
 
-  assume forall x: int :: Add(Sub(x, 1), 1) == x;
-  assume forall x: int :: Sub(Add(x, 1), 1) == x;
-
-  // assume forall x: int {:trigger Add(x, 1)} :: x < |s'| ==> Add(x, 1) < |s|;
-  // assume forall x: int :: Sub(Add(x, 1), 1) == x;
-  // assume forall x: int {:trigger Sub(x, 1)} :: x > index ==> Sub(x, 1) >= index;
-  // assume forall x: int {:trigger Sub(x, 1)} :: x < |s| ==> Sub(x, 1) < |s'|;
-  // assume forall x: int {:trigger Sub(x, 1)} :: x > 0 ==> Sub(x, 1) >= 0;
+  assume forall x: int {:trigger Sub(x, 1)} :: x > 0 ==> Sub(x, 1) >= 0;
 
   var node_prev := seq_get(nodes, node.prev);
   nodes := SeqUpdate(nodes, node.prev, node_prev.(next := node.next));
@@ -356,6 +348,17 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := node.prev));
   nodes := SeqUpdate(nodes, p, Node(None, freeStack, 0));
   l' := DList(nodes, p, s', f', g');
+
+  assume forall x: int {:trigger Sub(x, 1)} :: x < |s| ==> Sub(x, 1) < |s'|;
+
+  assume forall x: int {:trigger Sub(Add(x, 1), 1)} :: Sub(Add(x, 1), 1) == x;
+  
+  // SeqRemove precond
+  assume forall x: int {:trigger Add(x, 1)} :: x < |f'| ==> Add(x, 1) < |f|;
+  // Remove_SeqInit
+  assume forall x: int {:trigger Sub(x, 1)} :: x > index ==> Sub(x, 1) >= index;
+
+  assume forall x: int {:trigger Add(Sub(x, 1), 1)}:: Add(Sub(x, 1), 1) == x;
 }
 
 ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
@@ -370,7 +373,6 @@ ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) 
       if x == p' then index' else if index < g[x] then Add(g[x], 1) else g[x]);
   }
 
-// 29.561 s
 method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -393,19 +395,12 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   var DList(nodes, freeStack, s, f, g) := l';
   ghost var index := g[p];
   ghost var index' := Add(index, 1);
-
   assume -1 <= index ==> 0 <= index';
-  assume index < |s| ==> index' <= |s|;
-
+  lt2plus_one_leq(index, |s|);
   ghost var s' := SeqInsert(s, index', a);
   ghost var f' := SeqInsert(f, index', p');
   ghost var g' := InsertAfter_SeqInit(g, p', index, index');
   var node := seq_get(nodes, p);
-
-  assume forall x: int :: Add(Sub(x, 1), 1) == x;
-  assume forall x: int :: Sub(Add(x, 1), 1) == x;
-  // assume forall x: int {:trigger Sub(x, 1)} :: x > index' ==> Sub(x, 1) >= index';
-  // assume forall x: int {:trigger Sub(x, 1)} :: x < |s'| ==> Sub(x, 1) < |s|;
 
   var node' := Node(Some(a), node.next, p);
   nodes := SeqUpdate(nodes, p, node.(next := p'));
@@ -413,6 +408,22 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
+
+  // SeqInsert precond
+  assume forall x: int {:trigger Sub(x, 1)} :: x < |f'| ==> Sub(x, 1) < |f|;
+  assume forall x: int {:trigger Sub(x, 1)} :: x > 0 ==> Sub(x, 1) >= 0;
+
+  assume forall x: int {:trigger Add(Sub(x, 1), 1)}:: Add(Sub(x, 1), 1) == x;
+
+  // InsertAfter_SeqInit
+  assume forall x: int {:trigger Add(x, 1)} :: x < |s| ==> Add(x, 1) < |s'|;
+
+  // assume forall x: int {:trigger Sub(x, 1)} :: x < |f| ==> Sub(x, 1) < |f'|;
+  assume forall x: int {:trigger Sub(Add(x, 1), 1)} :: Sub(Add(x, 1), 1) == x;
+  
+  // // SeqRemove precond
+  // assume forall x: int {:trigger Add(x, 1)} :: x < |f'| ==> Add(x, 1) < |f|;
+  
 }
 
 
