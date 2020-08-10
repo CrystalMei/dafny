@@ -9,8 +9,8 @@
 ; equation problem
 (assert (not
     (let ((anon0_correct 
-        (=> (= y (+ x 1)) 
-            (! (forall ((i Int)) (!  (=> (< i x) (< (+ i 1) y))) ))) ))
+        (=> (= y x) 
+            (! (forall ((i Int)) (!  (=> (< i x) (< i y))) ))) ))
     anon0_correct) ))
 
 ;(assert (not

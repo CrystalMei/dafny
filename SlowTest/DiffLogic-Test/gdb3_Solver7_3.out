@@ -1,0 +1,636 @@
+(QF-LIA probe check)
+(QF-AUFLIA probe check)
+(QF-LRA probe check)
+(QF-LIRA probe check)
+(ILP probe check)
+(QF-NIA probe check)
+(QF-NRA probe check)
+(NIA probe check)
+(NRA probe check)
+(NIRA probe check)
+(LIA probe check)
+(LRA probe check)
+(LIRA probe check)
+(AF-UFNRA probe check)
+	(Quantifier Probe)
+	(mk SMT tactic)
+	(mk preamble tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_FP tactic)
+	(mk SMT tactic)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk NRA tactic)
+	(mk SMT tactic)
+(QF-NRA probe check)
+(NRA probe check)
+	(mk LIRA tactic)
+	(mk LRA tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QSAT tactic)
+(LIRA probe check)
+	(Quantifier Probe)
+	(mk quant preprocessor)
+(LIRA probe check)
+	(mk QF_NIA tactic)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA NLSAT solver)
+	(mk QF_NIA SMT solver)
+	(mk SMT tactic)
+	(mk QF_NIA SAT solver)
+	(mk QF_NIA BV solver)
+	(mk QF_NIA preamble tactic)
+(QF-NIA probe check)
+	(mk QF_NRA tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_NRA SAT solver)
+	(mk SMT tactic)
+(QF-NRA probe check)
+	(mk QF_LRA tactic)
+	(mk SMT tactic)
+(QF-LRA probe check)
+	(mk QF_AUFLIA tactic)
+	(mk SMT tactic)
+(QF-AUFLIA probe check)
+	(mk QF-LIA tactic)
+	(mk preamble tactic)
+	(mk SMT tactic)
+	(mk bounded tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_no_relevancy_smt tactic)
+	(mk SMT tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk pb tactic)
+	(mk bv2sat tactic)
+(ILP probe check)
+	(mk ilp_model_finder tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+	(mk lia2sat tactic)
+	(mk bv2sat tactic)
+	(mk-lia2pb-tactic)
+	(mk no_cut_smt tactic)
+	(mk SMT tactic)
+(ILP probe check)
+(QF-LIA probe check)
+	(mk QF_AUFBV tactic)
+	(mk QF_AUFBV preamble tactic)
+	(mk SMT tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk QF_BV tactic)
+	(mk SMT tactic)
+	(mk SMT tactic)
+	(mk QF_BV preamble tactic)
+	(mk FD tactic)
+	(mk FD tactic)
+mk_combined_solver...
+	(mk SMT solver)
+
+mk_bool_var: creating boolean variable: 0 for:
+true, its ID: 1
+
+	(unknown logic setup)
+	(setup arith: Weaken Diff Logic)
+	(setup arith: Weaken Diff Logic - theory_weak_rdl)
+W-DL: enode mk_var: 0
+W-DL: set_sort: 0
+W-DL: enode mk_var: 1
+W-DL: set_sort: 0.0
+(smt.simplifier-start)
+propagating... 0:0
+W-DL: propagate_core
+(smt.simplifier-start)
+W-DL: push_scope_eh
+mk_eq_core: y, (+ 1 x)
+mk_eq_core: mk_le_ge_eq_core
+	(call solver...)
+	(solver_na2as check_sat_core)
+	(smt_solver check_sat_core)
+(smt.simplifier-start)
+(smt.propagate-values)
+mk_eq_core: (+ y (* (- 1) x)), 1
+mk_eq_core: mk_le_ge_eq_core
+mk_eq_core: (+ y (* (- 1) x)), 1
+mk_eq_core: mk_le_ge_eq_core
+(smt.nnf-cnf)
+mk_eq_core: (+ y (* (- 1) x)), 1
+mk_eq_core: mk_le_ge_eq_core
+(smt.reduce-asserted)
+mk_eq_core: (+ y (* (- 1) x)), 1
+mk_eq_core: rewrite to LE and GE
+(smt.refine-injectivity)
+(smt.pattern-inference)
+(smt.maximizing-bv-sharing)
+(smt.reduce-asserted)
+(smt.flatten-clauses)
+
+internalize_assertion:
+(>= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(>= #41 1)
+
+assert_default: expr #58:
+(>= (+ y (* (- 1) x)) 1)
+
+internalize_rec with gate_ctx(1):
+(>= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(>= #41 1)
+
+
+internalize_formula: with gate_ctx(1):
+(>= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(>= #41 1)
+
+
+internalize_theory_atom: #58 with gate_ctx(1):
+(>= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(>= #41 1)
+
+W-DL: internalize_atom with gate_ctx(1): (>= (+ y (* (- 1) x)) 1)
+W-DL: internalize_atom: LHS = (+ y (* (- 1) x))
+W-DL: internalize_atom: RHS = 1
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: y
+
+internalize_rec with gate_ctx(0):
+y
+y
+
+
+internalize_uninterpreted:
+y
+y
+
+W-DL: enode mk_var: 2
+W-DL: set_sort: y
+W-DL: mk_var returns: y |-> 2
+W-DL: mk_var starts: x
+
+internalize_rec with gate_ctx(0):
+x
+x
+
+
+internalize_uninterpreted:
+x
+x
+
+W-DL: enode mk_var: 3
+W-DL: set_sort: x
+W-DL: mk_var returns: x |-> 3
+
+mk_bool_var: creating boolean variable: 1 for:
+(>= (+ y (* (- 1) x)) 1), its ID: 58
+
+DL Graph: add_edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr:
+(>= (+ y (* (- 1) x)) 1)
+edge:
+(not p1) (>= (+ y (* (- 1) x)) 1) 
+	pos #0: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+	neg #1: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+(not p1) (>= (+ y (* (- 1) x)) 1) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+
+internalize_theory_atom: #58  with gate_ctx(1) internalization succeeded
+(>= (+ y (* (- 1) x)) 1)
+
+propagate_relevancy: marking as relevant:
+(>= (+ y (* -1 x)) 1)
+scope_level: 1
+propagate_relevancy_to_args # 58
+(>= (+ y (* (- 1) x)) 1)
+propagate_relevancy: marking as relevant:
+1
+scope_level: 1
+propagate_relevancy: marking as relevant:
+(+ y (* -1 x))
+scope_level: 1
+propagate_relevancy_to_args # 27
+1
+propagate_relevancy_to_args # 41
+(+ y (* (- 1) x))
+propagate_relevancy: marking as relevant:
+(* -1 x)
+scope_level: 1
+propagate_relevancy: marking as relevant:
+y
+scope_level: 1
+propagate_relevancy_to_args # 40
+(* (- 1) x)
+propagate_relevancy: marking as relevant:
+x
+scope_level: 1
+propagate_relevancy: marking as relevant:
+-1
+scope_level: 1
+propagate_relevancy_to_args # 25
+y
+propagate_relevancy_to_args # 26
+x
+propagate_relevancy_to_args # 39
+(- 1)
+
+internalize_assertion:
+(<= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(<= #41 1)
+
+assert_default: expr #57:
+(<= (+ y (* (- 1) x)) 1)
+
+internalize_rec with gate_ctx(1):
+(<= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(<= #41 1)
+
+
+internalize_formula: with gate_ctx(1):
+(<= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(<= #41 1)
+
+
+internalize_theory_atom: #57 with gate_ctx(1):
+(<= (+ y (* (- 1) x)) 1)
+#40 := (* -1 x)
+#41 := (+ y #40)
+(<= #41 1)
+
+W-DL: internalize_atom with gate_ctx(1): (<= (+ y (* (- 1) x)) 1)
+W-DL: internalize_atom: LHS = (+ y (* (- 1) x))
+W-DL: internalize_atom: RHS = 1
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: y
+W-DL: mk_var returns: y |-> 2
+W-DL: mk_var starts: x
+W-DL: mk_var returns: x |-> 3
+
+mk_bool_var: creating boolean variable: 2 for:
+(<= (+ y (* (- 1) x)) 1), its ID: 57
+
+DL Graph: add_edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr:
+(<= (+ y (* (- 1) x)) 1)
+edge:
+(not p2) (<= (+ y (* (- 1) x)) 1) 
+	pos #2: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+	neg #3: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+p1 (>= (+ y (* (- 1) x)) 1) 
+(not p2) (<= (+ y (* (- 1) x)) 1) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+
+internalize_theory_atom: #57  with gate_ctx(1) internalization succeeded
+(<= (+ y (* (- 1) x)) 1)
+
+propagate_relevancy: marking as relevant:
+(<= (+ y (* -1 x)) 1)
+scope_level: 1
+propagate_relevancy_to_args # 57
+(<= (+ y (* (- 1) x)) 1)
+
+internalize_assertion:
+(not (<= (+ x (* (- 1) i!0)) 0))
+#49 := (* -1 i!0)
+#50 := (+ x #49)
+#38 := (<= #50 0)
+(not #38)
+
+assert_default: expr #60:
+(not (<= (+ x (* (- 1) i!0)) 0))
+
+internalize_rec with gate_ctx(1):
+(not (<= (+ x (* (- 1) i!0)) 0))
+#49 := (* -1 i!0)
+#50 := (+ x #49)
+#38 := (<= #50 0)
+(not #38)
+
+
+internalize_formula: with gate_ctx(1):
+(not (<= (+ x (* (- 1) i!0)) 0))
+#49 := (* -1 i!0)
+#50 := (+ x #49)
+#38 := (<= #50 0)
+(not #38)
+
+
+internalize_rec with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#49 := (* -1 i!0)
+#50 := (+ x #49)
+(<= #50 0)
+
+
+internalize_formula: with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#49 := (* -1 i!0)
+#50 := (+ x #49)
+(<= #50 0)
+
+
+internalize_theory_atom: #38 with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#49 := (* -1 i!0)
+#50 := (+ x #49)
+(<= #50 0)
+
+W-DL: internalize_atom with gate_ctx(1): (<= (+ x (* (- 1) i!0)) 0)
+W-DL: internalize_atom: LHS = (+ x (* (- 1) i!0))
+W-DL: internalize_atom: RHS = 0
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: x
+W-DL: mk_var returns: x |-> 3
+W-DL: mk_var starts: i!0
+
+internalize_rec with gate_ctx(0):
+i!0
+i!0
+
+
+internalize_uninterpreted:
+i!0
+i!0
+
+W-DL: enode mk_var: 4
+W-DL: set_sort: i!0
+W-DL: mk_var returns: i!0 |-> 4
+
+mk_bool_var: creating boolean variable: 3 for:
+(<= (+ x (* (- 1) i!0)) 0), its ID: 38
+
+DL Graph: add_edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr:
+(<= (+ x (* (- 1) i!0)) 0)
+edge:
+(not p3) (<= (+ x (* (- 1) i!0)) 0) 
+	pos #4: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+	neg #5: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+p1 (>= (+ y (* (- 1) x)) 1) 
+p2 (<= (+ y (* (- 1) x)) 1) 
+(not p3) (<= (+ x (* (- 1) i!0)) 0) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+$4 := 0
+
+internalize_theory_atom: #38  with gate_ctx(1) internalization succeeded
+(<= (+ x (* (- 1) i!0)) 0)
+
+propagate_relevancy: marking as relevant:
+(<= (+ x (* -1 i!0)) 0)
+scope_level: 1
+propagate_relevancy_to_args # 38
+(<= (+ x (* (- 1) i!0)) 0)
+propagate_relevancy: marking as relevant:
+0
+scope_level: 1
+propagate_relevancy: marking as relevant:
+(+ x (* -1 i!0))
+scope_level: 1
+propagate_relevancy_to_args # 23
+0
+propagate_relevancy_to_args # 50
+(+ x (* (- 1) i!0))
+propagate_relevancy: marking as relevant:
+(* -1 i!0)
+scope_level: 1
+propagate_relevancy_to_args # 49
+(* (- 1) i!0)
+propagate_relevancy: marking as relevant:
+i!0
+scope_level: 1
+propagate_relevancy_to_args # 48
+i!0
+
+internalize_assertion:
+(<= (+ y (* (- 1) i!0)) 1)
+#49 := (* -1 i!0)
+#43 := (+ y #49)
+(<= #43 1)
+
+assert_default: expr #56:
+(<= (+ y (* (- 1) i!0)) 1)
+
+internalize_rec with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 1)
+#49 := (* -1 i!0)
+#43 := (+ y #49)
+(<= #43 1)
+
+
+internalize_formula: with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 1)
+#49 := (* -1 i!0)
+#43 := (+ y #49)
+(<= #43 1)
+
+
+internalize_theory_atom: #56 with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 1)
+#49 := (* -1 i!0)
+#43 := (+ y #49)
+(<= #43 1)
+
+W-DL: internalize_atom with gate_ctx(1): (<= (+ y (* (- 1) i!0)) 1)
+W-DL: internalize_atom: LHS = (+ y (* (- 1) i!0))
+W-DL: internalize_atom: RHS = 1
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: y
+W-DL: mk_var returns: y |-> 2
+W-DL: mk_var starts: i!0
+W-DL: mk_var returns: i!0 |-> 4
+
+mk_bool_var: creating boolean variable: 4 for:
+(<= (+ y (* (- 1) i!0)) 1), its ID: 56
+
+DL Graph: add_edge: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr:
+(<= (+ y (* (- 1) i!0)) 1)
+edge:
+(not p4) (<= (+ y (* (- 1) i!0)) 1) 
+	pos #6: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+	neg #7: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+p1 (>= (+ y (* (- 1) x)) 1) 
+p2 (<= (+ y (* (- 1) x)) 1) 
+p3 (<= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ y (* (- 1) i!0)) 1) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+$4 := 0
+
+internalize_theory_atom: #56  with gate_ctx(1) internalization succeeded
+(<= (+ y (* (- 1) i!0)) 1)
+
+propagate_relevancy: marking as relevant:
+(<= (+ y (* -1 i!0)) 1)
+scope_level: 1
+propagate_relevancy_to_args # 56
+(<= (+ y (* (- 1) i!0)) 1)
+propagate_relevancy: marking as relevant:
+(+ y (* -1 i!0))
+scope_level: 1
+propagate_relevancy_to_args # 43
+(+ y (* (- 1) i!0))
+(smt.searching)
+propagating... 0:4
+propagate_atoms: #58
+(>= (+ y (* (- 1) x)) 1)
+W-DL: assign_eh: 1
+propagate_atoms: #57
+(<= (+ y (* (- 1) x)) 1)
+W-DL: assign_eh: 2
+propagate_atoms: #38
+(<= (+ x (* (- 1) i!0)) 0)
+W-DL: assign_eh: 3
+propagate_atoms: #56
+(<= (+ y (* (- 1) i!0)) 1)
+W-DL: assign_eh: 4
+W-DL: propagate_core
+W-DL: propagate_atom: atom = (not p1) (>= (+ y (* (- 1) x)) 1) 
+DL Graph: try enable edge #0: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #0: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+
+W-DL: propagate_atom: atom = (not p2) (<= (+ y (* (- 1) x)) 1) 
+DL Graph: try enable edge #2: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #2: p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 1}
+
+W-DL: propagate_atom: atom = p3 (<= (+ x (* (- 1) i!0)) 0) 
+DL Graph: try enable edge #5: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #5: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 2}
+
+W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) i!0)) 1) 
+DL Graph: try enable edge #6: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #6: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 3}
+
+W-DL: propagate_atom: before set_neg_cycle_conflict
+atoms
+(not p1) (>= (+ y (* (- 1) x)) 1) 
+(not p2) (<= (+ y (* (- 1) x)) 1) 
+p3 (<= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ y (* (- 1) i!0)) 1) 
+graph
+	edge
+p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+p2 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 1}
+disabled edge: (not p2) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+(not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 2}
+p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 3}
+disabled edge: (not p4) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := -1
+$4 := -2
+
+W-DL: neg_cycle_conflict:
+#56(<= (+ y (* (- 1) i!0)) 1) relevant: 1, val: l_true
+(not #38)(not (<= (+ x (* (- 1) i!0)) 0)) relevant: 1, val: l_true
+#58(>= (+ y (* (- 1) x)) 1) relevant: 1, val: l_true
+
+unsat
+(error "line 48 column 10: model is not available")
+W-DL: pop_scope_eh: 1
