@@ -6,12 +6,79 @@
 (declare-const z Int)
 
 (push)
-; equation problem
 (assert (not
     (let ((anon0_correct 
-        (=> (= y x) 
-            (! (forall ((i Int)) (!  (=> (< i x) (< i y))) ))) ))
+        (=> (and (= y (+ x 1)) (= z (+ y 1)))
+            (! (forall ((i Int)) (!  (=> (< i x) (< (+ i 3) z))) ))) ))
     anon0_correct) ))
+(check-sat) ; sat
+(pop)
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (and (= y (+ x 1)) (= z (+ y 1)))
+            (! (forall ((i Int)) (!  (=> (< i x) (< (+ i 2) z))) ))) ))
+    anon0_correct) ))
+(check-sat) ; unsat
+(pop)
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (= y (+ x 1))
+            (! (forall ((i Int)) (!  (=> (< i x) (< (+ i 1) y))) ))) ))
+    anon0_correct) ))
+(check-sat) ; unsat
+(pop)
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (= y (- x 1))
+            (! (forall ((i Int)) (!  (=> (< i x) (< (+ i 1) y))) ))) ))
+    anon0_correct) ))
+(check-sat) ; sat
+(pop)
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (and (= y 1) (= y (- x 1)))
+            (! (forall ((i Int)) (!  (=> (< i x) (< i 2))) ))) ))
+    anon0_correct) ))
+(check-sat) ; unsat
+(pop)
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (= y (+ x 1))
+            (! (forall ((i Int)) (!  (=> (= i x) (<= (+ i 1) y) )) )) ) ))
+    anon0_correct) ))
+(check-sat) ; unsat
+(pop)
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (= y (+ x 1))
+            (! (forall ((i Int)) (! (ite (= i x) (<= (+ i 1) y) (ite (< i x) (< (+ i 1) y) (>= i y) ) )) ))
+        ) ))
+    anon0_correct) ))
+(check-sat) ; unsat
+(pop)
+;(push)
+;(assert (not
+;    (let ((anon0_correct 
+;        (=> (= y (- x 1))
+;            (! (forall ((i Int)) (! (and (=> (= i x) (< i y)) (=> (< i ;x) (< (- i 1) y)) )) ))) ))
+;    anon0_correct) ))
+;(assert (ite (= y (- x 1)) (=> (= y z) (= z (- x 1))) (=> (= y (- z 1)) (< y z))) )
+;(check-sat)
+;(get-model)
+;(pop)
+
+; equation problem
+;(assert (not
+;    (let ((anon0_correct 
+;        (=> (= y (+ x 1)) 
+;            (! (forall ((i Int)) (!  (=> (< i x) (< (+ i 1) y))) ))) ))
+;    anon0_correct) ))
 
 ;(assert (not
 ;    (let ((anon0_correct 
@@ -44,5 +111,5 @@
 ; (assert (forall ((a Int) (b Int)) (=> (< a (+ b 10)) (< a b))) ) ; unsat
 ; (assert (=> (< x (+ y 10)) (< x y)) ) ; unsat
 
-(check-sat)
-(get-model)
+;(check-sat)
+;(get-model)

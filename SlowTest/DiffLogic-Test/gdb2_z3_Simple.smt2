@@ -1,4 +1,5 @@
-(set-logic DLA)
+;(set-logic DLA)
+(set-option :smt.arith.solver 7)
 
 (declare-sort T@t 0)
 (assert (forall ((x T@t) ) (! true

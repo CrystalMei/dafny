@@ -132,23 +132,31 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
+W-DL: push_equations
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: mk_le_ge_eq_core
+mk_eq_core: (:var 0), x
 	(call solver...)
+(combined-solver "using solver 2 (without a timeout)")
 	(solver_na2as check_sat_core)
 	(smt_solver check_sat_core)
 (smt.simplifier-start)
 (smt.propagate-values)
 mk_eq_core: (+ y (* (- 1) x)), 1
 mk_eq_core: mk_le_ge_eq_core
+mk_eq_core: (:var 0), x
+mk_eq_core: (:var 0), x
 mk_eq_core: (+ y (* (- 1) x)), 1
 mk_eq_core: mk_le_ge_eq_core
 (smt.nnf-cnf)
 mk_eq_core: (+ y (* (- 1) x)), 1
 mk_eq_core: mk_le_ge_eq_core
+mk_eq_core: i!0, x
 (smt.reduce-asserted)
 mk_eq_core: (+ y (* (- 1) x)), 1
-mk_eq_core: rewrite to LE and GE
+mk_eq_core: EQ = LE & GE
+mk_eq_core: i!0, x
+mk_eq_core: EQ = LE & GE
 (smt.refine-injectivity)
 (smt.pattern-inference)
 (smt.maximizing-bv-sharing)
@@ -160,43 +168,42 @@ before internalize_assertion:
 
 internalize_assertion:
 (<= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(<= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(<= #45 1)
 
-assert_default: expr #60:
+assert_default: expr #50:
 (<= (+ y (* (- 1) x)) 1)
 
-internalize_rec with gate_ctx(1) and not_flag(0):
+internalize_rec with gate_ctx(1):
 (<= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(<= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(<= #45 1)
 
 literal true:
 (<= (+ y (* (- 1) x)) 1)
 
-internalize_formula: with gate_ctx(1) and not_flag(0):
+internalize_formula: with gate_ctx(1):
 (<= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(<= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(<= #45 1)
 
-formula: 0
 
-internalize_theory_atom: #60 with gate_ctx(1) and not_flag(0):
+internalize_theory_atom: #50 with gate_ctx(1):
 (<= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(<= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(<= #45 1)
 
-W-DL: internalize_atom with gate_ctx(1) and not_flag(0): (<= (+ y (* (- 1) x)) 1)
+W-DL: internalize_atom with gate_ctx(1): (<= (+ y (* (- 1) x)) 1)
 W-DL: internalize_atom: LHS = (+ y (* (- 1) x))
 W-DL: internalize_atom: RHS = 1
 W-DL: is_sign: (- 1)
 W-DL: mk_var starts: y
 
-internalize_rec with gate_ctx(0) and not_flag(0):
+internalize_rec with gate_ctx(0):
 y
 y
 
@@ -212,7 +219,7 @@ W-DL: set_sort: y
 W-DL: mk_var returns: y |-> 2
 W-DL: mk_var starts: x
 
-internalize_rec with gate_ctx(0) and not_flag(0):
+internalize_rec with gate_ctx(0):
 x
 x
 
@@ -227,38 +234,35 @@ W-DL: enode mk_var: 3
 W-DL: set_sort: x
 W-DL: mk_var returns: x |-> 3
 
-mk_bool_var: creating boolean variable: 1 with ast-ID #60:
+mk_bool_var: creating boolean variable: 1 with ast-ID #50:
 (<= (+ y (* (- 1) x)) 1)
 mk_bool_var: created boolean variable: 1 with lbool(l_undef):
 (<= (+ y (* (- 1) x)) 1)
 
-W-DL: edge: src_id #3, dst_id #2, weight: 1, gate_ctx(1)
-W-DL: edge
-W-DL: edge with weight >= -1
-DL Graph: add_edge #0: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-DL Graph: add_edge #1: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-W-DL: internalize_atom done:
-expr:
+W-DL: expr:
 (<= (+ y (* (- 1) x)) 1)
-edge:
-(not p1) (<= (+ y (* (- 1) x)) 1) 
-	pos #0: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-	neg #1: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+W-DL: edge: src_id #3, dst_id #2, weight: 1, gate_ctx(1)
+W-DL: edge with weight [-2] > 0: only negative edge (original weight -2
+DL Graph: add_edge #0: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: dl-graph display:
 atoms
 (not p1) (<= (+ y (* (- 1) x)) 1) 
 graph
 	edge
-disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
 $2 := 0
 $3 := 0
 
-internalize_theory_atom: #60  with gate_ctx(1) and not_flag(0) internalization succeeded
+W-DL: equation list display:
+keep: 
+elim: 
+weig: 
+
+internalize_theory_atom: #50  with gate_ctx(1) internalization succeeded
 (<= (+ y (* (- 1) x)) 1)
 
 literal p1:
@@ -266,7 +270,7 @@ literal p1:
 propagate_relevancy: marking as relevant:
 (<= (+ y (* -1 x)) 1)
 scope_level: 1
-propagate_relevancy_to_args # 60
+propagate_relevancy_to_args # 50
 (<= (+ y (* (- 1) x)) 1)
 propagate_relevancy: marking as relevant:
 1
@@ -276,7 +280,7 @@ propagate_relevancy: marking as relevant:
 scope_level: 1
 propagate_relevancy_to_args # 27
 1
-propagate_relevancy_to_args # 43
+propagate_relevancy_to_args # 45
 (+ y (* (- 1) x))
 propagate_relevancy: marking as relevant:
 (* -1 x)
@@ -284,7 +288,7 @@ scope_level: 1
 propagate_relevancy: marking as relevant:
 y
 scope_level: 1
-propagate_relevancy_to_args # 42
+propagate_relevancy_to_args # 44
 (* (- 1) x)
 propagate_relevancy: marking as relevant:
 x
@@ -296,11 +300,11 @@ propagate_relevancy_to_args # 25
 y
 propagate_relevancy_to_args # 26
 x
-propagate_relevancy_to_args # 41
+propagate_relevancy_to_args # 43
 (- 1)
 assignment after one internalize_assertion:
 current assignment:
-#60 - l_true: (<= (+ y (* -1 x)) 1)
+#50 - l_true: (<= (+ y (* -1 x)) 1)
 
 
 before internalize_assertion:
@@ -308,37 +312,36 @@ before internalize_assertion:
 
 internalize_assertion:
 (>= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(>= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(>= #45 1)
 
-assert_default: expr #59:
+assert_default: expr #49:
 (>= (+ y (* (- 1) x)) 1)
 
-internalize_rec with gate_ctx(1) and not_flag(0):
+internalize_rec with gate_ctx(1):
 (>= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(>= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(>= #45 1)
 
 literal p-1:
 (>= (+ y (* (- 1) x)) 1)
 
-internalize_formula: with gate_ctx(1) and not_flag(0):
+internalize_formula: with gate_ctx(1):
 (>= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(>= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(>= #45 1)
 
-formula: 0
 
-internalize_theory_atom: #59 with gate_ctx(1) and not_flag(0):
+internalize_theory_atom: #49 with gate_ctx(1):
 (>= (+ y (* (- 1) x)) 1)
-#42 := (* -1 x)
-#43 := (+ y #42)
-(>= #43 1)
+#44 := (* -1 x)
+#45 := (+ y #44)
+(>= #45 1)
 
-W-DL: internalize_atom with gate_ctx(1) and not_flag(0): (>= (+ y (* (- 1) x)) 1)
+W-DL: internalize_atom with gate_ctx(1): (>= (+ y (* (- 1) x)) 1)
 W-DL: internalize_atom: LHS = (+ y (* (- 1) x))
 W-DL: internalize_atom: RHS = 1
 W-DL: is_sign: (- 1)
@@ -347,32 +350,47 @@ W-DL: mk_var returns: y |-> 2
 W-DL: mk_var starts: x
 W-DL: mk_var returns: x |-> 3
 
-mk_bool_var: creating boolean variable: 2 with ast-ID #59:
+mk_bool_var: creating boolean variable: 2 with ast-ID #49:
 (>= (+ y (* (- 1) x)) 1)
 mk_bool_var: created boolean variable: 2 with lbool(l_undef):
 (>= (+ y (* (- 1) x)) 1)
 
+W-DL: expr:
+(>= (+ y (* (- 1) x)) 1)
 W-DL: edge: src_id #2, dst_id #3, weight: -1, gate_ctx(1)
-W-DL: edge
-W-DL: edge with weight >= -1
-DL Graph: add_edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
-DL Graph: add_edge #3: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+W-DL: check EQUAL
+W-DL: previous expr = (<= (+ y (* (- 1) x)) 1)
+LHS = (+ y (* (- 1) x)), RHS = 1
+W-DL: EQUAL
+DL Graph: add_edge #1: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge #2: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+DL Graph: add_edge #3: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #4: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
 W-DL: internalize_atom done:
-expr:
+expr1:
+(<= (+ y (* (- 1) x)) 1)
+edge:
+p1 (<= (+ y (* (- 1) x)) 1) 
+	pos #1: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+	neg #2: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr2:
 (>= (+ y (* (- 1) x)) 1)
 edge:
 (not p2) (>= (+ y (* (- 1) x)) 1) 
-	pos #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
-	neg #3: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+	pos #1: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+	neg #4: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
 
 W-DL: dl-graph display:
 atoms
 p1 (<= (+ y (* (- 1) x)) 1) 
+p1 (<= (+ y (* (- 1) x)) 1) 
 (not p2) (>= (+ y (* (- 1) x)) 1) 
 graph
 	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
 	assignment
@@ -381,7 +399,12 @@ $1 := 0
 $2 := 0
 $3 := 0
 
-internalize_theory_atom: #59  with gate_ctx(1) and not_flag(0) internalization succeeded
+W-DL: equation list display:
+keep: 3 
+elim: 2 
+weig: 1 
+
+internalize_theory_atom: #49  with gate_ctx(1) internalization succeeded
 (>= (+ y (* (- 1) x)) 1)
 
 literal p2:
@@ -389,78 +412,328 @@ literal p2:
 propagate_relevancy: marking as relevant:
 (>= (+ y (* -1 x)) 1)
 scope_level: 1
-propagate_relevancy_to_args # 59
+propagate_relevancy_to_args # 49
 (>= (+ y (* (- 1) x)) 1)
 assignment after one internalize_assertion:
 current assignment:
-#60 - l_true: (<= (+ y (* -1 x)) 1)
-#59 - l_true: (>= (+ y (* -1 x)) 1)
+#50 - l_true: (<= (+ y (* -1 x)) 1)
+#49 - l_true: (>= (+ y (* -1 x)) 1)
 
 
 before internalize_assertion:
-(not (<= (+ x (* (- 1) i!0)) 1))
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
 
 internalize_assertion:
-(not (<= (+ x (* (- 1) i!0)) 1))
-#51 := (* -1 i!0)
-#52 := (+ x #51)
-#40 := (<= #52 1)
-(not #40)
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+#74 := (if #72 #68 #51)
+(not #74)
 
-assert_default: expr #62:
-(not (<= (+ x (* (- 1) i!0)) 1))
+assert_default: expr #75:
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
 
-internalize_rec with gate_ctx(1) and not_flag(0):
-(not (<= (+ x (* (- 1) i!0)) 1))
-#51 := (* -1 i!0)
-#52 := (+ x #51)
-#40 := (<= #52 1)
-(not #40)
+internalize_rec with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+#74 := (if #72 #68 #51)
+(not #74)
 
-literal (not p-1):
-(not (<= (+ x (* (- 1) i!0)) 1))
+literal (not p201326593):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
 
-internalize_formula: with gate_ctx(1) and not_flag(0):
-(not (<= (+ x (* (- 1) i!0)) 1))
-#51 := (* -1 i!0)
-#52 := (+ x #51)
-#40 := (<= #52 1)
-(not #40)
+internalize_formula: with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+#74 := (if #72 #68 #51)
+(not #74)
 
-formula: 1
 
-internalize_rec with gate_ctx(1) and not_flag(1):
-(<= (+ x (* (- 1) i!0)) 1)
-#51 := (* -1 i!0)
-#52 := (+ x #51)
-(<= #52 1)
+internalize_rec with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+(if #72 #68 #51)
 
-literal p-1:
-(<= (+ x (* (- 1) i!0)) 1)
+literal p201326593:
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
 
-internalize_formula: with gate_ctx(1) and not_flag(1):
-(<= (+ x (* (- 1) i!0)) 1)
-#51 := (* -1 i!0)
-#52 := (+ x #51)
-(<= #52 1)
+internalize_formula: with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+(if #72 #68 #51)
 
-formula: 0
 
-internalize_theory_atom: #40 with gate_ctx(1) and not_flag(1):
-(<= (+ x (* (- 1) i!0)) 1)
-#51 := (* -1 i!0)
-#52 := (+ x #51)
-(<= #52 1)
+internalize_theory_atom: #74 with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+(if #72 #68 #51)
 
-W-DL: internalize_atom with gate_ctx(1) and not_flag(1): (<= (+ x (* (- 1) i!0)) 1)
+
+internalize_formular_core with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#51 := (>= #48 1)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#68 := (if #64 #65 #67)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+#72 := (or #54 #71)
+(if #72 #68 #51)
+
+
+internalize_formular_core: call rec with is_gate: 1
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+(or #54 #71)
+
+
+internalize_rec with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+(or #54 #71)
+
+literal p895318475:
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+
+internalize_formula: with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+(or #54 #71)
+
+
+internalize_theory_atom: #72 with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+(or #54 #71)
+
+
+internalize_formular_core with gate_ctx(1):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+#71 := (not #64)
+#62 := (>= #63 0)
+#54 := (not #62)
+(or #54 #71)
+
+
+internalize_formular_core: call rec with is_gate: 1
+(not (>= (+ x (* (- 1) i!0)) 0))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#62 := (>= #63 0)
+(not #62)
+
+
+internalize_rec with gate_ctx(1):
+(not (>= (+ x (* (- 1) i!0)) 0))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#62 := (>= #63 0)
+(not #62)
+
+literal (not p81):
+(not (>= (+ x (* (- 1) i!0)) 0))
+
+internalize_formula: with gate_ctx(1):
+(not (>= (+ x (* (- 1) i!0)) 0))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#62 := (>= #63 0)
+(not #62)
+
+
+internalize_rec with gate_ctx(1):
+(>= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(>= #63 0)
+
+literal p81:
+(>= (+ x (* (- 1) i!0)) 0)
+
+internalize_formula: with gate_ctx(1):
+(>= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(>= #63 0)
+
+
+internalize_theory_atom: #62 with gate_ctx(1):
+(>= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(>= #63 0)
+
+W-DL: internalize_atom with gate_ctx(1): (>= (+ x (* (- 1) i!0)) 0)
 W-DL: internalize_atom: LHS = (+ x (* (- 1) i!0))
-W-DL: internalize_atom: RHS = 1
+W-DL: internalize_atom: RHS = 0
 W-DL: is_sign: (- 1)
 W-DL: mk_var starts: x
 W-DL: mk_var returns: x |-> 3
 W-DL: mk_var starts: i!0
 
-internalize_rec with gate_ctx(0) and not_flag(0):
+internalize_rec with gate_ctx(0):
 i!0
 i!0
 
@@ -475,34 +748,37 @@ W-DL: enode mk_var: 4
 W-DL: set_sort: i!0
 W-DL: mk_var returns: i!0 |-> 4
 
-mk_bool_var: creating boolean variable: 3 with ast-ID #40:
-(<= (+ x (* (- 1) i!0)) 1)
+mk_bool_var: creating boolean variable: 3 with ast-ID #62:
+(>= (+ x (* (- 1) i!0)) 0)
 mk_bool_var: created boolean variable: 3 with lbool(l_undef):
-(<= (+ x (* (- 1) i!0)) 1)
+(>= (+ x (* (- 1) i!0)) 0)
 
-W-DL: edge: src_id #4, dst_id #3, weight: 1, gate_ctx(1)
-W-DL: <NOT> edge
-W-DL: <NOT> edge with weight > 0
-DL Graph: add_edge #4: (not p3) (<= (- dst$4 src$3) [weight: -2] ) {timestamp: 0}
-W-DL: internalize_atom done:
-expr:
-(<= (+ x (* (- 1) i!0)) 1)
-edge:
-(not p3) (<= (+ x (* (- 1) i!0)) 1) 
-	neg #4: (not p3) (<= (- dst$4 src$3) [weight: -2] ) {timestamp: 0}
+W-DL: expr:
+(>= (+ x (* (- 1) i!0)) 0)
+W-DL: edge: src_id #3, dst_id #4, weight: 0, gate_ctx(1)
+W-DL: check EQUAL
+W-DL: previous expr = (>= (+ y (* (- 1) x)) 1)
+LHS = (+ y (* (- 1) x)), RHS = 1
+W-DL: not EQUAL
+W-DL: edge with weight [-1] = 0 or edge to 0
+DL Graph: add_edge #5: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #6: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
 
 W-DL: dl-graph display:
 atoms
 p1 (<= (+ y (* (- 1) x)) 1) 
+p1 (<= (+ y (* (- 1) x)) 1) 
 p2 (>= (+ y (* (- 1) x)) 1) 
-(not p3) (<= (+ x (* (- 1) i!0)) 1) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
 graph
 	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -2] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -510,115 +786,319 @@ $2 := 0
 $3 := 0
 $4 := 0
 
-internalize_theory_atom: #40  with gate_ctx(1) and not_flag(1) internalization succeeded
-(<= (+ x (* (- 1) i!0)) 1)
+W-DL: equation list display:
+keep: 3 
+elim: 2 
+weig: 1 
 
-literal (not p3):
-(not (<= (+ x (* (- 1) i!0)) 1))
-propagate_relevancy: marking as relevant:
-(<= (+ x (* -1 i!0)) 1)
-scope_level: 1
-propagate_relevancy_to_args # 40
-(<= (+ x (* (- 1) i!0)) 1)
-propagate_relevancy: marking as relevant:
-(+ x (* -1 i!0))
-scope_level: 1
-propagate_relevancy_to_args # 52
-(+ x (* (- 1) i!0))
-propagate_relevancy: marking as relevant:
-(* -1 i!0)
-scope_level: 1
-propagate_relevancy_to_args # 51
-(* (- 1) i!0)
-propagate_relevancy: marking as relevant:
-i!0
-scope_level: 1
-propagate_relevancy_to_args # 50
-i!0
-assignment after one internalize_assertion:
-current assignment:
-#60 - l_true: (<= (+ y (* -1 x)) 1)
-#59 - l_true: (>= (+ y (* -1 x)) 1)
-(not #40) - l_true: (not (<= (+ x (* -1 i!0)) 1))
+internalize_theory_atom: #62  with gate_ctx(1) internalization succeeded
+(>= (+ x (* (- 1) i!0)) 0)
 
 
-before internalize_assertion:
-(<= (+ y (* (- 1) i!0)) 3)
+internalize_formular_core: call rec with is_gate: 1
+(not (<= (+ x (* (- 1) i!0)) 0))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(not #64)
 
-internalize_assertion:
-(<= (+ y (* (- 1) i!0)) 3)
-#51 := (* -1 i!0)
-#45 := (+ y #51)
-(<= #45 3)
 
-assert_default: expr #58:
-(<= (+ y (* (- 1) i!0)) 3)
+internalize_rec with gate_ctx(1):
+(not (<= (+ x (* (- 1) i!0)) 0))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(not #64)
 
-internalize_rec with gate_ctx(1) and not_flag(0):
-(<= (+ y (* (- 1) i!0)) 3)
-#51 := (* -1 i!0)
-#45 := (+ y #51)
-(<= #45 3)
+literal false:
+(not (<= (+ x (* (- 1) i!0)) 0))
+
+internalize_formula: with gate_ctx(1):
+(not (<= (+ x (* (- 1) i!0)) 0))
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(not #64)
+
+
+internalize_rec with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(<= #63 0)
+
+literal true:
+(<= (+ x (* (- 1) i!0)) 0)
+
+internalize_formula: with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(<= #63 0)
+
+
+internalize_theory_atom: #64 with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(<= #63 0)
+
+W-DL: internalize_atom with gate_ctx(1): (<= (+ x (* (- 1) i!0)) 0)
+W-DL: internalize_atom: LHS = (+ x (* (- 1) i!0))
+W-DL: internalize_atom: RHS = 0
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: x
+W-DL: mk_var returns: x |-> 3
+W-DL: mk_var starts: i!0
+W-DL: mk_var returns: i!0 |-> 4
+
+mk_bool_var: creating boolean variable: 4 with ast-ID #64:
+(<= (+ x (* (- 1) i!0)) 0)
+mk_bool_var: created boolean variable: 4 with lbool(l_undef):
+(<= (+ x (* (- 1) i!0)) 0)
+
+W-DL: expr:
+(<= (+ x (* (- 1) i!0)) 0)
+W-DL: edge: src_id #4, dst_id #3, weight: 0, gate_ctx(1)
+W-DL: check EQUAL
+W-DL: previous expr = (>= (+ x (* (- 1) i!0)) 0)
+LHS = (+ x (* (- 1) i!0)), RHS = 0
+W-DL: EQUAL
+DL Graph: add_edge #7: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #8: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #9: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #10: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr1:
+(>= (+ x (* (- 1) i!0)) 0)
+edge:
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+	pos #7: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+	neg #8: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr2:
+(<= (+ x (* (- 1) i!0)) 0)
+edge:
+(not p4) (<= (+ x (* (- 1) i!0)) 0) 
+	pos #7: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+	neg #10: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+p1 (<= (+ y (* (- 1) x)) 1) 
+p1 (<= (+ y (* (- 1) x)) 1) 
+p2 (>= (+ y (* (- 1) x)) 1) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ x (* (- 1) i!0)) 0) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+$4 := 0
+
+W-DL: equation list display:
+keep: 3 3 
+elim: 2 4 
+weig: 1 0 
+
+internalize_theory_atom: #64  with gate_ctx(1) internalization succeeded
+(<= (+ x (* (- 1) i!0)) 0)
+
+
+mk_bool_var: creating boolean variable: 5 with ast-ID #72:
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+mk_bool_var: created boolean variable: 5 with lbool(l_undef):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
+
+
+internalize_formular_core: call rec with is_gate: 1
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(if #64 #65 #67)
+
+
+internalize_rec with gate_ctx(1):
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(if #64 #65 #67)
 
 literal p-1:
-(<= (+ y (* (- 1) i!0)) 3)
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
 
-internalize_formula: with gate_ctx(1) and not_flag(0):
-(<= (+ y (* (- 1) i!0)) 3)
-#51 := (* -1 i!0)
-#45 := (+ y #51)
-(<= #45 3)
+internalize_formula: with gate_ctx(1):
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(if #64 #65 #67)
 
-formula: 0
 
-internalize_theory_atom: #58 with gate_ctx(1) and not_flag(0):
-(<= (+ y (* (- 1) i!0)) 3)
-#51 := (* -1 i!0)
-#45 := (+ y #51)
-(<= #45 3)
+internalize_theory_atom: #68 with gate_ctx(1):
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(if #64 #65 #67)
 
-W-DL: internalize_atom with gate_ctx(1) and not_flag(0): (<= (+ y (* (- 1) i!0)) 3)
+
+internalize_formular_core with gate_ctx(1):
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+#67 := (not #66)
+#65 := (<= #48 0)
+#63 := (+ x #56)
+#64 := (<= #63 0)
+(if #64 #65 #67)
+
+
+internalize_formular_core: call rec with is_gate: 1
+(<= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(<= #63 0)
+
+
+internalize_rec with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(<= #63 0)
+
+literal p4:
+(<= (+ x (* (- 1) i!0)) 0)
+
+internalize_formula: with gate_ctx(1):
+(<= (+ x (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#63 := (+ x #56)
+(<= #63 0)
+
+
+internalize_formular_core: call rec with is_gate: 1
+(<= (+ y (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 0)
+
+
+internalize_rec with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 0)
+
+literal p-1:
+(<= (+ y (* (- 1) i!0)) 0)
+
+internalize_formula: with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 0)
+
+
+internalize_theory_atom: #65 with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 0)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 0)
+
+W-DL: internalize_atom with gate_ctx(1): (<= (+ y (* (- 1) i!0)) 0)
 W-DL: internalize_atom: LHS = (+ y (* (- 1) i!0))
-W-DL: internalize_atom: RHS = 3
+W-DL: internalize_atom: RHS = 0
 W-DL: is_sign: (- 1)
 W-DL: mk_var starts: y
 W-DL: mk_var returns: y |-> 2
 W-DL: mk_var starts: i!0
 W-DL: mk_var returns: i!0 |-> 4
 
-mk_bool_var: creating boolean variable: 4 with ast-ID #58:
-(<= (+ y (* (- 1) i!0)) 3)
-mk_bool_var: created boolean variable: 4 with lbool(l_undef):
-(<= (+ y (* (- 1) i!0)) 3)
+mk_bool_var: creating boolean variable: 6 with ast-ID #65:
+(<= (+ y (* (- 1) i!0)) 0)
+mk_bool_var: created boolean variable: 6 with lbool(l_undef):
+(<= (+ y (* (- 1) i!0)) 0)
 
-W-DL: edge: src_id #4, dst_id #2, weight: 3, gate_ctx(1)
-W-DL: edge
-W-DL: edge with weight >= -1
-DL Graph: add_edge #5: p4 (<= (- dst$2 src$4) [weight: 3] ) {timestamp: 0}
-DL Graph: add_edge #6: (not p4) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
-W-DL: internalize_atom done:
-expr:
-(<= (+ y (* (- 1) i!0)) 3)
-edge:
-(not p4) (<= (+ y (* (- 1) i!0)) 3) 
-	pos #5: p4 (<= (- dst$2 src$4) [weight: 3] ) {timestamp: 0}
-	neg #6: (not p4) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
+W-DL: expr:
+(<= (+ y (* (- 1) i!0)) 0)
+W-DL: edge: src_id #4, dst_id #2, weight: 0, gate_ctx(1)
+W-DL: check EQUAL
+W-DL: previous expr = (<= (+ x (* (- 1) i!0)) 0)
+LHS = (+ x (* (- 1) i!0)), RHS = 0
+W-DL: not EQUAL
+W-DL: elim src & tgt
+DL Graph: add_edge #11: p6 (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #12: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
 
 W-DL: dl-graph display:
 atoms
 p1 (<= (+ y (* (- 1) x)) 1) 
+p1 (<= (+ y (* (- 1) x)) 1) 
 p2 (>= (+ y (* (- 1) x)) 1) 
-p3 (<= (+ x (* (- 1) i!0)) 1) 
-(not p4) (<= (+ y (* (- 1) i!0)) 3) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ x (* (- 1) i!0)) 0) 
+(not p6) (<= (+ y (* (- 1) i!0)) 0) 
 graph
 	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -2] ) {timestamp: 0}
-disabled edge: p4 (<= (- dst$2 src$4) [weight: 3] ) {timestamp: 0}
-disabled edge: (not p4) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p6 (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -626,90 +1106,554 @@ $2 := 0
 $3 := 0
 $4 := 0
 
-internalize_theory_atom: #58  with gate_ctx(1) and not_flag(0) internalization succeeded
-(<= (+ y (* (- 1) i!0)) 3)
+W-DL: equation list display:
+keep: 3 3 
+elim: 2 4 
+weig: 1 0 
 
-literal p4:
-(<= (+ y (* (- 1) i!0)) 3)
+internalize_theory_atom: #65  with gate_ctx(1) internalization succeeded
+(<= (+ y (* (- 1) i!0)) 0)
+
+
+internalize_formular_core: call rec with is_gate: 1
+(not (<= (+ y (* (- 1) i!0)) 1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+(not #66)
+
+
+internalize_rec with gate_ctx(1):
+(not (<= (+ y (* (- 1) i!0)) 1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+(not #66)
+
+literal (not p-1):
+(not (<= (+ y (* (- 1) i!0)) 1))
+
+internalize_formula: with gate_ctx(1):
+(not (<= (+ y (* (- 1) i!0)) 1))
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+#66 := (<= #48 1)
+(not #66)
+
+
+internalize_rec with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 1)
+
+literal p-1:
+(<= (+ y (* (- 1) i!0)) 1)
+
+internalize_formula: with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 1)
+
+
+internalize_theory_atom: #66 with gate_ctx(1):
+(<= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(<= #48 1)
+
+W-DL: internalize_atom with gate_ctx(1): (<= (+ y (* (- 1) i!0)) 1)
+W-DL: internalize_atom: LHS = (+ y (* (- 1) i!0))
+W-DL: internalize_atom: RHS = 1
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: y
+W-DL: mk_var returns: y |-> 2
+W-DL: mk_var starts: i!0
+W-DL: mk_var returns: i!0 |-> 4
+
+mk_bool_var: creating boolean variable: 7 with ast-ID #66:
+(<= (+ y (* (- 1) i!0)) 1)
+mk_bool_var: created boolean variable: 7 with lbool(l_undef):
+(<= (+ y (* (- 1) i!0)) 1)
+
+W-DL: expr:
+(<= (+ y (* (- 1) i!0)) 1)
+W-DL: edge: src_id #4, dst_id #2, weight: 1, gate_ctx(1)
+W-DL: check EQUAL
+W-DL: previous expr = (<= (+ y (* (- 1) i!0)) 0)
+LHS = (+ y (* (- 1) i!0)), RHS = 0
+W-DL: not EQUAL
+W-DL: elim src & tgt
+DL Graph: add_edge #13: p7 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #14: (not p7) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+p1 (<= (+ y (* (- 1) x)) 1) 
+p1 (<= (+ y (* (- 1) x)) 1) 
+p2 (>= (+ y (* (- 1) x)) 1) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ x (* (- 1) i!0)) 0) 
+(not p6) (<= (+ y (* (- 1) i!0)) 0) 
+(not p7) (<= (+ y (* (- 1) i!0)) 1) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p6 (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p7 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p7) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+$4 := 0
+
+W-DL: equation list display:
+keep: 3 3 
+elim: 2 4 
+weig: 1 0 
+
+internalize_theory_atom: #66  with gate_ctx(1) internalization succeeded
+(<= (+ y (* (- 1) i!0)) 1)
+
+
+mk_bool_var: creating boolean variable: 8 with ast-ID #68:
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+mk_bool_var: created boolean variable: 8 with lbool(l_undef):
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+
+
+internalize_formular_core: call rec with is_gate: 1
+(>= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(>= #48 1)
+
+
+internalize_rec with gate_ctx(1):
+(>= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(>= #48 1)
+
+literal p-1:
+(>= (+ y (* (- 1) i!0)) 1)
+
+internalize_formula: with gate_ctx(1):
+(>= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(>= #48 1)
+
+
+internalize_theory_atom: #51 with gate_ctx(1):
+(>= (+ y (* (- 1) i!0)) 1)
+#56 := (* -1 i!0)
+#48 := (+ y #56)
+(>= #48 1)
+
+W-DL: internalize_atom with gate_ctx(1): (>= (+ y (* (- 1) i!0)) 1)
+W-DL: internalize_atom: LHS = (+ y (* (- 1) i!0))
+W-DL: internalize_atom: RHS = 1
+W-DL: is_sign: (- 1)
+W-DL: mk_var starts: y
+W-DL: mk_var returns: y |-> 2
+W-DL: mk_var starts: i!0
+W-DL: mk_var returns: i!0 |-> 4
+
+mk_bool_var: creating boolean variable: 9 with ast-ID #51:
+(>= (+ y (* (- 1) i!0)) 1)
+mk_bool_var: created boolean variable: 9 with lbool(l_undef):
+(>= (+ y (* (- 1) i!0)) 1)
+
+W-DL: expr:
+(>= (+ y (* (- 1) i!0)) 1)
+W-DL: edge: src_id #2, dst_id #4, weight: -1, gate_ctx(1)
+W-DL: check EQUAL
+W-DL: previous expr = (<= (+ y (* (- 1) i!0)) 1)
+LHS = (+ y (* (- 1) i!0)), RHS = 1
+W-DL: EQUAL
+DL Graph: add_edge #15: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge #16: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+DL Graph: add_edge #17: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #18: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr1:
+(<= (+ y (* (- 1) i!0)) 1)
+edge:
+(not p7) (<= (+ y (* (- 1) i!0)) 1) 
+	pos #15: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+	neg #16: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+W-DL: internalize_atom done:
+expr2:
+(>= (+ y (* (- 1) i!0)) 1)
+edge:
+(not p9) (>= (+ y (* (- 1) i!0)) 1) 
+	pos #15: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
+	neg #18: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
+
+W-DL: dl-graph display:
+atoms
+p1 (<= (+ y (* (- 1) x)) 1) 
+p1 (<= (+ y (* (- 1) x)) 1) 
+p2 (>= (+ y (* (- 1) x)) 1) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ x (* (- 1) i!0)) 0) 
+(not p6) (<= (+ y (* (- 1) i!0)) 0) 
+(not p7) (<= (+ y (* (- 1) i!0)) 1) 
+(not p7) (<= (+ y (* (- 1) i!0)) 1) 
+(not p9) (>= (+ y (* (- 1) i!0)) 1) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p6 (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p7 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p7) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := 0
+$4 := 0
+
+W-DL: equation list display:
+keep: 3 3 
+elim: 2 4 
+weig: 1 0 
+
+internalize_theory_atom: #51  with gate_ctx(1) internalization succeeded
+(>= (+ y (* (- 1) i!0)) 1)
+
+
+mk_bool_var: creating boolean variable: 10 with ast-ID #74:
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+mk_bool_var: created boolean variable: 10 with lbool(l_undef):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+
+literal (not p10):
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+(let ((a!5 (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
+  (not a!5))))
 propagate_relevancy: marking as relevant:
-(<= (+ y (* -1 i!0)) 3)
+(if (or (not #62) (not #64)) (if (<= #63 0) (<= #48 0) (not #66)) (>= (+ y #56) 1))
 scope_level: 1
-propagate_relevancy_to_args # 58
-(<= (+ y (* (- 1) i!0)) 3)
+propagate_relevancy_to_args # 74
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
+      (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
+(let ((a!4 (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!3)))
+  (ite (or a!1 a!2) a!4 (>= (+ y (* (- 1) i!0)) 1))))
 propagate_relevancy: marking as relevant:
-3
+(or (not (>= #63 0)) (not (<= #63 0)))
 scope_level: 1
-propagate_relevancy: marking as relevant:
-(+ y (* -1 i!0))
-scope_level: 1
-propagate_relevancy_to_args # 33
-3
-propagate_relevancy_to_args # 45
-(+ y (* (- 1) i!0))
+propagate_relevancy_to_args # 72
+(let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
+      (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
+  (or a!1 a!2))
 assignment after one internalize_assertion:
 current assignment:
-#60 - l_true: (<= (+ y (* -1 x)) 1)
-#59 - l_true: (>= (+ y (* -1 x)) 1)
-(not #40) - l_true: (not (<= (+ x (* -1 i!0)) 1))
-#58 - l_true: (<= (+ y (* -1 i!0)) 3)
+#50 - l_true: (<= (+ y (* -1 x)) 1)
+#49 - l_true: (>= (+ y (* -1 x)) 1)
+(not #74) - l_true: (not (if (or (not #62) (not #64)) (if (<= #63 0) (<= #48 0) (not #66)) (>= (+ y #56) 1)))
 
 assignment after internalize_assertions():
 current assignment:
-#60 - l_true: (<= (+ y (* -1 x)) 1)
-#59 - l_true: (>= (+ y (* -1 x)) 1)
-(not #40) - l_true: (not (<= (+ x (* -1 i!0)) 1))
-#58 - l_true: (<= (+ y (* -1 i!0)) 3)
+#50 - l_true: (<= (+ y (* -1 x)) 1)
+#49 - l_true: (>= (+ y (* -1 x)) 1)
+(not #74) - l_true: (not (if (or (not #62) (not #64)) (if (<= #63 0) (<= #48 0) (not #66)) (>= (+ y #56) 1)))
 
 (smt.searching)
-propagating... 0:4
-propagate_atoms: #60
+propagating... 0:3
+propagate_atoms: #50
 (<= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 1: 1
-propagate_atoms: #59
+propagate_atoms: #49
 (>= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 2: 1
-propagate_atoms: #40
-(<= (+ x (* (- 1) i!0)) 1)
-W-DL: assign_eh: 3: 0
-propagate_atoms: #58
-(<= (+ y (* (- 1) i!0)) 3)
-W-DL: assign_eh: 4: 1
 W-DL: propagate_core
 W-DL: propagate_atom: atom = (not p1) (<= (+ y (* (- 1) x)) 1) 
-DL Graph: try enable edge #0: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #0: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+DL Graph: try enable edge #1: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #1: p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
 
 W-DL: propagate_atom: atom = (not p2) (>= (+ y (* (- 1) x)) 1) 
-DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
+DL Graph: try enable edge #3: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #3: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 
-W-DL: propagate_atom: atom = p3 (<= (+ x (* (- 1) i!0)) 1) 
-DL Graph: try enable edge #4: (not p3) (<= (- dst$4 src$3) [weight: -2] ) {timestamp: 0}
-DL Graph: enable disabled edge #4: (not p3) (<= (- dst$4 src$3) [weight: -2] ) {timestamp: 2}
+(smt.simplifying-clause-set :num-deleted-clauses 2)
+(smt.simplifier-start)
+W-DL: push_scope_eh
+W-DL: push_equations
+propagating... 3:4
+W-DL: propagate_core
+(smt.simplifier-start)
+W-DL: push_scope_eh
+W-DL: push_equations
+propagating... 4:5
+W-DL: propagate_core
+(smt.simplifier-start)
+W-DL: push_scope_eh
+W-DL: push_equations
+propagating... 5:6
+W-DL: propagate_core
+(smt.simplifier-start)
+W-DL: push_scope_eh
+W-DL: push_equations
+propagating... 8:9
+propagate_relevancy: marking as relevant:
+(not (<= (+ x #56) 0))
+scope_level: 5
+propagate_relevancy: marking as relevant:
+(not (>= (+ x #56) 0))
+scope_level: 5
+propagate_relevancy: marking as relevant:
+(>= (+ y (* -1 i!0)) 1)
+scope_level: 5
+propagate_relevancy_to_args # 71
+(not (<= (+ x (* (- 1) i!0)) 0))
+propagate_relevancy: marking as relevant:
+(<= (+ x (* -1 i!0)) 0)
+scope_level: 5
+propagate_relevancy_to_args # 54
+(not (>= (+ x (* (- 1) i!0)) 0))
+propagate_relevancy: marking as relevant:
+(>= (+ x (* -1 i!0)) 0)
+scope_level: 5
+propagate_relevancy_to_args # 51
+(>= (+ y (* (- 1) i!0)) 1)
+propagate_relevancy: marking as relevant:
+(+ y (* -1 i!0))
+scope_level: 5
+propagate_relevancy_to_args # 64
+(<= (+ x (* (- 1) i!0)) 0)
+propagate_relevancy: marking as relevant:
+0
+scope_level: 5
+propagate_relevancy: marking as relevant:
+(+ x (* -1 i!0))
+scope_level: 5
+propagate_relevancy_to_args # 62
+(>= (+ x (* (- 1) i!0)) 0)
+propagate_relevancy_to_args # 48
+(+ y (* (- 1) i!0))
+propagate_relevancy: marking as relevant:
+(* -1 i!0)
+scope_level: 5
+propagate_relevancy_to_args # 23
+0
+propagate_relevancy_to_args # 63
+(+ x (* (- 1) i!0))
+propagate_relevancy_to_args # 56
+(* (- 1) i!0)
+propagate_relevancy: marking as relevant:
+i!0
+scope_level: 5
+propagate_relevancy_to_args # 42
+i!0
+propagate_atoms: #51
+(>= (+ y (* (- 1) i!0)) 1)
+W-DL: assign_eh: 9: 0
+propagate_atoms: #64
+(<= (+ x (* (- 1) i!0)) 0)
+W-DL: assign_eh: 4: 1
+propagate_atoms: #62
+(>= (+ x (* (- 1) i!0)) 0)
+W-DL: assign_eh: 3: 1
+W-DL: propagate_core
+W-DL: propagate_atom: atom = p9 (>= (+ y (* (- 1) i!0)) 1) 
+DL Graph: try enable edge #18: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #18: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 2}
 
-W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) i!0)) 3) 
-DL Graph: try enable edge #5: p4 (<= (- dst$2 src$4) [weight: 3] ) {timestamp: 0}
-DL Graph: enable disabled edge #5: p4 (<= (- dst$2 src$4) [weight: 3] ) {timestamp: 3}
+W-DL: propagate_atom: atom = (not p4) (<= (+ x (* (- 1) i!0)) 0) 
+DL Graph: try enable edge #9: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #9: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
+
+W-DL: propagate_atom: atom = (not p3) (>= (+ x (* (- 1) i!0)) 0) 
+DL Graph: try enable edge #7: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #7: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
+
+W-DL: propagate_atom: before set_neg_cycle_conflict
+atoms
+p1 (<= (+ y (* (- 1) x)) 1) 
+(not p1) (<= (+ y (* (- 1) x)) 1) 
+(not p2) (>= (+ y (* (- 1) x)) 1) 
+p3 (>= (+ x (* (- 1) i!0)) 0) 
+(not p3) (>= (+ x (* (- 1) i!0)) 0) 
+(not p4) (<= (+ x (* (- 1) i!0)) 0) 
+p6 (<= (+ y (* (- 1) i!0)) 0) 
+p7 (<= (+ y (* (- 1) i!0)) 1) 
+p7 (<= (+ y (* (- 1) i!0)) 1) 
+p9 (>= (+ y (* (- 1) i!0)) 1) 
+graph
+	edge
+disabled edge: p1 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
+p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
+p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
+disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+p3 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
+disabled edge: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p6 (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: p7 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+disabled edge: (not p7) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
+disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
+(not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 2}
+	assignment
+$0 := 0
+$1 := 0
+$2 := 0
+$3 := -1
+$4 := 0
+
+W-DL: neg_cycle_conflict:
+#62(>= (+ x (* (- 1) i!0)) 0) relevant: 1, val: l_true
+#49(>= (+ y (* (- 1) x)) 1) relevant: 1, val: l_true
+(not #51)(not (>= (+ y (* (- 1) i!0)) 1)) relevant: 1, val: l_true
+
+W-DL: pop_scope_eh: 2
+propagate_relevancy: marking as relevant:
+(>= (+ x (* -1 i!0)) 0)
+scope_level: 3
+propagate_relevancy_to_args # 62
+(>= (+ x (* (- 1) i!0)) 0)
+propagate_relevancy: marking as relevant:
+0
+scope_level: 3
+propagate_relevancy: marking as relevant:
+(+ x (* -1 i!0))
+scope_level: 3
+propagate_relevancy_to_args # 23
+0
+propagate_relevancy_to_args # 63
+(+ x (* (- 1) i!0))
+propagate_relevancy: marking as relevant:
+(* -1 i!0)
+scope_level: 3
+propagate_relevancy_to_args # 56
+(* (- 1) i!0)
+propagate_relevancy: marking as relevant:
+i!0
+scope_level: 3
+propagate_relevancy_to_args # 42
+i!0
+propagate_relevancy: marking as relevant:
+(>= (+ y (* -1 i!0)) 1)
+scope_level: 3
+propagate_relevancy_to_args # 51
+(>= (+ y (* (- 1) i!0)) 1)
+propagate_relevancy: marking as relevant:
+(+ y (* -1 i!0))
+scope_level: 3
+propagate_relevancy_to_args # 48
+(+ y (* (- 1) i!0))
+propagating... 5:6
+propagate_relevancy: marking as relevant:
+(not (>= (+ x #56) 0))
+scope_level: 3
+propagate_relevancy: marking as relevant:
+(if (<= (+ x #56) 0) (<= (+ y #56) 0) (not (<= #48 1)))
+scope_level: 3
+propagate_relevancy_to_args # 54
+(not (>= (+ x (* (- 1) i!0)) 0))
+propagate_relevancy_to_args # 68
+(let ((a!1 (not (<= (+ y (* (- 1) i!0)) 1))))
+  (ite (<= (+ x (* (- 1) i!0)) 0) (<= (+ y (* (- 1) i!0)) 0) a!1))
+propagate_relevancy: marking as relevant:
+(<= (+ x (* -1 i!0)) 0)
+scope_level: 3
+propagate_relevancy_to_args # 64
+(<= (+ x (* (- 1) i!0)) 0)
+propagate_atoms: #51
+(>= (+ y (* (- 1) i!0)) 1)
+W-DL: assign_eh: 9: 0
+propagate_atoms: #62
+(>= (+ x (* (- 1) i!0)) 0)
+W-DL: assign_eh: 3: 0
+W-DL: propagate_core
+W-DL: propagate_atom: atom = p9 (>= (+ y (* (- 1) i!0)) 1) 
+DL Graph: try enable edge #18: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 2}
+DL Graph: enable disabled edge #18: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 2}
+
+W-DL: propagate_atom: atom = p3 (>= (+ x (* (- 1) i!0)) 0) 
+DL Graph: try enable edge #8: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #8: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 3}
+
+(smt.simplifier-start)
+W-DL: push_scope_eh
+W-DL: push_equations
+propagating... 7:8
+propagate_relevancy: marking as relevant:
+(<= (+ y (* -1 i!0)) 0)
+scope_level: 4
+propagate_relevancy_to_args # 65
+(<= (+ y (* (- 1) i!0)) 0)
+propagate_atoms: #64
+(<= (+ x (* (- 1) i!0)) 0)
+W-DL: assign_eh: 4: 1
+propagate_atoms: #65
+(<= (+ y (* (- 1) i!0)) 0)
+W-DL: assign_eh: 6: 0
+W-DL: propagate_core
+W-DL: propagate_atom: atom = (not p4) (<= (+ x (* (- 1) i!0)) 0) 
+DL Graph: try enable edge #9: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
+DL Graph: enable disabled edge #9: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
+
+W-DL: propagate_atom: atom = p6 (<= (+ y (* (- 1) i!0)) 0) 
+DL Graph: try enable edge #12: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #12: (not p6) (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 5}
 
 
 W-DL: final_check_eh
 W-DL: final_check - done
 sat
-W-DL: init_model
-W-DL: compute_delta
-(n_x,k_x): 0, 0, (n_y,k_y): -1, 0, (n_c,k_c): 1, 0
-(n_x,k_x): -1, 0, (n_y,k_y): 0, 0, (n_c,k_c): -1, 0
-(n_x,k_x): -3, 0, (n_y,k_y): -1, 0, (n_c,k_c): -2, 0
-(n_x,k_x): 0, 0, (n_y,k_y): -3, 0, (n_c,k_c): 3, 0
-W-DL: enode mk_value: 2
-W-DL: enode mk_value: 3
-W-DL: enode mk_value: 4
-(model 
-  (define-fun y () Int
-    0)
-  (define-fun x () Int
-    (- 1))
-  (define-fun z () Int
-    0)
-)
+W-DL: pop_scope_eh: 3
 W-DL: pop_scope_eh: 1
