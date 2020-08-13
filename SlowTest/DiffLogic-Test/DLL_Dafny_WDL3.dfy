@@ -280,7 +280,7 @@ ghost method Expand_SeqInit(g: seq<int>, new_len: int) returns (g': seq<int>)
       if x < |g| then g[x] else unused);
   }
 
-// 1.389 s (default 0.347 s, solver1 1.113 s)
+// 1.389 s / 1.146 s (default 0.347 s, solver1 1.113 s)
 method Expand<A>(l:DList<A>) returns(l':DList<A>)
   requires Inv(l)
   ensures Inv(l')
@@ -310,7 +310,7 @@ ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
     if g[x] == index then unused else if g[x] > index then Sub(g[x], 1) else g[x]);
   }
 
-// 0.849 s (default 3.002 s, solver1 12.821 s)
+// 0.849 s / 3.697 s (default 3.002 s, solver1 12.821 s)
 method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
@@ -348,7 +348,7 @@ ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) 
       if x == p' then index' else if index < g[x] then Add(g[x], 1) else g[x]);
   }
 
-// 2.947 s (default 9.872 s, solver1 20.207 s)
+// 2.947 s / 3.401 s (default 9.872 s, solver1 20.207 s)
 method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -398,7 +398,7 @@ ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g'
     if x == p' then index' else if g[x] >= index' then Add(g[x], 1) else g[x]);
   }
 
-// 0.501 s (default 7.144 s, solver1 29.264 s)
+// 0.501 s / 2.130 s (default 7.144 s, solver1 29.264 s)
 method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -440,7 +440,7 @@ method Clone<A>(l:DList<A>) returns(l':DList<A>)
   l' := DList(nodes', freeStack, s, f, g);
 }
 
-// 19.102 s (default 1.267 s, solver1 17.190 s)
+// 19.102 s / 11.533 s (default 1.267 s, solver1 17.190 s)
 method main()
 {
   var l := Alloc<int>(3);
