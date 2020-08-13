@@ -5,6 +5,16 @@
 (declare-const y Int)
 (declare-const z Int)
 
+
+(push)
+(assert (not
+    (let ((anon0_correct 
+        (=> (= y (+ x 1))
+            (! (forall ((i Int)) (! (ite (= i x) (<= (+ i 1) y) (ite (< i x) (< (+ i 1) y) (>= i y) ) )) ))
+        ) ))
+    anon0_correct) ))
+(check-sat) ; unsat
+(pop)
 (push)
 (assert (not
     (let ((anon0_correct 
@@ -53,21 +63,6 @@
     anon0_correct) ))
 (check-sat) ; unsat
 (pop)
-(push)
-(assert (not
-    (let ((anon0_correct 
-        (=> (= y (+ x 1))
-            (! (forall ((i Int)) (! (ite (= i x) (<= (+ i 1) y) (ite (< i x) (< (+ i 1) y) (>= i y) ) )) ))
-        ) ))
-    anon0_correct) ))
-(check-sat) ; unsat
-(pop)
-;(push)
-;(assert (not
-;    (let ((anon0_correct 
-;        (=> (= y (- x 1))
-;            (! (forall ((i Int)) (! (and (=> (= i x) (< i y)) (=> (< i ;x) (< (- i 1) y)) )) ))) ))
-;    anon0_correct) ))
 ;(assert (ite (= y (- x 1)) (=> (= y z) (= z (- x 1))) (=> (= y (- z 1)) (< y z))) )
 ;(check-sat)
 ;(get-model)
