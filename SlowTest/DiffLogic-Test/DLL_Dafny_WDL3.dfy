@@ -280,7 +280,9 @@ ghost method Expand_SeqInit(g: seq<int>, new_len: int) returns (g': seq<int>)
       if x < |g| then g[x] else unused);
   }
 
-// 1.389 s / 1.146 s (default 0.347 s, solver1 1.113 s)
+// default : 0.334 s    / 0.484 s
+// solver1 : 1.003 s    / 1.073 s
+// solver7 : 1.179 s    / 1.071 s
 method Expand<A>(l:DList<A>) returns(l':DList<A>)
   requires Inv(l)
   ensures Inv(l')
@@ -310,7 +312,9 @@ ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
     if g[x] == index then unused else if g[x] > index then Sub(g[x], 1) else g[x]);
   }
 
-// 0.849 s / 3.697 s (default 3.002 s, solver1 12.821 s)
+// default : 2.954 s    / 3.136 s
+// solver1 : 11.033 s   / 33.261 s
+// solver7 : 5.134 s    / 15.940 s
 method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
@@ -348,7 +352,9 @@ ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) 
       if x == p' then index' else if index < g[x] then Add(g[x], 1) else g[x]);
   }
 
-// 2.947 s / 3.401 s (default 9.872 s, solver1 20.207 s)
+// default : 9.453 s    / 39.919 s
+// solver1 : 15.475 s   / TMO (> 100 s)
+// solver7 : 18.721 s   / 23.126 s
 method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -398,7 +404,9 @@ ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g'
     if x == p' then index' else if g[x] >= index' then Add(g[x], 1) else g[x]);
   }
 
-// 0.501 s / 2.130 s (default 7.144 s, solver1 29.264 s)
+// default : 6.608 s    / 56.627 s
+// solver1 : 26.754 s   / TMO (> 100 s)
+// solver7 : 16.731 s   / 26.417 s
 method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -440,7 +448,9 @@ method Clone<A>(l:DList<A>) returns(l':DList<A>)
   l' := DList(nodes', freeStack, s, f, g);
 }
 
-// 19.102 s / 11.533 s (default 1.267 s, solver1 17.190 s)
+// default : 1.166 s    / 1.947 s
+// solver1 : 17.330 s   / 23.155 s
+// solver7 : 23.436 s   / 25.072 s
 method main()
 {
   var l := Alloc<int>(3);
