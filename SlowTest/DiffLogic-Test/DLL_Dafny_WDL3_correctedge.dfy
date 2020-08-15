@@ -298,6 +298,7 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   nodes := BuildFreeStack(nodes, Add(len, 1));
   var g' := Expand_SeqInit(g, |nodes|);
   l' := DList(nodes, Sub(len', 1), s, f, g');
+  // assert false;
 }
 
 ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
@@ -337,6 +338,7 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := node.prev));
   nodes := SeqUpdate(nodes, p, Node(None, freeStack, 0));
   l' := DList(nodes, p, s', f', g');
+  // assert false;
 }
 
 ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
@@ -382,13 +384,13 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var f' := SeqInsert(f, index', p');
   ghost var g' := InsertAfter_SeqInit(g, p', index, index');
   var node := seq_get(nodes, p);
-
   var node' := Node(Some(a), node.next, p);
   nodes := SeqUpdate(nodes, p, node.(next := p'));
   var node_next := seq_get(nodes, node.next);
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
+  // assert false;
 }
 
 
@@ -438,6 +440,7 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   nodes := SeqUpdate(nodes, node.prev, node_prev.(next := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
+  // assert false;
 }
 
 method Clone<A>(l:DList<A>) returns(l':DList<A>)
@@ -448,24 +451,24 @@ method Clone<A>(l:DList<A>) returns(l':DList<A>)
   l' := DList(nodes', freeStack, s, f, g);
 }
 
-// default : 1.166 s    / 1.947 s
-// solver1 : 17.330 s   / 23.155 s
-// solver7 : 23.436 s   / 25.072 s
-method main()
-{
-  var l := Alloc<int>(3);
-  var p;
-  l, p := InsertAfter(l, 0, 100);
-  l, p := InsertAfter(l, p, 200);
-  l, p := InsertAfter(l, p, 300);
-  var p3 := p;
-  l, p := InsertAfter(l, p, 400);
-  l, p := InsertAfter(l, p, 500);
-  assert Seq(l) == [100, 200, 300, 400, 500];
-  l := Remove(l, p3);
-  assert Seq(l) == [100, 200, 400, 500];
-  l, p := InsertAfter(l, p, 600);
-  l, p := InsertAfter(l, p, 700);
-  assert Seq(l) == [100, 200, 400, 500, 600, 700];
-  Free(l);
-}
+// // default : 1.166 s    / 1.947 s
+// // solver1 : 17.330 s   / 23.155 s
+// // solver7 : 23.436 s   / 25.072 s
+// method main()
+// {
+//   var l := Alloc<int>(3);
+//   var p;
+//   l, p := InsertAfter(l, 0, 100);
+//   l, p := InsertAfter(l, p, 200);
+//   l, p := InsertAfter(l, p, 300);
+//   var p3 := p;
+//   l, p := InsertAfter(l, p, 400);
+//   l, p := InsertAfter(l, p, 500);
+//   assert Seq(l) == [100, 200, 300, 400, 500];
+//   l := Remove(l, p3);
+//   assert Seq(l) == [100, 200, 400, 500];
+//   l, p := InsertAfter(l, p, 600);
+//   l, p := InsertAfter(l, p, 700);
+//   assert Seq(l) == [100, 200, 400, 500, 600, 700];
+//   Free(l);
+// }

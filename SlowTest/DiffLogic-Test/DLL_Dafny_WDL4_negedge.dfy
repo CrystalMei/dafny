@@ -35,7 +35,7 @@ function method SeqInsert<X> (s: seq<X>, k: int, v: X) : (s': seq<X>)
     if i < k then s'[i] == s[i]
     else if i == k then s'[i] == v
     else // i > k
-      0 <= Sub(i, 1) ==> // precond
+      // 0 <= Sub(i, 1) ==> // precond
       s'[i] == s[Sub(i, 1)]
 
 function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
@@ -381,7 +381,6 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   var DList(nodes, freeStack, s, f, g) := l';
   ghost var index := g[p];
   ghost var index' := Add(index, 1);
-  lt2plus_one_leq(index, |s|);
   ghost var s' := SeqInsert(s, index', a);
   ghost var f' := SeqInsert(f, index', p');
   ghost var g' := InsertAfter_SeqInit(g, p', index, index');
@@ -393,7 +392,7 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
-  // assert false;
+  assert false;
 }
 
 
@@ -443,7 +442,7 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   nodes := SeqUpdate(nodes, node.prev, node_prev.(next := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
-  // assert false;
+  assert false;
 }
 
 method Clone<A>(l:DList<A>) returns(l':DList<A>)
