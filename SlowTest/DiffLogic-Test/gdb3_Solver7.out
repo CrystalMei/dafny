@@ -1330,8 +1330,6 @@ propagate_atoms: #50
 (<= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: edge with weight [1] > 0 - only neg_edge (weight -2)
-DL Graph: add_edge #14: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 
@@ -1341,7 +1339,11 @@ propagate_atoms: #49
 (>= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 3 
@@ -1454,10 +1456,10 @@ propagate_atoms: #51
 (>= (+ y (* (- 1) i!0)) 1)
 W-DL: assign_eh: 9: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim src, keep tgt
-DL Graph: add_edge #15: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
-DL Graph: add_edge #16: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: add_edge #14: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
+DL Graph: add_edge #15: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 
 W-DL: equation list display:
 keep: 3 
@@ -1467,9 +1469,8 @@ propagate_atoms: #64
 (<= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -1479,16 +1480,20 @@ propagate_atoms: #62
 (>= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 3: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 4 3
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim tgt, keep src
 
 W-DL: equation list display:
-keep: 3 4 
-elim: 2 3 
+keep: 3 3 
+elim: 2 4 
 weig: 1 0 
 W-DL: propagate_core
 W-DL: propagate_atom: atom = p9 (>= (+ y (* (- 1) i!0)) 1) 
-DL Graph: try enable edge #16: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
-DL Graph: enable disabled edge #16: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: try enable edge #15: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: enable disabled edge #15: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = (not p4) (<= (+ x (* (- 1) i!0)) 0) 
 DL Graph: try enable edge #6: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
@@ -1507,7 +1512,6 @@ atoms
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 p7 (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
 graph
 	edge
@@ -1525,7 +1529,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 	assignment
@@ -1556,7 +1559,6 @@ atoms
 (not p6) (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 graph
 	edge
 p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
@@ -1573,7 +1575,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -1636,10 +1637,10 @@ propagate_atoms: #51
 (>= (+ y (* (- 1) i!0)) 1)
 W-DL: assign_eh: 9: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim src, keep tgt
-DL Graph: add_edge #15: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
-DL Graph: add_edge #16: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: add_edge #14: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
+DL Graph: add_edge #15: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 
 W-DL: equation list display:
 keep: 3 
@@ -1649,9 +1650,8 @@ propagate_atoms: #62
 (>= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 3: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -1659,8 +1659,8 @@ elim: 2
 weig: 1 
 W-DL: propagate_core
 W-DL: propagate_atom: atom = p9 (>= (+ y (* (- 1) i!0)) 1) 
-DL Graph: try enable edge #16: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
-DL Graph: enable disabled edge #16: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: try enable edge #15: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: enable disabled edge #15: (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = p3 (>= (+ x (* (- 1) i!0)) 0) 
 DL Graph: try enable edge #5: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
@@ -1685,9 +1685,8 @@ propagate_atoms: #64
 (<= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -1697,10 +1696,10 @@ propagate_atoms: #65
 (<= (+ y (* (- 1) i!0)) 0)
 W-DL: assign_eh: 6: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #17: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
-DL Graph: add_edge #18: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
+DL Graph: add_edge #16: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
+DL Graph: add_edge #17: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
 
 W-DL: equation list display:
 keep: 3 
@@ -1712,8 +1711,8 @@ DL Graph: try enable edge #6: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3
 DL Graph: enable disabled edge #6: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = p6 (<= (+ y (* (- 1) i!0)) 0) 
-DL Graph: try enable edge #18: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
-DL Graph: enable disabled edge #18: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 5}
+DL Graph: try enable edge #17: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
+DL Graph: enable disabled edge #17: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 5}
 
 W-DL: propagate_atom: before set_neg_cycle_conflict
 atoms
@@ -1724,7 +1723,6 @@ p3 (>= (+ x (* (- 1) i!0)) 0)
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 p7 (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 graph
@@ -1743,7 +1741,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 disabled edge: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
@@ -1776,7 +1773,6 @@ p3 (>= (+ x (* (- 1) i!0)) 0)
 (not p6) (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
 graph
 	edge
@@ -1794,7 +1790,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 	assignment
@@ -1823,10 +1818,10 @@ propagate_atoms: #65
 (<= (+ y (* (- 1) i!0)) 0)
 W-DL: assign_eh: 6: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #17: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
-DL Graph: add_edge #18: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
+DL Graph: add_edge #16: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
+DL Graph: add_edge #17: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 4}
 
 W-DL: equation list display:
 keep: 3 
@@ -1836,9 +1831,8 @@ propagate_atoms: #64
 (<= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 4: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -1848,10 +1842,10 @@ propagate_atoms: #66
 (<= (+ y (* (- 1) i!0)) 1)
 W-DL: assign_eh: 7: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #19: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
-DL Graph: add_edge #20: (not p7) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 4}
+DL Graph: add_edge #18: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
+DL Graph: add_edge #19: (not p7) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 4}
 
 W-DL: equation list display:
 keep: 3 
@@ -1859,8 +1853,8 @@ elim: 2
 weig: 1 
 W-DL: propagate_core
 W-DL: propagate_atom: atom = (not p6) (<= (+ y (* (- 1) i!0)) 0) 
-DL Graph: try enable edge #17: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
-DL Graph: enable disabled edge #17: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
+DL Graph: try enable edge #16: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
+DL Graph: enable disabled edge #16: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = p4 (<= (+ x (* (- 1) i!0)) 0) 
 DL Graph: try enable edge #7: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
@@ -1875,7 +1869,6 @@ p4 (<= (+ x (* (- 1) i!0)) 0)
 (not p6) (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
 (not p6) (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
@@ -1895,7 +1888,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 (not p9) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 4}
@@ -1930,7 +1922,6 @@ atoms
 (not p6) (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 (not p9) (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 graph
 	edge
 p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
@@ -1947,7 +1938,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -2000,10 +1990,10 @@ propagate_atoms: #65
 (<= (+ y (* (- 1) i!0)) 0)
 W-DL: assign_eh: 6: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #15: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
-DL Graph: add_edge #16: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
+DL Graph: add_edge #14: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
+DL Graph: add_edge #15: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 
 W-DL: equation list display:
 keep: 3 
@@ -2011,8 +2001,8 @@ elim: 2
 weig: 1 
 W-DL: propagate_core
 W-DL: propagate_atom: atom = p6 (<= (+ y (* (- 1) i!0)) 0) 
-DL Graph: try enable edge #16: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
-DL Graph: enable disabled edge #16: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
+DL Graph: try enable edge #15: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
+DL Graph: enable disabled edge #15: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 
 (smt.simplifier-start)
 W-DL: push_scope_eh
@@ -2043,9 +2033,8 @@ propagate_atoms: #64
 (<= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 4: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -2055,10 +2044,10 @@ propagate_atoms: #66
 (<= (+ y (* (- 1) i!0)) 1)
 W-DL: assign_eh: 7: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #17: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
-DL Graph: add_edge #18: (not p7) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 3}
+DL Graph: add_edge #16: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
+DL Graph: add_edge #17: (not p7) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 3}
 
 W-DL: equation list display:
 keep: 3 
@@ -2070,8 +2059,8 @@ DL Graph: try enable edge #7: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {times
 DL Graph: enable disabled edge #7: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 3}
 
 W-DL: propagate_atom: atom = (not p7) (<= (+ y (* (- 1) i!0)) 1) 
-DL Graph: try enable edge #17: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
-DL Graph: enable disabled edge #17: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
+DL Graph: try enable edge #16: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
+DL Graph: enable disabled edge #16: p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
 
 W-DL: propagate_atom: before set_neg_cycle_conflict
 atoms
@@ -2082,7 +2071,6 @@ p4 (<= (+ x (* (- 1) i!0)) 0)
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 graph
@@ -2101,7 +2089,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 p7 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 4}
@@ -2134,7 +2121,6 @@ atoms
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 graph
 	edge
@@ -2152,7 +2138,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 	assignment
@@ -2176,9 +2161,8 @@ propagate_atoms: #64
 (<= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -2188,9 +2172,8 @@ propagate_atoms: #62
 (>= (+ x (* (- 1) i!0)) 0)
 W-DL: assign_eh: 3: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -2214,7 +2197,6 @@ p3 (>= (+ x (* (- 1) i!0)) 0)
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 p9 (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p6 (<= (+ y (* (- 1) i!0)) 0) 
 graph
 	edge
@@ -2232,7 +2214,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p6 (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 2}
 (not p6) (<= (- dst$4 src$3) [weight: 0] ) {timestamp: 2}
 	assignment
@@ -2263,7 +2244,6 @@ atoms
 (not p6) (<= (+ y (* (- 1) i!0)) 0) 
 (not p7) (<= (+ y (* (- 1) i!0)) 1) 
 (not p9) (>= (+ y (* (- 1) i!0)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 graph
 	edge
 p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
@@ -2280,7 +2260,6 @@ disabled edge: p7 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p7) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p9 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p9) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 	assignment
 $0 := 0
 $1 := 0
@@ -2534,7 +2513,7 @@ internalize_rec with gate_ctx(1):
 #45 := (+ y #44)
 (>= #45 1)
 
-literal p22049:
+literal p21856:
 (>= (+ y (* (- 1) x)) 1)
 
 internalize_formula: with gate_ctx(1):
@@ -3134,8 +3113,6 @@ propagate_atoms: #74
 (<= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: edge with weight [1] > 0 - only neg_edge (weight -2)
-DL Graph: add_edge #12: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 
@@ -3145,7 +3122,11 @@ propagate_atoms: #75
 (>= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 3 
@@ -3155,9 +3136,12 @@ propagate_atoms: #57
 (>= (+ y (* (- 1) z)) (- 1))
 W-DL: assign_eh: 3: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 3
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim src, keep tgt
-DL Graph: add_edge #13: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #12: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+DL Graph: add_edge #13: (not p3) (<= (- dst$3 src$4) [weight: -3] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 
@@ -3167,7 +3151,13 @@ propagate_atoms: #47
 (<= (+ y (* (- 1) z)) (- 1))
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 4
 W-DL: EQUAL
+W-DL: eliminable tgt, get tgt_old
+W-DL: elim src
+DL Graph: add_edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 0}
+DL Graph: add_edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 3 
@@ -3177,9 +3167,8 @@ propagate_atoms: #52
 (<= (+ x (* (- 1) i!1)) 0)
 W-DL: assign_eh: 5: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 3 
@@ -3189,9 +3178,10 @@ propagate_atoms: #49
 (<= (+ z (* (- 1) i!1)) 3)
 W-DL: assign_eh: 6: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #14: (not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #16: p6 (<= (- dst$3 src$5) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge #17: (not p6) (<= (- dst$5 src$3) [weight: -2] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 3 
@@ -3207,18 +3197,21 @@ DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
-DL Graph: try enable edge #4: p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #4: p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 2}
+DL Graph: try enable edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 0}
+DL Graph: enable disabled edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
-DL Graph: try enable edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 3}
+DL Graph: try enable edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+DL Graph: enable disabled edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 3}
 
 W-DL: propagate_atom: atom = p5 (<= (+ x (* (- 1) i!1)) 0) 
 DL Graph: try enable edge #9: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
 DL Graph: enable disabled edge #9: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = (not p6) (<= (+ z (* (- 1) i!1)) 3) 
+DL Graph: try enable edge #16: p6 (<= (- dst$3 src$5) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #16: p6 (<= (- dst$3 src$5) [weight: 1] ) {timestamp: 5}
+
 
 W-DL: final_check_eh
 W-DL: final_check - done
@@ -4042,8 +4035,6 @@ propagate_atoms: #47
 (<= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: edge with weight [1] > 0 - only neg_edge (weight -2)
-DL Graph: add_edge #12: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 
@@ -4053,7 +4044,11 @@ propagate_atoms: #57
 (>= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 3 
@@ -4063,9 +4058,12 @@ propagate_atoms: #46
 (>= (+ y (* (- 1) z)) (- 1))
 W-DL: assign_eh: 3: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 3
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim src, keep tgt
-DL Graph: add_edge #13: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #12: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+DL Graph: add_edge #13: (not p3) (<= (- dst$3 src$4) [weight: -3] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 
@@ -4075,7 +4073,13 @@ propagate_atoms: #76
 (<= (+ y (* (- 1) z)) (- 1))
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 4
 W-DL: EQUAL
+W-DL: eliminable tgt, get tgt_old
+W-DL: elim src
+DL Graph: add_edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 0}
+DL Graph: add_edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 3 
@@ -4085,10 +4089,12 @@ propagate_atoms: #75
 (<= (+ z (* (- 1) i!2)) 2)
 W-DL: assign_eh: 5: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 4 2
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #14: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
-DL Graph: add_edge #15: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #16: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #17: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 3 
@@ -4098,9 +4104,8 @@ propagate_atoms: #66
 (<= (+ x (* (- 1) i!2)) 0)
 W-DL: assign_eh: 6: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 3 
@@ -4116,16 +4121,16 @@ DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
-DL Graph: try enable edge #4: p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #4: p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 2}
+DL Graph: try enable edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 0}
+DL Graph: enable disabled edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
-DL Graph: try enable edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 3}
+DL Graph: try enable edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+DL Graph: enable disabled edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 3}
 
 W-DL: propagate_atom: atom = (not p5) (<= (+ z (* (- 1) i!2)) 2) 
-DL Graph: try enable edge #14: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
-DL Graph: enable disabled edge #14: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 4}
+DL Graph: try enable edge #16: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #16: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = p6 (<= (+ x (* (- 1) i!2)) 0) 
 DL Graph: try enable edge #11: (not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
@@ -4139,8 +4144,9 @@ atoms
 (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
 (not p5) (<= (+ z (* (- 1) i!2)) 2) 
 p6 (<= (+ x (* (- 1) i!2)) 0) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
+(not p3) (>= (+ y (* (- 1) z)) (- 1)) 
+(not p4) (<= (+ y (* (- 1) z)) (- 1)) 
 (not p5) (<= (+ z (* (- 1) i!2)) 2) 
 graph
 	edge
@@ -4148,16 +4154,18 @@ p1 (<= (- dst$2 src$3) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -2] ) {timestamp: 0}
 p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
-p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 2}
+disabled edge: p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$2 src$4) [weight: -2] ) {timestamp: 0}
-p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 3}
+disabled edge: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p4) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
 disabled edge: p5 (<= (- dst$4 src$5) [weight: 2] ) {timestamp: 0}
 disabled edge: (not p5) (<= (- dst$5 src$4) [weight: -3] ) {timestamp: 0}
 disabled edge: p6 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
 (not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 5}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
-disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {timestamp: 0}
+disabled edge: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -3] ) {timestamp: 0}
+p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 2}
+p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 3}
 p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 4}
 disabled edge: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
 	assignment
@@ -4736,8 +4744,6 @@ propagate_atoms: #66
 (<= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: edge with weight [1] > 0 - only neg_edge (weight -2)
-DL Graph: add_edge #8: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 
@@ -4747,7 +4753,11 @@ propagate_atoms: #78
 (>= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 3 
@@ -4757,10 +4767,12 @@ propagate_atoms: #51
 (<= (+ y (* (- 1) i!3)) 1)
 W-DL: assign_eh: 3: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 3
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #9: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
-DL Graph: add_edge #10: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #8: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #9: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 
@@ -4770,9 +4782,8 @@ propagate_atoms: #65
 (<= (+ x (* (- 1) i!3)) 0)
 W-DL: assign_eh: 4: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -4788,8 +4799,8 @@ DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (<= (+ y (* (- 1) i!3)) 1) 
-DL Graph: try enable edge #9: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
-DL Graph: enable disabled edge #9: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 2}
+DL Graph: try enable edge #8: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #8: p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = p4 (<= (+ x (* (- 1) i!3)) 0) 
 DL Graph: try enable edge #7: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
@@ -4801,7 +4812,6 @@ atoms
 (not p2) (>= (+ y (* (- 1) x)) 1) 
 (not p3) (<= (+ y (* (- 1) i!3)) 1) 
 p4 (<= (+ x (* (- 1) i!3)) 0) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 (not p3) (<= (+ y (* (- 1) i!3)) 1) 
 graph
 	edge
@@ -4813,7 +4823,6 @@ disabled edge: p3 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$4 src$2) [weight: -2] ) {timestamp: 0}
 disabled edge: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
 (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 3}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 p3 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 2}
 disabled edge: (not p3) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
 	assignment
@@ -5392,9 +5401,6 @@ propagate_atoms: #66
 (<= (+ y (* (- 1) x)) (- 1))
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight [-1] < 0 - only pos_edge (weight -1) or neg_edge (weight 0)
-DL Graph: add_edge #8: p1 (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
-DL Graph: add_edge #9: (not p1) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 
@@ -5404,7 +5410,11 @@ propagate_atoms: #52
 (>= (+ y (* (- 1) x)) (- 1))
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: positive weight, elim tgt, keep src
 
 W-DL: equation list display:
 keep: 2 
@@ -5414,10 +5424,10 @@ propagate_atoms: #76
 (<= (+ x (* (- 1) i!4)) 0)
 W-DL: assign_eh: 3: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #10: p3 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
-DL Graph: add_edge #11: (not p3) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #8: p3 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #9: (not p3) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 2 
@@ -5427,10 +5437,8 @@ propagate_atoms: #68
 (<= (+ y (* (- 1) i!4)) 1)
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: edge with weight [1] > 0 - only neg_edge (weight -2)
-DL Graph: add_edge #12: (not p4) (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 2 
@@ -5446,10 +5454,13 @@ DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 0
 DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = p3 (<= (+ x (* (- 1) i!4)) 0) 
-DL Graph: try enable edge #11: (not p3) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
-DL Graph: enable disabled edge #11: (not p3) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 2}
+DL Graph: try enable edge #9: (not p3) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
+DL Graph: enable disabled edge #9: (not p3) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) i!4)) 1) 
+DL Graph: try enable edge #6: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #6: p4 (<= (- dst$2 src$4) [weight: 1] ) {timestamp: 3}
+
 
 W-DL: final_check_eh
 W-DL: final_check - done
@@ -6206,7 +6217,6 @@ propagate_atoms: #65
 (<= y 1)
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 
@@ -6216,7 +6226,11 @@ propagate_atoms: #68
 (>= y 1)
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 0 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 0 
@@ -6226,7 +6240,9 @@ propagate_atoms: #47
 (<= (+ y (* (- 1) x)) (- 1))
 W-DL: assign_eh: 3: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 0
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
 DL Graph: add_edge #12: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
 DL Graph: add_edge #13: (not p3) (<= (- dst$3 src$0) [weight: 1] ) {timestamp: 0}
@@ -6239,7 +6255,13 @@ propagate_atoms: #67
 (>= (+ y (* (- 1) x)) (- 1))
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: eliminable src, get src_old
+W-DL: elim tgt
+DL Graph: add_edge #14: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
+DL Graph: add_edge #15: p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 0 0 
@@ -6249,9 +6271,10 @@ propagate_atoms: #75
 (>= i!5 2)
 W-DL: assign_eh: 5: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 3
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 0 0 
@@ -6261,10 +6284,10 @@ propagate_atoms: #76
 (<= (+ x (* (- 1) i!5)) 0)
 W-DL: assign_eh: 6: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim tgt, keep src
-DL Graph: add_edge #14: p6 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 0}
-DL Graph: add_edge #15: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
+DL Graph: add_edge #16: p6 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 0}
+DL Graph: add_edge #17: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 0 0 
@@ -6280,20 +6303,20 @@ DL Graph: try enable edge #2: p2 (<= (- dst$0 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$0 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (<= (+ y (* (- 1) x)) (- 1)) 
-DL Graph: try enable edge #4: p3 (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #4: p3 (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 2}
+DL Graph: try enable edge #14: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
+DL Graph: enable disabled edge #14: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 2}
 
 W-DL: propagate_atom: atom = (not p4) (>= (+ y (* (- 1) x)) (- 1)) 
-DL Graph: try enable edge #6: p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #6: p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 3}
+DL Graph: try enable edge #15: p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 0}
+DL Graph: enable disabled edge #15: p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 3}
 
 W-DL: propagate_atom: atom = (not p5) (>= i!5 2) 
 DL Graph: try enable edge #8: p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 0}
 DL Graph: enable disabled edge #8: p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = p6 (<= (+ x (* (- 1) i!5)) 0) 
-DL Graph: try enable edge #15: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #15: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 5}
+DL Graph: try enable edge #17: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #17: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 5}
 
 W-DL: propagate_atom: before set_neg_cycle_conflict
 atoms
@@ -6304,6 +6327,8 @@ atoms
 (not p5) (>= i!5 2) 
 p6 (<= (+ x (* (- 1) i!5)) 0) 
 (not p3) (<= (+ y (* (- 1) x)) (- 1)) 
+(not p3) (<= (+ y (* (- 1) x)) (- 1)) 
+(not p4) (>= (+ y (* (- 1) x)) (- 1)) 
 p6 (<= (+ x (* (- 1) i!5)) 0) 
 graph
 	edge
@@ -6311,9 +6336,9 @@ p1 (<= (- dst$2 src$0) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p1) (<= (- dst$0 src$2) [weight: -2] ) {timestamp: 0}
 p2 (<= (- dst$0 src$2) [weight: -1] ) {timestamp: 1}
 disabled edge: (not p2) (<= (- dst$2 src$0) [weight: 0] ) {timestamp: 0}
-p3 (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 2}
+disabled edge: p3 (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 3}
+disabled edge: p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p4) (<= (- dst$2 src$3) [weight: -2] ) {timestamp: 0}
 p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 4}
 disabled edge: (not p5) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
@@ -6321,6 +6346,8 @@ disabled edge: p6 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
 disabled edge: (not p6) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
 disabled edge: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$3 src$0) [weight: 1] ) {timestamp: 0}
+p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 2}
+p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 3}
 disabled edge: p6 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 0}
 (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 5}
 	assignment
@@ -7009,8 +7036,6 @@ propagate_atoms: #87
 (<= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 1: 1
 W-DL: keep src and tgt
-W-DL: edge with weight [1] > 0 - only neg_edge (weight -2)
-DL Graph: add_edge #10: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 
@@ -7020,7 +7045,11 @@ propagate_atoms: #75
 (>= (+ y (* (- 1) x)) 1)
 W-DL: assign_eh: 2: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 2
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 3 
@@ -7030,9 +7059,10 @@ propagate_atoms: #86
 (>= (+ x (* (- 1) i!6)) 0)
 W-DL: assign_eh: 3: 1
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: previous and current are true
+W-DL: previous src and tgt: 2 3
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: keep src and tgt
-W-DL: assign_eh - edge with weight 0 or edge to 0 - original atom
 
 W-DL: equation list display:
 keep: 3 
@@ -7042,7 +7072,11 @@ propagate_atoms: #76
 (<= (+ x (* (- 1) i!6)) 0)
 W-DL: assign_eh: 4: 1
 W-DL: check EQUAL first
+W-DL: previous and current are true
+W-DL: previous src and tgt: 3 4
 W-DL: EQUAL
+W-DL: not exist before
+W-DL: negative weight, elim src, keep tgt
 
 W-DL: equation list display:
 keep: 3 3 
@@ -7052,10 +7086,10 @@ propagate_atoms: #46
 (>= (+ y (* (- 1) i!6)) 1)
 W-DL: assign_eh: 5: 0
 W-DL: check EQUAL first
-W-DL: not EQUAL
+W-DL: not EQUAL - previous is not a positive edge
 W-DL: elim src and tgt
-DL Graph: add_edge #11: p5 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
-DL Graph: add_edge #12: (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: add_edge #10: p5 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
+DL Graph: add_edge #11: (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
 
 W-DL: equation list display:
 keep: 3 3 
@@ -7079,8 +7113,8 @@ DL Graph: try enable edge #6: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0
 DL Graph: enable disabled edge #6: p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
 
 W-DL: propagate_atom: atom = p5 (>= (+ y (* (- 1) i!6)) 1) 
-DL Graph: try enable edge #12: (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #12: (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 4}
+DL Graph: try enable edge #11: (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #11: (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 4}
 
 W-DL: propagate_atom: before set_neg_cycle_conflict
 atoms
@@ -7089,7 +7123,6 @@ atoms
 (not p3) (>= (+ x (* (- 1) i!6)) 0) 
 (not p4) (<= (+ x (* (- 1) i!6)) 0) 
 p5 (>= (+ y (* (- 1) i!6)) 1) 
-(not p1) (<= (+ y (* (- 1) x)) 1) 
 p5 (>= (+ y (* (- 1) i!6)) 1) 
 graph
 	edge
@@ -7103,7 +7136,6 @@ p4 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 3}
 disabled edge: (not p4) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
 disabled edge: p5 (<= (- dst$4 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p5) (<= (- dst$2 src$4) [weight: 0] ) {timestamp: 0}
-disabled edge: (not p1) (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 0}
 disabled edge: p5 (<= (- dst$3 src$3) [weight: 0] ) {timestamp: 0}
 (not p5) (<= (- dst$3 src$3) [weight: -1] ) {timestamp: 4}
 	assignment
