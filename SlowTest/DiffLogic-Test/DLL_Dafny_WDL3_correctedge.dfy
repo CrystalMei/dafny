@@ -22,20 +22,24 @@ function method SeqIndex<X> (s: seq<X>, i: int) : X
 function method SeqRemove<X> (s: seq<X>, k: int) : (s': seq<X>)
   requires 0 <= k < |s|
   ensures Add(|s'|, 1) == |s|
-  ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
-    if i < k then s'[i] == s[i]
-    else // i >= k
-      s'[i] == s[Add(i, 1)]
+  ensures forall i: int {:trigger s'[i]} :: 0 <= i < k ==> s'[i] == s[i]
+  ensures forall i: int {:trigger s'[i]} :: k <= i < |s'| ==> s'[i] == s[Add(i, 1)]
+  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
+  //   if i < k then s'[i] == s[i]
+  //   else // i >= k
+  //     s'[i] == s[Add(i, 1)]
 
 function method SeqInsert<X> (s: seq<X>, k: int, v: X) : (s': seq<X>)
   requires 0 <= k <= |s|
   ensures |s'| == Add(|s|, 1)
-  ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
-    if i < k then s'[i] == s[i]
-    else if i == k then s'[i] == v
-    else // i > k
-      // 0 <= Sub(i, 1) ==>
-      s'[i] == s[Sub(i, 1)]
+  ensures forall i: int {:trigger s'[i]} :: 0 <= i < k ==> s'[i] == s[i]
+  ensures forall i: int {:trigger s'[i]} :: k < i < |s'| ==> s'[i] == s[Sub(i, 1)]
+  ensures forall i: int {:trigger s'[i]} :: i == k ==> s'[i] == v
+  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
+  //   if i < k then s'[i] == s[i]
+  //   else if i == k then s'[i] == v
+  //   else // i > k
+  //     s'[i] == s[Sub(i, 1)]
 
 function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
   requires len >= 0
@@ -451,24 +455,24 @@ method Clone<A>(l:DList<A>) returns(l':DList<A>)
   l' := DList(nodes', freeStack, s, f, g);
 }
 
-// // default : 1.166 s    / 1.947 s
-// // solver1 : 17.330 s   / 23.155 s
-// // solver7 : 23.436 s   / 25.072 s
-// method main()
-// {
-//   var l := Alloc<int>(3);
-//   var p;
-//   l, p := InsertAfter(l, 0, 100);
-//   l, p := InsertAfter(l, p, 200);
-//   l, p := InsertAfter(l, p, 300);
-//   var p3 := p;
-//   l, p := InsertAfter(l, p, 400);
-//   l, p := InsertAfter(l, p, 500);
-//   assert Seq(l) == [100, 200, 300, 400, 500];
-//   l := Remove(l, p3);
-//   assert Seq(l) == [100, 200, 400, 500];
-//   l, p := InsertAfter(l, p, 600);
-//   l, p := InsertAfter(l, p, 700);
-//   assert Seq(l) == [100, 200, 400, 500, 600, 700];
-//   Free(l);
-// }
+// default : 1.166 s    / 1.947 s
+// solver1 : 17.330 s   / 23.155 s
+// solver7 : 23.436 s   / 25.072 s
+method main()
+{
+  var l := Alloc<int>(3);
+  var p;
+  l, p := InsertAfter(l, 0, 100);
+  l, p := InsertAfter(l, p, 200);
+  l, p := InsertAfter(l, p, 300);
+  var p3 := p;
+  l, p := InsertAfter(l, p, 400);
+  l, p := InsertAfter(l, p, 500);
+  assert Seq(l) == [100, 200, 300, 400, 500];
+  l := Remove(l, p3);
+  assert Seq(l) == [100, 200, 400, 500];
+  l, p := InsertAfter(l, p, 600);
+  l, p := InsertAfter(l, p, 700);
+  assert Seq(l) == [100, 200, 400, 500, 600, 700];
+  Free(l);
+}
