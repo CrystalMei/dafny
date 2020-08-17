@@ -221,74 +221,74 @@ function IntRange(lo: nat, len: nat): set<nat>
 
 // Timeout proofs
 
-// // ----- Proofs of alternative versions
+// ----- Proofs of alternative versions
 
-// lemma SMN'_Correct(xs: List<nat>, n: nat, len: nat)
-//   requires NoDuplicates(xs)
-//   requires forall x :: x in Elements(xs) ==> n <= x
-//   requires len == Length(xs)
-//   ensures var s := SMN'(xs, n, len);
-//     n <= s <= n + len &&
-//     s !in Elements(xs) &&
-//     forall x :: n <= x < s ==> x in Elements(xs)
-//   decreases len
-// {
-//   if xs == Nil {
-//   } else {
-//     var half := (len + 1) / 2;
-//     var (L, R) := Split(xs, n + half);
-//     Split_Correct(xs, n + half);
-//     var llen := Length(L);
-//     Elements_Property(L);  // use the NoDuplicates property
-//     var bound := IntRange(n, half);
-//     Cardinality(Elements(L), bound);
-//     if llen < half {
-//       SMN'_Correct(L, n, llen);
-//     } else {
-//       var s := SMN'(R, n + llen, len - llen);
-//       SMN'_Correct(R, n + llen, len - llen);
-//       forall x | n <= x < s
-//         ensures x in Elements(xs)
-//       {
-//         if x < n + llen {
-//           SetEquality(Elements(L), bound);
-//         }
-//       }
-//     }
-//   }
-// }
+lemma SMN'_Correct(xs: List<nat>, n: nat, len: nat)
+  requires NoDuplicates(xs)
+  requires forall x :: x in Elements(xs) ==> n <= x
+  requires len == Length(xs)
+  ensures var s := SMN'(xs, n, len);
+    n <= s <= n + len &&
+    s !in Elements(xs) &&
+    forall x :: n <= x < s ==> x in Elements(xs)
+  decreases len
+{
+  if xs == Nil {
+  } else {
+    var half := (len + 1) / 2;
+    var (L, R) := Split(xs, n + half);
+    Split_Correct(xs, n + half);
+    var llen := Length(L);
+    Elements_Property(L);  // use the NoDuplicates property
+    var bound := IntRange(n, half);
+    Cardinality(Elements(L), bound);
+    if llen < half {
+      SMN'_Correct(L, n, llen);
+    } else {
+      var s := SMN'(R, n + llen, len - llen);
+      SMN'_Correct(R, n + llen, len - llen);
+      forall x | n <= x < s
+        ensures x in Elements(xs)
+      {
+        if x < n + llen {
+          SetEquality(Elements(L), bound);
+        }
+      }
+    }
+  }
+}
 
-// lemma SMN''_Correct(xs: List<nat>, n: nat, len: nat)
-//   requires NoDuplicates(xs)
-//   requires forall x :: x in Elements(xs) ==> n <= x
-//   requires len == Length(xs)
-//   ensures var s := SMN''(xs, n, len);
-//     n <= s <= n + len &&
-//     s !in Elements(xs) &&
-//     forall x :: n <= x < s ==> x in Elements(xs)
-//   decreases len
-// {
-//   if xs == Nil {
-//   } else {
-//     var half := len / 2 + 1;
-//     var (L, R) := Split(xs, n + half);
-//     Split_Correct(xs, n + half);
-//     var llen := Length(L);
-//     Elements_Property(L);  // use the NoDuplicates property
-//     var bound := IntRange(n, half);
-//     Cardinality(Elements(L), bound);
-//     if llen < half {
-//       SMN''_Correct(L, n, llen);
-//     } else {
-//       var s := SMN''(R, n + llen, len - llen);
-//       SMN''_Correct(R, n + llen, len - llen);
-//       forall x | n <= x < s
-//         ensures x in Elements(xs)
-//       {
-//         if x < n + llen {
-//           SetEquality(Elements(L), bound);
-//         }
-//       }
-//     }
-//   }
-// }
+lemma SMN''_Correct(xs: List<nat>, n: nat, len: nat)
+  requires NoDuplicates(xs)
+  requires forall x :: x in Elements(xs) ==> n <= x
+  requires len == Length(xs)
+  ensures var s := SMN''(xs, n, len);
+    n <= s <= n + len &&
+    s !in Elements(xs) &&
+    forall x :: n <= x < s ==> x in Elements(xs)
+  decreases len
+{
+  if xs == Nil {
+  } else {
+    var half := len / 2 + 1;
+    var (L, R) := Split(xs, n + half);
+    Split_Correct(xs, n + half);
+    var llen := Length(L);
+    Elements_Property(L);  // use the NoDuplicates property
+    var bound := IntRange(n, half);
+    Cardinality(Elements(L), bound);
+    if llen < half {
+      SMN''_Correct(L, n, llen);
+    } else {
+      var s := SMN''(R, n + llen, len - llen);
+      SMN''_Correct(R, n + llen, len - llen);
+      forall x | n <= x < s
+        ensures x in Elements(xs)
+      {
+        if x < n + llen {
+          SetEquality(Elements(L), bound);
+        }
+      }
+    }
+  }
+}

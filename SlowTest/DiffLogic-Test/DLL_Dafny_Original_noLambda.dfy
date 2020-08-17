@@ -282,9 +282,9 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   ghost var index := g[p];
   ghost var s' := s[.. index] + s[index + 1 ..];
   ghost var f' := f[.. index] + f[index + 1 ..];
-//   ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-//     if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
-  ghost var g' := Remove_SeqInit (g, index);
+  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
+    if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+//   ghost var g' := Remove_SeqInit (g, index);
   var node := seq_get(nodes, p);
   var node_prev := seq_get(nodes, node.prev);
   nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
@@ -296,7 +296,7 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
 
 ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
   ensures |g'| == |g|
-  ensures forall x {:trigger g'[x]} {:trigger g[x] + 1} :: 0 <= x < |g| ==>
+  ensures forall x {:trigger g'[x]} :: 0 <= x < |g| ==>
     if x == p' then g'[x] == index'
     else if g[x] > index then g'[x] == g[x] + 1
     else g'[x] == g[x]
@@ -327,8 +327,8 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var index' := index + 1;
   ghost var s' := s[.. index'] + [a] + s[index' ..];
   ghost var f' := f[.. index'] + [p'] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| => if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
-//   ghost var g' := InsertAfter_SeqInit (g, p', index, index');
+//   ghost var g' := seq(|g|, x requires 0 <= x < |g| => if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
+  ghost var g' := InsertAfter_SeqInit (g, p', index, index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), node.next, p);
   nodes := seq_set(nodes, p, node.(next := p'));
@@ -340,7 +340,7 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
 
 ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g': seq<int>)
   ensures |g'| == |g|
-  ensures forall x {:trigger g'[x]} {:trigger g[x] + 1} :: 0 <= x < |g| ==>
+  ensures forall x {:trigger g'[x]} :: 0 <= x < |g| ==>
     if x == p' then g'[x] == index'
     else if g[x] >= index' then g'[x] == g[x] + 1
     else g'[x] == g[x]
@@ -349,7 +349,6 @@ ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g'
       if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
   }
 
-// ~ 13s
 method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -371,8 +370,8 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var index' := IndexHi(l, p);
   ghost var s' := s[.. index'] + [a] + s[index' ..];
   ghost var f' := f[.. index'] + [p'] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| => if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
-//   ghost var g' := InsertBefore_SeqInit (g, p', index');
+//   ghost var g' := seq(|g|, x requires 0 <= x < |g| => if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+  ghost var g' := InsertBefore_SeqInit (g, p', index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), p, node.prev);
   nodes := seq_set(nodes, p, node.(prev := p'));
@@ -386,25 +385,24 @@ method Clone<A>(l:DList<A>) returns(l':DList<A>)
   ensures l' == l
 {
   var DList(nodes, freeStack, s, f, g) := l;
-  // shared_seq_length_bound(nodes);
   var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
   l' := DList(nodes', freeStack, s, f, g);
 }
-method main()
-{
-  var l := Alloc<int>(3);
-  var p;
-  l, p := InsertAfter(l, 0, 100);
-  l, p := InsertAfter(l, p, 200);
-  l, p := InsertAfter(l, p, 300);
-  var p3 := p;
-  l, p := InsertAfter(l, p, 400);
-  l, p := InsertAfter(l, p, 500);
-  assert Seq(l) == [100, 200, 300, 400, 500];
-  l := Remove(l, p3);
-  assert Seq(l) == [100, 200, 400, 500];
-  l, p := InsertAfter(l, p, 600);
-  l, p := InsertAfter(l, p, 700);
-  assert Seq(l) == [100, 200, 400, 500, 600, 700];
-  Free(l);
-}
+// method main()
+// {
+//   var l := Alloc<int>(3);
+//   var p;
+//   l, p := InsertAfter(l, 0, 100);
+//   l, p := InsertAfter(l, p, 200);
+//   l, p := InsertAfter(l, p, 300);
+//   var p3 := p;
+//   l, p := InsertAfter(l, p, 400);
+//   l, p := InsertAfter(l, p, 500);
+//   assert Seq(l) == [100, 200, 300, 400, 500];
+//   l := Remove(l, p3);
+//   assert Seq(l) == [100, 200, 400, 500];
+//   l, p := InsertAfter(l, p, 600);
+//   l, p := InsertAfter(l, p, 700);
+//   assert Seq(l) == [100, 200, 400, 500, 600, 700];
+//   Free(l);
+// }

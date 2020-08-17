@@ -72,3 +72,27 @@ all3:
 		echo "CaseSplit 3,	$$i,	$$(($$(date +%s)-d))"; \
 	done
 
+ADT_LOG_DIR = ./Logs_adt
+ORI_LOG_DIR = ./Logs_orig
+# make adt-test file=<filename>
+adt:
+	@rm -rf $(ADT_LOG_DIR)
+	@mkdir -p $(ADT_LOG_DIR)
+	@for i in 1 2 3 4 5; do \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 > $(ADT_LOG_DIR)/$$file-$$i.trace; \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 /proverOpt:O:smt.CASE_SPLIT=1 > $(ADT_LOG_DIR)/$$file-CP1-$$i.trace; \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 /proverOpt:O:random-seed=10 > $(ADT_LOG_DIR)/$$file-S10-$$i.trace; \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 /proverOpt:O:random-seed=100 > $(ADT_LOG_DIR)/$$file-S100-$$i.trace; \
+		echo "$$file, $$i, done"; \
+	done
+
+orig:
+	@rm -rf $(ORI_LOG_DIR)
+	@mkdir -p $(ORI_LOG_DIR)
+	@for i in 1 2 3 4 5; do \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 > $(ORI_LOG_DIR)/$$file-$$i.trace; \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 /proverOpt:O:smt.CASE_SPLIT=1 > $(ORI_LOG_DIR)/$$file-CP1-$$i.trace; \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 /proverOpt:O:random-seed=10 > $(ORI_LOG_DIR)/$$file-S10-$$i.trace; \
+		dafny /compile:0 $$file /restartProver /trace /timeLimit:50 /proverOpt:O:random-seed=100 > $(ORI_LOG_DIR)/$$file-S100-$$i.trace; \
+		echo "$$file, $$i, done"; \
+	done
