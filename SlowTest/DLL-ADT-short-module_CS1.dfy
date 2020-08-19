@@ -560,11 +560,11 @@ method InsertBefore<A>(l:DList<A>, p:AbInt, a:A) returns(l':DList<A>, p':AbInt)
   /* 0 <= p < |g| && sentinel <= g[p] ==> (0 <= g[p] ==> f[g[p]] == p && nodes[p].data == Some(s[g[p]])) */
   Props_leq2lt_add_px (index'); // index' <= ? -> index' < ?+1
 
-  // XXX: trigger for z3 4.8.9 Case_Split = 3, assert it make Insert_Before verified
-  // XXX: but z3 4.8.9 Case_Split = 1 will fail this assertion
-  assert (forall p {:trigger AbSeqIndex(AbSeqIndex(p, g'), f')} ::
-    AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==>
-      (AbLeq(index', AbSeqIndex(p, g)) ==> AbSeqIndex(AbSeqIndex(p, g'), f') == p) );
+//   // XXX: trigger for z3 4.8.9 Case_Split = 3, assert it make Insert_Before verified
+//   // XXX: but z3 4.8.9 Case_Split = 1 will fail this assertion
+//   assert (forall p {:trigger AbSeqIndex(AbSeqIndex(p, g'), f')} ::
+//     AbLeqLt(p, I0, AbSeqLen(g')) && AbLeq(sentinel, AbSeqIndex(p, g')) ==>
+//       (AbLeq(index', AbSeqIndex(p, g)) ==> AbSeqIndex(AbSeqIndex(p, g'), f') == p) );
 
   /* 0 <= p < |g| && sentinel <= g[p] ==> nodes[p].next == (if g[p] + 1 < |f| then f[g[p] + 1] else 0) */
   Props_lt_addition_pxa (sentinel, I1); // sentinel < ? ==> 0 < ?+1
