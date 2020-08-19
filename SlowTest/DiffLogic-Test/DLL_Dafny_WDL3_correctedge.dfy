@@ -7,6 +7,7 @@ lemma Props_dec_lower_bound (sum: int, x: int)
 
 lemma lt2plus_one_leq (i: int, j: int) // `forall` not work
   ensures i < j ==> Add(i, 1) <= j
+  {}
 lemma eq_in_lt (i: int, j: int, k: int)
   requires i == j
   requires k < i ==> k < j
