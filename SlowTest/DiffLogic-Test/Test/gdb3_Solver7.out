@@ -132,13 +132,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: mk_le_ge_eq_core
 mk_eq_core: (:var 0), x
@@ -471,7 +473,7 @@ internalize_rec with gate_ctx(1):
 #74 := (if #72 #68 #51)
 (not #74)
 
-literal (not p33):
+literal false:
 (let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
       (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
       (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
@@ -524,7 +526,7 @@ internalize_rec with gate_ctx(1):
 #72 := (or #54 #71)
 (if #72 #68 #51)
 
-literal p33:
+literal true:
 (let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
       (a!2 (not (<= (+ x (* (- 1) i!0)) 0)))
       (a!3 (not (<= (+ y (* (- 1) i!0)) 1))))
@@ -622,7 +624,7 @@ internalize_rec with gate_ctx(1):
 #54 := (not #62)
 (or #54 #71)
 
-literal p48:
+literal p-829496712:
 (let ((a!1 (not (>= (+ x (* (- 1) i!0)) 0)))
       (a!2 (not (<= (+ x (* (- 1) i!0)) 0))))
   (or a!1 a!2))
@@ -681,7 +683,7 @@ internalize_rec with gate_ctx(1):
 #62 := (>= #63 0)
 (not #62)
 
-literal (not p49):
+literal (not p1025):
 (not (>= (+ x (* (- 1) i!0)) 0))
 
 internalize_formula: with gate_ctx(1):
@@ -698,7 +700,7 @@ internalize_rec with gate_ctx(1):
 #63 := (+ x #56)
 (>= #63 0)
 
-literal p49:
+literal p1025:
 (>= (+ x (* (- 1) i!0)) 0)
 
 internalize_formula: with gate_ctx(1):
@@ -1361,46 +1363,54 @@ DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timest
 (smt.simplifying-clause-set :num-deleted-clauses 2)
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 2, total = 2
 
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 propagating... 3:4
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 2, total = 2
 
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 propagating... 4:5
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 2, total = 2
 
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 propagating... 5:6
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 2, total = 2
 
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 propagating... 8:9
 propagate_relevancy: marking as relevant:
 (not (<= (+ x #56) 0))
@@ -1544,11 +1554,14 @@ W-DL: neg_cycle_conflict:
 
 W-DL: pop_scope_eh: 2
 
+W-DL: m_asserted_qhead = 2, total = 2
+
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -1668,13 +1681,15 @@ DL Graph: enable disabled edge #5: (not p3) (<= (- dst$3 src$4) [weight: -1] ) {
 
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 4, total = 4
 
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 propagating... 7:8
 propagate_relevancy: marking as relevant:
 (<= (+ y (* -1 i!0)) 0)
@@ -1758,11 +1773,14 @@ W-DL: neg_cycle_conflict:
 
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 4, total = 4
+
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -1907,11 +1925,14 @@ W-DL: neg_cycle_conflict:
 
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 2, total = 2
+
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -2006,13 +2027,15 @@ DL Graph: enable disabled edge #15: (not p6) (<= (- dst$4 src$3) [weight: 0] ) {
 
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 3, total = 3
 
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 propagating... 7:8
 propagate_relevancy: marking as relevant:
 (not (<= (+ y #56) 1))
@@ -2106,11 +2129,14 @@ W-DL: neg_cycle_conflict:
 
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 3, total = 3
+
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -2229,11 +2255,14 @@ W-DL: neg_cycle_conflict:
 
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 2, total = 2
+
 W-DL: equation list display:
 keep: 3 
 elim: 2 
 weig: 1 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -2301,11 +2330,14 @@ propagating... 3:4
 unsat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -2322,13 +2354,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: EQ = LE & GE
 mk_eq_core: z, (+ 1 y)
@@ -2513,7 +2547,7 @@ internalize_rec with gate_ctx(1):
 #45 := (+ y #44)
 (>= #45 1)
 
-literal p21856:
+literal true:
 (>= (+ y (* (- 1) x)) 1)
 
 internalize_formula: with gate_ctx(1):
@@ -3197,20 +3231,28 @@ DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
+DL Graph: try enable edge #12: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+DL Graph: enable disabled edge #12: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 2}
+
+W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
+DL Graph: try enable edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 3}
+
+W-DL: propagate_atom: atom = (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
 DL Graph: try enable edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 0}
-DL Graph: enable disabled edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 2}
+DL Graph: enable disabled edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
 DL Graph: try enable edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
-DL Graph: enable disabled edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 3}
+DL Graph: enable disabled edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 5}
 
 W-DL: propagate_atom: atom = p5 (<= (+ x (* (- 1) i!1)) 0) 
 DL Graph: try enable edge #9: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #9: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 4}
+DL Graph: enable disabled edge #9: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 6}
 
 W-DL: propagate_atom: atom = (not p6) (<= (+ z (* (- 1) i!1)) 3) 
 DL Graph: try enable edge #16: p6 (<= (- dst$3 src$5) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #16: p6 (<= (- dst$3 src$5) [weight: 1] ) {timestamp: 5}
+DL Graph: enable disabled edge #16: p6 (<= (- dst$3 src$5) [weight: 1] ) {timestamp: 7}
 
 
 W-DL: final_check_eh
@@ -3218,11 +3260,14 @@ W-DL: final_check - done
 sat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -3240,13 +3285,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: EQ = LE & GE
 mk_eq_core: z, (+ 1 y)
@@ -4121,20 +4168,28 @@ DL Graph: try enable edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
+DL Graph: try enable edge #12: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+DL Graph: enable disabled edge #12: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 2}
+
+W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
+DL Graph: try enable edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
+DL Graph: enable disabled edge #6: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 3}
+
+W-DL: propagate_atom: atom = (not p3) (>= (+ y (* (- 1) z)) (- 1)) 
 DL Graph: try enable edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 0}
-DL Graph: enable disabled edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 2}
+DL Graph: enable disabled edge #14: p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = (not p4) (<= (+ y (* (- 1) z)) (- 1)) 
 DL Graph: try enable edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
-DL Graph: enable disabled edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 3}
+DL Graph: enable disabled edge #15: p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 5}
 
 W-DL: propagate_atom: atom = (not p5) (<= (+ z (* (- 1) i!2)) 2) 
 DL Graph: try enable edge #16: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
-DL Graph: enable disabled edge #16: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 4}
+DL Graph: enable disabled edge #16: p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 6}
 
 W-DL: propagate_atom: atom = p6 (<= (+ x (* (- 1) i!2)) 0) 
 DL Graph: try enable edge #11: (not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
-DL Graph: enable disabled edge #11: (not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 5}
+DL Graph: enable disabled edge #11: (not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 7}
 
 W-DL: propagate_atom: before set_neg_cycle_conflict
 atoms
@@ -4156,17 +4211,17 @@ p2 (<= (- dst$3 src$2) [weight: -1] ) {timestamp: 1}
 disabled edge: (not p2) (<= (- dst$2 src$3) [weight: 0] ) {timestamp: 0}
 disabled edge: p3 (<= (- dst$4 src$2) [weight: 1] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$2 src$4) [weight: -2] ) {timestamp: 0}
-disabled edge: p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 0}
+p4 (<= (- dst$2 src$4) [weight: -1] ) {timestamp: 3}
 disabled edge: (not p4) (<= (- dst$4 src$2) [weight: 0] ) {timestamp: 0}
 disabled edge: p5 (<= (- dst$4 src$5) [weight: 2] ) {timestamp: 0}
 disabled edge: (not p5) (<= (- dst$5 src$4) [weight: -3] ) {timestamp: 0}
 disabled edge: p6 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 0}
-(not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 5}
-disabled edge: p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 0}
+(not p6) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 7}
+p3 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 2}
 disabled edge: (not p3) (<= (- dst$3 src$4) [weight: -3] ) {timestamp: 0}
-p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 2}
-p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 3}
-p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 4}
+p3 (<= (- dst$3 src$4) [weight: -2] ) {timestamp: 4}
+p4 (<= (- dst$4 src$3) [weight: 2] ) {timestamp: 5}
+p5 (<= (- dst$3 src$5) [weight: 0] ) {timestamp: 6}
 disabled edge: (not p5) (<= (- dst$5 src$3) [weight: -1] ) {timestamp: 0}
 	assignment
 $0 := 0
@@ -4183,11 +4238,14 @@ W-DL: neg_cycle_conflict:
 unsat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -4205,13 +4263,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: EQ = LE & GE
 	(call solver...)
@@ -4840,11 +4900,14 @@ W-DL: neg_cycle_conflict:
 unsat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -4862,13 +4925,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, (+ (- 1) x)
 mk_eq_core: EQ = LE & GE
 	(call solver...)
@@ -5467,11 +5532,14 @@ W-DL: final_check - done
 sat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -5489,13 +5557,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, 1
 mk_eq_core: EQ = LE & GE
 mk_eq_core: y, (+ (- 1) x)
@@ -6303,20 +6373,28 @@ DL Graph: try enable edge #2: p2 (<= (- dst$0 src$2) [weight: -1] ) {timestamp: 
 DL Graph: enable disabled edge #2: p2 (<= (- dst$0 src$2) [weight: -1] ) {timestamp: 1}
 
 W-DL: propagate_atom: atom = (not p3) (<= (+ y (* (- 1) x)) (- 1)) 
+DL Graph: try enable edge #12: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
+DL Graph: enable disabled edge #12: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 2}
+
+W-DL: propagate_atom: atom = (not p4) (>= (+ y (* (- 1) x)) (- 1)) 
+DL Graph: try enable edge #6: p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 0}
+DL Graph: enable disabled edge #6: p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 3}
+
+W-DL: propagate_atom: atom = (not p3) (<= (+ y (* (- 1) x)) (- 1)) 
 DL Graph: try enable edge #14: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
-DL Graph: enable disabled edge #14: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 2}
+DL Graph: enable disabled edge #14: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 4}
 
 W-DL: propagate_atom: atom = (not p4) (>= (+ y (* (- 1) x)) (- 1)) 
 DL Graph: try enable edge #15: p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 0}
-DL Graph: enable disabled edge #15: p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 3}
+DL Graph: enable disabled edge #15: p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 5}
 
 W-DL: propagate_atom: atom = (not p5) (>= i!5 2) 
 DL Graph: try enable edge #8: p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 0}
-DL Graph: enable disabled edge #8: p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 4}
+DL Graph: enable disabled edge #8: p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 6}
 
 W-DL: propagate_atom: atom = p6 (<= (+ x (* (- 1) i!5)) 0) 
 DL Graph: try enable edge #17: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
-DL Graph: enable disabled edge #17: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 5}
+DL Graph: enable disabled edge #17: (not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 7}
 
 W-DL: propagate_atom: before set_neg_cycle_conflict
 atoms
@@ -6338,18 +6416,18 @@ p2 (<= (- dst$0 src$2) [weight: -1] ) {timestamp: 1}
 disabled edge: (not p2) (<= (- dst$2 src$0) [weight: 0] ) {timestamp: 0}
 disabled edge: p3 (<= (- dst$2 src$3) [weight: -1] ) {timestamp: 0}
 disabled edge: (not p3) (<= (- dst$3 src$2) [weight: 0] ) {timestamp: 0}
-disabled edge: p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 0}
+p4 (<= (- dst$3 src$2) [weight: 1] ) {timestamp: 3}
 disabled edge: (not p4) (<= (- dst$2 src$3) [weight: -2] ) {timestamp: 0}
-p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 4}
+p5 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 6}
 disabled edge: (not p5) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 0}
 disabled edge: p6 (<= (- dst$3 src$4) [weight: 0] ) {timestamp: 0}
 disabled edge: (not p6) (<= (- dst$4 src$3) [weight: -1] ) {timestamp: 0}
-disabled edge: p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 0}
-disabled edge: (not p3) (<= (- dst$3 src$0) [weight: 1] ) {timestamp: 0}
 p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 2}
-p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 3}
+disabled edge: (not p3) (<= (- dst$3 src$0) [weight: 1] ) {timestamp: 0}
+p3 (<= (- dst$0 src$3) [weight: -2] ) {timestamp: 4}
+p4 (<= (- dst$3 src$0) [weight: 2] ) {timestamp: 5}
 disabled edge: p6 (<= (- dst$0 src$4) [weight: -2] ) {timestamp: 0}
-(not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 5}
+(not p6) (<= (- dst$4 src$0) [weight: 1] ) {timestamp: 7}
 	assignment
 $0 := -2
 $1 := 0
@@ -6365,11 +6443,14 @@ W-DL: neg_cycle_conflict:
 unsat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
@@ -6387,13 +6468,15 @@ propagating... 0:0
 W-DL: propagate_core
 (smt.simplifier-start)
 W-DL: push_scope_eh
-W-DL: push_equations
+
+W-DL: m_asserted_qhead = 0, total = 0
 
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 mk_eq_core: y, (+ 1 x)
 mk_eq_core: EQ = LE & GE
 mk_eq_core: (:var 0), x
@@ -6430,7 +6513,7 @@ internalize_rec with gate_ctx(1):
 #45 := (+ y #44)
 (<= #45 1)
 
-literal true:
+literal p21955:
 (<= (+ y (* (- 1) x)) 1)
 
 internalize_formula: with gate_ctx(1):
@@ -7152,11 +7235,14 @@ W-DL: neg_cycle_conflict:
 unsat
 W-DL: pop_scope_eh: 1
 
+W-DL: m_asserted_qhead = 0, total = 0
+
 W-DL: equation list display:
 keep: 
 elim: 
 weig: 
 
+qhead: 0
 
 W-DL: dl-graph display:
 atoms
