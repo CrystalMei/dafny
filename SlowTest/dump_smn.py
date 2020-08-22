@@ -13,12 +13,12 @@ tests = [
   "CP3-4.8.8", "CP1-4.8.8", "ADT-CP3-4.8.8", "ADT-CP1-4.8.8"
 ]
 
-loc_orig_5 = os.path.join('Logs_DLL_8.20', 'Logs_orig_4.8.5', '*.trace')
-loc_orig_9 = os.path.join('Logs_DLL_8.20', 'Logs_orig_4.8.9', '*.trace')
-loc_adt_5 = os.path.join('Logs_DLL_8.20', 'Logs_adt_4.8.5', '*.trace')
-loc_adt_9 = os.path.join('Logs_DLL_8.20', 'Logs_adt_4.8.9', '*.trace')
-loc_orig_8 = os.path.join('Logs_DLL_8.20', 'Logs_orig_4.8.8', '*.trace')
-loc_adt_8 = os.path.join('Logs_DLL_8.20', 'Logs_adt_4.8.8', '*.trace')
+loc_orig_5 = os.path.join('Logs_SMN_8.20', 'Logs_orig_4.8.5', '*.trace')
+loc_orig_9 = os.path.join('Logs_SMN_8.20', 'Logs_orig_4.8.9', '*.trace')
+loc_adt_5 = os.path.join('Logs_SMN_8.20', 'Logs_adt_4.8.5', '*.trace')
+loc_adt_9 = os.path.join('Logs_SMN_8.20', 'Logs_adt_4.8.9', '*.trace')
+loc_orig_8 = os.path.join('Logs_SMN_8.20', 'Logs_orig_4.8.8', '*.trace')
+loc_adt_8 = os.path.join('Logs_SMN_8.20', 'Logs_adt_4.8.8', '*.trace')
 file_orig_5 = glob.glob(loc_orig_5)
 file_orig_9 = glob.glob(loc_orig_9)
 file_adt_5 = glob.glob(loc_adt_5)

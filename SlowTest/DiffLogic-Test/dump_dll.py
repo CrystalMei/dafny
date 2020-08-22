@@ -61,7 +61,7 @@ def get_time (files, index):
                             allinfo_Expand[tests[index]] = allinfo_Expand.get(tests[index], [])
                             allinfo_Expand[tests[index+1]] = allinfo_Expand.get(tests[index+1], [])
             
-            if 'Verifying Impl$$_module.__default.Remove ...' in data[i]:
+            if 'Verifying Impl$$_module.__default.Test__Remove ...' in data[i]:
                 time = re.findall("\[([0-9.]*) s, ([0-9.]*) proof obligations\]  ([a-z]+)", data[i + 1])
                 if len(time) > 0:
                     if time[0][2] == "verified":
@@ -83,7 +83,7 @@ def get_time (files, index):
                             allinfo_Remove[tests[index]] = allinfo_Remove.get(tests[index], [])
                             allinfo_Remove[tests[index+1]] = allinfo_Remove.get(tests[index+1], [])
 
-            if 'Verifying Impl$$_module.__default.InsertAfter ...' in data[i]:
+            if 'Verifying Impl$$_module.__default.Test__InsertAfter ...' in data[i]:
                 time = re.findall("\[([0-9.]*) s, ([0-9.]*) proof obligations\]  ([a-z]+)", data[i + 1])
                 if len(time) > 0:
                     if time[0][2] == "verified":
@@ -105,7 +105,7 @@ def get_time (files, index):
                             allinfo_InsertAfter[tests[index]] = allinfo_InsertAfter.get(tests[index], [])
                             allinfo_InsertAfter[tests[index+1]] = allinfo_InsertAfter.get(tests[index+1], [])
 
-            if 'Verifying Impl$$_module.__default.InsertBefore ...' in data[i]:
+            if 'Verifying Impl$$_module.__default.Test__InsertBefore ...' in data[i]:
                 time = re.findall("\[([0-9.]*) s, ([0-9.]*) proof obligations\]  ([a-z]+)", data[i + 1])
                 if len(time) > 0:
                     if time[0][2] == "verified":
@@ -170,10 +170,6 @@ Expand_cp3_wdl = np.array(allinfo_Expand[tests[6]])
 Expand_cp1_wdl = np.array(allinfo_Expand[tests[7]])
 Expand_cp3_5 = np.array(allinfo_Expand[tests[8]])
 Expand_cp1_5 = np.array(allinfo_Expand[tests[9]])
-Expand_cp3_8 = np.array(allinfo_Expand[tests[10]])
-Expand_cp1_8 = np.array(allinfo_Expand[tests[11]])
-Expand_cp3_9 = np.array(allinfo_Expand[tests[12]])
-Expand_cp1_9 = np.array(allinfo_Expand[tests[13]])
 
 Expand_cp3_mean = np.mean(Expand_cp3)
 Expand_cp3_std = np.std(Expand_cp3)
@@ -195,14 +191,19 @@ Expand_cp3_5_mean = np.mean(Expand_cp3_5)
 Expand_cp3_5_std = np.std(Expand_cp3_5)
 Expand_cp1_5_mean = np.mean(Expand_cp1_5)
 Expand_cp1_5_std = np.std(Expand_cp1_5)
-Expand_cp3_8_mean = np.mean(Expand_cp3_8)
-Expand_cp3_8_std = np.std(Expand_cp3_8)
-Expand_cp1_8_mean = np.mean(Expand_cp1_8)
-Expand_cp1_8_std = np.std(Expand_cp1_8)
-Expand_cp3_9_mean = np.mean(Expand_cp3_9)
-Expand_cp3_9_std = np.std(Expand_cp3_9)
-Expand_cp1_9_mean = np.mean(Expand_cp1_9)
-Expand_cp1_9_std = np.std(Expand_cp1_9)
+
+# Expand_cp3_8 = np.array(allinfo_Expand[tests[10]])
+# Expand_cp1_8 = np.array(allinfo_Expand[tests[11]])
+# Expand_cp3_9 = np.array(allinfo_Expand[tests[12]])
+# Expand_cp1_9 = np.array(allinfo_Expand[tests[13]])
+# Expand_cp3_8_mean = np.mean(Expand_cp3_8)
+# Expand_cp3_8_std = np.std(Expand_cp3_8)
+# Expand_cp1_8_mean = np.mean(Expand_cp1_8)
+# Expand_cp1_8_std = np.std(Expand_cp1_8)
+# Expand_cp3_9_mean = np.mean(Expand_cp3_9)
+# Expand_cp3_9_std = np.std(Expand_cp3_9)
+# Expand_cp1_9_mean = np.mean(Expand_cp1_9)
+# Expand_cp1_9_std = np.std(Expand_cp1_9)
 
 
 Remove_cp3 = np.array(allinfo_Remove[tests[0]])
@@ -215,10 +216,6 @@ Remove_cp3_wdl = np.array(allinfo_Remove[tests[6]])
 Remove_cp1_wdl = np.array(allinfo_Remove[tests[7]])
 Remove_cp3_5 = np.array(allinfo_Remove[tests[8]])
 Remove_cp1_5 = np.array(allinfo_Remove[tests[9]])
-Remove_cp3_8 = np.array(allinfo_Remove[tests[10]])
-Remove_cp1_8 = np.array(allinfo_Remove[tests[11]])
-Remove_cp3_9 = np.array(allinfo_Remove[tests[12]])
-Remove_cp1_9 = np.array(allinfo_Remove[tests[13]])
 
 Remove_cp3_mean = np.mean(Remove_cp3)
 Remove_cp3_std = np.std(Remove_cp3)
@@ -240,14 +237,19 @@ Remove_cp3_5_mean = np.mean(Remove_cp3_5)
 Remove_cp3_5_std = np.std(Remove_cp3_5)
 Remove_cp1_5_mean = np.mean(Remove_cp1_5)
 Remove_cp1_5_std = np.std(Remove_cp1_5)
-Remove_cp3_8_mean = np.mean(Remove_cp3_8)
-Remove_cp3_8_std = np.std(Remove_cp3_8)
-Remove_cp1_8_mean = np.mean(Remove_cp1_8)
-Remove_cp1_8_std = np.std(Remove_cp1_8)
-Remove_cp3_9_mean = np.mean(Remove_cp3_9)
-Remove_cp3_9_std = np.std(Remove_cp3_9)
-Remove_cp1_9_mean = np.mean(Remove_cp1_9)
-Remove_cp1_9_std = np.std(Remove_cp1_9)
+
+# Remove_cp3_8 = np.array(allinfo_Remove[tests[10]])
+# Remove_cp1_8 = np.array(allinfo_Remove[tests[11]])
+# Remove_cp3_9 = np.array(allinfo_Remove[tests[12]])
+# Remove_cp1_9 = np.array(allinfo_Remove[tests[13]])
+# Remove_cp3_8_mean = np.mean(Remove_cp3_8)
+# Remove_cp3_8_std = np.std(Remove_cp3_8)
+# Remove_cp1_8_mean = np.mean(Remove_cp1_8)
+# Remove_cp1_8_std = np.std(Remove_cp1_8)
+# Remove_cp3_9_mean = np.mean(Remove_cp3_9)
+# Remove_cp3_9_std = np.std(Remove_cp3_9)
+# Remove_cp1_9_mean = np.mean(Remove_cp1_9)
+# Remove_cp1_9_std = np.std(Remove_cp1_9)
 
 InsertAfter_cp3 = np.array(allinfo_InsertAfter[tests[0]])
 InsertAfter_cp1 = np.array(allinfo_InsertAfter[tests[1]])
@@ -259,10 +261,6 @@ InsertAfter_cp3_wdl = np.array(allinfo_InsertAfter[tests[6]])
 InsertAfter_cp1_wdl = np.array(allinfo_InsertAfter[tests[7]])
 InsertAfter_cp3_5 = np.array(allinfo_InsertAfter[tests[8]])
 InsertAfter_cp1_5 = np.array(allinfo_InsertAfter[tests[9]])
-InsertAfter_cp3_8 = np.array(allinfo_InsertAfter[tests[10]])
-InsertAfter_cp1_8 = np.array(allinfo_InsertAfter[tests[11]])
-InsertAfter_cp3_9 = np.array(allinfo_InsertAfter[tests[12]])
-InsertAfter_cp1_9 = np.array(allinfo_InsertAfter[tests[13]])
 
 InsertAfter_cp3_mean = np.mean(InsertAfter_cp3)
 InsertAfter_cp3_std = np.std(InsertAfter_cp3)
@@ -284,14 +282,19 @@ InsertAfter_cp3_5_mean = np.mean(InsertAfter_cp3_5)
 InsertAfter_cp3_5_std = np.std(InsertAfter_cp3_5)
 InsertAfter_cp1_5_mean = np.mean(InsertAfter_cp1_5)
 InsertAfter_cp1_5_std = np.std(InsertAfter_cp1_5)
-InsertAfter_cp3_8_mean = np.mean(InsertAfter_cp3_8)
-InsertAfter_cp3_8_std = np.std(InsertAfter_cp3_8)
-InsertAfter_cp1_8_mean = np.mean(InsertAfter_cp1_8)
-InsertAfter_cp1_8_std = np.std(InsertAfter_cp1_8)
-InsertAfter_cp3_9_mean = np.mean(InsertAfter_cp3_9)
-InsertAfter_cp3_9_std = np.std(InsertAfter_cp3_9)
-InsertAfter_cp1_9_mean = np.mean(InsertAfter_cp1_9)
-InsertAfter_cp1_9_std = np.std(InsertAfter_cp1_9)
+
+# InsertAfter_cp3_8 = np.array(allinfo_InsertAfter[tests[10]])
+# InsertAfter_cp1_8 = np.array(allinfo_InsertAfter[tests[11]])
+# InsertAfter_cp3_9 = np.array(allinfo_InsertAfter[tests[12]])
+# InsertAfter_cp1_9 = np.array(allinfo_InsertAfter[tests[13]])
+# InsertAfter_cp3_8_mean = np.mean(InsertAfter_cp3_8)
+# InsertAfter_cp3_8_std = np.std(InsertAfter_cp3_8)
+# InsertAfter_cp1_8_mean = np.mean(InsertAfter_cp1_8)
+# InsertAfter_cp1_8_std = np.std(InsertAfter_cp1_8)
+# InsertAfter_cp3_9_mean = np.mean(InsertAfter_cp3_9)
+# InsertAfter_cp3_9_std = np.std(InsertAfter_cp3_9)
+# InsertAfter_cp1_9_mean = np.mean(InsertAfter_cp1_9)
+# InsertAfter_cp1_9_std = np.std(InsertAfter_cp1_9)
 
 
 InsertBefore_cp3 = np.array(allinfo_InsertBefore[tests[0]])
@@ -304,10 +307,6 @@ InsertBefore_cp3_wdl = np.array(allinfo_InsertBefore[tests[6]])
 InsertBefore_cp1_wdl = np.array(allinfo_InsertBefore[tests[7]])
 InsertBefore_cp3_5 = np.array(allinfo_InsertBefore[tests[8]])
 InsertBefore_cp1_5 = np.array(allinfo_InsertBefore[tests[9]])
-InsertBefore_cp3_8 = np.array(allinfo_InsertBefore[tests[10]])
-InsertBefore_cp1_8 = np.array(allinfo_InsertBefore[tests[11]])
-InsertBefore_cp3_9 = np.array(allinfo_InsertBefore[tests[12]])
-InsertBefore_cp1_9 = np.array(allinfo_InsertBefore[tests[13]])
 
 InsertBefore_cp3_mean = np.mean(InsertBefore_cp3)
 InsertBefore_cp3_std = np.std(InsertBefore_cp3)
@@ -329,14 +328,19 @@ InsertBefore_cp3_5_mean = np.mean(InsertBefore_cp3_5)
 InsertBefore_cp3_5_std = np.std(InsertBefore_cp3_5)
 InsertBefore_cp1_5_mean = np.mean(InsertBefore_cp1_5)
 InsertBefore_cp1_5_std = np.std(InsertBefore_cp1_5)
-InsertBefore_cp3_8_mean = np.mean(InsertBefore_cp3_8)
-InsertBefore_cp3_8_std = np.std(InsertBefore_cp3_8)
-InsertBefore_cp1_8_mean = np.mean(InsertBefore_cp1_8)
-InsertBefore_cp1_8_std = np.std(InsertBefore_cp1_8)
-InsertBefore_cp3_9_mean = np.mean(InsertBefore_cp3_9)
-InsertBefore_cp3_9_std = np.std(InsertBefore_cp3_9)
-InsertBefore_cp1_9_mean = np.mean(InsertBefore_cp1_9)
-InsertBefore_cp1_9_std = np.std(InsertBefore_cp1_9)
+
+# InsertBefore_cp3_8 = np.array(allinfo_InsertBefore[tests[10]])
+# InsertBefore_cp1_8 = np.array(allinfo_InsertBefore[tests[11]])
+# InsertBefore_cp3_9 = np.array(allinfo_InsertBefore[tests[12]])
+# InsertBefore_cp1_9 = np.array(allinfo_InsertBefore[tests[13]])
+# InsertBefore_cp3_8_mean = np.mean(InsertBefore_cp3_8)
+# InsertBefore_cp3_8_std = np.std(InsertBefore_cp3_8)
+# InsertBefore_cp1_8_mean = np.mean(InsertBefore_cp1_8)
+# InsertBefore_cp1_8_std = np.std(InsertBefore_cp1_8)
+# InsertBefore_cp3_9_mean = np.mean(InsertBefore_cp3_9)
+# InsertBefore_cp3_9_std = np.std(InsertBefore_cp3_9)
+# InsertBefore_cp1_9_mean = np.mean(InsertBefore_cp1_9)
+# InsertBefore_cp1_9_std = np.std(InsertBefore_cp1_9)
 
 
 orig_cp3_mean = (Expand_cp3_mean, Remove_cp3_mean, InsertAfter_cp3_mean, InsertBefore_cp3_mean)
@@ -349,10 +353,10 @@ wdl_cp3_mean = (Expand_cp3_wdl_mean, Remove_cp3_wdl_mean, InsertAfter_cp3_wdl_me
 wdl_cp1_mean = (Expand_cp1_wdl_mean, Remove_cp1_wdl_mean, InsertAfter_cp1_wdl_mean, InsertBefore_cp1_wdl_mean)
 orig_cp3_5_mean = (Expand_cp3_5_mean, Remove_cp3_5_mean, InsertAfter_cp3_5_mean, InsertBefore_cp3_5_mean)
 orig_cp1_5_mean = (Expand_cp1_5_mean, Remove_cp1_5_mean, InsertAfter_cp1_5_mean, InsertBefore_cp1_5_mean)
-orig_cp3_8_mean = (Expand_cp3_8_mean, Remove_cp3_8_mean, InsertAfter_cp3_8_mean, InsertBefore_cp3_8_mean)
-orig_cp1_8_mean = (Expand_cp1_8_mean, Remove_cp1_8_mean, InsertAfter_cp1_8_mean, InsertBefore_cp1_8_mean)
-orig_cp3_9_mean = (Expand_cp3_9_mean, Remove_cp3_9_mean, InsertAfter_cp3_9_mean, InsertBefore_cp3_9_mean)
-orig_cp1_9_mean = (Expand_cp1_9_mean, Remove_cp1_9_mean, InsertAfter_cp1_9_mean, InsertBefore_cp1_9_mean)
+# orig_cp3_8_mean = (Expand_cp3_8_mean, Remove_cp3_8_mean, InsertAfter_cp3_8_mean, InsertBefore_cp3_8_mean)
+# orig_cp1_8_mean = (Expand_cp1_8_mean, Remove_cp1_8_mean, InsertAfter_cp1_8_mean, InsertBefore_cp1_8_mean)
+# orig_cp3_9_mean = (Expand_cp3_9_mean, Remove_cp3_9_mean, InsertAfter_cp3_9_mean, InsertBefore_cp3_9_mean)
+# orig_cp1_9_mean = (Expand_cp1_9_mean, Remove_cp1_9_mean, InsertAfter_cp1_9_mean, InsertBefore_cp1_9_mean)
 
 orig_cp3_std = (Expand_cp3_std, Remove_cp3_std, InsertAfter_cp3_std, InsertBefore_cp3_std)
 orig_cp1_std = (Expand_cp1_std, Remove_cp1_std, InsertAfter_cp1_std, InsertBefore_cp1_std)
@@ -364,56 +368,57 @@ wdl_cp3_std = (Expand_cp3_wdl_std, Remove_cp3_wdl_std, InsertAfter_cp3_wdl_std, 
 wdl_cp1_std = (Expand_cp1_wdl_std, Remove_cp1_wdl_std, InsertAfter_cp1_wdl_std, InsertBefore_cp1_wdl_std)
 orig_cp3_5_std = (Expand_cp3_5_std, Remove_cp3_5_std, InsertAfter_cp3_5_std, InsertBefore_cp3_5_std)
 orig_cp1_5_std = (Expand_cp1_5_std, Remove_cp1_5_std, InsertAfter_cp1_5_std, InsertBefore_cp1_5_std)
-orig_cp3_8_std = (Expand_cp3_8_std, Remove_cp3_8_std, InsertAfter_cp3_8_std, InsertBefore_cp3_8_std)
-orig_cp1_8_std = (Expand_cp1_8_std, Remove_cp1_8_std, InsertAfter_cp1_8_std, InsertBefore_cp1_8_std)
-orig_cp3_9_std = (Expand_cp3_9_std, Remove_cp3_9_std, InsertAfter_cp3_9_std, InsertBefore_cp3_9_std)
-orig_cp1_9_std = (Expand_cp1_9_std, Remove_cp1_9_std, InsertAfter_cp1_9_std, InsertBefore_cp1_9_std)
+# orig_cp3_8_std = (Expand_cp3_8_std, Remove_cp3_8_std, InsertAfter_cp3_8_std, InsertBefore_cp3_8_std)
+# orig_cp1_8_std = (Expand_cp1_8_std, Remove_cp1_8_std, InsertAfter_cp1_8_std, InsertBefore_cp1_8_std)
+# orig_cp3_9_std = (Expand_cp3_9_std, Remove_cp3_9_std, InsertAfter_cp3_9_std, InsertBefore_cp3_9_std)
+# orig_cp1_9_std = (Expand_cp1_9_std, Remove_cp1_9_std, InsertAfter_cp1_9_std, InsertBefore_cp1_9_std)
 
 ind = np.arange(len(orig_cp3_std))  # the x locations for the groups
 width = 0.5  # the width of the bars
 
 fig, ax = plt.subplots()
-rects12 = ax.bar(ind - 3*width/4, orig_cp1_5_mean, width/8, yerr=orig_cp1_5_std,
-                label='Default-4.8.5-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
-                # label='Default-4.8.5-CS1', color='red', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
+rects12 = ax.bar(ind - 5*width/8, orig_cp1_5_mean, width/8, yerr=orig_cp1_5_std,
+                # label='Default-4.8.5-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
+                label='Default-4.8.5-CS1', color='dodgerblue', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
+rects1 = ax.bar(ind - 4*width/8, orig_cp1_mean, width/8, yerr=orig_cp1_std,
+                # label='Default-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
+                label='Default-CS1', color='limegreen', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
+rects2 = ax.bar(ind - 3*width/8, sdl_cp1_mean, width/8, yerr=sdl_cp1_std,
+                # label='SDL-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='SDL-CS1', color='orange', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+rects3 = ax.bar(ind - 2*width/8, ddl_cp1_mean, width/8, yerr=ddl_cp1_std,
+                # label='DDL-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='DDL-CS1', color='hotpink', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+rects4 = ax.bar(ind - 1*width/8, wdl_cp1_mean, width/8, yerr=wdl_cp1_std,
+                # label='WDL-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='WDL-CS1', color='lightcoral', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+
+rects51 = ax.bar(ind + 1*width/8, orig_cp3_5_mean, width/8, yerr=orig_cp3_5_std,
+                # label='Default-4.8.5-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='Default-4.8.5-CS3', color='darkblue', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+rects5 = ax.bar(ind + 2*width/8, orig_cp3_mean, width/8, yerr=orig_cp3_std,
+                # label='Default-CS3', error_kw=dict(ecolor='black', lw=2, capsize=3, capthick=1))
+                label='Default-CS3', color='darkgreen', error_kw=dict(ecolor='black', lw=2, capsize=3, capthick=1))
+rects6 = ax.bar(ind + 3*width/8, sdl_cp3_mean, width/8, yerr=sdl_cp3_std,
+                # label='SDL-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='SDL-CS3', color='chocolate', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+rects7 = ax.bar(ind + 4*width/8, ddl_cp3_mean, width/8, yerr=ddl_cp3_std,
+                # label='DDL-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='DDL-CS3', color='purple', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+rects8 = ax.bar(ind + 5*width/8, wdl_cp3_mean, width/8, yerr=wdl_cp3_std,
+                # label='WDL-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+                label='WDL-CS3', color='darkred', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+
 # rects13 = ax.bar(ind - width/4, orig_cp1_8_mean, width/8, yerr=orig_cp1_8_std,
 #                 label='Default-4.8.8-CS1', color='hotpink', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
-rects14 = ax.bar(ind - 5*width/8, orig_cp1_9_mean, width/8, yerr=orig_cp1_9_std,
-                label='Default-4.8.9-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
+# rects14 = ax.bar(ind - 5*width/8, orig_cp1_9_mean, width/8, yerr=orig_cp1_9_std,
+#                 label='Default-4.8.9-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
                 # label='Default-4.8.9-CS1', color='orange', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
-rects1 = ax.bar(ind - width/2, orig_cp1_mean, width/8, yerr=orig_cp1_std,
-                label='Default-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
-                # label='Default-CS1', color='gold', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=2))
-rects2 = ax.bar(ind - 3*width/8, sdl_cp1_mean, width/8, yerr=sdl_cp1_std,
-                label='SDL-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='SDL-CS1', color='limegreen', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-rects3 = ax.bar(ind - width/4, ddl_cp1_mean, width/8, yerr=ddl_cp1_std,
-                label='DDL-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='DDL-CS1', color='dodgerblue', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-rects4 = ax.bar(ind - width/8, wdl_cp1_mean, width/8, yerr=wdl_cp1_std,
-                label='WDL-CS1', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='WDL-CS1', color='hotpink', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-
-rects51 = ax.bar(ind + width/8, orig_cp3_5_mean, width/8, yerr=orig_cp3_5_std,
-                label='Default-4.8.5-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='Default-4.8.5-CS3', color='darkred', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
 # rects52 = ax.bar(ind + 3 * width/8, orig_cp3_8_mean, width/8, yerr=orig_cp3_8_std,
 #                 label='Default-4.8.8-CS3', color='purple', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-rects53 = ax.bar(ind + width/4, orig_cp3_9_mean, width/8, yerr=orig_cp3_9_std,
-                label='Default-4.8.9-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
+# rects53 = ax.bar(ind + width/4, orig_cp3_9_mean, width/8, yerr=orig_cp3_9_std,
+#                 label='Default-4.8.9-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
                 # label='Default-4.8.9-CS3', color='chocolate', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-rects5 = ax.bar(ind + 3*width/8, orig_cp3_mean, width/8, yerr=orig_cp3_std,
-                label='Default-CS3', error_kw=dict(ecolor='black', lw=2, capsize=3, capthick=1))
-                # label='Default-CS3', color='olive', error_kw=dict(ecolor='black', lw=2, capsize=3, capthick=1))
-rects6 = ax.bar(ind + width/2, sdl_cp3_mean, width/8, yerr=sdl_cp3_std,
-                label='SDL-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='SDL-CS3', color='darkgreen', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-rects7 = ax.bar(ind + 5*width/8, ddl_cp3_mean, width/8, yerr=ddl_cp3_std,
-                label='DDL-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='DDL-CS3', color='darkblue', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-rects8 = ax.bar(ind + 3*width/4, wdl_cp3_mean, width/8, yerr=wdl_cp3_std,
-                label='WDL-CS3', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
-                # label='WDL-CS3', color='purple', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 ax.set_ylabel('Execution time (second)', fontsize=16)

@@ -435,7 +435,7 @@ method Test_InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var g' := InsertBefore_SeqInit(g, p', index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), p, node.prev);
-  // nodes := SeqUpdate(nodes, p, node.(prev := p'));
+  nodes := SeqUpdate(nodes, p, node.(prev := p'));
   var node_prev := seq_get(nodes, node.prev);
   nodes := SeqUpdate(nodes, node.prev, node_prev.(next := p'));
   nodes := SeqUpdate(nodes, p', node');
