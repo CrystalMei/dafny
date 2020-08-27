@@ -421,9 +421,9 @@ rects8 = ax.bar(ind + 5*width/8, wdl_cp3_mean, width/8, yerr=wdl_cp3_std,
                 # label='Default-4.8.9-CS3', color='chocolate', error_kw=dict(ecolor='black', lw=1, capsize=3, capthick=1))
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel('Execution time (second)', fontsize=16)
+ax.set_ylabel('Execution time (second)', fontsize=20)
 ax.set_xticks(ind)
-ax.set_xticklabels(('Expand', 'Remove', 'InsertAfter', 'InsertBefore'), fontsize=16)
+ax.set_xticklabels(('Expand', 'Remove', 'InsertAfter', 'InsertBefore'), fontsize=20)
 ax.legend()
 
 
@@ -440,16 +440,26 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.annotate('{}'.format(height),
+        if height == 100:
+            ax.annotate('{}'.format("T"),
                     xy=(rect.get_x() + rect.get_width() / 2, height),
                     xytext=(offset[xpos]*3, 3),  # use 3 points offset
                     textcoords="offset points",  # in both directions
                     ha=ha[xpos], va='bottom')
 
 
-# autolabel(rects1, "left")
-# autolabel(rects2, "right")
+autolabel(rects1)
+autolabel(rects12)
+autolabel(rects2)
+autolabel(rects3)
+autolabel(rects4)
+autolabel(rects5)
+autolabel(rects51)
+autolabel(rects6)
+autolabel(rects7)
+autolabel(rects8)
 
 fig.tight_layout()
 
+plt.yscale("log")
 plt.show()

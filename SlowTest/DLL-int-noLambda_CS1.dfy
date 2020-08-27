@@ -1,3 +1,9 @@
+function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
+  requires len >= 0
+  requires forall i : int :: 0 <= i < len ==> func.requires(i)
+  ensures |s| == len
+  ensures forall i : int {:trigger s[i]} :: 0 <= i < len ==> s[i] == func(i)
+
 /*
 
 If Z3 fails to verify this file, try these Dafny options:
@@ -184,7 +190,6 @@ method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
 {
   b := a;
   var n := k;
-//   shared_seq_length_bound(b);
   while (n < seq_length(b))
     invariant k <= n <= |b|
     invariant |b| == |a|
@@ -196,6 +201,17 @@ method BuildFreeStack<A>(a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   }
 }
 
+ghost method Alloc_SeqInit(len: int) returns (g: seq<int>)
+  requires len >= 0
+  ensures |g| == len
+  ensures forall x: int {:trigger g[x]} ::
+    0 <= x < len ==>
+      if x == 0 then g[x] == sentinel
+      else g[x] == unused
+{
+    g := seq(len, p => if p == 0 then sentinel else unused);
+}
+
 // initial_len should be the initial capacity plus 1
 method Alloc<A>(initial_len:int) returns(l:DList<A>)
   requires initial_len > 0
@@ -204,13 +220,26 @@ method Alloc<A>(initial_len:int) returns(l:DList<A>)
 {
   var nodes := seq_alloc<Node>(initial_len, Node(None, 0, 0));
   nodes := BuildFreeStack(nodes, 1);
-  l := DList(nodes, initial_len - 1, [], [], seq(initial_len, p => if p == 0 then sentinel else unused));
+  var g := Alloc_SeqInit(initial_len);
+  l := DList(nodes, initial_len - 1, [], [], g);
+//   l := DList(nodes, initial_len - 1, [], [], seq(initial_len, p => if p == 0 then sentinel else unused));
 }
 
 method Free<A>(l:DList<A>)
 {
   var DList(nodes, freeStack, s, f, g) := l;
   var _ := seq_free(nodes);
+}
+
+ghost method Expand_SeqInit(g: seq<int>, new_len: int) returns (g': seq<int>)
+  requires new_len >= 0
+  ensures |g'| == new_len
+  ensures forall x: int ::
+    0 <= x < new_len ==>
+      if x < |g| then g'[x] == g[x]
+      else g'[x] == unused
+{
+    g' := seq(new_len, x requires 0 <= x < new_len => if x < |g| then g[x] else unused);
 }
 
 method Expand<A>(l:DList<A>) returns(l':DList<A>)
@@ -221,37 +250,41 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   ensures l'.freeStack != 0 && l'.nodes[l'.freeStack].data.None?
 {
   var DList(nodes, freeStack, s, f, g) := l;
-//   shared_seq_length_bound(nodes);
   var len := seq_length(nodes);
-//   shared_seq_length_bound(nodes);
-//   var len' := if len < 0x7fff_ffff_ffff_ffff then len + len else len + 1;
   var len' := len + len;
   nodes := SeqResize(nodes, len', Node(None, freeStack, 0));
   nodes := BuildFreeStack(nodes, len + 1);
-  l' := DList(nodes, len' - 1, s, f, seq(|nodes|,
-    i requires 0 <= i < |nodes| => if i < |g| then g[i] else unused));
+  var g' := Expand_SeqInit(g, |nodes|);
+  l' := DList(nodes, len' - 1, s, f, g');
 }
- 
-// Remove from dlist and seq
-// ~2s
+
+ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
+  ensures |g'| == |g|
+  ensures forall x :: 0 <= x < |g| ==>
+    if g[x] == index then g'[x] == unused
+    else if g[x] > index then g'[x] == g[x] - 1
+    else g'[x] == g[x]
+  {
+    g' := seq(|g|, x requires 0 <= x < |g| =>
+      if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+  }
+
 method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
   ensures Inv(l')
   ensures Seq(l') == Seq(l)[.. Index(l, p)] + Seq(l)[Index(l, p) + 1 ..]
   ensures forall x :: x != p && ValidPtr(l, x) ==>
-    ValidPtr(l', x) && 
-    if Index(l, x) < Index(l, p) then Index(l', x) == Index(l, x)
-    else Index(l', x) == Index(l, x) - 1
+    ValidPtr(l', x) && Index(l', x) == Index(l, x) - (if Index(l, x) < Index(l, p) then 0 else 1)
 {
   var DList(nodes, freeStack, s, f, g) := l;
   assert nodes[p].prev != p;
-  // assert nodes[p].next != p;
   ghost var index := g[p];
   ghost var s' := s[.. index] + s[index + 1 ..];
   ghost var f' := f[.. index] + f[index + 1 ..];
   ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
     if g[x] == index then unused else if g[x] > index then g[x] - 1 else g[x]);
+//   ghost var g' := Remove_SeqInit (g, index);
   var node := seq_get(nodes, p);
   var node_prev := seq_get(nodes, node.prev);
   nodes := seq_set(nodes, node.prev, node_prev.(next := node.next));
@@ -261,7 +294,17 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   l' := DList(nodes, p, s', f', g');
 }
 
-// ~8s
+ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
+  ensures |g'| == |g|
+  ensures forall x {:trigger g'[x]} :: 0 <= x < |g| ==>
+    if x == p' then g'[x] == index'
+    else if g[x] > index then g'[x] == g[x] + 1
+    else g'[x] == g[x]
+  {
+    g' := seq(|g|, x requires 0 <= x < |g| =>
+      if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
+  }
+
 method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -284,8 +327,8 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var index' := index + 1;
   ghost var s' := s[.. index'] + [a] + s[index' ..];
   ghost var f' := f[.. index'] + [p'] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
+//   ghost var g' := seq(|g|, x requires 0 <= x < |g| => if x == p' then index' else if g[x] > index then g[x] + 1 else g[x]);
+  ghost var g' := InsertAfter_SeqInit (g, p', index, index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), node.next, p);
   nodes := seq_set(nodes, p, node.(next := p'));
@@ -294,8 +337,18 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   nodes := seq_set(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
 }
- 
-// ~ 7s
+
+ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g': seq<int>)
+  ensures |g'| == |g|
+  ensures forall x {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==>
+    if x == p' then g'[x] == index'
+    else if g[x] >= index' then g'[x] == g[x] + 1
+    else g'[x] == g[x]
+  {
+    g' := seq(|g|, x requires 0 <= x < |g| =>
+      if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+  }
+
 method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
@@ -317,8 +370,8 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var index' := IndexHi(l, p);
   ghost var s' := s[.. index'] + [a] + s[index' ..];
   ghost var f' := f[.. index'] + [p'] + f[index' ..];
-  ghost var g' := seq(|g|, x requires 0 <= x < |g| =>
-    if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+//   ghost var g' := seq(|g|, x requires 0 <= x < |g| => if x == p' then index' else if g[x] >= index' then g[x] + 1 else g[x]);
+  ghost var g' := InsertBefore_SeqInit (g, p', index');
   var node := seq_get(nodes, p);
   var node' := Node(Some(a), p, node.prev);
   nodes := seq_set(nodes, p, node.(prev := p'));
@@ -332,15 +385,12 @@ method Clone<A>(l:DList<A>) returns(l':DList<A>)
   ensures l' == l
 {
   var DList(nodes, freeStack, s, f, g) := l;
-  // shared_seq_length_bound(nodes);
   var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
   l' := DList(nodes', freeStack, s, f, g);
 }
-
-// // ~ 1500s
 // method main()
 // {
-//   var l := Alloc<uint64>(3);
+//   var l := Alloc<int>(3);
 //   var p;
 //   l, p := InsertAfter(l, 0, 100);
 //   l, p := InsertAfter(l, p, 200);

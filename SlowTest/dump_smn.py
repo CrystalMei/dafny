@@ -131,7 +131,7 @@ def show_csv(allinfo, info):
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.rcParams.update({'font.size': 16})
+matplotlib.rcParams.update({'font.size': 20})
 
 SMN1_cp3_5 = np.array(allinfo1.get(tests[0], []))
 SMN1_cp1_5 = np.array(allinfo1.get(tests[1], []))
@@ -308,16 +308,19 @@ def autolabel(rects, xpos='center'):
 
     for rect in rects:
         height = rect.get_height()
-        ax.annotate('{}'.format(height),
-                    xy=(rect.get_x() + rect.get_width() / 2, height),
-                    xytext=(offset[xpos]*3, 3),  # use 3 points offset
-                    textcoords="offset points",  # in both directions
-                    ha=ha[xpos], va='bottom')
+        if height == 100:
+            ax.annotate('{}'.format("T"),
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(offset[xpos]*3, 3),  # use 3 points offset
+                        textcoords="offset points",  # in both directions
+                        ha=ha[xpos], va='bottom')
 
-
-# autolabel(rects1, "left")
-# autolabel(rects2, "right")
+autolabel(rects1)
+autolabel(rects2)
+autolabel(rects3)
+autolabel(rects4)
 
 fig.tight_layout()
 
+plt.yscale("log")
 plt.show()
