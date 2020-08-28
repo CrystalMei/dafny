@@ -1,5 +1,3 @@
-Readme
-
 # Test Cases Information
 ### Benchmark
 * bench-dll.sh: benchmark for Doubly Linked List case
@@ -26,7 +24,7 @@ Readme
 
 ### Smallest Missing Number
 * SMN-orig.dfy: Smallest-Missing-Number original program
-* SMN-ADt-module.dfy: Smallest-Missing-Number abstract-data-type program with ADT module
+* SMN-ADT-module.dfy: Smallest-Missing-Number abstract-data-type program with ADT module
 * SMN-ADT-ListContent.dfy: Smallest-Missing-Number abstract-data-type program (ADT list content but integer list index)
 * SMN-ADT-ListConLen-Add.dfy: Smallest-Missing-Number abstract-data-type program (ADT list content and adt list index; addition supported)
 * SMN-ADT-ListConLen-Inc.dfy: Smallest-Missing-Number abstract-data-type program (ADT list content and adt list index; Increment supported)
