@@ -65,9 +65,9 @@ DLL and SMN programs for difference logic solvers
 * Makefile: benchmark for DLL case (old version)
 
 #### Test cases
-* DLL_Dafny_WDL3_correctedge.dfy: verified with weakened diff logic with equation substitution (working version)
-* DLL_Dafny_WDL4_negedge.dfy: designed for weakened diff logic with weight relaxation (not tested)
-* DLL_Dafny_WDL*.dfy: old version for weakened diff logic solver
+* DLL_Dafny_WDL.dfy: verified with weakened diff logic with equation substitution (working version)
+* DLL_Dafny_WDL2.dfy: verified with weakened diff logic with weight relaxation (working version)
+* DLL_Dafny_WDL_old*.dfy: old version for weakened diff logic solver
 * DLL_Dafny_SDL.dfy: verified with sparse diff logic solver
 * DLL_Dafny_DDL.dfy: verified with dense diff logic solver
 * DLL_Dafny_Original*.dfy: original DLL program with small modification
@@ -97,3 +97,4 @@ OLD slow test cases
 
 ### DLL-int-noLambda.dfy: no lambda version
 * z3 4.8.5 Case-Split 1, InsertAfter_SeqInit(): verified with one trigger (adding extra trigger {:trigger g[x]} fails verification)
+* z3 4.8.9 Case-Split 3: tried with multiple triggers and verified

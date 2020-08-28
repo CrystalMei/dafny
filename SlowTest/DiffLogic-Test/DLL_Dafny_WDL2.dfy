@@ -7,6 +7,7 @@ lemma Props_dec_lower_bound (sum: int, x: int)
 
 lemma lt2plus_one_leq (i: int, j: int) // `forall` not work
   ensures i < j ==> Add(i, 1) <= j
+
 lemma eq_in_lt (i: int, j: int, k: int)
   requires i == j
   requires k < i ==> k < j
@@ -22,25 +23,27 @@ function method SeqIndex<X> (s: seq<X>, i: int) : X
 function method SeqRemove<X> (s: seq<X>, k: int) : (s': seq<X>)
   requires 0 <= k < |s|
   ensures Add(|s'|, 1) == |s|
-  ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
-    if i < k then s'[i] == s[i]
-    else // i >= k
-      // 0 <= Add(i, 1) ==>
-      s'[i] == s[Add(i, 1)]
+  ensures forall i: int {:trigger s'[i]} :: 0 <= i < k ==> 
+    (i < |s'| ==> s'[i] == s[i]) // precond
+  ensures forall i: int {:trigger s'[i]} :: k <= i < |s'| ==> 
+    (Add(i, 1) < |s| ==> s'[i] == s[Add(i, 1)]) // precond
+  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
+  //   if i < k then s'[i] == s[i]
+  //   else // i >= k
+  //     s'[i] == s[Add(i, 1)]
 
 function method SeqInsert<X> (s: seq<X>, k: int, v: X) : (s': seq<X>)
   requires 0 <= k <= |s|
   ensures |s'| == Add(|s|, 1)
-  // ensures s'[k] == v
-  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==> (i < k ==> s'[i] == s[i])
-  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==> (i > k ==> s'[i] == s[Sub(i, 1)])
-  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==> (i == k ==> s'[i] == v)
-  ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
-    if i < k then s'[i] == s[i]
-    else if i == k then s'[i] == v
-    else // i > k
-      // 0 <= Sub(i, 1) ==>
-      s'[i] == s[Sub(i, 1)]
+  ensures forall i: int {:trigger s'[i]} :: 0 <= i < k ==> s'[i] == s[i]
+  ensures forall i: int {:trigger s'[i]} :: k < i < |s'| ==> 
+    (0 <= Sub(i, 1) < |s| ==> s'[i] == s[Sub(i, 1)]) // precond
+  ensures forall i: int {:trigger s'[i]} :: i == k ==> s'[i] == v
+  // ensures forall i: int {:trigger s'[i]} :: 0 <= i < |s'| ==>
+  //   if i < k then s'[i] == s[i]
+  //   else if i == k then s'[i] == v
+  //   else // i > k
+  //     s'[i] == s[Sub(i, 1)]
 
 function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
   requires len >= 0
@@ -51,13 +54,11 @@ function method SeqInit<X> (len: int, func : int --> X) : (s: seq<X>)
 function method SeqUpdate<X> (s: seq<X>, k: int, v: X): (s': seq<X>)
   requires 0 <= k < |s|
   ensures |s| == |s'|
-  ensures s'[k] == v
-  ensures forall i : int {:trigger s'[i]} :: 0 <= i < |s'| ==> (i != k ==> s'[i] == s[i])
-  // ensures
-  //   forall i : int {:trigger s'[i]} ::
-  //   0 <= i < |s'| ==>
-  //   if i == k then s'[i] == v
-  //   else s'[i] == s[i]
+  ensures
+    forall i : int {:trigger s'[i]} ::
+    0 <= i < |s'| ==>
+    if i == k then s'[i] == v
+    else s'[i] == s[i]
   { s[k := v] }
 
 datatype Option<V> = None | Some(value:V) 
@@ -129,7 +130,7 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
     0 <= i < |f| ==> g[f[i]] == i)
   && (forall p: int {:trigger g[p]} :: 
     0 <= p < |g| ==> unused <= g[p] < |s| )
-  && (forall p: int {: trigger nodes[p]} :: 
+  && (forall p: int {:trigger nodes[p]} :: 
     0 <= p < |g| ==> 0 <= nodes[p].next < |g| )
   && (forall p: int {:trigger g[p]} {: trigger nodes[p]} :: 
     0 <= p < |g| ==> (g[p] >= 0 <==> nodes[p].data.Some?) )
@@ -146,10 +147,12 @@ predicate Invs<A>(nodes:seq<Node<A>>, freeStack:int, s:seq<A>, f:seq<int>, g:seq
   && (forall p: int {:trigger g[p]} {:trigger nodes[p].prev} ::
     0 <= p < |g| && sentinel <= g[p] ==>
     && (if g[p] > 0 then
+        Sub(g[p], 1) >= 0 ==> // precond
         nodes[p].prev == f[Sub(g[p], 1)] // nonfirst.prev
       else if g[p] == 0 || |f| == 0 then 
         nodes[p].prev == 0 // first.prev == sentinel or sentinel.prev == sentinel
       else
+        Sub(|f|, 1) >= 0 ==> // precond
         nodes[p].prev == f[Sub(|f|, 1)]) ) // sentinel.prev == last
 }
 
@@ -232,18 +235,15 @@ method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
   while (n < |b|)
     invariant k <= n <= |b|
     invariant |b| == |a|
-    invariant forall i: int :: 0 <= i < k ==> b[i] == a[i]
-    invariant forall i: int :: k <= i < n ==> b[i] == Node(None, Sub(i, 1), 0)
+    invariant forall i: int {:trigger b[i]} :: 0 <= i < k ==> b[i] == a[i]
+    invariant forall i: int {:trigger b[i]} :: k <= i < n ==> b[i] == Node(None, Sub(i, 1), 0)
     decreases Dec(seq_length(b), n)
   {
     b := SeqUpdate(b, n, Node(None, Sub(n, 1), 0));
     Props_dec_one (seq_length(b));
     Props_dec_lower_bound(seq_length(b), n);
-
-    // assumption: n <= x < n + 1 ==> x == n
-    // assume forall x: int :: n <= x < Add(n, 1) ==> x == n && b[x] == Node(None, Sub(n, 1), 0);
-    // assumption: n < |b| ==> n + 1 <= |b|
     lt2plus_one_leq (n, |b|);
+    assume forall i: int :: n <= i < Add(n, 1) ==> b[i] == Node(None, Sub(i, 1), 0);
 
     n := Add(n, 1);
   }
@@ -252,8 +252,6 @@ method BuildFreeStack<A> (a:seq<Node<A>>, k:int) returns(b:seq<Node<A>>)
 ghost method Alloc_SeqInit(len: int) returns (g: seq<int>)
   requires len >= 0
   ensures |g| == len
-  // ensures forall x: int {:trigger g[x]} :: 0 <= x < len ==> (x == 0 ==> g[x] == sentinel)
-  // ensures forall x: int {:trigger g[x]} :: 0 <= x < len ==> (x != 0 ==> g[x] == unused)
   ensures forall x: int {:trigger g[x]} ::
     0 <= x < len ==>
       if x == 0 then g[x] == sentinel
@@ -272,7 +270,9 @@ method Alloc<A>(initial_len:int) returns(l:DList<A>)
   nodes := BuildFreeStack(nodes, 1);
   var g := Alloc_SeqInit(initial_len);
   l := DList(nodes, Sub(initial_len, 1), [], [], g);
-  // assume forall x: int :: x > 0 ==> Sub(x, 1) >= 0;
+  assume Sub(initial_len, 1) >= 0; // 0 <= freeStack < |nodes|
+  // XXX: need more detailed assumptions to support this!
+  assume (forall p: int {: trigger nodes[p]} ::  0 <= p < |g| ==> 0 <= nodes[p].next);
 }
 
 method Free<A>(l:DList<A>)
@@ -281,12 +281,17 @@ method Free<A>(l:DList<A>)
   var _ := seq_free(nodes);
 }
 
+method Clone<A>(l:DList<A>) returns(l':DList<A>)
+  ensures l' == l
+{
+  var DList(nodes, freeStack, s, f, g) := l;
+  var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
+  l' := DList(nodes', freeStack, s, f, g);
+}
 
 ghost method Expand_SeqInit(g: seq<int>, new_len: int) returns (g': seq<int>)
   requires new_len >= 0
   ensures |g'| == new_len
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < new_len ==> (x < |g| ==> g'[x] == g[x])
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < new_len ==> (x >= |g| ==> g'[x] == unused)
   ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < new_len ==>
       if x < |g| then g'[x] == g[x]
@@ -311,15 +316,14 @@ method Expand<A>(l:DList<A>) returns(l':DList<A>)
   nodes := BuildFreeStack(nodes, Add(len, 1));
   var g' := Expand_SeqInit(g, |nodes|);
   l' := DList(nodes, Sub(len', 1), s, f, g');
-  // assume len <= Sub(len', 1);
-  // assume forall x: int :: x > 0 ==> Sub(x, 1) >= 0;
+  assume Sub(len', 1) >= len; // 0 <= freeStack < |nodes|
+  // XXX: need more detailed assumptions to support this!
+  assume (forall p: int {: trigger nodes[p]} ::  0 <= p < |g'| ==> 0 <= nodes[p].next);
+  // assert false;
 }
 
 ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
   ensures |g'| == |g|
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (g[x] == index ==> g'[x] == unused)
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (g[x] != index && index < g[x] ==> g'[x] == Sub(g[x], 1))
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (g[x] != index && index >= g[x]==> g'[x] == g[x])
   ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < |g| ==>
       if g[x] == index then g'[x] == unused
@@ -328,11 +332,9 @@ ghost method Remove_SeqInit(g: seq<int>, index: int) returns (g': seq<int>)
   {
     g' := SeqInit(|g|, x requires 0 <= x < |g| =>
     if g[x] == index then unused else if g[x] > index then Sub(g[x], 1) else g[x]);
-    // assume forall x: int :: 0 <= x < |g| ==> (g[x] < index ==> g'[x] == g[x]);
   }
 
-// 7+ s
-method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
+method Test_Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   requires Inv(l)
   requires ValidPtr(l, p)
   ensures Inv(l')
@@ -345,45 +347,26 @@ method Remove<A>(l:DList<A>, p:int) returns(l':DList<A>)
   var DList(nodes, freeStack, s, f, g) := l; 
   ghost var index := g[p];
   ghost var s' := SeqRemove(s, index);
+  assume forall i: int :: i < index ==> i < |s'|; // index < |s| == |s'| + 1
   ghost var f' := SeqRemove(f, index);
+  assume forall i: int :: i < index ==> i < |f'|; // index < |f| == |f'| + 1
   ghost var g' := Remove_SeqInit(g, index);
   var node := seq_get(nodes, p);
-
-  // assume forall x: int {:trigger Sub(x, 1)} :: x > 0 ==> Sub(x, 1) >= 0;
-
+  assume forall i: int :: 0 <= i < |g| && g[i] > 0 ==> Sub(g[i], 1) >= 0;
+  assume |f| > 0 ==> Sub(|f|, 1) >= 0;
   var node_prev := seq_get(nodes, node.prev);
   nodes := SeqUpdate(nodes, node.prev, node_prev.(next := node.next));
   var node_next := seq_get(nodes, node.next);
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := node.prev));
   nodes := SeqUpdate(nodes, p, Node(None, freeStack, 0));
   l' := DList(nodes, p, s', f', g');
-
-  // assume forall x: int {:trigger Sub(x, 1)} :: x < |s| ==> Sub(x, 1) < |s'|;
-
-  // assume forall x: int {:trigger Sub(Add(x, 1), 1)} :: Sub(Add(x, 1), 1) == x;
-  
-  // // SeqRemove precond
-  // assume forall x: int {:trigger Add(x, 1)} :: x < |f'| ==> Add(x, 1) < |f|;
-  // // Remove_SeqInit
-  // assume forall x: int {:trigger Sub(x, 1)} :: x > index ==> Sub(x, 1) >= index;
-
-  // assume forall x: int {:trigger Add(Sub(x, 1), 1)}:: Add(Sub(x, 1), 1) == x;
-  
-  // assume (forall p: int {:trigger g'[p]} {:trigger nodes[p].next} ::
-  //   0 <= p < |g'| && sentinel <= g'[p] ==>
-  //     Add(g'[p], 1) < |f'| ==> nodes[p].next == f'[Add(g'[p], 1)] );
-
-  // assume (forall p: int {:trigger g'[p]} {:trigger nodes[p].next} ::
-  //   0 <= p < |g'| && sentinel <= g'[p] ==>
-  //     Add(g'[p], 1) >= |f'| ==> nodes[p].next == 0 );
+  assume Add(|s'|, 1) == |s| && Add(|f'|, 1) == |f| ==> |s'| == |f'|;
+  // assert false;
 }
 
 ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) returns (g': seq<int>)
   requires 0 <= p' < |g|
   ensures |g'| == |g|
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (x == p' ==> g'[x] == index')
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (x != p' && index < g[x] ==> g'[x] == Add(g[x], 1))
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (x != p' && index >= g[x] ==> g'[x] == g[x])
   ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < |g| ==>
       if x == p' then g'[x] == index'
@@ -392,10 +375,9 @@ ghost method InsertAfter_SeqInit(g: seq<int>, p': int, index: int, index': int) 
   {
     g' := SeqInit(|g|, x requires 0 <= x < |g| =>
       if x == p' then index' else if index < g[x] then Add(g[x], 1) else g[x]);
-      // assume forall x: int :: 0 <= x < |g| ==> (x == p' ==> g'[x] == index');
   }
 
-method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
+method Test_InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
   ensures Inv(l')
@@ -417,43 +399,23 @@ method InsertAfter<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   var DList(nodes, freeStack, s, f, g) := l';
   ghost var index := g[p];
   ghost var index' := Add(index, 1);
-  // assume -1 <= index ==> 0 <= index';
   lt2plus_one_leq(index, |s|);
   ghost var s' := SeqInsert(s, index', a);
   ghost var f' := SeqInsert(f, index', p');
   ghost var g' := InsertAfter_SeqInit(g, p', index, index');
   var node := seq_get(nodes, p);
-
   var node' := Node(Some(a), node.next, p);
   nodes := SeqUpdate(nodes, p, node.(next := p'));
   var node_next := seq_get(nodes, node.next);
   nodes := SeqUpdate(nodes, node.next, node_next.(prev := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
-
-  // // SeqInsert precond
-  // assume forall x: int {:trigger Sub(x, 1)} :: x < |f'| ==> Sub(x, 1) < |f|;
-  // assume forall x: int {:trigger Sub(x, 1)} :: x > 0 ==> Sub(x, 1) >= 0;
-
-  // assume forall x: int {:trigger Add(Sub(x, 1), 1)}:: Add(Sub(x, 1), 1) == x;
-
-  // // InsertAfter_SeqInit
-  // assume forall x: int {:trigger Add(x, 1)} :: x < |s| ==> Add(x, 1) < |s'|;
-
-  // // assume forall x: int {:trigger Sub(x, 1)} :: x < |f| ==> Sub(x, 1) < |f'|;
-  // assume forall x: int {:trigger Sub(Add(x, 1), 1)} :: Sub(Add(x, 1), 1) == x;
-  
-  // // SeqRemove precond
-  // assume forall x: int {:trigger Add(x, 1)} :: x < |f'| ==> Add(x, 1) < |f|;
-  
+  // assert false;
 }
 
 
 ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g': seq<int>)
   ensures |g'| == |g|
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (x == p' ==> g'[x] == index')
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (x != p' && index' <= g[x] ==> g'[x] == Add(g[x], 1))
-  // ensures forall x: int {:trigger g'[x]} {:trigger g[x]} :: 0 <= x < |g| ==> (x != p' && index' > g[x] ==> g'[x] == g[x])
   ensures forall x: int {:trigger g'[x]} {:trigger g[x]} ::
     0 <= x < |g| ==>
       if x == p' then g'[x] == index'
@@ -464,8 +426,7 @@ ghost method InsertBefore_SeqInit(g: seq<int>, p': int, index': int) returns (g'
     if x == p' then index' else if g[x] >= index' then Add(g[x], 1) else g[x]);
   }
 
-// 25.744 s
-method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
+method Test_InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   requires Inv(l)
   requires MaybePtr(l, p)
   ensures Inv(l')
@@ -490,43 +451,30 @@ method InsertBefore<A>(l:DList<A>, p:int, a:A) returns(l':DList<A>, p':int)
   ghost var f' := SeqInsert(f, index', p');
   ghost var g' := InsertBefore_SeqInit(g, p', index');
   var node := seq_get(nodes, p);
-
-  // assume forall x: int :: Add(Sub(x, 1), 1) == x;
-  // assume forall x: int :: Sub(Add(x, 1), 1) == x;
-
   var node' := Node(Some(a), p, node.prev);
   nodes := SeqUpdate(nodes, p, node.(prev := p'));
   var node_prev := seq_get(nodes, node.prev);
   nodes := SeqUpdate(nodes, node.prev, node_prev.(next := p'));
   nodes := SeqUpdate(nodes, p', node');
   l' := DList(nodes, freeNode.next, s', f', g');
+  // assert false;
 }
 
-method Clone<A>(l:DList<A>) returns(l':DList<A>)
-  ensures l' == l
-{
-  var DList(nodes, freeStack, s, f, g) := l;
-  // shared_seq_length_bound(nodes);
-  var nodes' := AllocAndCopy(nodes, 0, seq_length(nodes));
-  l' := DList(nodes', freeStack, s, f, g);
-}
-
-// 13.239 s
-method main()
-{
-  var l := Alloc<int>(3);
-  var p;
-  l, p := InsertAfter(l, 0, 100);
-  l, p := InsertAfter(l, p, 200);
-  l, p := InsertAfter(l, p, 300);
-  var p3 := p;
-  l, p := InsertAfter(l, p, 400);
-  l, p := InsertAfter(l, p, 500);
-  assert Seq(l) == [100, 200, 300, 400, 500];
-  l := Remove(l, p3);
-  assert Seq(l) == [100, 200, 400, 500];
-  l, p := InsertAfter(l, p, 600);
-  l, p := InsertAfter(l, p, 700);
-  assert Seq(l) == [100, 200, 400, 500, 600, 700];
-  Free(l);
-}
+// method main()
+// {
+//   var l := Alloc<int>(3);
+//   var p;
+//   l, p := InsertAfter(l, 0, 100);
+//   l, p := InsertAfter(l, p, 200);
+//   l, p := InsertAfter(l, p, 300);
+//   var p3 := p;
+//   l, p := InsertAfter(l, p, 400);
+//   l, p := InsertAfter(l, p, 500);
+//   assert Seq(l) == [100, 200, 300, 400, 500];
+//   l := Remove(l, p3);
+//   assert Seq(l) == [100, 200, 400, 500];
+//   l, p := InsertAfter(l, p, 600);
+//   l, p := InsertAfter(l, p, 700);
+//   assert Seq(l) == [100, 200, 400, 500, 600, 700];
+//   Free(l);
+// }

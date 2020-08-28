@@ -1,5 +1,5 @@
-Solver3_Log=./Logs_solver3
-Default_Log=./Logs_default
+Solver3_Log=./Logs_2_solver3
+Default_Log=./Logs_2_default
 
 mkdir -p $Default_Log
 dafny /compile:0 DLL_Dafny_DDL.dfy /restartProver /trace /timeLimit:100 /errorLimit:1 > $Default_Log/CP3-S0.trace;
