@@ -390,5 +390,5 @@ autolabel(rects6)
 
 fig.tight_layout()
 
-# plt.yscale("log")
+plt.yscale("log")
 plt.show()

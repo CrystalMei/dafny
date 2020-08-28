@@ -144,10 +144,10 @@ echo "4.8.5, noLambda, CP1, done";
 
 # 4.8.9 no-lambda
 mkdir -p $NOLAMBDA_9_LOG_DIR
-dafny /compile:0 DLL-int-noLambda.dfy /restartProver /trace /timeLimit:100 /errorLimit:1 /z3exe:"/home/jmhu/MSRintern/dafny/Binaries/z3-4.8.9/bin/z3" > $NOLAMBDA_9_LOG_DIR/CP3-S0.trace;
+dafny /compile:0 DLL-int-noLambda_CS3.dfy /restartProver /trace /timeLimit:100 /errorLimit:1 /z3exe:"/home/jmhu/MSRintern/dafny/Binaries/z3-4.8.9/bin/z3" > $NOLAMBDA_9_LOG_DIR/CP3-S0.trace;
 echo "4.8.9, CP3, no Seed, done";
 for i in $seeds; do
-    dafny /compile:0 DLL-int-noLambda.dfy /restartProver /trace /timeLimit:100 /proverOpt:O:random-seed=${i}00 /errorLimit:1 /z3exe:"/home/jmhu/MSRintern/dafny/Binaries/z3-4.8.9/bin/z3" > $NOLAMBDA_9_LOG_DIR/CP3-S${i}00.trace;
+    dafny /compile:0 DLL-int-noLambda_CS3.dfy /restartProver /trace /timeLimit:100 /proverOpt:O:random-seed=${i}00 /errorLimit:1 /z3exe:"/home/jmhu/MSRintern/dafny/Binaries/z3-4.8.9/bin/z3" > $NOLAMBDA_9_LOG_DIR/CP3-S${i}00.trace;
     echo "4.8.9, CP3, Seed${i}00, done";
 done
 echo "4.8.9, noLambda, CP3, done";
